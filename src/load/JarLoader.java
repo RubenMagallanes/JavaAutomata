@@ -1,72 +1,60 @@
 package load;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.jar.JarFile;
-import java.util.jar.Manifest;
 import java.util.zip.ZipEntry;
 
 public class JarLoader {
-    public static JarData loadJarFile(File file) {
-    	JarData fileData = null;
 
-    	//Inishilises the list to stor class data.
-		ArrayList<Class<?>> classData = new ArrayList<Class<?>>();
+	private static final String CLASS_EXTENSION = ".class";
 
-		JarFile zip = null;
-		try
-		{
-			zip = new JarFile(file.getAbsoluteFile());
-			URLClassLoader zipClassLoader = new URLClassLoader(new URL[] {file.toURI().toURL()});
+	public static JarData loadJarFile(File file){
+		// initialise variables
+		JarData jarData = null;
+		List<Class<?>> classes = new ArrayList<Class<?>>();
+		JarFile jarFile = null;
 
-		    Enumeration<?> enu = zip.entries();
-			while (enu.hasMoreElements()) {
-				ZipEntry zipEntry = (ZipEntry) enu.nextElement();
+		try{
+			jarFile = new JarFile(file.getAbsoluteFile());
+			URLClassLoader classLoader = new URLClassLoader(new URL[]{file.toURI().toURL()});
 
-			    if(zipEntry.getName().endsWith(".class") && !zipEntry.isDirectory())
-			    {
-			    	String className = zipEntry.getName().replace("/", ".");
-			    	className = className.substring(0, className.length() - 6);
+			// loop through jar file and find all the class files
+			Enumeration<?> entries = jarFile.entries();
+			while(entries.hasMoreElements()){
+				ZipEntry entry = (ZipEntry)entries.nextElement();
 
-			    	Class<?> cls = zipClassLoader.loadClass(className);
 
-			    	classData.add(cls);
-			    }
+				// check if the current entry is a class and not a directory
+				if(entry.getName().endsWith(CLASS_EXTENSION) && !entry.isDirectory()){
+					String name = entry.getName().replace('/', '.');
+
+					// remove the .class file extension from the name
+					name = name.substring(0, name.length() - CLASS_EXTENSION.length());
+
+					// load class and add to list
+					Class<?> c = classLoader.loadClass(name);
+					classes.add(c);
+				}
 			}
 
-			fileData = new JarData(file.getName(), file, zip.getManifest(), classData);
+			// construct jar data
+			jarData = new JarData(file, jarFile.getManifest(), classes);
 
-			zipClassLoader.close();
-			zip.close();
-		}
-		catch (IOException | ClassNotFoundException exception)
-		{
-			exception.printStackTrace();
+			// close files
+			jarFile.close();
+			classLoader.close();
+
+		}catch(IOException | ClassNotFoundException e){
+			System.err.println(e.getMessage());
 		}
 
-		return fileData;
-		//createNodes(top, classData);
-		//doTraceAndAnalysis();
+		return jarData;
 	}
 
-    public static class JarData
-    {
-    	public String name;
-    	public File file;
-    	public Manifest manifest;
-    	public ArrayList<Class<?>> data;
-
-    	public JarData(String name, File file, Manifest manifest, ArrayList<Class<?>> data)
-    	{
-    		this.name = name;
-    		this.file = file;
-    		this.manifest = manifest;
-    		this.data = data;
-    	}
-    }
 }
