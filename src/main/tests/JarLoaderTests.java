@@ -1,4 +1,4 @@
-package java.tests;
+package main.tests;
 
 public class JarLoaderTests {
 
