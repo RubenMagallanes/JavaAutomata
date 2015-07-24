@@ -66,12 +66,12 @@ public class JavascriptFileWrapper {
 			return ret;
 	}
 
-	//
-	//
-	// public static String fun1(String name) {
-	// System.out.format("Hi there from Java, %s \n", name);
-	// return "greetings from java";
-	// }
+	
+	
+	 public static String fun1(String name) {
+	 System.out.format("Hi there from Java, %s \n", name);
+	 return "greetings from java";
+	 }
 	//
 	// public static void fun3(ScriptObjectMirror mirror) throws IOException,
 	// SAXException {
@@ -95,7 +95,8 @@ public class JavascriptFileWrapper {
 	 * @throws ScriptException
 	 */
 	public static void main(String[] args) throws FileNotFoundException, ScriptException {
-		JavascriptFileWrapper i = new JavascriptFileWrapper("script.js");
+		JavascriptFileWrapper i = new JavascriptFileWrapper("src/main/javascript/script.js");
+		i.invokeJavascriptMethod("fun1", "chris");
 	}
 
 }

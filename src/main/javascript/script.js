@@ -10,14 +10,14 @@ var fun2 = function (object) {
 
 
 
-var invokeJavaMethod = function(className, parameter){
+var invokeJavaMethod = function(className,methodName, parameter){
 	var MyJavaClass = Java.type('main.javascript.' + className);
-	MyJavaClass.fun1('John Doe');
+	return MyJavaClass[methodName](parameter);
 }
 
 
-// var result = MyJavaClass.fun1('John Doe');
-// print(result);
+var result = invokeJavaMethod("JavascriptFileWrapper","fun1","bob");
+print(result);
 
 // MyJavaClass.fun3({
 //     foo: 'bar',
