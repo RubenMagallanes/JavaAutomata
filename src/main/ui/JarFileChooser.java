@@ -1,4 +1,4 @@
-package UI;
+package main.ui;
 
 public class JarFileChooser {
 
