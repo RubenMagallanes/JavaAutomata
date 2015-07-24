@@ -10,11 +10,35 @@ import java.util.List;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
+/**
+ * JarLoader is used to load the JarData from a jar file.
+ * <p>
+ * @author David Sheridan
+ *
+ */
 public class JarLoader {
 
+	/**
+	 * The ".class" extension for a class file.
+	 */
 	private static final String CLASS_EXTENSION = ".class";
 
+	/**
+	 * Loads and returns the data contained in the specified jar file.
+	 * <p>
+	 *
+	 *
+	 * @param file
+	 * 		-- the jar file to be loaded, not null
+	 * @return
+	 * 		-- data from the jar file
+	 */
 	public static JarData loadJarFile(File file){
+		// make sure that file argument is not null
+		if(file == null){
+			throw new IllegalArgumentException("Argument \"file\" cannot be null.");
+		}
+
 		// initialise variables
 		JarData jarData = null;
 		List<Class<?>> classes = new ArrayList<Class<?>>();
