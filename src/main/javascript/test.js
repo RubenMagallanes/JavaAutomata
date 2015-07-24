@@ -1,7 +1,4 @@
-var invokeJavaMethod = function(className,methodName, parameter){
-	var MyJavaClass = Java.type(className);
-	return MyJavaClass[methodName](parameter);
+var test = function(){
+	var result = invokeJavaMethod("main.tests.JavaWrapperTests","fun1","bob");
+	return result;
 }
-
-var result = invokeJavaMethod("JavascriptFileWrapper","fun1","bob");
-print(result);
