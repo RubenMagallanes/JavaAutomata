@@ -1,6 +1,7 @@
 .link {
     stroke-width: 3;
     stroke-linecap: round;
+    fill: none;
 }
 text {
     font: 10px sans-serif;

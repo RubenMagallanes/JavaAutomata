@@ -1,4 +1,5 @@
 "use strict";
+// http://bl.ocks.org/mbostock/1153292
 (function (self){
 
     var states,
@@ -38,31 +39,43 @@
                 return colour(i);
             })
 
+        //build the arrow.
+        svg.append("svg:defs")
+            .append("marker")
+            .attr("id", "end")
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 15)
+            .attr("refY", -1.5)
+            .attr("markerWidth", 6)
+            .attr("markerHeight", 6)
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M0,-5L10,0L0,5");
+
         var link = svg.selectAll(".link")
             .data(links)
-          .enter().append("line")
+          .enter().append("path")
             .attr("class", "link")
-            .style("stroke", function (d){
-                //return colour(d.source)
-                return "black"
-            });
+            .attr("marker-end", "end")
 
-            force.on("tick", function (){
-                node.attr("transform", function (d){
-                    return "translate(" + d.x + ", " + d.y + ")";
-                });
-                link.attr({
-                    x1: function (d){ return d.source.x; },
-                    y1: function (d){ return d.source.y; },
-                    x2: function (d){ return d.target.x; },
-                    y2: function (d){ return d.target.y; }
-                });
-            })
+        force.on("tick", function (){
+            node.attr("transform", transform)
+            link.attr("d", linkArc);
+        })
 
-            console.log(data);
+        function linkArc(d) {
+            var dx = d.target.x - d.source.x,
+                dy = d.target.y - d.source.y,
+                dr = Math.sqrt(dx * dx + dy * dy);
+                return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+        }
 
-            node.call(force.drag);
-            force.start();
+        function transform(d) {
+            return "translate(" + d.x + "," + d.y + ")";
+        }
+
+        node.call(force.drag);
+        force.start();
     }
 
     self.update = function (data){
