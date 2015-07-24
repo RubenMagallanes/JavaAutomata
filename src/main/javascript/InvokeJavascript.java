@@ -39,28 +39,29 @@ public class InvokeJavascript {
 		invocable.invokeFunction(methodName, parameter);
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException, ScriptException{
-		InvokeJavascript i = new InvokeJavascript("script.js");
+	public static void main(String[] args) throws FileNotFoundException, ScriptException, NoSuchMethodException{
+		InvokeJavascript i = new InvokeJavascript("src/main/javascript/script.js");
+		i.invokeJavascriptMethod("fun1", "chris");
 	}
 	
-	public static String fun1(String name) {
-	    System.out.format("Hi there from Java, %s \n", name);
-	    return "greetings from java";
-	}
-	
-	public static void fun3(ScriptObjectMirror mirror) throws IOException, SAXException {
-	    System.out.println(mirror.getClassName() + ": " +
-	        Arrays.toString(mirror.getOwnKeys(true)));
-	    File htmlFile = new File("index.html");
-	    Desktop.getDesktop().browse(htmlFile.toURI());
-	}
-	
-
-	
-	static void fun4(ScriptObjectMirror person) throws IOException {
-		System.out.println("Full Name is: " + person.callMember("getFullName"));
-	   
-	}
+//	public static String fun1(String name) {
+//	    System.out.format("Hi there from Java, %s \n", name);
+//	    return "greetings from java";
+//	}
+//	
+//	public static void fun3(ScriptObjectMirror mirror) throws IOException, SAXException {
+//	    System.out.println(mirror.getClassName() + ": " +
+//	        Arrays.toString(mirror.getOwnKeys(true)));
+//	    File htmlFile = new File("index.html");
+//	    Desktop.getDesktop().browse(htmlFile.toURI());
+//	}
+//	
+//
+//	
+//	static void fun4(ScriptObjectMirror person) throws IOException {
+//		System.out.println("Full Name is: " + person.callMember("getFullName"));
+//	   
+//	}
 	
 
 }
