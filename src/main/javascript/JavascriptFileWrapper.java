@@ -26,18 +26,23 @@ public class JavascriptFileWrapper {
 	 * <p>
 	 * creates a wrapper around a specified javascript file, allowing acess to
 	 * it's fuinctions.
-	 * </p><p>
-	 * Use:
-	 *  </p><p>
-	 * >create a new JavascriptFileWrapper(), passing in the filename of the 
-	 *  javascript file which's functions you want to call. 
-	 * </p><p>
-	 * >use invokeJavascriptMethod(functionName, params...) to invoke the function 
-	 *  you want, passing in all required arguments, either as an Object array, or
-	 *  as a varags.. param.
 	 * </p>
+	 * <p>
+	 * Use:
+	 * </p>
+	 * <p>
+	 * >create a new JavascriptFileWrapper(), passing in the filename of the
+	 * javascript file which's functions you want to call.
+	 * </p>
+	 * <p>
+	 * >use invokeJavascriptMethod(functionName, params...) to invoke the
+	 * function you want, passing in all required arguments, either as an Object
+	 * array, or as a varags.. param.
+	 * </p>
+	 * 
 	 * @param filename
-	 *            - name of the javaScript file that contains functions you want to call
+	 *            - name of the javaScript file that contains functions you want
+	 *            to call
 	 * @throws ScriptException
 	 * @throws FileNotFoundException
 	 */
@@ -61,8 +66,7 @@ public class JavascriptFileWrapper {
 	 *            -name of the javascript function you want to call
 	 * @param parameters
 	 *            -variable length of arguments to be passed to function
-	 * @return
-	 * 	-returns the object returned by the javascript function
+	 * @return -returns the object returned by the javascript function
 	 */
 	public Object invokeJavascriptMethod(String methodName, Object... parameters) {
 		Object ret = null;
@@ -73,16 +77,20 @@ public class JavascriptFileWrapper {
 		} catch (ScriptException se) {
 			se.printStackTrace();
 		}
-			return ret;
+		return ret;
 	}
 
+	/**
+	 * @return -filename of loaded javascript file
+	 */
+	public String filename() {
+		return this.filename;
+	}
 
-	
-	
-	 public static String fun1(String name) {
-	 System.out.format("Hi there from Java, %s \n", name);
-	 return "greetings from java";
-	 }
+	public static String fun1(String name) {
+		System.out.format("Hi there from Java, %s \n", name);
+		return "greetings from java";
+	}
 	//
 	// public static void fun3(ScriptObjectMirror mirror) throws IOException,
 	// SAXException {
