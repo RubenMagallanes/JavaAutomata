@@ -51,6 +51,7 @@ public class JavascriptFileWrapper {
 		this.engine = new ScriptEngineManager().getEngineByName("nashorn");
 		try {
 			engine.eval(new FileReader(filename));
+			
 		} catch (ScriptException se) {
 			se.printStackTrace();
 		} catch (FileNotFoundException fe) {
