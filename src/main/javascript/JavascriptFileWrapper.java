@@ -24,7 +24,16 @@ public class JavascriptFileWrapper {
 
 	/**
 	 * creates a wrapper around a specified javascript file, allowing acess to
-	 * it's fuinctions
+	 * it's fuinctions.
+	 * 
+	 * Use: 
+	 *  when you want to be able to acess functions in a javascript file:
+	 * >create a new JavascriptFileWrapper(), passing in the filename of the 
+	 *  javascript file which's functions you want to call. 
+	 * 
+	 * >use invokeJavascriptMethod(functionName, params...) to invoke the function 
+	 *  you want, passing in all required arguments, either as an Object array, or
+	 *  as a varags.. param.
 	 * 
 	 * @param filename
 	 *            - name of the javaScript file
@@ -65,6 +74,7 @@ public class JavascriptFileWrapper {
 		}
 			return ret;
 	}
+
 
 	
 	
