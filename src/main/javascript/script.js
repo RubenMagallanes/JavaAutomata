@@ -8,15 +8,21 @@ var fun2 = function (object) {
 };
 
 
-var MyJavaClass = Java.type('main.Nashorn');
 
-var result = MyJavaClass.fun1('John Doe');
-print(result);
 
-MyJavaClass.fun3({
-    foo: 'bar',
-    bar: 'foo'
-});
+var invokeJavaMethod = function(className, parameter){
+	var MyJavaClass = Java.type('main.javascript.' + className);
+	MyJavaClass.fun1('John Doe');
+}
+
+
+// var result = MyJavaClass.fun1('John Doe');
+// print(result);
+
+// MyJavaClass.fun3({
+//     foo: 'bar',
+//     bar: 'foo'
+// });
 // window.open ("index.html");
 
 // function Person(firstName, lastName) {
