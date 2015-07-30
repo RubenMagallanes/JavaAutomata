@@ -4,6 +4,19 @@ import java.io.File;
 import java.util.List;
 import java.util.jar.Manifest;
 
+
+/**
+ * JarData is an Object that contains data from within a jar file.
+ * <p>
+ * This consists of:
+ * <ul>
+ * <li>	The jar file
+ * <li>	The file manifest
+ * <li> A List of classes in the jar file
+ *
+ * @author David Sheridan
+ *
+ */
 public class JarData {
 
 	// fields
@@ -11,6 +24,16 @@ public class JarData {
 	private Manifest manifest;
 	private List<Class<?>> classes;
 
+	/**
+	 * Constructs a new instance of a JarFile with the specified parameters.
+	 *
+	 * @param file
+	 * 		-- the jar file
+	 * @param manifest
+	 * 		-- the file manifest
+	 * @param classes
+	 * 		-- list of classes in file
+	 */
 	public JarData(File file, Manifest manifest, List<Class<?>> classes){
 		this.file = file;
 		this.manifest = manifest;
@@ -20,7 +43,7 @@ public class JarData {
 	/**
 	 * Returns the name of the jar file.
 	 *
-	 * @return - jar file name
+	 * @return jar file name
 	 */
 	public String getName(){
 		return file.getName();
@@ -29,7 +52,7 @@ public class JarData {
 	/**
 	 * Returns an instance of the jar file.
 	 *
-	 * @return - jar file
+	 * @return jar file
 	 */
 	public File getFile(){
 		return file;
@@ -37,7 +60,8 @@ public class JarData {
 
 	/**
 	 * Returns the manifest associated with the jar file
-	 * @return
+	 *
+	 * @return manifest
 	 */
 	public Manifest getManifest(){
 		return manifest;
@@ -45,7 +69,8 @@ public class JarData {
 
 	/**
 	 * Returns a list of the classes contained in the jar file.
-	 * @return
+	 *
+	 * @return list of classes
 	 */
 	public List<Class<?>> getClasses(){
 		return classes;
