@@ -67,7 +67,12 @@ public class JavascriptFileWrapper {
 	}
 
 	/**
-	 * calls specified function from the wrapped javascript file
+	 * <p>
+	 * Calls specified function from the wrapped javascript file
+	 * </p><p>
+	 * Passing in the name of a variable in the javascript file instead of a function name will \
+	 * throw a NoSuchMethodException. 
+	 * </p>
 	 * 
 	 * @param methodName
 	 *            -name of the javascript function you want to call
