@@ -3,15 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <script src="lib/d3.js"></script>
+    <script src="lib/query-1.11.3.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!--- local java wrapper -->
+  	<script src="../main/javascript/JavaWrapper.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- local css -->
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
+  	<div id="menu"></div>
+  	<div id="pannel"></div>
     <svg id="viz"/>
 
+
+  	<script src="js/menu.js"></script>
+  	<script src="js/pannel.js"></script>
     <script src="js/init.js"></script>
+
     <script src="js/viz.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/trace.js"></script>
-  </body>
+</body>
 </html>

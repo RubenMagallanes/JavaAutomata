@@ -1,1 +1,2 @@
+iniMainMenu();
 var automata = {};
