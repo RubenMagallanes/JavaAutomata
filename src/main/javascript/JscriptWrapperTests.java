@@ -4,9 +4,11 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import java.io.FileNotFoundException;
+
 public class JscriptWrapperTests extends TestCase {
 
-	protected static final String filename = "tests.js";
+	protected static final String filename = "src/main/javascript/tests.js";
 	
 
 	protected void setup() {
@@ -19,8 +21,17 @@ public class JscriptWrapperTests extends TestCase {
 	// check load correctly
 	@Test
 	public void testCorrectFilename() {
-		JavascriptFileWrapper scriptWrapper = new JavascriptFileWrapper(filename);
-		System.out.println("script wrapper is null: "+scriptWrapper  == null);
+		JavascriptFileWrapper scriptWrapper = null;;
+		try {
+			scriptWrapper = new JavascriptFileWrapper(filename);
+		} catch (FileNotFoundException e) {
+		
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+		
+			e.printStackTrace();
+		}
+		assertNotNull(scriptWrapper);
 		assertEquals(filename, scriptWrapper.filename());
 	}
 	//TODO system cant find file tests.js - sort it 
