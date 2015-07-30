@@ -27,7 +27,7 @@ public class JarFileChooser {
 	 */
 	private static File chooseJarFile(){
 		JFileChooser chooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("jar");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(".jar");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION){
