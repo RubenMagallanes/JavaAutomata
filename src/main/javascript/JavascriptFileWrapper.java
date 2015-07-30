@@ -46,7 +46,13 @@ public class JavascriptFileWrapper {
 	 * @throws ScriptException
 	 * @throws FileNotFoundException
 	 */
-	public JavascriptFileWrapper(String filename) {
+	public JavascriptFileWrapper(String filename) throws FileNotFoundException, IllegalArgumentException {
+		File f = new File(filename);
+		if(!f.exists())
+			throw new FileNotFoundException("file " +filename+" doesnt exist");
+		if (f.isDirectory())
+			throw new IllegalArgumentException(filename+" specified points to a directory");
+		
 		this.filename = filename;
 		this.engine = new ScriptEngineManager().getEngineByName("nashorn");
 		try {
@@ -54,10 +60,10 @@ public class JavascriptFileWrapper {
 			
 		} catch (ScriptException se) {
 			se.printStackTrace();
-		} catch (FileNotFoundException fe) {
+		} catch (FileNotFoundException fe) { // hopefully this doesn't throw here as opposed to above
 			fe.printStackTrace();
 		}
-		this.invocable = (Invocable) engine;
+		this.invocable = (Invocable) engine;				
 	}
 
 	/**
