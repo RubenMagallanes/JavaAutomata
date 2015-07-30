@@ -12,30 +12,44 @@ public class JscriptWrapperTests extends TestCase {
 	
 
 	protected void setup() {
-		System.out.println("ayy lmao");
-		//scriptWrapper = new JavascriptFileWrapper(filename);
-		System.out.println("filename: " + filename);
 		
+	}
+	
+	/**
+	 * create and return a new instance of a JavascriptFileWrapper around the test 
+	 * javascript file (src/main/javascript/tests.js).
+	 * 
+	 * @return 
+	 */
+	private JavascriptFileWrapper initScriptEngine(){
+		
+		JavascriptFileWrapper scriptWrapper = null;
+		try {
+			scriptWrapper = new JavascriptFileWrapper(filename);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {		
+			e.printStackTrace();
+		}
+		
+		return scriptWrapper;
 	}
 
 	// check load correctly
 	@Test
 	public void testCorrectFilename() {
-		JavascriptFileWrapper scriptWrapper = null;;
-		try {
-			scriptWrapper = new JavascriptFileWrapper(filename);
-		} catch (FileNotFoundException e) {
-		
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-		
-			e.printStackTrace();
-		}
+		JavascriptFileWrapper scriptWrapper = initScriptEngine();
 		assertNotNull(scriptWrapper);
 		assertEquals(filename, scriptWrapper.filename());
 	}
-	//TODO system cant find file tests.js - sort it 
-	//rename test.js to avoid confusion
+
+	@Test
+	public void testBasicReturn(){
+		JavascriptFileWrapper scriptWrapper = initScriptEngine();
+		assertEquals(scriptWrapper.invokeJavascriptMethod("returnZero", (Object[]) null), new Integer(0));
+	} 
+	
+	
 	//add tests
 	//@Test
 	/*public void testFunctionReturns(){

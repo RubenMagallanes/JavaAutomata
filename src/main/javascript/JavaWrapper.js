@@ -9,3 +9,16 @@ var invokeJavaMethod = function(className,methodName, parameter){
 	return MyJavaClass[methodName](parameter);
 }
 
+var test = function(){
+	var result = invokeJavaMethod("main.tests.JavaWrapperTests","fun1","bob");
+	return result;
+}
+
+var test2 = function(){
+	var result = invokeJavaMethod("main.tests.JavaWrapperTests","fun3",
+	{
+    foo: 'bar',
+    bar: 'foo'
+	});
+	return result;
+}
