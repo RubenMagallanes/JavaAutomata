@@ -10,14 +10,14 @@ public class JarFileChooser {
 	 * Chooses a file and sets it to preper for loading.
 	 * @return - true if the file chosen is valid false otherwise.
 	 */
-	public static boolean chooseAndLoad(){
+	public static String chooseAndLoad(){
 		File file = chooseJarFile();
 		if (file == null){
-			return false;
+			return null;
 		}
 		else{
 			//ToDo
-			return true;
+			return file.getName();
 		}
 	}
 
@@ -26,9 +26,11 @@ public class JarFileChooser {
 	 * @return File or null if the file is bad or none was picked.
 	 */
 	private static File chooseJarFile(){
+
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("jar");
 		chooser.setFileFilter(filter);
+
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION){
 			return chooser.getSelectedFile();
