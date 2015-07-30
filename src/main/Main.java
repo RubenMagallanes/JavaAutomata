@@ -1,10 +1,19 @@
 package main;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+
+import main.ui.*;
+import main.util.DesktopApi;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		File htmlFile = new File("src/web/index.html");
 
+		 DesktopApi.browse(htmlFile.toURI());
+
+		JarFileChooser.chooseAndLoad();
 	}
-
 }

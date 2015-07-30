@@ -18,20 +18,23 @@ import main.javascript.JavascriptFileWrapper;
 import org.junit.Test;
 
 
-public class JavaWrapperTests {	
+public class JavaWrapperTests {
 
 
-	@Test 
+	@Test
 	public void testJava() throws ScriptException, NoSuchMethodException, IOException{
 		File htmlFile = new File("src/main/javascript/test.html");
 	    Desktop.getDesktop().browse(htmlFile.toURI());
-		ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
-		engine.eval(new FileReader("src/main/javascript/test.js"));	
-		Invocable invocable = (Invocable) engine;
-		Object o = invocable.invokeFunction("test");
+	    
+//	    ScriptEngine javawrapper = new ScriptEngineManager().getEngineByName("nashorn");
+//	    javawrapper.eval(new FileReader("src/main/javascript/javawrapper.js"));
+	    
+	    JavascriptFileWrapper j = new JavascriptFileWrapper("src/main/javascript/javawrapper.js");
+	    Object o =j.invokeJavascriptMethod("test");
+		System.out.println(o);
 		assertTrue(o.equals("greetings bob"));
 	}
-	
+
 	 public static String fun1(String name) {
 		 return "greetings "+ name;
 	 }
