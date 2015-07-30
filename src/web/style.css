@@ -1,8 +1,15 @@
 .link {
-    stroke-width: 3;
-    stroke-linecap: round;
+    stroke: black;
+    stroke-width: 1.5px;
+    /*stroke-linecap: round;*/
     fill: none;
 }
+
+circle {
+    stroke: #333;
+    stroke-width: 1.5px;
+}
+
 text {
     font: 10px sans-serif;
     pointer-events: none;

@@ -1,4 +1,5 @@
 "use strict";
+
 // http://bl.ocks.org/mbostock/1153292
 (function (self){
 
@@ -40,23 +41,23 @@
             })
 
         //build the arrow.
-        svg.append("svg:defs")
-            .append("marker")
+        svg.append("defs")
+          .append("marker")
             .attr("id", "end")
             .attr("viewBox", "0 -5 10 10")
-            .attr("refX", 15)
-            .attr("refY", -1.5)
+            .attr("refX", circleRad + 10)
+            .attr("refY", 0)
             .attr("markerWidth", 6)
             .attr("markerHeight", 6)
             .attr("orient", "auto")
-            .append("path")
+          .append("path")
             .attr("d", "M0,-5L10,0L0,5");
 
         var link = svg.selectAll(".link")
             .data(links)
-          .enter().append("path")
+          .enter().insert("path", ":first-child")
             .attr("class", "link")
-            .attr("marker-end", "end")
+            .attr("marker-end", "url(#end)")
 
         force.on("tick", function (){
             node.attr("transform", transform)
@@ -78,7 +79,7 @@
         force.start();
     }
 
-    self.update = function (data){
+    self.update = function (data) {
         states = data.states;
         links = data.links;
     }
