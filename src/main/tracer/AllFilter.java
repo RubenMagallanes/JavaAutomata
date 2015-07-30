@@ -1,0 +1,20 @@
+package main.tracer;
+
+
+/**
+ * A filter that traces everything.
+ */
+public class AllFilter implements TraceFilter {
+	@Override
+	public boolean isFieldTraced(FieldKey f) {
+		return true;
+	}
+	@Override
+	public boolean isMethodTraced(MethodKey m) {
+		return true;
+	}
+	@Override
+	public boolean isParameterTraced(ParameterKey p) {
+		return true;
+	}
+}
