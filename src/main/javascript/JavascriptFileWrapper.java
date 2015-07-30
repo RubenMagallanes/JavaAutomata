@@ -94,6 +94,8 @@ public class JavascriptFileWrapper {
 		return this.filename;
 	}
 
+	//TODO add way to look at variables or functions?
+	 
 
 	/*public static String fun1(String name) {
 		System.out.format("Hi there from Java, %s \n", name);
