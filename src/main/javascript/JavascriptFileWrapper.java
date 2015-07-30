@@ -130,9 +130,9 @@ public class JavascriptFileWrapper {
 	 * @throws FileNotFoundException
 	 * @throws ScriptException
 	 */
-	public static void main(String[] args) throws FileNotFoundException, ScriptException {
+	/*public static void main(String[] args) throws FileNotFoundException, ScriptException {
 		JavascriptFileWrapper i = new JavascriptFileWrapper("src/main/javascript/script.js");
 		i.invokeJavascriptMethod("fun1", "chris");
-	}
+	}*/
 
 }
