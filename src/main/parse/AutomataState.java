@@ -6,6 +6,7 @@ public class AutomataState {
 
 	// fields
 	private List<AutomataField> fields;
+	
 
 	public AutomataState(List<AutomataField> fields){
 		this.fields = fields;
