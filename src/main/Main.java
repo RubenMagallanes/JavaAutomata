@@ -3,17 +3,22 @@ package main;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-
+import main.load.JarLoader;
 import main.ui.*;
-import main.util.DesktopApi;
 
 public class Main {
 
-	public static void main(String[] args) {
+	String filename;
+	JarData jardata;
+
+	public Main(){
 		File htmlFile = new File("src/web/index.html");
+		DesktopApi.browse(htmlFile.toURI());
+		filename = JarFileChooser.chooseAndLoad();
+		jardata = JarLoader.loadJarFile(new File(filename));
+	}
 
-		 DesktopApi.browse(htmlFile.toURI());
-
-		JarFileChooser.chooseAndLoad();
+	public static void main(String[] args) {
+		Main m = new Main();
 	}
 }
