@@ -25,7 +25,7 @@ public class JarFileChooser {
 	 * Open the file chooser and allows the user to select a jar file.
 	 * @return File or null if the file is bad or none was picked.
 	 */
-	private static File chooseJarFile(){
+	public static File chooseJarFile(){
 
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JAR file", "jar");
