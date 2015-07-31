@@ -1,18 +1,17 @@
 package main.parse;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 public class AutomataState {
 
 	// fields
-	private List<Field> fields;
+	private List<AutomataField> fields;
 
-	public AutomataState(List<Field> fields){
+	public AutomataState(List<AutomataField> fields){
 		this.fields = fields;
 	}
 
-	public List<Field> getFields(){
+	public List<AutomataField> getFields(){
 		return fields;
 	}
 }

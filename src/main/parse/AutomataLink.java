@@ -7,7 +7,8 @@ public class AutomataLink {
 	private int source;
 	private int target;
 
-	public AutomataLink(int source, int target){
+	public AutomataLink(String methodName, int source, int target){
+		this.methodName = methodName;
 		this.source = source;
 		this.target = target;
 	}
