@@ -1,8 +1,15 @@
 package main.ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.io.File;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -12,30 +19,41 @@ import main.load.JarData;
 import main.load.JarLoader;
 import main.util.DesktopApi;
 
-public class ButtonPanel extends JPanel{
+public class ButtonPanel extends Scene{
 
 
-	public ButtonPanel (){
-		JButton button = new JButton("Load Jar");
-		button.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JarData jarData = JarLoader.loadJarFile(JarFileChooser.chooseJarFile());
-				Main.setJarData(jarData);
-			}
-		});
-		this.add(button);
-
-		button = new JButton("Open View");
-		button.addActionListener(new ActionListener() {
+	public ButtonPanel (GridPane grid, double height , double width){
+		super((Parent) grid, height, width);
+		Button btn = new Button();
+		btn.setMaxWidth(Double.MAX_VALUE);
+		btn.setText("LoadJar");
+		btn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				File htmlFile = new File("src/web/index.html");
-				DesktopApi.browse(htmlFile.toURI());
+			public void handle(ActionEvent e) {
+				File file = JarFileChooser.chooseJarFile();
+				if (file != null){
+					JarData jarData = JarLoader.loadJarFile(file);
+					Main.setJarData(jarData);
+				}
+
+			}
+
+		});
+		grid.add(btn, 0, 0);
+		GridPane.setHgrow(btn, Priority.ALWAYS);
+		btn = new Button();
+		btn.setMaxWidth(Double.MAX_VALUE);
+		btn.setText("Open View");
+		btn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				DesktopApi.browse(new File("src/web/index.html").toURI());
 			}
 		});
-		this.add(button);
+		grid.add(btn, 0, 1);
+		GridPane.setHgrow(btn, Priority.ALWAYS);
+		grid.prefWidth(Double.MAX_VALUE);
 	}
 }

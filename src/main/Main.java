@@ -9,7 +9,7 @@ public class Main {
 	static JarData jardata;
 
 	public static void main(String[] args) {
-		GUIFrame gui = new GUIFrame();
+		GUIFrame.main(args);
 	}
 
 	public static void setJarData (JarData jarData){
