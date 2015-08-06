@@ -1,7 +1,18 @@
 states:[
   {
-    "fields": [],
-    "id": 2
+    "fields": [
+      {
+        "type": "int",
+        "name": "count",
+        "value": "7"
+      },
+      {
+        "type": "string",
+        "name": "name",
+        "value": "chris"
+      }
+    ],
+    "id": 1
   },
   {
     "fields": [
@@ -9,15 +20,26 @@ states:[
         "type": "int",
         "name": "count",
         "value": "7"
+      },
+      {
+        "type": "string",
+        "name": "name",
+        "value": "chris"
       }
     ],
     "id": 1
   }
-],links:[
+],
+links:
+[
   {
-    "methodName": "toString()",
+    "methodName": "hi",
+    "source": 1,
+    "target": 2
+  },
+  {
+    "methodName": "hi",
     "source": 1,
     "target": 2
   }
 ]
-

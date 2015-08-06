@@ -1,0 +1,22 @@
+states:[
+  {
+    "fields": [],
+    "id": 2
+  },
+  {
+    "fields": [
+      {
+        "type": "int",
+        "name": "count",
+        "value": "7"
+      }
+    ],
+    "id": 1
+  }
+],links:[
+  {
+    "methodName": "toString()",
+    "source": 1,
+    "target": 2
+  }
+]
