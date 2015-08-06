@@ -36,38 +36,33 @@ public class MainPane extends GridPane {
 	}
 	private void setUpBrowserButton(){
 		Button btn = new Button();
-		// Sets up the Jar Load button.
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Open Browser");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent e) {
 				new CreateBrowser();
-				
-
 			}
-
 		});
-		this.add(btn, 0, 5);
+		this.add(btn, 0, 6);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	
 	}
 	
-	private class CreateBrowser{	
-		 private Scene scene;
-		 
-		 public CreateBrowser() {			
-		        Stage stage = new Stage();
-		        stage.setTitle("Web View");
-		        scene = new Scene(new Browser(),750,500, Color.web("#666970"));
-		        stage.setScene(scene);
-		        scene.getStylesheets().add("webviewsample/BrowserToolbar.css");        
-		        stage.show();
-
-
-
-		    }
+	private class CreateBrowser{			
+		private Scene scene;	
+		/**
+		 * creates a new Stage that contains a Scene that contains the Browser
+		 * that displays the visualization 
+		 */
+		public CreateBrowser() {			
+			Stage stage = new Stage();
+			stage.setTitle("Visualization");
+			scene = new Scene(new Browser(),750,500, Color.web("#666970"));
+			stage.setScene(scene);
+			scene.getStylesheets().add("webviewsample/BrowserToolbar.css");        
+			stage.show();
+		}
 	}
 
 	/**
