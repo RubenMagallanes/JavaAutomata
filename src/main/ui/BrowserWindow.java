@@ -5,7 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
  
- 
+ //this si for running browser window by itself.
+//shouldnt need once button is workign/ is opened by itself
 public class BrowserWindow extends Application {
     private Scene scene;
     @Override public void start(Stage stage) {

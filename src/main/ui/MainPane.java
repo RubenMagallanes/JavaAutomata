@@ -37,7 +37,7 @@ public class MainPane extends GridPane {
 	private void setUpBrowserButton(){
 		Button btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setText("Open Browser");
+		btn.setText("Open visualization");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
