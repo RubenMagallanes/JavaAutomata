@@ -60,7 +60,7 @@ public class MainPane extends GridPane {
 			stage.setTitle("Visualization");
 			scene = new Scene(new Browser(),750,500, Color.web("#666970"));
 			stage.setScene(scene);
-			scene.getStylesheets().add("webviewsample/BrowserToolbar.css");        
+			//scene.getStylesheets().add("webviewsample/BrowserToolbar.css");        
 			stage.show();
 		}
 	}
