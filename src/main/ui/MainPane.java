@@ -4,10 +4,13 @@ import java.io.File;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
@@ -27,7 +30,44 @@ public class MainPane extends GridPane {
 		setUpLoadMenu();
 		setUpSaveMenu();
 		setUpViewMenu();
+		//added for browser testing
+		setUpBrowserButton();
 		this.prefWidth(Double.MAX_VALUE);
+	}
+	private void setUpBrowserButton(){
+		Button btn = new Button();
+		// Sets up the Jar Load button.
+		btn.setMaxWidth(Double.MAX_VALUE);
+		btn.setText("Open Browser");
+		btn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				new CreateBrowser();
+				
+
+			}
+
+		});
+		this.add(btn, 0, 5);
+		GridPane.setHgrow(btn, Priority.ALWAYS);
+	
+	}
+	
+	private class CreateBrowser{	
+		 private Scene scene;
+		 
+		 public CreateBrowser() {			
+		        Stage stage = new Stage();
+		        stage.setTitle("Web View");
+		        scene = new Scene(new Browser(),750,500, Color.web("#666970"));
+		        stage.setScene(scene);
+		        scene.getStylesheets().add("webviewsample/BrowserToolbar.css");        
+		        stage.show();
+
+
+
+		    }
 	}
 
 	/**
