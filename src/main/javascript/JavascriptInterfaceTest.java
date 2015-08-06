@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 
 import main.util.DesktopApi;
 
-public class JavascriptInterfaceTest {
+public class JavascriptInterfaceTest { // CURRENTLY FAILS
 	private String index = "src/web/index.html";
 	private String script = "src/web/index.html";
 	
