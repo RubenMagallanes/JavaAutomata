@@ -1,4 +1,4 @@
-.link {
+.link .line {
     stroke: black;
     stroke-width: 1.5px;
     /*stroke-linecap: round;*/
@@ -11,9 +11,9 @@ circle {
 }
 
 text {
-    font: 10px sans-serif;
+    font: 12px sans-serif;
     pointer-events: none;
-    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+    text-shadow: 0 2px 0 #fff, 2px 0 0 #fff, 0 -2px 0 #fff, -2px 0 0 #fff;
 }
 
 #menu {

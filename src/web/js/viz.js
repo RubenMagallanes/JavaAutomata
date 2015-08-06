@@ -19,6 +19,8 @@
     var colour = d3.scale.category20(),
         circleRad = 10;
 
+    self.getLinks = function() { return links; }
+
     // initialise the layout with data
     self.init = function (data, _svg){
         states = data.states;
@@ -32,7 +34,7 @@
 
         var node = svg.selectAll(".state")
             .data(states)
-          .enter().append("g")
+             .enter().append("g")
             .attr("class", "state")
             .attr("id", function (d, i){
                 return "state-" + i;
@@ -50,7 +52,7 @@
 
         // build the arrow.
         svg.append("defs")
-          .append("marker")
+             .append("marker")
             .attr("id", "end")
             .attr("viewBox", "0 -5 10 10")
             .attr("refX", circleRad + 10)
@@ -58,20 +60,26 @@
             .attr("markerWidth", 6)
             .attr("markerHeight", 6)
             .attr("orient", "auto")
-          .append("path")
+             .append("path")
             .attr("d", "M0,-5L10,0L0,5");
 
         var link = svg.selectAll(".link")
             .data(links)
-          .enter().insert("path", ":first-child")
-            .attr("class", "link")
-            .attr("marker-end", "url(#end)")
+             .enter().insert("g", ":first-child");
+
+        link.attr("class", "link")
+             .append("path")
+            .attr("class", "line")
+            .attr("id", function (d) { return "link-line-" + d.name; })
+            .attr("marker-end", "url(#end)");
 
         force.on("tick", function (){
             node.attr("transform", transform)
-            link.attr("d", linkArc);
-        })
+            link.select(".line").attr("d", linkArc);
+            //console.log(link.selectAll("path"));
+        });
 
+        // updates a curved link
         function linkArc(d) {
             var dx = d.target.x - d.source.x,
                 dy = d.target.y - d.source.y,
@@ -79,7 +87,6 @@
                 //return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + (d.source.x + (dx/2)) + "," + (d.source.y + (20))
                 //+ "M" + (d.source.x + (dx/2)) + "," + (d.source.y + (20)) + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
                 return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
-
         }
 
         function transform(d) {
@@ -115,24 +122,33 @@
     };
 
     self.showFunctionNames = function (){
-        svg.select("defs")
-            .selectAll(".func-name")
-            .data(funcsChosen)
-          .enter().append("marker")
-            .attr("id", function (d){ return d; })
-            .attr("class", "func-name")
-            .attr("marker-width", 20)
-            .attr("marker-height", 20)
-            .attr("viewBox", "0 -10 20 20")
-            .attr("orient", "auto")
-          .append("text")
-            .text(function (d){ return d + "()"; });
+        //svg.select("defs")
+            //.selectAll(".func-name")
+            //.data(funcsChosen)
+          //.enter().append("marker")
+            //.attr("id", function (d){ return d; })
+            //.attr("class", "func-name")
+            //.attr("marker-width", 20)
+            //.attr("marker-height", 20)
+            //.attr("viewBox", "0 -10 20 20")
+            //.attr("orient", "auto")
+          //.append("text")
+            //.text(function (d){ return d + "()"; });
+
+        //svg.selectAll(".link")
+            //.attr("marker-mid", function(d){
+                ////return "url(#" + d.name + ")";
+                //return "url(#end)";
+            //});
 
         svg.selectAll(".link")
-            .attr("marker-mid", function(d){
-                //return "url(#" + d.name + ")";
-                return "url(#end)";
-            });
+             .append("text")
+            .style("text-anchor", "middle")
+             .attr("dy", 10)
+             .append("textPath")
+            .attr("xlink:href", function(d) { return "#" + "link-line-" + d.name; })
+            .attr("startOffset", "50%")
+            .text(function (d) { return d.name; });
     };
 
     self.hideFunctionNames = function (){
