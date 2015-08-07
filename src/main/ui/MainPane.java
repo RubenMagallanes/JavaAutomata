@@ -31,40 +31,9 @@ public class MainPane extends GridPane {
 		setUpLoadMenu();
 		setUpSaveMenu();
 		setUpViewMenu();
-		//added for browser testing
-		setUpBrowserButton();
+		
 		this.prefWidth(Double.MAX_VALUE);
 	}
-	//TODO remove this and add the functionality to another button
-	private void setUpBrowserButton(){
-		
-		Button btn = new Button();
-		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setText("Open visualization");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				CreateBrowser cb = new CreateBrowser();
-				b = cb.getReference();
-			}
-		});
-		this.add(btn, 0, 6);
-		GridPane.setHgrow(btn, Priority.ALWAYS);
-	
-		btn = new Button();
-		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setText("change html");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				b.toggleDisplay();
-			}
-		});
-		this.add(btn, 0, 7);
-		GridPane.setHgrow(btn, Priority.ALWAYS);
-	}
-	
-
 
 	/**
 	 * Sets up the button layout for the Load section of the pane.
@@ -143,7 +112,7 @@ public class MainPane extends GridPane {
 	}
 
 	/**
-	 * Sets up the view buttons
+	 * Sets up the view button, opens browser window to view trace
 	 */
 	private void setUpViewMenu() {
 		Button btn = new Button();
@@ -151,12 +120,13 @@ public class MainPane extends GridPane {
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load View");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent e) {
-				DesktopApi.browse(new File("src/web/index.html").toURI());
+				// create new browser window
+				CreateBrowser cb = new CreateBrowser(); 
+				//grab reference to it so we can make jscript calls
+				b = cb.getReference();
 			}
-
 		});
 		this.add(btn, 0, 4);
 	}
