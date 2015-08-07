@@ -19,41 +19,48 @@ class Browser extends Region {
 	final WebView browser = new WebView();
 	final WebEngine webEngine = browser.getEngine();
 
-	String fileUrl = "src/web/HelloWorld.html";
+	private static String defaultFileUrl = "src/web/index.html";
 
-	// String fileUrl = "http://www.google.com";
-	public Browser() {
-		// apply the styles
+	/**
+	 * loads browser with index.html as main
+	 */
+	public Browser(){
+		this(defaultFileUrl);
+	}
+
+	/**
+	 * tries to load supplied url, defaults to index.html which is the initial visualization
+	 * 
+	 * @param url local url to attempt to load. 
+	 */
+	public Browser(String url){
 		getStyleClass().add("browser");
-
-		//test weather the url we supplied is valid
-		File f = new File(fileUrl);
-		
+		File f = new File(url);
 		if (!(f.exists() && !f.isDirectory())) {
-			System.out.println("Error locating file: " + fileUrl);
-		} else {
-			//System.out.println("located " + fileUrl );
-			//System.out.println("attempting to load page");
-			try {
-				webEngine.load(f.toURI().toURL().toString());
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
+			System.out.println("Error locating file: " + url);
+			System.out.println("reverting to default "+defaultFileUrl);
+			f = new File(defaultFileUrl);
 		}
-		// add the web view to the scene
-		getChildren().add(browser);
-
+		try {
+			webEngine.load(f.toURI().toURL().toString());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		getChildren().add(browser);		
 	}
 	
-	public Object executeCommand(String command){
+	/**
+	 * execute javascript in the context of the web page currently in view
+	 * 
+	 * @param script script to run on the page
+	 * @return the return value of the javascript function, converted into a java object-
+	 * 	either Integer, Double, String, or Boolean (or null)
+	 */
+	public Object executeCommand(String script){
 		if(!webEngine.isJavaScriptEnabled())
 			return null;
 		
-		webEngine.executeScript(command);
-		return null;
-	}
-	public void toggleDisplay(){
-		webEngine.executeScript("document.getElementById('body').innerHTML = 'changed'");
+		return webEngine.executeScript(script);
 	}
 
 	private Node createSpacer() {

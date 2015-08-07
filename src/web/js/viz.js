@@ -12,9 +12,9 @@
 
     // force layout
     var force = d3.layout.force()
-        .charge(-1000)
+        .charge(-2000)
         .size([1200, 800])
-        .linkDistance(200)
+        .linkDistance(100)
         .gravity(0.1);
 
     var colour = d3.scale.category20(),
@@ -73,9 +73,11 @@
         link.attr("class", "link")
              .append("path")
             .attr("class", "line")
-            .attr("id", function (d) { return "link-line-" + d.methodName; })
-            .attr("marker-end", "url(#end)");
+            .attr("id", function (d, i) { return "link-" + d.source + "-" + d.target; })
+            .attr("marker-end", "url(#end)")
+            .on("end");
 
+        //setTimeout(self.showMethodNames, 10);
         self.showMethodNames();
 
         force.on("tick", function (){
@@ -134,7 +136,7 @@
             .style("text-anchor", "middle")
              .attr("dy", 4)
              .append("textPath")
-            .attr("xlink:href", function(d) { return "#" + "link-line-" + d.methodName; })
+            .attr("xlink:href", function(d, i) { console.log(d); return "#link-" + d.source + "-" + d.target; })
             .attr("class", "label")
             .attr("startOffset", "50%")
             .text(function (d) { return d.methodName; });
@@ -145,10 +147,10 @@
     };
 
     function selectState(d){
-        d3.select(this).select("circle").transition()
-            .attr("r", circleRad*2)
-            .ease("cubic-out")
-            .duration(200);
+        //d3.select(this).select("circle").transition()
+            //.attr("r", circleRad*2)
+            //.ease("cubic-out")
+            //.duration(200);
 
         d3.select("#state-info")
             .attr("visibility", "visible")
@@ -166,10 +168,10 @@
     }
 
     function deselectState(d){
-        d3.select(this).select("circle").transition()
-            .attr("r", circleRad)
-            .ease("cubic-out")
-            .duration(200);
+        //d3.select(this).select("circle").transition()
+            //.attr("r", circleRad)
+            //.ease("cubic-out")
+            //.duration(200);
 
         d3.select("state-info").attr("visibiliy", "hidden");
     }

@@ -28,9 +28,7 @@ public class MainPane extends GridPane {
 
 	//private Browser b; // reference to the browser for javascript calls
 	private int count;//number of browser windows currently open. 
-	Map<Integer, Browser> browserWindows = new HashMap<Integer, Browser>();//holds references to diff windows
-
-	
+	Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();//holds references to diff windows
 	
 	private MenuPane parent;
 
@@ -138,13 +136,8 @@ public class MainPane extends GridPane {
 			@Override
 			public void handle(ActionEvent e) {
 				// create new browser window
-				CreateBrowser cb = new CreateBrowser(); 
-				//grab reference to it so we can make jscript calls
-				Browser b = cb.getReference();
-				browserWindows.put(count++, b);				
-				//TODO ask which should have context - browser or main ui
-				//maybe have to save reference to cb / maybe have to add 
-				//b to arraylist of windows in the case of multiple windows
+				BrowserBox cb = new BrowserBox();			
+				browserWindows.put(count++, cb);// add cb to hash map				
 			}
 		});
 		this.add(btn, 0, 4);
@@ -154,15 +147,16 @@ public class MainPane extends GridPane {
 	 * Object that creates a new window containing a browser that is used to visualize
 	 * out data.
 	 * 
-	 * Use: just create a new CreateBrowser() and a new window will pop up in addition to 
+	 * Use: just create a new BrowserBox() and a new window will pop up in addition to 
 	 * the current javafx scene. 
-	 * to gain a reference to the browser in order to call javascript functions on it, 
-	 * use CreateBrowser.getReference() 
+	 * use Browser() to get the browser associated so you can make javascript calls on it
+	 * 
 	 * @author rj
 	 *
 	 */
-	private class CreateBrowser{
-		private Scene scene;	
+	private class BrowserBox{
+		private Scene scene;	//(Browser) scene for calls to page//TODO make geters and setters
+		private Stage stage; // for calls to the java- bits 
 		/**
 		 * creates a new Stage that contains a Scene that contains the Browser
 		 * that displays the visualization 
@@ -171,19 +165,31 @@ public class MainPane extends GridPane {
 		 * or Stage, just the Browser (for calling script on it)
 		 * this may need to be changed in the future. 
 		 */
-		public CreateBrowser() {			
-			Stage stage = new Stage();
-			stage.setTitle("Visualization");
-			scene = new Scene(new Browser(),800,800, Color.web("#666970"));
+		public BrowserBox() {	
+			scene = new Scene(new Browser(),700,700, Color.web("#666970"));
+			
+			stage = new Stage();
+			stage.setTitle("Visualization");			
 			stage.setScene(scene);
-			stage.show();
+			stage.show();		
 		}
 		/**
 		 * returns a reference to the newly constructed browser
 		 * @return the Browser that  just got created.
 		 */
-		public Browser getReference(){
+		/*public Browser getReference(){
 			return (Browser) scene.getRoot();
+		}*/
+	
+		/**
+		 * returns reference to Browser so you can mkae javascript calls to it
+		 * @return the Browser in this scene
+		 */
+		public Browser Browser(){
+			return (Browser) scene.getRoot();
+		}
+		public Stage Stage(){
+			return stage;
 		}
 	}
 }
