@@ -108,6 +108,12 @@ public class GenerateAutomata {
 	}
 
 	public static void main(String[] args) {
-		GenerateAutomata g = new GenerateAutomata(15,"automata.json");
+		if(args.length<2){
+			GenerateAutomata g = new GenerateAutomata(15,"automata.json");
+		}
+		else{
+			GenerateAutomata g = new GenerateAutomata(Integer.parseInt(args[0]),args[1]);
+		}
+		
 	}
 }
