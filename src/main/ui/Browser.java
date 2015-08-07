@@ -49,12 +49,18 @@ class Browser extends Region {
 		getChildren().add(browser);		
 	}
 	
+	/**
+	 * execute javascript in the context of the web page currently in view
+	 * 
+	 * @param script script to run on the page
+	 * @return the return value of the javascript function, converted into a java object-
+	 * 	either Integer, Double, String, or Boolean (or null)
+	 */
 	public Object executeCommand(String script){
 		if(!webEngine.isJavaScriptEnabled())
 			return null;
 		
-		webEngine.executeScript(script);
-		return null;
+		return webEngine.executeScript(script);
 	}
 
 	private Node createSpacer() {
