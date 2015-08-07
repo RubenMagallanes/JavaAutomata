@@ -49,15 +49,12 @@ class Browser extends Region {
 		getChildren().add(browser);		
 	}
 	
-	public Object executeCommand(String command){
+	public Object executeCommand(String script){
 		if(!webEngine.isJavaScriptEnabled())
 			return null;
 		
-		webEngine.executeScript(command);
+		webEngine.executeScript(script);
 		return null;
-	}
-	public void toggleDisplay(){
-		webEngine.executeScript("document.getElementById('body').innerHTML = 'changed'");
 	}
 
 	private Node createSpacer() {
