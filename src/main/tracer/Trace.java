@@ -1,5 +1,8 @@
 package main.tracer;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,5 +60,18 @@ public class Trace implements Serializable {
 
 		toReturn += "]";
 		return toReturn;
+	}
+
+	public void constructJSONFile(String filename){
+		String path = "data" + File.separatorChar + "traces" + File.separatorChar;
+		FileWriter writer;
+		try {
+			writer = new FileWriter(path + filename + ".json");
+			writer.write(toString());
+			writer.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

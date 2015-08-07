@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -65,17 +66,32 @@ public class GenerateAutomata {
 	private void generateLinks() {
 		for(int i = 0; i<numberOfStates; i++){
 			List<String> methodNamesList =  new ArrayList<String>(Arrays.asList(methodNames));
-			int numberOfLinks = (int) (Math.random()*methodNames.length); //number of links from the current source			
-			for(int j =0; j<numberOfLinks; j++){
-				int target = (int) (Math.random()*(numberOfStates-i) + i);
-				if(target == i)
-					continue;
-				int index = (int) (Math.random()*methodNamesList.size());
-				String methodName = methodNamesList.remove(index);
-				automatalinks.add(new AutomataLink(methodName,i,target));
-			}
+			
+			//Adds a link from i to i+1
+			if(i != numberOfStates-1){
+				generateLink(methodNamesList, i, i+1);
+			}	
+			
+//			//Creates a list of random indices from i+1 to the last
+//			ArrayList<Integer> indexList = new ArrayList<Integer>();
+//	        for (int ranIndex=i+1; ranIndex<numberOfStates; ranIndex++) {
+//	            indexList.add(new Integer(ranIndex));
+//	        }
+//	        Collections.shuffle(indexList);
+//	        
+//	        //Adds a link from i to a random larger index
+//	        for (int ind=0; ind<methodNamesList.size() && ind<indexList.size(); ind++) {
+//	        	generateLink(methodNamesList, i, indexList.remove(ind));
+//	        }						
 		}		
 	}
+	
+	private void generateLink(List<String> methodNamesList, int i, int target){
+		int index = (int) (Math.random()*methodNamesList.size());
+		String methodName = methodNamesList.remove(index);
+		automatalinks.add(new AutomataLink(methodName,i,target));
+	}
+	
 	
 	/**
 	 * Generates a random map from fields to types to randomise the types
@@ -85,6 +101,8 @@ public class GenerateAutomata {
 			int index = (int) (Math.random()*types.length);
 			fieldsToTypes.put(names,types[index]);
 		}
+		
+
 	}	
 	
 	/**
@@ -130,7 +148,7 @@ public class GenerateAutomata {
 	 */
 	public static void main(String[] args) {
 		if(args.length<2){
-			GenerateAutomata g = new GenerateAutomata(15,"automata.json");
+			GenerateAutomata g = new GenerateAutomata(15,"src/web/test/automata.json");
 		}
 		else{
 			GenerateAutomata g = new GenerateAutomata(Integer.parseInt(args[0]),args[1]);
