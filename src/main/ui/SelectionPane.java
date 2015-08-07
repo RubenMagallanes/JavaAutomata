@@ -175,6 +175,7 @@ public class SelectionPane extends TreeView {
 									}
 								}
 							}
+							System.out.println(classesSelected);
 						}
 					});
 			checkBoxTreeItem.getChildren().add(checkBoxMethod);
@@ -252,6 +253,7 @@ public class SelectionPane extends TreeView {
 									}
 								}
 							}
+							System.out.println(classesSelected);
 						}
 					});
 			checkBoxTreeItem.getChildren().add(checkBoxField);
