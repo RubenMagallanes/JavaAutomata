@@ -15,18 +15,21 @@ import javafx.scene.layout.GridPane;
  *
  */
 public class MenuPane extends TabPane{
+
+	private SelectionPane selection;
+
 	/**
 	 * Constructs the menu pane and assigns tabs.
 	 */
 	public MenuPane(){
-		GridPane grid = setUpMainPane();
+		GridPane grid = setUpMainPane(this);
 		Tab tab = new Tab();
 		tab.setClosable(false);
 		tab.setText("Jar Selection");
 		tab.setContent(grid);
 		this.getTabs().add(tab);
 
-		SelectionPane selection = new SelectionPane();
+		selection = new SelectionPane(this);
 		tab = new Tab();
 		tab.setClosable(false);
 		tab.setText("Selection Menu");
@@ -38,8 +41,8 @@ public class MenuPane extends TabPane{
 	 * Sets up the button menu.
 	 * @return - a new MainPane that is set up.
 	 */
-	private GridPane setUpMainPane(){
-		GridPane grid = new MainPane();
+	private GridPane setUpMainPane(MenuPane parent){
+		GridPane grid = new MainPane(parent);
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
@@ -49,5 +52,9 @@ public class MenuPane extends TabPane{
 		ColumnConstraints column2 = new ColumnConstraints();
 		column2.setPercentWidth(50);
 		return grid;
+	}
+
+	public SelectionPane getSelectionPane(){
+		return selection;
 	}
 }
