@@ -20,10 +20,13 @@ import main.util.DesktopApi;
  */
 public class MainPane extends GridPane {
 
+	private MenuPane parent;
+
 	/**
 	 * Constructs the menu Pane
 	 */
-	public MainPane() {
+	public MainPane(MenuPane parent) {
+		this.parent = parent;
 		setUpLoadMenu();
 		setUpSaveMenu();
 		setUpViewMenu();
@@ -53,6 +56,9 @@ public class MainPane extends GridPane {
 					loadDisplay.setText(file.getName());
 					JarData jarData = JarLoader.loadJarFile(file);
 					Main.setJarData(jarData);
+					//System.out.println(parent);
+					//System.out.println(parent.getSelectionPane());
+					parent.getSelectionPane().makeNewTree();
 				} else {
 					loadDisplay.setText("");
 				}

@@ -15,4 +15,8 @@ public class Main {
 	public static void setJarData (JarData jarData){
 		jardata = jarData;
 	}
+
+	public static JarData getJarData (){
+		return jardata;
+	}
 }
