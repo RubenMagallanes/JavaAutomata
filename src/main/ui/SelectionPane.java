@@ -2,13 +2,17 @@ package main.ui;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import main.Main;
 import main.load.JarData;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.CheckBoxTreeItem.TreeModificationEvent;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.image.Image;
@@ -16,13 +20,15 @@ import javafx.scene.image.ImageView;
 
 public class SelectionPane extends TreeView {
 
-	TreeItem<String> rootItem;
-	MenuPane parent;
+	private CheckBoxTreeItem<String> rootItem;
+	private MenuPane parent;
+	private Map<String, MethodAndField> classesSelected = new HashMap<String, MethodAndField>();
 
 	public SelectionPane(MenuPane parent) {
 		this.parent = parent;
 	}
 
+	// Clears the old graph
 	public void clearTreeView() {
 		if (rootItem != null) {
 			this.setRoot(null);
@@ -46,24 +52,55 @@ public class SelectionPane extends TreeView {
 		// Makeing a factory for the checkbox's
 		this.setCellFactory(CheckBoxTreeCell.<String> forTreeView());
 
-		//Goes through all the classes and added them to the list.
+		// Goes through all the classes and added them to the list.
 		for (Class<?> tempClass : classList) {
 			Node classIcon = new ImageView(new Image(getClass()
 					.getResourceAsStream("icons/class_obj.gif")));
 			final CheckBoxTreeItem<String> checkBoxTreeItem = new CheckBoxTreeItem<String>(
 					tempClass.getName(), classIcon);
 			try {
-				//Trys to add methods and fields as children.
+				// Trys to add methods and fields as children.
 				addMethods(tempClass, checkBoxTreeItem);
 				addFields(tempClass, checkBoxTreeItem);
 
 			} catch (NoClassDefFoundError exc) {
 			}
-			//Adds them to the parent.
+
+			// Adds them to the parent.
+			checkBoxTreeItem.addEventHandler(
+					CheckBoxTreeItem.checkBoxSelectionChangedEvent(),
+					new EventHandler<TreeModificationEvent<String>>() {
+						@Override
+						public void handle(TreeModificationEvent<String> arg0) {
+							String name = checkBoxTreeItem.getValue();
+							if (arg0.wasSelectionChanged()
+									&& checkBoxTreeItem.isSelected()
+									&& arg0.getTreeItem().equals(
+											checkBoxTreeItem)) {
+
+								if (!classesSelected.containsKey(name)) {
+									classesSelected.put(name,
+											new MethodAndField());
+								}
+								System.out.println(classesSelected);
+							}
+							if (arg0.wasSelectionChanged()
+									&& !checkBoxTreeItem.isSelected()
+									&& arg0.getTreeItem().equals(
+											checkBoxTreeItem)) {
+								if (classesSelected.containsKey(name)) {
+									classesSelected.remove(name);
+								}
+								System.out.println(classesSelected);
+							}
+
+						}
+
+					});
 			checkBoxTreeItem.setExpanded(false);
 			rootItem.getChildren().add(checkBoxTreeItem);
 		}
-		//Sets the root of the tree
+		// Sets the root of the tree
 		this.setRoot(rootItem);
 	}
 
@@ -101,6 +138,45 @@ public class SelectionPane extends TreeView {
 						.getResourceAsStream("icons/methdef_obj.gif")));
 				checkBoxMethod.setGraphic(methodIcon);
 			}
+
+			/*
+			 * This event handler handles adding and removeing
+			 * Methods from the list of currently selected methods.
+			 */
+			checkBoxMethod.addEventHandler(
+					CheckBoxTreeItem.checkBoxSelectionChangedEvent(),
+					new EventHandler<TreeModificationEvent<String>>() {
+						@Override
+						public void handle(TreeModificationEvent<String> arg0) {
+							String name = checkBoxMethod.getValue();
+							String parentName = checkBoxMethod.getParent()
+									.getValue();
+							if (arg0.wasSelectionChanged()
+									&& checkBoxMethod.isSelected()) {
+								if (classesSelected.containsKey(parentName)) {
+									if (!classesSelected.get(parentName).methodList
+											.contains(name)) {
+										classesSelected.get(parentName).methodList
+												.add(name);
+									}
+								} else {
+									classesSelected.put(parentName,
+											new MethodAndField());
+									classesSelected.get(parentName).methodList
+											.add(name);
+								}
+							} else if (arg0.wasSelectionChanged()
+									&& !checkBoxMethod.isSelected()) {
+								if (classesSelected.containsKey(parentName)) {
+									if (classesSelected.get(parentName).methodList
+											.contains(name)) {
+										classesSelected.get(parentName).methodList
+												.remove(name);
+									}
+								}
+							}
+						}
+					});
 			checkBoxTreeItem.getChildren().add(checkBoxMethod);
 		}
 	}
@@ -143,8 +219,59 @@ public class SelectionPane extends TreeView {
 						.getResourceAsStream("icons/field_default_obj.gif")));
 				checkBoxField.setGraphic(methodIcon);
 			}
+			checkBoxField.addEventHandler(
+					CheckBoxTreeItem.checkBoxSelectionChangedEvent(),
+					new EventHandler<TreeModificationEvent<String>>() {
+						@Override
+						public void handle(TreeModificationEvent<String> arg0) {
+							String name = checkBoxField.getValue();
+							String parentName = checkBoxField.getParent()
+									.getValue();
+							if (arg0.wasSelectionChanged()
+									&& checkBoxField.isSelected()) {
 
+								if (classesSelected.containsKey(parentName)) {
+									if (!classesSelected.get(parentName).fieldList
+											.contains(name)) {
+										classesSelected.get(parentName).fieldList
+												.add(name);
+									}
+								} else {
+									classesSelected.put(parentName,
+											new MethodAndField());
+									classesSelected.get(parentName).fieldList
+											.add(name);
+								}
+							} else if (arg0.wasSelectionChanged()
+									&& !checkBoxField.isSelected()) {
+								if (classesSelected.containsKey(parentName)) {
+									if (classesSelected.get(parentName).fieldList
+											.contains(name)) {
+										classesSelected.get(parentName).fieldList
+												.remove(name);
+									}
+								}
+							}
+						}
+					});
 			checkBoxTreeItem.getChildren().add(checkBoxField);
+
 		}
 	}
+
+	public void getSelected() {
+
+	}
+
+	private class MethodAndField {
+		public List<String> methodList = new ArrayList<String>();
+		public List<String> fieldList = new ArrayList<String>();
+
+		@Override
+		public String toString() {
+			return "MethodAndField [methodList=" + methodList + ", fieldList="
+					+ fieldList + "]";
+		}
+	}
+
 }
