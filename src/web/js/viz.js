@@ -12,9 +12,9 @@
 
     // force layout
     var force = d3.layout.force()
-        .charge(-1000)
+        .charge(-2000)
         .size([1200, 800])
-        .linkDistance(200)
+        .linkDistance(100)
         .gravity(0.1);
 
     var colour = d3.scale.category20(),
