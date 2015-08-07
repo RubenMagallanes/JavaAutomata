@@ -204,14 +204,11 @@ public class MainPane extends GridPane {
 		 * to the Scene or Stage, just the Browser (for calling script on it)
 		 * this may need to be changed in the future.
 		 */
-<<<<<<< HEAD
+
 		public BrowserBox() {	
 			scene = new Scene(new Browser(),700,700, Color.web("#666970"));			
-=======
-		public BrowserBox() {
-			scene = new Scene(new Browser(), 700, 700, Color.web("#666970"));
 
->>>>>>> 5edcb9337ae976150cd87b1258f7207858dc4883
+
 			stage = new Stage();
 			stage.setTitle("Visualization");
 			stage.setScene(scene);
