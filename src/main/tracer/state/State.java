@@ -12,6 +12,8 @@ public class State implements Serializable {
 	}
 
 	public String toString(Map<State, String> alreadySeenObjects) {
+		//String s = toString();
+		//System.out.println(s);
 		return toString();
 	}
 }

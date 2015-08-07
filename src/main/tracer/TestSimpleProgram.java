@@ -26,8 +26,8 @@ public class TestSimpleProgram {
 		this.jarPath = JarPathName;
 	}
 
-	public void run(){
-		if(jarPath == null)return;
+	public Trace[] run(String jarPath){
+		if(jarPath == null)return null;
 
 
 		//the file of the jar
@@ -37,7 +37,6 @@ public class TestSimpleProgram {
 		//loads in the jar file
 		JarData jd = JarLoader.loadJarFile(file);
 
-		if(DEBUG)System.out.println("Jar null " + jd == null);
 
 		//the path of the jar file
 		jarPath = jd.getFile().getAbsolutePath();
@@ -61,15 +60,14 @@ public class TestSimpleProgram {
 		}
 
 
-		//the tracefill to be made
-		final File savedTraceFile = null;
-
 		TestThread thread = new TestThread(loadedClasses, executionsArray, mainClass);
 
 		thread.setName("MainWindow tracer thread");
 		thread.setDaemon(true);
 		thread.start();
-		System.out.println("Done");
+
+		return thread.getTraces();
+
 	}
 
 /**
@@ -83,7 +81,7 @@ public class TestSimpleProgram {
 private void processTraces(Trace[] traces) throws IOException, InterruptedException {
 	TraceFilter filter = getSelectionFilter();
 
-	System.out.println(traces.length);
+	//System.out.println(traces.length);
 	for (int i = 0; i < traces.length; i++) {
 		for(int j = 0; j < traces[i].getLines().size(); j++){
 			//traces[i].applyFilter(filter);
@@ -91,7 +89,7 @@ private void processTraces(Trace[] traces) throws IOException, InterruptedExcept
 			if(!traces[i].getLines().isEmpty()){
 
 				for(TraceEntry s : traces[i].getLines()){
-					System.out.println(s);
+					//System.out.println(s);
 				}
 
 			}
@@ -100,7 +98,7 @@ private void processTraces(Trace[] traces) throws IOException, InterruptedExcept
 }
 
 private TraceFilter getSelectionFilter() {
-	return new TraceFilter() {
+	/*return new TraceFilter() {
 		private Set<MethodKey> selectedMethods = new HashSet<MethodKey>();
 		private Set<FieldKey> selectedFields = new HashSet<FieldKey>();
 		private Set<ParameterKey> selectedParameters = new HashSet<ParameterKey>();
@@ -109,7 +107,6 @@ private TraceFilter getSelectionFilter() {
 
 		@Override
 		public boolean isMethodTraced(MethodKey m) {
-			System.out.println(m.toString());
 			return selectedMethods.contains(m);
 		}
 
@@ -121,21 +118,61 @@ private TraceFilter getSelectionFilter() {
 		}
 
 		@Override
-		public boolean isParameterTraced(ParameterKey p) {
+		public boolean isParameterTraced(ParoldCharameterKey p) {
 			return selectedParameters.contains(p);
 		}
-	};
+	};*/
+	return null;
 }
 
 
 	public static void main(String[] args){
-		//if(args[0] == null)return;
+
+		String jar = "data" + File.separatorChar + "tests" + File.separatorChar + "TestProgram2.jar";
 
 
-		String jar = "data" + File.separatorChar + "tests" + File.separatorChar + "TestProgram.jar";
+//		TraceFilter TemmpFilter = new TraceFilter(){
+//
+//			@Override
+//			public boolean isFieldTraced(FieldKey f) {
+//				if(f.name.equals("number1"))return true;
+//				return false;
+//			}
+//
+//			@Override
+//			public boolean isMethodTraced(MethodKey m) {
+//				System.out.println(m.name);
+//				if(m.name.equals("setUpNumbers")){
+//					System.out.println("True");
+//					return true;
+//				}
+//				System.out.println("False");
+//				return false;
+//			}
+//
+//			@Override
+//			public boolean isParameterTraced(ParameterKey p) {
+//				return true;
+//			}
+//
+//		};
+
 
 		TestSimpleProgram t = new TestSimpleProgram(jar);
-		t.run();
+		Trace[] tr  = t.run(jar);
+	//	tr[0].applyFilter(TemmpFilter);
+		tr[0].toString();
+		System.out.println(tr[0]);
+
+
+		//System.out.print(new TraceStringUtil(tr).getMethods());
+		//System.out.print(new TraceStringUtil(tr).getFields());
+		//System.out.println(new TraceStringUtil(tr).methodEntryEvent());
+		//System.out.println(new TraceStringUtil(tr).methodExitEvent());
+
+
+
+
 
 	}
 
@@ -145,6 +182,9 @@ private TraceFilter getSelectionFilter() {
 		private Set<String> loadedClasses;
 		private ExecutionData[] executionsArray;
 		private String mainClass;
+
+
+		private Trace[] traces;
 
 		public TestThread(Set<String> loadedClasses, ExecutionData[] executionsArray, String mainClass){
 			this.loadedClasses = loadedClasses;
@@ -159,7 +199,6 @@ private TraceFilter getSelectionFilter() {
 
 		@Override
 		public void run() {
-			System.out.println("Running");
 
 			// The filters to use when tracing
 			TraceFilter initialFilter;
@@ -167,31 +206,26 @@ private TraceFilter getSelectionFilter() {
 			initialFilter = new TraceFilter() {
 				@Override
 				public boolean isMethodTraced(MethodKey m) {
-
 					return loadedClasses.contains(m.className);
 				}
 
 				@Override
 				public boolean isFieldTraced(FieldKey f) {
-
 					return loadedClasses.contains(f.className);
 				}
 
 				@Override
 				public boolean isParameterTraced(ParameterKey p) {
-
 					return true;
 				}
 			};
 
 
-			Trace[] traces = new Trace[executionsArray.length];
+			traces = new Trace[executionsArray.length];
 
 
-			System.out.println(traces.length);
 
 			for (int k = 0; k < executions.size(); k++) {
-				System.out.println("Executions");
 				ExecutionData ed = executions.get(k);
 				FutureTraceConsumer future = new FutureTraceConsumer();
 				try {
@@ -204,7 +238,6 @@ private TraceFilter getSelectionFilter() {
 
 				try {
 					traces[k] = future.get();
-					Trace test = traces[k];
 				} catch (InterruptedException | ExecutionException e) {
 					e.printStackTrace();
 				}
@@ -216,6 +249,8 @@ private TraceFilter getSelectionFilter() {
 				e.printStackTrace();
 			}
 		}
+
+		public Trace[] getTraces(){return this.traces;}
 	}
 
 

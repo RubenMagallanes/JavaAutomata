@@ -1,5 +1,6 @@
 "use strict";
 
+// based on d3 force layout example:
 // http://bl.ocks.org/mbostock/1153292
 (function (self){
 
@@ -11,9 +12,9 @@
 
     // force layout
     var force = d3.layout.force()
-        .charge(-300)
-        .size([500, 500])
-        .linkDistance(80)
+        .charge(-1000)
+        .size([1200, 800])
+        .linkDistance(200)
         .gravity(0.1);
 
     var colour = d3.scale.category20(),
@@ -27,7 +28,7 @@
         links = data.links;
         svg = _svg;
 
-        setChosenNames();
+        //setChosenNames();
 
     	force.nodes(states);
         force.links(links);
@@ -38,7 +39,9 @@
             .attr("class", "state")
             .attr("id", function (d, i){
                 return "state-" + i;
-            });
+            })
+            .on("mouseenter", selectState)
+            .on("mouseout", deselectState);
 
         node.append("circle")
             .attr("class", "state-circle")
@@ -70,14 +73,17 @@
         link.attr("class", "link")
              .append("path")
             .attr("class", "line")
-            .attr("id", function (d) { return "link-line-" + d.name; })
+            .attr("id", function (d) { return "link-line-" + d.methodName; })
             .attr("marker-end", "url(#end)");
+
+        self.showMethodNames();
 
         force.on("tick", function (){
             node.attr("transform", transform)
             link.select(".line").attr("d", linkArc);
-            //console.log(link.selectAll("path"));
         });
+
+        //force.linkDistance(100);
 
         // updates a curved link
         function linkArc(d) {
@@ -93,6 +99,7 @@
             return "translate(" + d.x + "," + d.y + ")";
         }
 
+
         node.call(force.drag);
         force.start();
     }
@@ -100,13 +107,13 @@
     // adds all func and var names to funcsChosen and varsChosen respectively
     function setChosenNames(){
         links.forEach(function (d){
-            funcsChosen.push(d.name);
+            funcsChosen.push(d.methodName);
         });
 
         // adds all variable names (that appear in states) to varsChosen
-        for (var name in states[0]){
-            varsChosen.push(name);
-        }
+        states[0].fields.forEach(function (d){
+            varsChosen.push(methodName);
+        });
     }
 
     // update the layout data
@@ -121,39 +128,50 @@
         force.start();
     };
 
-    self.showFunctionNames = function (){
-        //svg.select("defs")
-            //.selectAll(".func-name")
-            //.data(funcsChosen)
-          //.enter().append("marker")
-            //.attr("id", function (d){ return d; })
-            //.attr("class", "func-name")
-            //.attr("marker-width", 20)
-            //.attr("marker-height", 20)
-            //.attr("viewBox", "0 -10 20 20")
-            //.attr("orient", "auto")
-          //.append("text")
-            //.text(function (d){ return d + "()"; });
-
-        //svg.selectAll(".link")
-            //.attr("marker-mid", function(d){
-                ////return "url(#" + d.name + ")";
-                //return "url(#end)";
-            //});
-
+    self.showMethodNames = function (){
         svg.selectAll(".link")
              .append("text")
             .style("text-anchor", "middle")
-             .attr("dy", 10)
+             .attr("dy", 4)
              .append("textPath")
-            .attr("xlink:href", function(d) { return "#" + "link-line-" + d.name; })
+            .attr("xlink:href", function(d) { return "#" + "link-line-" + d.methodName; })
+            .attr("class", "label")
             .attr("startOffset", "50%")
-            .text(function (d) { return d.name; });
+            .text(function (d) { return d.methodName; });
     };
 
     self.hideFunctionNames = function (){
-        svg.selectAll(".func-name").remove();
-        svg.selectAll(".link").attr("marker-mid", "");
+        svg.selectAll(".label").remove();
     };
+
+    function selectState(d){
+        d3.select(this).select("circle").transition()
+            .attr("r", circleRad*2)
+            .ease("cubic-out")
+            .duration(200);
+
+        d3.select("#state-info")
+            .attr("visibility", "visible")
+            .html(function() { return stateInfo(d); });
+    }
+
+    // return state info as a string
+    function stateInfo(state){
+        var str = "";
+        state.fields.forEach(function (field) {
+            str += field.name + ": " + field.value;
+            str += "<br>"
+        });
+        return str;
+    }
+
+    function deselectState(d){
+        d3.select(this).select("circle").transition()
+            .attr("r", circleRad)
+            .ease("cubic-out")
+            .duration(200);
+
+        d3.select("state-info").attr("visibiliy", "hidden");
+    }
 
 })(automata.viz = automata.viz || {})

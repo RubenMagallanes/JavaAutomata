@@ -1,7 +1,11 @@
 package main.tracer;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
+
+import com.sun.jdi.connect.Connector.Argument;
 
 import main.tracer.state.State;
 
@@ -50,12 +54,44 @@ public class TraceEntry implements Serializable{
 
 	@Override
 	public String toString(){
-		String string = "Trace Entry{\n";
-		string += "  isReturn = "+isReturn+"\n";
-		//string += "  State = "+state.toString()+"\n";
-		string += "  Method Key = "+method.toString()+"\n";
-		string += "}";
+		String isEntry = isReturn ? "  { \"exitMethod\": {\n" : "  { \"enterMethod\": {\n";
+		String string = isEntry + "      \"methodName\": \"" + method.toString().substring(5) + "\"";
+		if(state != null){
+			string += ",\n";
+			string += stateToText(state);
+		}
+		else{
+			string += "\n";
+		}
+
+		/*if(arguments !=null){
+			for(State arg :  arguments){
+				if(arg != null){
+					string += "Arg " + arg.toString();
+				}
+			}
+
+		}*/
+
+		string += "    }\n";
+		string += "  }";
 		return string;
 
+	}
+
+	private String stateToText(State state){
+		String string = "      \"state\": {\n";
+		String s = state.toString();
+		String[] data = state.toString().substring(1, state.toString().length() - 1).split(",");
+		for(int i = 0; i < data.length; i++){
+			String[] temp = data[i].split(" ", 2);
+			if(temp.length > 1){
+				String[] fieldData = temp[1].split("=");
+				string += "        \""+fieldData[0]+"\": \"" + fieldData[1].replace("\"", "") + "\"";
+				string += (i < data.length - 1) ? ",\n" : "\n";
+			}
+		}
+		string += "      }\n";
+		return string;
 	}
 }
