@@ -56,7 +56,7 @@ class Browser extends Region {
 	 * @return the return value of the javascript function, converted into a java object-
 	 * 	either Integer, Double, String, or Boolean (or null)
 	 */
-	public Object executeCommand(String script){
+	public Object executeScript(String script){
 		if(!webEngine.isJavaScriptEnabled())
 			return null;
 		
