@@ -21,10 +21,18 @@ class Browser extends Region {
 
 	private static String defaultFileUrl = "src/web/index.html";
 
+	/**
+	 * loads browser with index.html as main
+	 */
 	public Browser(){
 		this(defaultFileUrl);
 	}
 
+	/**
+	 * tries to load supplied url, defaults to index.html which is the initial visualization
+	 * 
+	 * @param url local url to attempt to load. 
+	 */
 	public Browser(String url){
 		getStyleClass().add("browser");
 		File f = new File(url);
