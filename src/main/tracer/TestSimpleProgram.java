@@ -158,7 +158,7 @@ private TraceFilter getSelectionFilter() {
 
 
 		TestSimpleProgram t = new TestSimpleProgram(jar);
-		Trace[] tr  = t.run(jar);
+		Trace[] tr  = t.run();
 	//	tr[0].applyFilter(TemmpFilter);
 		//System.out.println(tr[0]);
 		tr[0].constructJSONFile("test");
