@@ -2,7 +2,7 @@ package main.ui;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
+
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -12,7 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import main.Main;
+
 
 class Browser extends Region {
 
@@ -32,9 +32,8 @@ class Browser extends Region {
 		if (!(f.exists() && !f.isDirectory())) {
 			System.out.println("Error locating file: " + fileUrl);
 		} else {
-			System.out.println("located " + fileUrl );
-			System.out.println("attempting to load page");
-
+			//System.out.println("located " + fileUrl );
+			//System.out.println("attempting to load page");
 			try {
 				webEngine.load(f.toURI().toURL().toString());
 			} catch (MalformedURLException e) {
