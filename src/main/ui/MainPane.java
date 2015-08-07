@@ -136,8 +136,8 @@ public class MainPane extends GridPane {
 			@Override
 			public void handle(ActionEvent e) {
 				// create new browser window
-				BrowserBox cb = new BrowserBox();			
-				browserWindows.put(count++, cb);// add cb to hash map				
+				BrowserBox bb = new BrowserBox();			
+				browserWindows.put(count++, bb);// add cb to hash map	
 			}
 		});
 		this.add(btn, 0, 4);
@@ -151,6 +151,8 @@ public class MainPane extends GridPane {
 	 * the current javafx scene. 
 	 * use Browser() to get the browser associated so you can make javascript calls on it
 	 * 
+	 * usage: Object ret = BrowserBox.Browser().executeScript("var a = function (){return 'hello world';};a();");
+	 *ret is the object returned by the javascript function
 	 * @author rj
 	 *
 	 */
@@ -166,8 +168,7 @@ public class MainPane extends GridPane {
 		 * this may need to be changed in the future. 
 		 */
 		public BrowserBox() {	
-			scene = new Scene(new Browser(),700,700, Color.web("#666970"));
-			
+			scene = new Scene(new Browser(),700,700, Color.web("#666970"));			
 			stage = new Stage();
 			stage.setTitle("Visualization");			
 			stage.setScene(scene);
