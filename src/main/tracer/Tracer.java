@@ -155,8 +155,15 @@ public class Tracer {
 
 									if(_this == null)
 										te.state = null;
-									else
+									else{
 										te.state = valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
+
+										//Prints the fields of the program
+										//System.out.println("State : " + te.state);
+
+									}
+
+
 
 									te.isReturn = false;
 
@@ -169,6 +176,7 @@ public class Tracer {
 
 										try {
 											argValues = frame.getArgumentValues();
+
 
 										} catch(InternalException e) {
 											// https://netbeans.org/bugzilla/show_bug.cgi?id=194822
@@ -183,7 +191,11 @@ public class Tracer {
 											Value v = argValues.get(k);
 
 											if(filter.isParameterTraced(new ParameterKey(te.method, k))) {
+												//System.out.println(valueToState(filter, v, new HashMap<ObjectReference, main.tracer.state.State>()));
+
 												te.arguments.add(valueToState(filter, v, new HashMap<ObjectReference, main.tracer.state.State>()));
+
+
 											} else {
 												te.arguments.add(null);
 											}
@@ -209,8 +221,10 @@ public class Tracer {
 
 									if(_this == null)
 										te.state = null;
-									else
+									else{
 										te.state = valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
+									}
+
 
 									te.isReturn = true;
 									consumer.onTraceLine(te);
@@ -292,7 +306,7 @@ public class Tracer {
 
 				Field f = fields.get(k);
 				FieldKey fk = new FieldKey(f);
-				System.out.println(fk.toString());
+
 
 				if(!filter.isFieldTraced(fk))
 					continue;

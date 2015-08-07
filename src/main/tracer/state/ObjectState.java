@@ -47,8 +47,9 @@ public class ObjectState extends State {
 		for(FieldKey fk : sortedFields) {
 			if(first) first = false;
 			else result.append(',');
-
 			State value = fields.get(fk);
+			result.append(fk.className);
+			result.append(" ");
 			result.append(fk.name);
 			result.append('=');
 			result.append(value.toString(alreadySeenObjects));

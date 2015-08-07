@@ -32,4 +32,30 @@ public class Trace implements Serializable {
 			te.filterFields(f);
 		}
 	}
+
+	@Override
+	public String toString(){
+		String toReturn = "[\n";
+
+
+		for(int i = 0; i < lines.size(); i++){
+			toReturn += lines.get(i).toString();
+			toReturn += (i < lines.size() - 1) ? ",\n" : "\n";
+//			System.out.println("Line");
+//			toReturn.concat(" Class :" + line.getClass());
+//			toReturn.concat("Method Name :" + line.getLongMethodName());
+//			toReturn.concat("State :" + line.state);
+//			toReturn.concat("Arguments : " + line.arguments);
+//
+//
+//			System.out.println("Method Name :" +line.getLongMethodName());
+//			System.out.println("State :" + line.state);
+//			System.out.println("Arguments :" + line.arguments);
+
+		}
+//		System.out.println("To return " + toReturn);
+
+		toReturn += "]";
+		return toReturn;
+	}
 }
