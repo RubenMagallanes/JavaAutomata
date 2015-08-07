@@ -1,8 +1,5 @@
-"use strict";
-
-var testData = {
-states: [
-    {
+states:[
+  {
     "fields": [
       {
         "type": "a",
@@ -804,11 +801,3 @@ states: [
     "target": 5
   }
 ]
-};
-
-var svg = d3.select("svg")
-    .attr("width", 1200)
-    .attr("height", 800)
-    .attr("transform", "translate(0,0)");
-
-automata.viz.init(testData, svg);
