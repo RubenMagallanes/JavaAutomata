@@ -3,33 +3,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "660198"
+        "name": "double",
+        "value": "411962.4692208551"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "303538.76283892745f"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "796533"
+        "name": "String",
+        "value": "David"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "387789"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "772391.2086636072f"
+        "name": "double",
+        "value": "686175.4257743241"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "46027.51036398389f"
+        "name": "double",
+        "value": "919415.4158509682"
       }
     ],
     "id": 0
@@ -38,33 +38,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "665758"
+        "name": "double",
+        "value": "389125.22157747287"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "862466.9243212093f"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "418523"
+        "name": "String",
+        "value": "Shane"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "460730"
+        "name": "String",
+        "value": "Ruben"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "794842.1890981697f"
+        "name": "double",
+        "value": "804684.7620324763"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "143328.96397922435f"
+        "name": "double",
+        "value": "345553.94142787333"
       }
     ],
     "id": 1
@@ -73,33 +73,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "371845"
+        "name": "double",
+        "value": "978623.1232635182"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "974762.5877761497f"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "751602"
+        "name": "String",
+        "value": "Shane"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "194322"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "895050.0921023781f"
+        "name": "double",
+        "value": "413543.2321390403"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "902491.5564629242f"
+        "name": "double",
+        "value": "123207.5498313312"
       }
     ],
     "id": 2
@@ -108,33 +108,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "567233"
+        "name": "double",
+        "value": "194309.9576373849"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "114766.7981927002f"
+        "name": "String",
+        "value": "Ruben"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "423780"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "914248"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "289387.3316771882f"
+        "name": "double",
+        "value": "867878.9579969043"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "33128.92638040743f"
+        "name": "double",
+        "value": "405168.27066308813"
       }
     ],
     "id": 3
@@ -143,33 +143,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "911685"
+        "name": "double",
+        "value": "724505.5128060034"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "554971.8722085925f"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "602770"
+        "name": "String",
+        "value": "Nicky"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "934348"
+        "name": "String",
+        "value": "David"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "93535.1066290927f"
+        "name": "double",
+        "value": "777238.2007224899"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "385930.48465052835f"
+        "name": "double",
+        "value": "371978.55936094024"
       }
     ],
     "id": 4
@@ -178,33 +178,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "963697"
+        "name": "double",
+        "value": "995755.9565112669"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "187717.5396914722f"
+        "name": "String",
+        "value": "David"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "716840"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "186941"
+        "name": "String",
+        "value": "Nicky"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "942121.0878751088f"
+        "name": "double",
+        "value": "517010.1179179493"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "984687.5394009735f"
+        "name": "double",
+        "value": "836842.5993532714"
       }
     ],
     "id": 5
@@ -213,33 +213,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "742616"
+        "name": "double",
+        "value": "373134.82605843706"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "926989.9208496548f"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "367957"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "244628"
+        "name": "String",
+        "value": "David"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "622376.4255244236f"
+        "name": "double",
+        "value": "923729.0085115926"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "887935.9787493525f"
+        "name": "double",
+        "value": "478415.3743384668"
       }
     ],
     "id": 6
@@ -248,33 +248,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "438125"
+        "name": "double",
+        "value": "998119.1104386857"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "801423.8865468586f"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "21133"
+        "name": "String",
+        "value": "Shane"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "408977"
+        "name": "String",
+        "value": "Nicky"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "156507.6860279222f"
+        "name": "double",
+        "value": "300983.33484871744"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "844946.6732260962f"
+        "name": "double",
+        "value": "933649.7581387485"
       }
     ],
     "id": 7
@@ -283,33 +283,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "775144"
+        "name": "double",
+        "value": "524691.9180906088"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "208820.8762436864f"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "351136"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "658810"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "448315.4978942883f"
+        "name": "double",
+        "value": "624351.7777872052"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "137998.8073624351f"
+        "name": "double",
+        "value": "892187.26366745"
       }
     ],
     "id": 8
@@ -318,33 +318,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "41217"
+        "name": "double",
+        "value": "313673.74472463893"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "669456.5802217071f"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "582630"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "515545"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "111167.04172071502f"
+        "name": "double",
+        "value": "734822.935031937"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "701498.4692686165f"
+        "name": "double",
+        "value": "592876.9641232548"
       }
     ],
     "id": 9
@@ -353,33 +353,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "625674"
+        "name": "double",
+        "value": "141595.58660153326"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "912236.757300384f"
+        "name": "String",
+        "value": "Ruben"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "89679"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "120382"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "562252.778516834f"
+        "name": "double",
+        "value": "789009.6488028266"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "356876.4976349814f"
+        "name": "double",
+        "value": "271935.67039054324"
       }
     ],
     "id": 10
@@ -388,33 +388,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "328886"
+        "name": "double",
+        "value": "377800.4208251616"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "235811.1443241958f"
+        "name": "String",
+        "value": "Ruben"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "477314"
+        "name": "String",
+        "value": "David"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "462592"
+        "name": "String",
+        "value": "Ruben"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "32010.65931743674f"
+        "name": "double",
+        "value": "776495.8651129426"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "938009.1755310176f"
+        "name": "double",
+        "value": "612938.3851071958"
       }
     ],
     "id": 11
@@ -423,33 +423,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "633827"
+        "name": "double",
+        "value": "882871.3926116015"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "896894.1350428932f"
+        "name": "String",
+        "value": "Nicky"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "387479"
+        "name": "String",
+        "value": "Nicky"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "43780"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "161943.147267122f"
+        "name": "double",
+        "value": "302078.09465567215"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "952225.0437669893f"
+        "name": "double",
+        "value": "735037.6555314697"
       }
     ],
     "id": 12
@@ -458,33 +458,33 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "533281"
+        "name": "double",
+        "value": "630786.5213616092"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "240461.73132505265f"
+        "name": "String",
+        "value": "Chris"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "124750"
+        "name": "String",
+        "value": "Shane"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "713019"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "197414.94370959257f"
+        "name": "double",
+        "value": "392588.0376247457"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "833234.7445839448f"
+        "name": "double",
+        "value": "783219.1560594412"
       }
     ],
     "id": 13
@@ -493,212 +493,227 @@ states:[
     "fields": [
       {
         "type": "a",
-        "name": "int",
-        "value": "551097"
+        "name": "double",
+        "value": "601119.1846494136"
       },
       {
         "type": "b",
-        "name": "float",
-        "value": "460769.7763085857f"
+        "name": "String",
+        "value": "Ruben"
       },
       {
         "type": "c",
-        "name": "int",
-        "value": "638623"
+        "name": "String",
+        "value": "Ruben"
       },
       {
         "type": "x",
-        "name": "int",
-        "value": "724916"
+        "name": "String",
+        "value": "Will"
       },
       {
         "type": "y",
-        "name": "float",
-        "value": "7410.200242506604f"
+        "name": "double",
+        "value": "950382.3805160298"
       },
       {
         "type": "z",
-        "name": "float",
-        "value": "510370.343591786f"
+        "name": "double",
+        "value": "480546.7528855789"
       }
     ],
     "id": 14
   }
 ],links:[
   {
-    "methodName": "clone",
-    "source": 0,
-    "target": 2
-  },
-  {
-    "methodName": "multiply",
-    "source": 0,
-    "target": 9
-  },
-  {
-    "methodName": "toString",
-    "source": 0,
-    "target": 0
-  },
-  {
     "methodName": "divide",
     "source": 0,
-    "target": 8
-  },
-  {
-    "methodName": "minus",
-    "source": 0,
-    "target": 9
-  },
-  {
-    "methodName": "add",
-    "source": 0,
-    "target": 13
-  },
-  {
-    "methodName": "multiply",
-    "source": 1,
-    "target": 7
-  },
-  {
-    "methodName": "add",
-    "source": 1,
-    "target": 11
-  },
-  {
-    "methodName": "minus",
-    "source": 2,
-    "target": 14
-  },
-  {
-    "methodName": "multiply",
-    "source": 2,
-    "target": 7
-  },
-  {
-    "methodName": "add",
-    "source": 2,
-    "target": 7
-  },
-  {
-    "methodName": "mutate",
-    "source": 2,
-    "target": 12
-  },
-  {
-    "methodName": "clone",
-    "source": 3,
-    "target": 12
-  },
-  {
-    "methodName": "add",
-    "source": 3,
-    "target": 13
-  },
-  {
-    "methodName": "minus",
-    "source": 3,
-    "target": 6
-  },
-  {
-    "methodName": "divide",
-    "source": 4,
-    "target": 4
-  },
-  {
-    "methodName": "clone",
-    "source": 4,
-    "target": 6
-  },
-  {
-    "methodName": "add",
-    "source": 4,
-    "target": 11
-  },
-  {
-    "methodName": "minus",
-    "source": 4,
-    "target": 3
-  },
-  {
-    "methodName": "mutate",
-    "source": 5,
-    "target": 0
-  },
-  {
-    "methodName": "divide",
-    "source": 5,
-    "target": 8
-  },
-  {
-    "methodName": "add",
-    "source": 5,
-    "target": 12
-  },
-  {
-    "methodName": "minus",
-    "source": 5,
-    "target": 12
-  },
-  {
-    "methodName": "toString",
-    "source": 5,
     "target": 1
   },
   {
-    "methodName": "minus",
-    "source": 6,
+    "methodName": "add",
+    "source": 0,
     "target": 3
   },
   {
-    "methodName": "toString",
-    "source": 6,
+    "methodName": "mutate",
+    "source": 0,
+    "target": 1
+  },
+  {
+    "methodName": "clone",
+    "source": 0,
+    "target": 12
+  },
+  {
+    "methodName": "divide",
+    "source": 1,
+    "target": 2
+  },
+  {
+    "methodName": "minus",
+    "source": 1,
     "target": 5
   },
   {
     "methodName": "mutate",
-    "source": 6,
-    "target": 6
+    "source": 1,
+    "target": 4
   },
   {
     "methodName": "clone",
-    "source": 6,
-    "target": 12
+    "source": 1,
+    "target": 8
+  },
+  {
+    "methodName": "clone",
+    "source": 2,
+    "target": 3
   },
   {
     "methodName": "multiply",
+    "source": 2,
+    "target": 14
+  },
+  {
+    "methodName": "minus",
+    "source": 2,
+    "target": 11
+  },
+  {
+    "methodName": "toString",
+    "source": 2,
+    "target": 6
+  },
+  {
+    "methodName": "add",
+    "source": 3,
+    "target": 4
+  },
+  {
+    "methodName": "minus",
+    "source": 3,
+    "target": 10
+  },
+  {
+    "methodName": "mutate",
+    "source": 3,
+    "target": 9
+  },
+  {
+    "methodName": "clone",
+    "source": 3,
+    "target": 11
+  },
+  {
+    "methodName": "mutate",
+    "source": 4,
+    "target": 5
+  },
+  {
+    "methodName": "minus",
+    "source": 4,
+    "target": 14
+  },
+  {
+    "methodName": "divide",
+    "source": 4,
+    "target": 9
+  },
+  {
+    "methodName": "multiply",
+    "source": 4,
+    "target": 10
+  },
+  {
+    "methodName": "toString",
+    "source": 5,
+    "target": 6
+  },
+  {
+    "methodName": "minus",
+    "source": 5,
+    "target": 9
+  },
+  {
+    "methodName": "mutate",
+    "source": 5,
+    "target": 11
+  },
+  {
+    "methodName": "multiply",
+    "source": 5,
+    "target": 6
+  },
+  {
+    "methodName": "minus",
     "source": 6,
-    "target": 2
+    "target": 7
+  },
+  {
+    "methodName": "mutate",
+    "source": 6,
+    "target": 14
+  },
+  {
+    "methodName": "add",
+    "source": 6,
+    "target": 8
+  },
+  {
+    "methodName": "toString",
+    "source": 6,
+    "target": 13
+  },
+  {
+    "methodName": "clone",
+    "source": 7,
+    "target": 8
+  },
+  {
+    "methodName": "add",
+    "source": 7,
+    "target": 11
   },
   {
     "methodName": "divide",
     "source": 7,
-    "target": 1
+    "target": 12
   },
   {
-    "methodName": "toString",
+    "methodName": "multiply",
     "source": 7,
-    "target": 6
-  },
-  {
-    "methodName": "clone",
-    "source": 7,
-    "target": 14
+    "target": 9
   },
   {
     "methodName": "multiply",
     "source": 8,
+    "target": 9
+  },
+  {
+    "methodName": "toString",
+    "source": 8,
+    "target": 9
+  },
+  {
+    "methodName": "clone",
+    "source": 8,
+    "target": 14
+  },
+  {
+    "methodName": "mutate",
+    "source": 8,
     "target": 12
+  },
+  {
+    "methodName": "clone",
+    "source": 9,
+    "target": 10
   },
   {
     "methodName": "mutate",
     "source": 9,
-    "target": 12
-  },
-  {
-    "methodName": "minus",
-    "source": 9,
-    "target": 1
+    "target": 11
   },
   {
     "methodName": "toString",
@@ -706,98 +721,58 @@ states:[
     "target": 12
   },
   {
-    "methodName": "mutate",
-    "source": 10,
-    "target": 14
-  },
-  {
-    "methodName": "add",
-    "source": 10,
-    "target": 10
+    "methodName": "divide",
+    "source": 9,
+    "target": 13
   },
   {
     "methodName": "divide",
     "source": 10,
-    "target": 10
-  },
-  {
-    "methodName": "multiply",
-    "source": 10,
-    "target": 7
-  },
-  {
-    "methodName": "clone",
-    "source": 10,
-    "target": 0
-  },
-  {
-    "methodName": "minus",
-    "source": 10,
-    "target": 5
-  },
-  {
-    "methodName": "minus",
-    "source": 11,
-    "target": 7
-  },
-  {
-    "methodName": "divide",
-    "source": 11,
-    "target": 6
-  },
-  {
-    "methodName": "add",
-    "source": 11,
-    "target": 4
-  },
-  {
-    "methodName": "clone",
-    "source": 11,
-    "target": 7
-  },
-  {
-    "methodName": "mutate",
-    "source": 11,
-    "target": 7
-  },
-  {
-    "methodName": "clone",
-    "source": 12,
-    "target": 8
-  },
-  {
-    "methodName": "multiply",
-    "source": 12,
-    "target": 5
-  },
-  {
-    "methodName": "clone",
-    "source": 13,
-    "target": 10
-  },
-  {
-    "methodName": "multiply",
-    "source": 13,
-    "target": 1
-  },
-  {
-    "methodName": "minus",
-    "source": 13,
     "target": 11
   },
   {
+    "methodName": "clone",
+    "source": 10,
+    "target": 13
+  },
+  {
+    "methodName": "mutate",
+    "source": 10,
+    "target": 12
+  },
+  {
+    "methodName": "toString",
+    "source": 11,
+    "target": 12
+  },
+  {
+    "methodName": "mutate",
+    "source": 11,
+    "target": 12
+  },
+  {
     "methodName": "divide",
+    "source": 11,
+    "target": 13
+  },
+  {
+    "methodName": "toString",
+    "source": 12,
+    "target": 13
+  },
+  {
+    "methodName": "add",
+    "source": 12,
+    "target": 14
+  },
+  {
+    "methodName": "clone",
     "source": 13,
-    "target": 0
+    "target": 14
   },
   {
     "methodName": "mutate",
     "source": 13,
-    "target": 1
-  },
-  {
-    "methodName": "clone",
-    "source": 14,
-    "target": 5
+    "target": 14
   }
 ]
