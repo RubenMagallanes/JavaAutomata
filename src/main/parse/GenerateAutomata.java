@@ -72,17 +72,17 @@ public class GenerateAutomata {
 				generateLink(methodNamesList, i, i+1);
 			}	
 			
-			//Creates a list of random indices from i+1 to the last
-			ArrayList<Integer> indexList = new ArrayList<Integer>();
-	        for (int ranIndex=i+1; ranIndex<numberOfStates; ranIndex++) {
-	            indexList.add(new Integer(ranIndex));
-	        }
-	        Collections.shuffle(indexList);
-	        
-	        //Adds a link from i to a random larger index
-	        for (int ind=0; ind<methodNamesList.size() && ind<indexList.size(); ind++) {
-	        	generateLink(methodNamesList, i, indexList.remove(ind));
-	        }						
+//			//Creates a list of random indices from i+1 to the last
+//			ArrayList<Integer> indexList = new ArrayList<Integer>();
+//	        for (int ranIndex=i+1; ranIndex<numberOfStates; ranIndex++) {
+//	            indexList.add(new Integer(ranIndex));
+//	        }
+//	        Collections.shuffle(indexList);
+//	        
+//	        //Adds a link from i to a random larger index
+//	        for (int ind=0; ind<methodNamesList.size() && ind<indexList.size(); ind++) {
+//	        	generateLink(methodNamesList, i, indexList.remove(ind));
+//	        }						
 		}		
 	}
 	
