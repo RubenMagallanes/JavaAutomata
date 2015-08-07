@@ -1,5 +1,7 @@
 package main.parse;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,19 +24,18 @@ public class GenerateAutomata {
 	private Map <String,String> fieldsToTypes;// map from fields to their types
 	
 	private int count;
-	Set<AutomataState> automatastates;
-	Set<AutomataLink> automatalinks;
+	private Set<AutomataState> automatastates;
+	private Set<AutomataLink> automatalinks;
 	
-	public GenerateAutomata(int count){
+	private String filename;
+	
+	
+	public GenerateAutomata(int count,String filename){
 		this.count = count;
 		this.automatastates = new LinkedHashSet<AutomataState>();
 		this.automatalinks = new LinkedHashSet<AutomataLink>();
 		this.fieldsToTypes = new HashMap<String, String>();
-		generateMap();
-
-		for(String k: fieldsToTypes.keySet()){
-			System.out.println(k + " : " + fieldsToTypes.get(k));
-		}		
+		this.filename = filename;
 		generate();
 	}
 	
@@ -44,15 +45,20 @@ public class GenerateAutomata {
 		for(int i = 0; i<count; i++){
 			automatastates.add(new AutomataState(generateFields(),i));
 		}
+		generateLinks();	
+		GeneralFormatToAutomata g = new GeneralFormatToAutomata(automatastates, automatalinks);	
+		String automata = g.parseAutomata();
+		System.out.println(automata);	
 		
-		
-			generateLinks();
-	
-		GeneralFormatToAutomata g = new GeneralFormatToAutomata(automatastates, automatalinks);		
-		System.out.println(g.parseAutomata());	
+		try {
+			PrintWriter out = new PrintWriter(filename);
+			out.println(automata);
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}		
 	}
-	
-	
+			
 	private void generateLinks() {
 		for(int i = 0; i<count; i++){
 			List<String> methodNamesList =  new ArrayList<String>(Arrays.asList(methodNames));
@@ -66,14 +72,14 @@ public class GenerateAutomata {
 		}		
 	}
 	
-	public void generateMap(){
+	private void generateMap(){
 		for(String names : fieldNames){
 			int index = (int) (Math.random()*types.length);
 			fieldsToTypes.put(names,types[index]);
 		}
 	}	
 	
-	public List<AutomataField> generateFields(){
+	private List<AutomataField> generateFields(){
 		List <AutomataField> f1 = new ArrayList<AutomataField>();		
 		for(String fieldName: fieldsToTypes.keySet()){
 			String type = fieldsToTypes.get(fieldName);
@@ -102,6 +108,6 @@ public class GenerateAutomata {
 	}
 
 	public static void main(String[] args) {
-		GenerateAutomata g = new GenerateAutomata(15);
+		GenerateAutomata g = new GenerateAutomata(15,"automata.json");
 	}
 }
