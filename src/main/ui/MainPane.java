@@ -1,6 +1,8 @@
 package main.ui;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,7 +16,7 @@ import javafx.stage.Stage;
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
-import main.util.DesktopApi;
+
 
 /**
  * First menu people see when loading the program.
@@ -24,13 +26,19 @@ import main.util.DesktopApi;
 public class MainPane extends GridPane {
 
 
-	private Browser b; // reference to the browser for javascript calls
+	//private Browser b; // reference to the browser for javascript calls
+	private int count;//number of browser windows currently open. 
+	Map<Integer, Browser> browserWindows = new HashMap<Integer, Browser>();//holds references to diff windows
+
+	
+	
 	private MenuPane parent;
 
 	/**
 	 * Constructs the menu Pane
 	 */
 	public MainPane(MenuPane parent) {
+		count = 0;
 		this.parent = parent;
 		setUpLoadMenu();
 		setUpSaveMenu();
@@ -132,7 +140,8 @@ public class MainPane extends GridPane {
 				// create new browser window
 				CreateBrowser cb = new CreateBrowser(); 
 				//grab reference to it so we can make jscript calls
-				b = cb.getReference();
+				Browser b = cb.getReference();
+				browserWindows.put(count++, b);				
 				//TODO ask which should have context - browser or main ui
 				//maybe have to save reference to cb / maybe have to add 
 				//b to arraylist of windows in the case of multiple windows
@@ -157,11 +166,15 @@ public class MainPane extends GridPane {
 		/**
 		 * creates a new Stage that contains a Scene that contains the Browser
 		 * that displays the visualization 
+		 * 
+		 * after browser creation, i don't think we need to save the references to the Scene 
+		 * or Stage, just the Browser (for calling script on it)
+		 * this may need to be changed in the future. 
 		 */
 		public CreateBrowser() {			
 			Stage stage = new Stage();
 			stage.setTitle("Visualization");
-			scene = new Scene(new Browser(),750,500, Color.web("#666970"));
+			scene = new Scene(new Browser(),800,800, Color.web("#666970"));
 			stage.setScene(scene);
 			stage.show();
 		}
