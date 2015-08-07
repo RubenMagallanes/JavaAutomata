@@ -73,16 +73,16 @@ public class GenerateAutomata {
 			}	
 			
 //			//Creates a list of random indices from i+1 to the last
-//			ArrayList<Integer> indexList = new ArrayList<Integer>();
-//	        for (int ranIndex=i+1; ranIndex<numberOfStates; ranIndex++) {
-//	            indexList.add(new Integer(ranIndex));
-//	        }
-//	        Collections.shuffle(indexList);
-//	        
-//	        //Adds a link from i to a random larger index
-//	        for (int ind=0; ind<methodNamesList.size() && ind<indexList.size(); ind++) {
-//	        	generateLink(methodNamesList, i, indexList.remove(ind));
-//	        }						
+			ArrayList<Integer> indexList = new ArrayList<Integer>();
+	        for (int ranIndex=i+1; ranIndex<numberOfStates; ranIndex++) {
+	            indexList.add(new Integer(ranIndex));
+	        }
+	        Collections.shuffle(indexList);
+	        
+	        //Adds a link from i to a random larger index
+	        for (int ind=0; ind<methodNamesList.size() && ind<indexList.size(); ind++) {
+	        	generateLink(methodNamesList, i, indexList.remove(ind));
+	        }						
 		}		
 	}
 	
@@ -113,7 +113,7 @@ public class GenerateAutomata {
 		List <AutomataField> f1 = new ArrayList<AutomataField>();		
 		for(String fieldName: fieldsToTypes.keySet()){
 			String type = fieldsToTypes.get(fieldName);
-			f1.add(new AutomataField(fieldName, type,generateRandomValue(type)));			
+			f1.add(new AutomataField(type, fieldName,generateRandomValue(type)));			
 		}		
 		return f1;		
 	}
@@ -148,7 +148,7 @@ public class GenerateAutomata {
 	 */
 	public static void main(String[] args) {
 		if(args.length<2){
-			GenerateAutomata g = new GenerateAutomata(15,"src/web/test/automata.json");
+			GenerateAutomata g = new GenerateAutomata(15,"src/web/test/automata3.json");
 		}
 		else{
 			GenerateAutomata g = new GenerateAutomata(Integer.parseInt(args[0]),args[1]);
