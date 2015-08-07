@@ -25,7 +25,7 @@ public class TestSimpleProgram {
 		this.jarPath = JarPathName;
 	}
 
-	public Trace[] run(String jarPath){
+	public Trace[] run(){
 		if(jarPath == null)return null;
 
 
