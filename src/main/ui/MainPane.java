@@ -23,6 +23,7 @@ import main.util.DesktopApi;
  */
 public class MainPane extends GridPane {
 
+	private Browser b; // reference to the browser for javascript calls
 	/**
 	 * Constructs the menu Pane
 	 */
@@ -34,36 +35,36 @@ public class MainPane extends GridPane {
 		setUpBrowserButton();
 		this.prefWidth(Double.MAX_VALUE);
 	}
+	//TODO remove this and add the functionality to another button
 	private void setUpBrowserButton(){
+		
 		Button btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Open visualization");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				new CreateBrowser();
+				CreateBrowser cb = new CreateBrowser();
+				b = cb.getReference();
 			}
 		});
 		this.add(btn, 0, 6);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	
+		btn = new Button();
+		btn.setMaxWidth(Double.MAX_VALUE);
+		btn.setText("change html");
+		btn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				b.toggleDisplay();
+			}
+		});
+		this.add(btn, 0, 7);
+		GridPane.setHgrow(btn, Priority.ALWAYS);
 	}
 	
-	private class CreateBrowser{			
-		private Scene scene;	
-		/**
-		 * creates a new Stage that contains a Scene that contains the Browser
-		 * that displays the visualization 
-		 */
-		public CreateBrowser() {			
-			Stage stage = new Stage();
-			stage.setTitle("Visualization");
-			scene = new Scene(new Browser(),750,500, Color.web("#666970"));
-			stage.setScene(scene);
-			//scene.getStylesheets().add("webviewsample/BrowserToolbar.css");        
-			stage.show();
-		}
-	}
+
 
 	/**
 	 * Sets up the button layout for the Load section of the pane.
@@ -158,5 +159,38 @@ public class MainPane extends GridPane {
 
 		});
 		this.add(btn, 0, 4);
+	}
+		
+	/**
+	 * Object that creates a new window containing a browser that is used to visualize
+	 * out data.
+	 * 
+	 * Use: just create a new CreateBrowser() and a new window will pop up in addition to 
+	 * the current javafx scene. 
+	 * to gain a reference to the browser in order to call javascript functions on it, 
+	 * use CreateBrowser.getReference() 
+	 * @author rj
+	 *
+	 */
+	private class CreateBrowser{
+		private Scene scene;	
+		/**
+		 * creates a new Stage that contains a Scene that contains the Browser
+		 * that displays the visualization 
+		 */
+		public CreateBrowser() {			
+			Stage stage = new Stage();
+			stage.setTitle("Visualization");
+			scene = new Scene(new Browser(),750,500, Color.web("#666970"));
+			stage.setScene(scene);
+			stage.show();
+		}
+		/**
+		 * returns a reference to the newly constructed browser
+		 * @return the Browser that  just got created.
+		 */
+		public Browser getReference(){
+			return (Browser) scene.getRoot();
+		}
 	}
 }
