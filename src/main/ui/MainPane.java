@@ -16,20 +16,26 @@ import javafx.stage.Stage;
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
-
+import main.tracer.TestSimpleProgram;
+import main.tracer.Trace;
+import main.tracer.TraceManager;
 
 /**
  * First menu people see when loading the program.
+ *
  * @author brewershan
  *
  */
 public class MainPane extends GridPane {
 
+	// private Browser b; // reference to the browser for javascript calls
+	private int count;// number of browser windows currently open.
+	Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();// holds
+																					// references
+																					// to
+																					// diff
+																					// windows
 
-	//private Browser b; // reference to the browser for javascript calls
-	private int count;//number of browser windows currently open. 
-	Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();//holds references to diff windows
-	
 	private MenuPane parent;
 
 	/**
@@ -41,7 +47,7 @@ public class MainPane extends GridPane {
 		setUpLoadMenu();
 		setUpSaveMenu();
 		setUpViewMenu();
-		
+
 		this.prefWidth(Double.MAX_VALUE);
 	}
 
@@ -68,8 +74,8 @@ public class MainPane extends GridPane {
 					loadDisplay.setText(file.getName());
 					JarData jarData = JarLoader.loadJarFile(file);
 					Main.setJarData(jarData);
-					//System.out.println(parent);
-					//System.out.println(parent.getSelectionPane());
+					// System.out.println(parent);
+					// System.out.println(parent.getSelectionPane());
 					parent.getSelectionPane().makeNewTree();
 				} else {
 					loadDisplay.setText("");
@@ -94,6 +100,24 @@ public class MainPane extends GridPane {
 			}
 		});
 		this.add(btn, 0, 1);
+		GridPane.setHgrow(btn, Priority.ALWAYS);
+
+		btn = new Button();
+		btn.setMaxWidth(Double.MAX_VALUE);
+		btn.setText("Run Trace");
+		btn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				TestSimpleProgram tracer = new TestSimpleProgram(Main
+						.getJarData().getFile().getAbsolutePath());
+				Trace[] tr = tracer.run();
+				TraceManager manager = new TraceManager(tr);
+				Main.setManager(manager);
+				manager.traceToFile("", "timmy");
+			}
+		});
+		this.add(btn, 1, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
@@ -136,14 +160,16 @@ public class MainPane extends GridPane {
 			@Override
 			public void handle(ActionEvent e) {
 				// create new browser window
+
 				BrowserBox bb = new BrowserBox();			
 				browserWindows.put(count++, bb);// add cb to hash map	
 			}
 		});
 		this.add(btn, 0, 4);
 	}
-		
+
 	/**
+<<<<<<< HEAD
 	 * Object that creates a new window containing a browser that is used to visualize
 	 * out data.
 	 * 
@@ -153,43 +179,64 @@ public class MainPane extends GridPane {
 	 * 
 	 * usage: Object ret = BrowserBox.Browser().executeScript("var a = function (){return 'hello world';};a();");
 	 *ret is the object returned by the javascript function
+=======
+	 * Object that creates a new window containing a browser that is used to
+	 * visualize out data.
+	 *
+	 * Use: just create a new BrowserBox() and a new window will pop up in
+	 * addition to the current javafx scene. use Browser() to get the browser
+	 * associated so you can make javascript calls on it
+	 *
+>>>>>>> 5edcb9337ae976150cd87b1258f7207858dc4883
 	 * @author rj
 	 *
 	 */
-	private class BrowserBox{
-		private Scene scene;	//(Browser) scene for calls to page//TODO make geters and setters
-		private Stage stage; // for calls to the java- bits 
+	private class BrowserBox {
+		private Scene scene; // (Browser) scene for calls to page//TODO make
+								// geters and setters
+		private Stage stage; // for calls to the java- bits
+
 		/**
 		 * creates a new Stage that contains a Scene that contains the Browser
-		 * that displays the visualization 
-		 * 
-		 * after browser creation, i don't think we need to save the references to the Scene 
-		 * or Stage, just the Browser (for calling script on it)
-		 * this may need to be changed in the future. 
+		 * that displays the visualization
+		 *
+		 * after browser creation, i don't think we need to save the references
+		 * to the Scene or Stage, just the Browser (for calling script on it)
+		 * this may need to be changed in the future.
 		 */
+<<<<<<< HEAD
 		public BrowserBox() {	
 			scene = new Scene(new Browser(),700,700, Color.web("#666970"));			
+=======
+		public BrowserBox() {
+			scene = new Scene(new Browser(), 700, 700, Color.web("#666970"));
+
+>>>>>>> 5edcb9337ae976150cd87b1258f7207858dc4883
 			stage = new Stage();
-			stage.setTitle("Visualization");			
+			stage.setTitle("Visualization");
 			stage.setScene(scene);
-			stage.show();		
+			stage.show();
 		}
+
 		/**
 		 * returns a reference to the newly constructed browser
-		 * @return the Browser that  just got created.
+		 *
+		 * @return the Browser that just got created.
 		 */
-		/*public Browser getReference(){
-			return (Browser) scene.getRoot();
-		}*/
-	
+		/*
+		 * public Browser getReference(){ return (Browser) scene.getRoot(); }
+		 */
+
 		/**
 		 * returns reference to Browser so you can mkae javascript calls to it
+		 *
 		 * @return the Browser in this scene
 		 */
-		public Browser Browser(){
+		public Browser Browser() {
 			return (Browser) scene.getRoot();
 		}
-		public Stage Stage(){
+
+		public Stage Stage() {
 			return stage;
 		}
 	}

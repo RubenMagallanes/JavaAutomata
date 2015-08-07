@@ -17,7 +17,6 @@ import java.util.jar.Attributes.Name;
 
 public class TestSimpleProgram {
 
-	private boolean DEBUG = true;
 	private String jarPath;
 	private List<ExecutionData> executions = new ArrayList<ExecutionData>(Arrays.asList(new ExecutionData()));
 
@@ -26,7 +25,7 @@ public class TestSimpleProgram {
 		this.jarPath = JarPathName;
 	}
 
-	public Trace[] run(String jarPath){
+	public Trace[] run(){
 		if(jarPath == null)return null;
 
 
@@ -159,20 +158,10 @@ private TraceFilter getSelectionFilter() {
 
 
 		TestSimpleProgram t = new TestSimpleProgram(jar);
-		Trace[] tr  = t.run(jar);
+		Trace[] tr  = t.run();
 	//	tr[0].applyFilter(TemmpFilter);
 		//System.out.println(tr[0]);
 		tr[0].constructJSONFile("test");
-
-		//System.out.print(new TraceStringUtil(tr).getMethods());
-		//System.out.print(new TraceStringUtil(tr).getFields());
-		//System.out.println(new TraceStringUtil(tr).methodEntryEvent());
-		//System.out.println(new TraceStringUtil(tr).methodExitEvent());
-
-
-
-
-
 	}
 
 	private class TestThread extends Thread{
@@ -251,6 +240,4 @@ private TraceFilter getSelectionFilter() {
 
 		public Trace[] getTraces(){return this.traces;}
 	}
-
-
 }
