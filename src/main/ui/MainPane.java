@@ -126,6 +126,9 @@ public class MainPane extends GridPane {
 				CreateBrowser cb = new CreateBrowser(); 
 				//grab reference to it so we can make jscript calls
 				b = cb.getReference();
+				//TODO ask which should have context - browser or main ui
+				//maybe have to save reference to cb / maybe have to add 
+				//b to arraylist of windows in the case of multiple windows
 			}
 		});
 		this.add(btn, 0, 4);
