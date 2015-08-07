@@ -9,7 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class GUIFrame extends Application{
-
+	
+	
 	private Stage primaryStage;
 
 	@Override
