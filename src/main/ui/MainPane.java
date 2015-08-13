@@ -140,7 +140,10 @@ public class MainPane extends GridPane {
 			@Override
 			public void handle(ActionEvent e) {
 				String fileName = loadDisplay.getText();
-				// TODO: Set up Trace saving.
+				if (fileName.equals("")){}
+				else {
+					Main.getManager().traceToFile("data/traces/", fileName);
+				}
 				System.out.println(fileName + " TODO: Trace Saveing");
 			}
 
