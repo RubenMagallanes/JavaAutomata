@@ -30,7 +30,9 @@ public class TraceFilterSelector {
 	 * @param list of methods to filter
 	 * */
 	public void addMethodsToFilter(List<String> methodNamesToFilter){
+		System.out.println("Filtering method");
 		for(String s : methodNamesToFilter){
+			System.out.println("Filtering : "+s);
 			this.methodNames.add(s);
 		}
 		updateFilter();
@@ -107,6 +109,7 @@ public class TraceFilterSelector {
 
 			@Override
 			public boolean isMethodTraced(MethodKey m) {
+				//System.out.println("Method name : "+m);
 				for(String s : methodNames){
 					if(m.name.equals(s))return true;
 				}

@@ -153,8 +153,10 @@ public class Tracer {
 									TraceEntry te = new TraceEntry();
 									te.method = new MethodKey(event2.method());
 
-									if(_this == null)
-										te.state = null;
+									if(_this == null){
+
+									}
+										//te.state = null;
 									else{
 										te.state = valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
 
