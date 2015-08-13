@@ -62,4 +62,8 @@ public class AutomataLink {
 	public int getTarget(){
 		return target;
 	}
+
+	public String toString(){
+		return "Link: { Method Name = " + methodName + ", sourceID = " + source + ", targetID = " + target + "}";
+	}
 }
