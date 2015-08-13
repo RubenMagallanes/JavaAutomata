@@ -17,14 +17,13 @@ public class GeneralFormatToAutomata {
 	/**
 	 * Converts the general format of the trace to a json which can be used to draw an automata
 	 * This includes the methods and fields parameter which filters which ones the user wants to display
-	 * @param states
-	 * @param links
+	 * @param auto
 	 * @param methods
 	 * @param fields
 	 */
-	public GeneralFormatToAutomata(Set<AutomataState> states, Set<AutomataLink> links,List<String> methods, List<String> fields){
-		this.states = states;
-		this.links = links;
+	public GeneralFormatToAutomata(Automata auto,List<String> methods, List<String> fields){
+		this.states = auto.getStates();
+		this.links = auto.getLinks();	
 		this.methods = methods;
 		this.fields = fields;
 		filter();		
@@ -32,13 +31,12 @@ public class GeneralFormatToAutomata {
 	
 	/**
 	 * Converts the general format of the trace to a json which can be used to draw an automata
-	 * @param states
-	 * @param links
+	 * @param auto
 	 */
-	public GeneralFormatToAutomata(Set<AutomataState> states, Set<AutomataLink> links){
-		this.states = states;
-		this.links = links;	
-	}
+	public GeneralFormatToAutomata(Automata auto){
+		this.states = auto.getStates();
+		this.links = auto.getLinks();	
+	}	
 	
 	private void filter(){
 		for(AutomataState s: states){
@@ -49,8 +47,7 @@ public class GeneralFormatToAutomata {
 				if(!fields.contains(currentfield.getName())){
 					removefields.add(currentfield);
 				}
-			}
-			
+			}			
 			currentfields.removeAll(removefields);
 		}
 		

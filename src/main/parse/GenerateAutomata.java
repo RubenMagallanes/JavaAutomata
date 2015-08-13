@@ -101,8 +101,6 @@ public class GenerateAutomata {
 			int index = (int) (Math.random()*types.length);
 			fieldsToTypes.put(names,types[index]);
 		}
-		
-
 	}	
 	
 	/**
