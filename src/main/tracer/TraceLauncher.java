@@ -15,13 +15,13 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.jar.Attributes.Name;
 
-public class TestSimpleProgram {
+public class TraceLauncher {
 
 	private String jarPath;
 	private List<ExecutionData> executions = new ArrayList<ExecutionData>(Arrays.asList(new ExecutionData()));
 
 
-	public TestSimpleProgram(String JarPathName){
+	public TraceLauncher(String JarPathName){
 		this.jarPath = JarPathName;
 	}
 
@@ -157,7 +157,7 @@ private TraceFilter getSelectionFilter() {
 //		};
 
 
-		TestSimpleProgram t = new TestSimpleProgram(jar);
+		TraceLauncher t = new TraceLauncher(jar);
 		Trace[] tr  = t.run();
 	//	tr[0].applyFilter(TemmpFilter);
 		//System.out.println(tr[0]);
