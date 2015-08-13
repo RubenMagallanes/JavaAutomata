@@ -61,4 +61,8 @@ public class AutomataField {
 		return value;
 	}
 
+	public String toString(){
+		return "{ type = " + type + ", name = " + name + ", value = " + value + "}";
+	}
+
 }
