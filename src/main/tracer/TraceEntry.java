@@ -62,7 +62,7 @@ public class TraceEntry implements Serializable{
 			string += stateToText(state);
 		}
 		else{
-			string += "\n";
+			string += "      \"state\": {},\n";
 		}
 
 		/*if(arguments !=null){
