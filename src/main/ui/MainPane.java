@@ -16,6 +16,9 @@ import javafx.stage.Stage;
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
+import main.parse.Automata;
+import main.parse.GeneralFormatToAutomata;
+import main.parse.JSONToAutomata;
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
@@ -121,6 +124,8 @@ public class MainPane extends GridPane {
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
+	
+	//convertTraceToJson() TODO
 
 	/**
 	 * Sets up the Save section of the menu
@@ -162,10 +167,19 @@ public class MainPane extends GridPane {
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				//grab the traces 
+				File f = new File("path");//TODO
+				Automata auto = JSONToAutomata.generateAutomata(f);
 				// create new browser window
-
+				
+				 GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
+				
+				//pass data into browser widnow\
+				//automata.viz.init(a, );javascript call in browser
 				BrowserBox bb = new BrowserBox();
 				browserWindows.put(count++, bb);// add cb to hash map
+				bb.Browser().executeScript("automata.viz.init(a)");//TODO chekc this workss
+		
 			}
 		});
 		this.add(btn, 0, 4);
@@ -195,8 +209,7 @@ public class MainPane extends GridPane {
 	 *
 	 */
 	private class BrowserBox {
-		private Scene scene; // (Browser) scene for calls to page//TODO make
-								// geters and setters
+		private Scene scene; // (Browser) scene for calls to page
 		private Stage stage; // for calls to the java- bits
 
 		/**
