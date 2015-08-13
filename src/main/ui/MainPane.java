@@ -169,17 +169,15 @@ public class MainPane extends GridPane {
 			@Override
 			public void handle(ActionEvent e) {
 				//grab the traces 
-				File f = new File("path");//TODO
+				File f = new File("data/traces/test.json");//TODO
 				Automata auto = JSONToAutomata.generateAutomata(f);
-				// create new browser window
+				GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
+				String json = g.parseAutomata();
 				
-				 GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
-				
-				//pass data into browser widnow\
-				//automata.viz.init(a, );javascript call in browser
 				BrowserBox bb = new BrowserBox();
 				browserWindows.put(count++, bb);// add cb to hash map
-				bb.Browser().executeScript("automata.viz.init(a)");//TODO chekc this workss
+				String arg = "automata.viz.init(" + json + ")";
+				bb.Browser().executeScript(arg);//TODO check this works
 		
 			}
 		});
