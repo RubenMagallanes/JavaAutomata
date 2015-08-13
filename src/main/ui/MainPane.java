@@ -115,6 +115,7 @@ public class MainPane extends GridPane {
 				TraceLauncher tracer = new TraceLauncher(Main
 						.getJarData().getFile().getAbsolutePath());
 				Trace[] tr = tracer.run();
+				System.out.println(tr == null);
 				TraceManager manager = new TraceManager(tr);
 				Main.setManager(manager);
 				manager.traceToFile("", "timmy");

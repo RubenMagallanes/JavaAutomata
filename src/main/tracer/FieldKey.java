@@ -27,8 +27,6 @@ public final class FieldKey implements Serializable {
 
 	public FieldKey(com.sun.jdi.Field field) {
 		this(field.declaringType().name(), field.name());
-		System.out.println("Printing Field : " + field);
-
 	}
 
 	@Override
