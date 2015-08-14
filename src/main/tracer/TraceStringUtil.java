@@ -15,26 +15,34 @@ public class TraceStringUtil {
 	/**
 	 * Returns all of the fields of the program traced
 	 * */
-	public String getMethods(){
-		//the string to return
-		String methodNames  = "Methods: \n";
+	public Set<String> getCompareMethods(){
 
 		//the set of method names
 		Set<String> methods = new HashSet<>();
 
+		//place the names in set to remove duplicates
+		for(Trace t : traces){
+			for(TraceEntry te : t.getLines()){
+				methods.add(te.getMethodName());
+
+			}
+		}
+
+		return methods;
+	}
+
+	public Set<String> getDisplayMethods(){
+		//the set of method names
+		Set<String> methods = new HashSet<>();
 
 		//place the names in set to remove duplicates
 		for(Trace t : traces){
 			for(TraceEntry te : t.getLines()){
-				methods.add(te.getLongMethodName());
+				methods.add(te.method.name);
 			}
 		}
 
-		//add each of the unique method names to the string
-		for(String s : methods){
-				methodNames += "\t " + s + "\n";
-		}
-		return methodNames;
+		return methods;
 	}
 
 
@@ -81,7 +89,6 @@ public class TraceStringUtil {
 						if(!te.isReturn)methods.add(te.getLongMethodName());
 					}
 				}
-
 				//add each of the unique method names to the string
 				for(String s : methods){
 						entryEvents += "\t " + s + "\n";

@@ -3,9 +3,11 @@ package main.tracer;
 import java.io.File;
 import java.io.IOException;
 
+import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
 import main.tracer.ExecutionData;
+import main.ui.JarFileChooser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,29 +67,6 @@ public class TraceLauncher {
 		return thread.getTraces();
 	}
 
-/**
- * Called after a set of traces is either traced, or loaded from a file.
- *
- * @param traces
- *            The traces.
- * @param algorithm
- *            The algorithm to use.
- */
-//private void processTraces(Trace[] traces) throws IOException, InterruptedException {
-//
-//	for (int i = 0; i < traces.length; i++) {
-//		for(int j = 0; j < traces[i].getLines().size(); j++){
-//
-//			if(!traces[i].getLines().isEmpty()){
-//
-//				for(TraceEntry s : traces[i].getLines()){
-//					//System.out.println(s);
-//				}
-//
-//			}
-//		}
-//	}
-//}
 
 	private class TestThread extends Thread{
 
@@ -155,14 +134,52 @@ public class TraceLauncher {
 					e.printStackTrace();
 				}
 			}
-
-//			try {
-//				//processTraces(traces);
-//			} catch (IOException | InterruptedException e) {
-//				e.printStackTrace();
-//			}
 		}
 
 		public Trace[] getTraces(){return this.traces;}
+	}
+
+	public static void main(String[] args){
+		File file = new File("data/tests/TestProgram2.jar");
+
+
+		JarData jarData = JarLoader.loadJarFile(file);
+
+
+		TraceLauncher tracer = new TraceLauncher(jarData.getFile().getAbsolutePath());
+		Trace[] tr = tracer.run();
+
+		TraceManager trm = new TraceManager(tr);
+
+		TraceStringUtil tu = new TraceStringUtil(tr);
+
+		for(String s : tu.getCompareMethods()){
+			System.out.println("From util"+s);
+		}
+
+
+		TraceFilterSelector trs = new TraceFilterSelector();
+
+
+		List<String> methodTofilter = new ArrayList<>();
+
+		methodTofilter.add("bob");
+		methodTofilter.add("bob");
+		
+		
+		trs.addMethodsToFilter(methodTofilter);
+
+		trm.applyFilter(trs.getFilter());
+
+
+
+
+
+
+
+
+		TraceManager manager = new TraceManager(tr);
+
+
 	}
 }

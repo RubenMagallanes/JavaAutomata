@@ -8,8 +8,10 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import main.tracer.FieldKey;
+import main.tracer.MethodKey;
 import main.tracer.TraceFilter;
 
 public class ObjectState extends State {
@@ -19,7 +21,8 @@ public class ObjectState extends State {
 	// fields
 	@SuppressWarnings("unused")
 	private String className;
-	public Map<FieldKey, State> fields = new HashMap<>();
+	private Map<FieldKey, State> fields = new HashMap<>();
+	private Map<FieldKey, State> origonalFields = new HashMap<>();
 
 	public ObjectState(String className) {
 		this.className = className;
@@ -37,7 +40,7 @@ public class ObjectState extends State {
 
 		StringBuilder result = new StringBuilder();
 		result.append("\"state\": {");
-		List<FieldKey> sortedFields = new ArrayList<FieldKey>(fields.keySet());
+		List<FieldKey> sortedFields = new ArrayList<FieldKey>(getFields().keySet());
 		Collections.sort(sortedFields, new Comparator<FieldKey>() {
 			@Override
 			public int compare(FieldKey o1, FieldKey o2) {
@@ -67,13 +70,21 @@ public class ObjectState extends State {
 
 	@Override
 	public void filterFields(TraceFilter f) {
-		Iterator<Map.Entry<FieldKey, State>> it = fields.entrySet().iterator();
-		while(it.hasNext()) {
-			Map.Entry<FieldKey, State> entry = it.next();
-			if(!f.isFieldTraced(entry.getKey()))
-				it.remove();
-			else
-				entry.getValue().filterFields(f);
+		//System.out.println(origonalFields);
+		fields.clear();
+		for (Map.Entry<FieldKey, State> m : origonalFields.entrySet()){
+			fields.put(m.getKey(), m.getValue());
+		}
+		ArrayList<Map.Entry<FieldKey, State>> array = new ArrayList<>(getFields().entrySet());
+
+		for(int i = 0; i < array.size(); i++){
+			if(!f.isFieldTraced(array.get(i).getKey())){
+				System.out.println(array.get(i).getKey());
+				fields.remove(array.get(i).getKey());//new
+			}
+			else {
+				array.get(i).getValue().filterFields(f);
+			}
 		}
 	}
 
@@ -84,10 +95,21 @@ public class ObjectState extends State {
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof ObjectState && ((ObjectState)obj).fields.equals(fields);
+		return obj instanceof ObjectState && ((ObjectState)obj).getFields().equals(getFields());
 	}
 
 	public String getClassName() {
 		return className;
+	}
+
+	public Map<FieldKey, State> getFields() {
+		return fields;
+	}
+
+	public void setFields(Map<FieldKey, State> fields) {
+		for (Map.Entry<FieldKey, State> m : fields.entrySet()){
+			origonalFields.put(m.getKey(), m.getValue());
+		}
+		this.fields = fields;
 	}
 }

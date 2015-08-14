@@ -113,7 +113,6 @@ public class MainPane extends GridPane {
 				System.out.println(tr == null);
 				TraceManager manager = new TraceManager(tr);
 				Main.setManager(manager);
-				manager.traceToFile("", "timmy");
 			}
 		});
 		this.add(btn, 1, 1);

@@ -11,10 +11,10 @@ public class TraceFilterSelector {
 	TraceFilter customFilter;
 
 	//filtered items
-	private ArrayList<String> fieldNames;
-	private ArrayList<String> methodNames;
-	private ArrayList<String> paramatersNames;
-	private ArrayList<String> classNames;
+	private List<String> fieldNames;
+	private List<String> methodNames;
+	private List<String> paramatersNames;
+	private List<String> classNames;
 
 
 	public TraceFilterSelector(){
@@ -22,6 +22,8 @@ public class TraceFilterSelector {
 		this.methodNames = new ArrayList<>();
 		this.paramatersNames= new ArrayList<>();
 		this.classNames = new ArrayList<>();
+
+		updateFilter();
 	}
 
 	/**
@@ -30,12 +32,14 @@ public class TraceFilterSelector {
 	 * @param list of methods to filter
 	 * */
 	public void addMethodsToFilter(List<String> methodNamesToFilter){
-		System.out.println("Filtering method");
+
 		for(String s : methodNamesToFilter){
-			System.out.println("Filtering : "+s);
+			System.out.println("Passed in " + s);
 			this.methodNames.add(s);
+
 		}
-		updateFilter();
+
+		System.out.println("After " +methodNames.size());
 	}
 
 
@@ -45,10 +49,13 @@ public class TraceFilterSelector {
 	 * @param list of fields to filter
 	 * */
 	public void addFieldToFilter(List<String> fieldNamesToFilter){
+
 		for(String s : fieldNamesToFilter){
 			this.fieldNames.add(s);
+			updateFilter();
 		}
-		updateFilter();
+
+
 	}
 
 
@@ -60,8 +67,8 @@ public class TraceFilterSelector {
 	public void addClassToFilter(List<String> classNamesToFilter){
 		for(String s : classNamesToFilter){
 			this.classNames.add(s);
+			updateFilter();
 		}
-		updateFilter();
 	}
 
 
@@ -70,7 +77,7 @@ public class TraceFilterSelector {
 	 * */
 	public void clearMethods(){
 		methodNames.clear();
-		updateFilter();
+		//updateFilter();
 	}
 
 
@@ -79,7 +86,7 @@ public class TraceFilterSelector {
 	 * */
 	public void clearClasses(){
 		classNames.clear();
-		updateFilter();
+		//updateFilter();
 	}
 
 	/**
@@ -87,7 +94,7 @@ public class TraceFilterSelector {
 	 * */
 	public void clearFields(){
 		fieldNames.clear();
-		updateFilter();
+		//updateFilter();
 	}
 
 
@@ -109,9 +116,12 @@ public class TraceFilterSelector {
 
 			@Override
 			public boolean isMethodTraced(MethodKey m) {
-				//System.out.println("Method name : "+m);
 				for(String s : methodNames){
-					if(m.name.equals(s))return true;
+					System.out.println("Checking Traced " +s);
+					if(m.name.equals(s)){
+						System.out.println("Traced = " + s);
+						return true;
+					}
 				}
 				return false;
 			}
@@ -124,6 +134,8 @@ public class TraceFilterSelector {
 				return false;
 			}
 		};
+
+		printFilter();
 	}
 
 
@@ -132,5 +144,19 @@ public class TraceFilterSelector {
 	 * */
 	public TraceFilter getFilter(){
 		return this.customFilter;
+	}
+
+	public void printFilter(){
+		System.out.println("Printing Filter");
+
+		for(String m : methodNames){
+			System.out.println(m);
+		}
+
+		for(String c : classNames){
+			System.out.println(c);
+		}
+
+		System.out.println("Finished Printing Filter");
 	}
 }
