@@ -6,31 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
-import javafx.concurrent.Worker.State;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.paint.Color;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
-import main.parse.Automata;
-import main.parse.GeneralFormatToAutomata;
-import main.parse.JSONToAutomata;
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
-import netscape.javascript.JSObject;
 
 /**
  * First menu people see when loading the program.
