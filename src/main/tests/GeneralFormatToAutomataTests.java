@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import main.parse.Automata;
 import main.parse.AutomataField;
 import main.parse.AutomataLink;
 import main.parse.AutomataState;
@@ -39,7 +40,7 @@ public class GeneralFormatToAutomataTests {
 		automatalinks.add(l);
 		automatalinks.add(l);		
 		
-		GeneralFormatToAutomata g = new GeneralFormatToAutomata(automatastates, automatalinks);		
+		GeneralFormatToAutomata g = new GeneralFormatToAutomata(new Automata(automatastates, automatalinks));		
 //		System.out.println(g.parseAutomata());	
 	}
 	
@@ -77,7 +78,7 @@ public class GeneralFormatToAutomataTests {
 		List<String> fields = new ArrayList<String>();
 		fields.add("count");
 		
-		GeneralFormatToAutomata g = new GeneralFormatToAutomata(automatastates, automatalinks, methods, fields);		
+		GeneralFormatToAutomata g = new GeneralFormatToAutomata(new Automata(automatastates, automatalinks), methods, fields);		
 		System.out.println(g.parseAutomata());		
 	}
 }
