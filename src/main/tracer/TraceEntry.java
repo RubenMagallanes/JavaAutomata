@@ -59,7 +59,7 @@ public class TraceEntry implements Serializable{
 		String string = isEntry + "      \"methodName\": \"" + method.toString().substring(5) + "\"";
 		if(state != null){
 			string += ",\n";
-			string += stateToText(state);
+			string += state;
 		}
 		else{
 			string += ",\n      \"state\": {}\n";
@@ -82,7 +82,7 @@ public class TraceEntry implements Serializable{
 
 	private String stateToText(State state){
 		String string = "      \"state\": {\n";
-
+		System.out.println(state);
 		String[] data = state.toString().substring(1, state.toString().length() - 1).split(",");
 		for(int i = 0; i < data.length; i++){
 			String[] temp = data[i].split(" ", 2);
