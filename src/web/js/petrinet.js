@@ -1,13 +1,11 @@
 "use strict";
-
 // based on d3 force layout example:
 // http://bl.ocks.org/mbostock/1153292
 (function (self){
 
-    var states, // nodes bound to program states
-        links, // links bound to state transitions
-        varsChosen = [], // variables to be shown
-        funcsChosen = [], // functions to be shown
+    var places, // nodes bound to field states
+        methods, // boxes which represent methods
+        links, // links bound to transitions between places and methods
         svg; // the svg element to draw viz on
 
     // force layout
@@ -22,38 +20,33 @@
 
     self.getLinks = function() { return links; }
 
-    // initialise the layout with data
-    self.init = function (data, _svg){
-        states = data.states;
-        links = data.links;
+    self.setSvg = function(_svg){
         svg = _svg;
+    }
+    // initialise the layout with data
+    self.init = function (dataStr){
+        var data = JSON.parse(dataStr);
+        convertToPetriData(data);
 
-        //setChosenNames();
-
-    	force.nodes(states);
-        force.links(links);
-
-        var node = svg.selectAll(".state")
-            .data(states)
+        var node = svg.selectAll(".place")
+            .data(places)
              .enter().append("g")
-            .attr("class", "state")
+            .attr("class", "place")
             .attr("id", function (d, i){
-                return "state-" + i;
-            })
-            .on("mouseenter", selectState)
-            .on("mouseout", deselectState);
+                return "place-" + i;
+            });
 
         node.append("circle")
-            .attr("class", "state-circle")
+            .attr("class", "place-circle")
             .attr("id", function (d, i){
-                return "state-circle-" + i;
+                return "place-circle-" + i;
             })
             .attr("r", circleRad)
             .style("fill", function (d, i){
                 return colour(i);
             })
 
-        // build the arrow.
+        // build the arrowhead for lines.
         svg.append("defs")
              .append("marker")
             .attr("id", "end")
@@ -77,15 +70,10 @@
             .attr("marker-end", "url(#end)")
             .on("end");
 
-        //setTimeout(self.showMethodNames, 10);
-        self.showMethodNames();
-
         force.on("tick", function (){
             node.attr("transform", transform)
             link.select(".line").attr("d", linkArc);
         });
-
-        //force.linkDistance(100);
 
         // updates a curved link
         function linkArc(d) {
@@ -101,79 +89,34 @@
             return "translate(" + d.x + "," + d.y + ")";
         }
 
-
         node.call(force.drag);
         force.start();
     }
 
-    // adds all func and var names to funcsChosen and varsChosen respectively
-    function setChosenNames(){
-        links.forEach(function (d){
-            funcsChosen.push(d.methodName);
-        });
+    function convertToPetriData(data){
+        places = [];
+        var fields = [];
 
-        // adds all variable names (that appear in states) to varsChosen
-        states[0].fields.forEach(function (d){
-            varsChosen.push(methodName);
+        data.links.forEach(function (link) {
+
         });
     }
 
     // update the layout data
     self.updateData = function (data) {
-        states = data.states;
-        links = data.links;
+        convertToPetriData(data);
 
-        force.nodes(states);
+        force.nodes(places);
         force.links(links);
 
         // should start?
         force.start();
     };
 
-    self.showMethodNames = function (){
-        svg.selectAll(".link")
-             .append("text")
-            .style("text-anchor", "middle")
-             .attr("dy", 4)
-             .append("textPath")
-            .attr("xlink:href", function(d, i) { console.log(d); return "#link-" + d.source + "-" + d.target; })
-            .attr("class", "label")
-            .attr("startOffset", "50%")
-            .text(function (d) { return d.methodName; });
-    };
-
-    self.hideFunctionNames = function (){
-        svg.selectAll(".label").remove();
-    };
-
-    function selectState(d){
-        //d3.select(this).select("circle").transition()
-            //.attr("r", circleRad*2)
-            //.ease("cubic-out")
-            //.duration(200);
-
+    function selectPlace(d){
         d3.select("#state-info")
             .attr("visibility", "visible")
             .html(function() { return stateInfo(d); });
     }
 
-    // return state info as a string
-    function stateInfo(state){
-        var str = "";
-        state.fields.forEach(function (field) {
-            str += field.name + ": " + field.value;
-            str += "<br>"
-        });
-        return str;
-    }
-
-    function deselectState(d){
-        //d3.select(this).select("circle").transition()
-            //.attr("r", circleRad)
-            //.ease("cubic-out")
-            //.duration(200);
-
-        d3.select("state-info").attr("visibiliy", "hidden");
-    }
-
-})(automata.viz = automata.viz || {})
+})(viz.petri = viz.petri || {})

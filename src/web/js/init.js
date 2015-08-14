@@ -1,1 +1,1 @@
-var automata = {};
+var viz = {};

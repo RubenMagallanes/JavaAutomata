@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
  * @author campbealex2
  */
 public final class FieldKey implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	public final String className;
@@ -21,7 +22,6 @@ public final class FieldKey implements Serializable {
 	}
 
 	public FieldKey(Field field) {
-
 		this(field.getDeclaringClass().getName(), field.getName());
 	}
 

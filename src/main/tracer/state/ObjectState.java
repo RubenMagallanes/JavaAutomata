@@ -13,28 +13,30 @@ import main.tracer.FieldKey;
 import main.tracer.TraceFilter;
 
 public class ObjectState extends State {
+
 	private static final long serialVersionUID = 1L;
 
+	// fields
 	@SuppressWarnings("unused")
 	private String className;
+	public Map<FieldKey, State> fields = new HashMap<>();
+
 	public ObjectState(String className) {
 		this.className = className;
 	}
 
-	public Map<FieldKey, State> fields = new HashMap<>();
-
-	@Override
 	public String toString() {
 		return toString(new IdentityHashMap<State, String>());
 	}
 
 	public String toString(Map<State, String> alreadySeenObjects) {
-		if(alreadySeenObjects.containsKey(this))
+		if(alreadySeenObjects.containsKey(this)){
 			return alreadySeenObjects.get(this);
+		}
 		alreadySeenObjects.put(this, "OBJ"+alreadySeenObjects.size());
 
 		StringBuilder result = new StringBuilder();
-		result.append('{');
+		result.append("\"state\": {");
 		List<FieldKey> sortedFields = new ArrayList<FieldKey>(fields.keySet());
 		Collections.sort(sortedFields, new Comparator<FieldKey>() {
 			@Override
@@ -44,14 +46,27 @@ public class ObjectState extends State {
 		});
 
 		boolean first = true;
+		/*for(int i = 0; i < sortedFields.size(); i++){
+			result.append("\""+ sortedFields.get(i).name +"\": ");
+			State value = fields.get(sortedFields.get(i).name);
+			result.append("\"" + value.toString(alreadySeenObjects) + "\"");
+			if(i != sortedFields.size() - 1){
+				result.append(", ");
+			}
+		}*/
+
 		for(FieldKey fk : sortedFields) {
-			if(first) first = false;
-			else result.append(',');
+			if(first){
+				first = false;
+			}
+			else{
+				result.append(',');
+			}
+
 			State value = fields.get(fk);
-			result.append(fk.className);
-			result.append(" ");
-			result.append(fk.name);
-			result.append('=');
+			//result.append(fk.className);
+			//result.append(" ");
+			result.append("\"" + fk.name + "\": ");
 			result.append(value.toString(alreadySeenObjects));
 		}
 		result.append('}');
@@ -84,5 +99,4 @@ public class ObjectState extends State {
 	public String getClassName() {
 		return className;
 	}
-
 }
