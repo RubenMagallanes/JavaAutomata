@@ -174,7 +174,7 @@ public class MainPane extends GridPane {
 				 * g.parseAutomata();
 				 */
 				
-				File fi = new File("src/web/test/linearAutomata.json");
+				File fi = new File("src/web/test/automata1.json");
 				Scanner scan;
 				String str = "";
 				try {

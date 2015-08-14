@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 
 /**
@@ -24,6 +25,7 @@ public class BrowserBox {
 	private Scene scene; // (Browser) scene for calls to page
 	private Stage stage; // for calls to the java- bits
 
+	private WebEngine engine;
 	private boolean loaded = false;
 
 	private String data;
@@ -60,22 +62,23 @@ public class BrowserBox {
 		for (Object o : scene.getRoot().getChildrenUnmodifiable()) {
 			if (o instanceof WebView) {
 				wv = (WebView) o;
-				WebEngine enge = wv.getEngine(); 
-				enge.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) ->
+				engine = wv.getEngine(); 
+				engine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) ->
 				{
-				    JSObject window = (JSObject) enge.executeScript("window");
+				    JSObject window = (JSObject) engine.executeScript("window");
 				    JavaBridge bridge = new JavaBridge();
 				    window.setMember("java", bridge);
-				    enge.executeScript("console.log = function(message)\n" +
+				    engine.executeScript("console.log = function(message)\n" +
 				        "{\n" +
 				        "    java.log(message);\n" +
 				        "};");
 				});
-				enge.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
+				engine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
 					@SuppressWarnings("rawtypes")
 					public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
 						if (newState == State.SUCCEEDED) {
 							loaded = true;
+							
 							visualizeTrace(data);
 						}
 					}
@@ -119,10 +122,16 @@ public class BrowserBox {
 	 */
 	public void visualizeTrace(String jsonString) {
 		Browser br = (Browser) scene.getRoot();
-		
-		String arg = "viz.automata.init(JSON.stringify({" + jsonString + "}))"; // this is
-																	// wrong
-																	// method
+		/*try{
+	
+		JSObject jsobj = (JSObject)engine.executeScript("window");
+		jsobj.call("viz.automata.init","{"+ jsonString + "}");
+		jsobj.call ("console.log", "hey rofl");
+		}catch(JSException je){
+			je.printStackTrace();
+		}*/
+		String arg = "viz.automata.init(JSON.stringify({" + jsonString + "}))"; 
+																
 		//System.out.println(arg);
 		br.executeScript(arg);// TODO check this works, that this is the
 		// right context to call jscript
