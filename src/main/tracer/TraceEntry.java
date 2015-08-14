@@ -21,6 +21,7 @@ public class TraceEntry implements Serializable{
 	 */
 	public List<State> arguments;
 
+
 	public MethodKey method;
 
 
@@ -41,6 +42,13 @@ public class TraceEntry implements Serializable{
 			sb.setLength(sb.length() - 1);
 		sb.append(')');
 		return sb.toString();
+	}
+
+	/**
+	 * Returns the method names used for comparing
+	 * */
+	public String getMethodName(){
+		return method.toString();
 	}
 
 
@@ -95,4 +103,29 @@ public class TraceEntry implements Serializable{
 		string += "      }\n";
 		return string;
 	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public List<State> getArguments() {
+		return arguments;
+	}
+
+	public void setArguments(List<State> arguments) {
+		this.arguments = arguments;
+	}
+
+	public MethodKey getMethod() {
+		return method;
+	}
+
+	public void setMethod(MethodKey method) {
+		this.method = method;
+	}
+
 }
