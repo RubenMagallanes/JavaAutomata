@@ -183,8 +183,7 @@ public class MainPane extends GridPane {
 				 * GeneralFormatToAutomata(auto); String json =
 				 * g.parseAutomata();
 				 */
-				BrowserBox bb = new BrowserBox();
-				browserWindows.put(count++, bb);// add cb to hash map
+				
 				File fi = new File("src/web/test/automata1.json");
 				Scanner scan;
 				String str = "";
@@ -199,7 +198,9 @@ public class MainPane extends GridPane {
 				}
 
 				//TODO cant call this until page is loaded
-				bb.visualizeTrace(str);
+				BrowserBox bb = new BrowserBox(str);
+				browserWindows.put(count++, bb);// add cb to hash map
+				//bb.visualizeTrace(str); now handled internally
 			}
 		});
 		this.add(btn, 0, 4);
@@ -233,6 +234,7 @@ public class MainPane extends GridPane {
 
 		private boolean loaded = false;
 
+		private String data; 
 		/**
 		 * creates a new Stage that contains a Scene that contains the Browser
 		 * that displays the visualization
@@ -240,9 +242,11 @@ public class MainPane extends GridPane {
 		 * after browser creation, i don't think we need to save the references
 		 * to the Scene or Stage, just the Browser (for calling script on it)
 		 * this may need to be changed in the future.
+		 * @param dat data that is to be loaded in to the visualization once the page has loaded
 		 */
 
-		public BrowserBox() {
+		public BrowserBox(String dat) {
+			this.data = dat;
 			scene = new Scene(new Browser(), 700, 700, Color.web("#666970"));
 
 			stage = new Stage();
@@ -265,6 +269,7 @@ public class MainPane extends GridPane {
 						public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
 							if (newState == State.SUCCEEDED) {
 								loaded = true;
+								visualizeTrace(data);
 							}
 						}
 					});
