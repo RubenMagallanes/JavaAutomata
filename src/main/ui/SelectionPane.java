@@ -80,17 +80,21 @@ public class SelectionPane extends TreeView {
 						@Override
 						public void handle(TreeModificationEvent<String> arg0) {
 							String name = checkBoxTreeItem.getValue();
+							//Checks that the selectiong was changed
+							//If the parent that the event handler is part of
+							//and the argument is the item we are monitoring.
 							if (arg0.wasSelectionChanged()
 									&& checkBoxTreeItem.isSelected()
 									&& arg0.getTreeItem().equals(
 											checkBoxTreeItem)) {
-
+								//Makes sure it dosent contain the key.
+								//If it dosent then it will store the class.
 								if (!classesSelected.containsKey(name)) {
 									classesSelected.put(name,
 											new MethodAndField());
 								}
-								//System.out.println(classesSelected);
 							}
+							//Handles if the item is deselected.
 							if (arg0.wasSelectionChanged()
 									&& !checkBoxTreeItem.isSelected()
 									&& arg0.getTreeItem().equals(
@@ -98,8 +102,8 @@ public class SelectionPane extends TreeView {
 								if (classesSelected.containsKey(name)) {
 									classesSelected.remove(name);
 								}
-								//System.out.println(classesSelected);
 							}
+							//Updates the manager. If slow change implementation.
 							if (arg0.wasSelectionChanged() &&
 								Main.getManager() != null){
 								setSelected(Main.getManager());
