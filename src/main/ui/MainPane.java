@@ -15,13 +15,12 @@ import javafx.scene.layout.Priority;
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
-<<<<<<< HEAD
+
 import main.parse.Automata;
 import main.parse.GeneralFormatToAutomata;
 import main.parse.JSONToAutomata;
 import main.parse.JSONToAutomataException;
-=======
->>>>>>> 7f509afd2fd37f8072ec776a8496cbd0d2b64a42
+
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
@@ -184,30 +183,32 @@ public class MainPane extends GridPane {
 				Automata auto = null;
 
 				try {
-					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + "json"));
-				} catch (JSONToAutomataException error) {
+					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
+					
+					GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
+					String json = g.parseAutomata();
+	//
+//					File fi = new File("src/web/test/linearAutomata.json");
+//					Scanner scan;
+//					String str = "";
+//					try {
+//						scan = new Scanner(fi);
+//						while (scan.hasNextLine()) {
+//							str += scan.nextLine();
+//						}
+//					} catch (FileNotFoundException e1) {
+	//
+//						e1.printStackTrace();
+//					}
 
+					BrowserBox bb = new BrowserBox(json);
+					browserWindows.put(count++, bb);// add cb to hash map
+					// bb.visualizeTrace(str); now handled internally
+				} catch (JSONToAutomataException error) {
+					System.out.println("error :^)");
 				}
 
-				GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
-				String json = g.parseAutomata();
-//
-//				File fi = new File("src/web/test/linearAutomata.json");
-//				Scanner scan;
-//				String str = "";
-//				try {
-//					scan = new Scanner(fi);
-//					while (scan.hasNextLine()) {
-//						str += scan.nextLine();
-//					}
-//				} catch (FileNotFoundException e1) {
-//
-//					e1.printStackTrace();
-//				}
-
-				BrowserBox bb = new BrowserBox(json);
-				browserWindows.put(count++, bb);// add cb to hash map
-				// bb.visualizeTrace(str); now handled internally
+				
 			}
 		});
 		this.add(btn, 0, 4);

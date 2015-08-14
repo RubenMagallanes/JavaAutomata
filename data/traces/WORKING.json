@@ -1,0 +1,72 @@
+[
+  { "enterMethod": {
+      "methodName": "MainClass.main(String[])",
+      "state": {}
+    }
+  },
+  { "enterMethod": {
+      "methodName": "MainClass.<init>()",
+      "state": {
+		"number1": 0,
+		"number2": 0,
+		"string1": null,
+		"string2": null
+      }
+    }
+  },
+  { "enterMethod": {
+      "methodName": "MainClass.setUpNumbers()",
+      "state": {
+		"number1": 0,
+		"number2": 0,
+		"string1": null,
+		"string2": null
+      }
+    }
+  },
+  { "enterMethod": {
+      "methodName": "MainClass.setUpNumbers()",
+      "state": {
+		"number1": 5,
+		"number2": 10,
+		"string1": null,
+		"string2": null
+      }
+    }
+  },
+  { "enterMethod": {
+      "methodName": "MainClass.setUpStrings()",
+      "state": {
+		"number1": 5,
+		"number2": 10,
+		"string1": null,
+		"string2": null
+      }
+    }
+  },
+  { "enterMethod": {
+      "methodName": "MainClass.setUpStrings()",
+      "state": {
+		"number1": 5,
+		"number2": 10,
+		"string1": "Please work",
+		"string2": "Im not going to"
+      }
+    }
+  },
+  { "enterMethod": {
+      "methodName": "MainClass.<init>()",
+      "state": {
+		"number1": 5,
+		"number2": 10,
+		"string1": "Please work",
+		"string2": "Im not going to"
+      }
+    }
+  },
+  { "enterMethod": {
+      "methodName": "MainClass.main(String[])",
+      "state": {}
+    }
+  }
+]
