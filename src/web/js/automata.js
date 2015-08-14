@@ -22,13 +22,12 @@
     // for testing
     self.getLinks = function() { return links; }
 
-    // sets the svg..
-    self.setSvg = function(_svg){
-        svg = _svg;
-    }
-
     // initialise the layout with data
     self.init = function (dataStr){
+        svg = d3.select("svg")
+            .attr("width", 1200)
+            .attr("height", 800);
+
         var data = JSON.parse(dataStr);
         states = data.states;
         links = data.links;
