@@ -59,7 +59,7 @@ public class TraceEntry implements Serializable{
 		String string = isEntry + "      \"methodName\": \"" + method.toString().substring(5) + "\"";
 		if(state != null){
 			string += ",\n";
-			string += state;
+			string += "      " + state;
 		}
 		else{
 			string += ",\n      \"state\": {}\n";

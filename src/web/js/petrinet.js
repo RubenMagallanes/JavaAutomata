@@ -94,12 +94,49 @@
     }
 
     function convertToPetriData(data){
-        places = [];
-        var fields = [];
-
-        data.links.forEach(function (link) {
-
+        fieldGroups = [];
+        var fields = data.states[0].fields;
+        // initialise the fields.
+        fields.forEach(function (field, index){
+            var group = {
+                fields: [ {
+                    name: field.name,
+                    changes: [ {
+                        value: field.value,
+                        methodIndex: -1
+                    } ]
+                } ],
+                colour = colour(index);
+            }
+            fieldGroups.push(groups);
         });
+
+        data.links.forEach(function (method, methodIndex){
+            var sourceState = data.states[link.source];
+            var targetState = data.states[link.target];
+
+            fieldGroups.forEach(function (group){
+                var field = group.fields[0]; // assumes places only have one field to begin with
+                var name = field.name;
+                var targetVal = getField(targetState.fields, name).value;
+                var sourceVal = getField(sourceState.fields, name).value;
+                // if value has changed, add the change to the field's changes
+                if (sourceVal !== targetVal){
+                    field.changes.push({
+                        value: targetVal,
+                        methodIndex: methodIndex
+                    });
+                }
+            });
+        });
+
+        function getField(source, name){
+            var found;
+            source.fields.forEach(function (field){
+                if (field.name === name) found = field;
+            });
+            return found;
+        }
     }
 
     // update the layout data
