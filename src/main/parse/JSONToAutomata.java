@@ -51,12 +51,12 @@ public class JSONToAutomata {
 			// edge cases where method entry and exit don't match up
 			if(i == 0 || i == data.length() - 1){
 				if(object.has(ENTER_METHOD)){
-					AutomataState source = parseEnterMethod(object.getJSONObject(ENTER_METHOD), id);
+					AutomataState source = parseState(object.getJSONObject(ENTER_METHOD), id);
 					states.add(source);
 					id++;
 				}
 				else if(object.has(EXIT_METHOD)){
-					AutomataState target = parseExitMethod(object.getJSONObject(EXIT_METHOD), id);
+					AutomataState target = parseState(object.getJSONObject(EXIT_METHOD), id);
 					if(!states.contains(target)){
 						states.add(target);
 					}
@@ -64,13 +64,13 @@ public class JSONToAutomata {
 			}
 			else{
 				// parse states
-				AutomataState source = parseEnterMethod(object.getJSONObject(ENTER_METHOD), id);
+				AutomataState source = parseState(object.getJSONObject(ENTER_METHOD), id);
 				// only add if source is a unique state
 				if(!states.contains(source)){
 					states.add(source);
 					id++; // increment id
 				}
-				AutomataState target = parseExitMethod(data.getJSONObject(++i).getJSONObject(EXIT_METHOD), id);
+				AutomataState target = parseState(data.getJSONObject(++i).getJSONObject(EXIT_METHOD), id);
 				// only add if target is a unique state
 				if(!states.contains(target)){
 					states.add(target);
@@ -87,21 +87,14 @@ public class JSONToAutomata {
 		return new Automata(states, links);
 	}
 
-	private static AutomataState parseEnterMethod(JSONObject object, int id){
+	private static AutomataState parseState(JSONObject object, int id){
 		JSONObject state = object.getJSONObject(STATE);
 		List<AutomataField> fields = new ArrayList<AutomataField>();
 		for(String key : state.keySet()){
-			fields.add(new AutomataField(null, key, state.getString(key)));
-		}
-
-		return new AutomataState(fields, id);
-	}
-
-	private static AutomataState parseExitMethod(JSONObject object, int id){
-		JSONObject state = object.getJSONObject(STATE);
-		List<AutomataField> fields = new ArrayList<AutomataField>();
-		for(String key : state.keySet()){
-			fields.add(new AutomataField(null, key, state.getString(key)));
+			//Object o = state.stringToValue(state.optString(key));
+			//System.out.println(o);
+			String value = (state.isNull(key)) ? null : state.optString(key);
+			fields.add(new AutomataField(null, key, value));
 		}
 
 		return new AutomataState(fields, id);
@@ -120,5 +113,11 @@ public class JSONToAutomata {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static void main(String[] args){
+		File file = new File("data/traces/bobby.json");
+		Automata a = generateAutomata(file);
+		System.out.println(a);
 	}
 }
