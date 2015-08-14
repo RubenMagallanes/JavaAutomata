@@ -30,6 +30,7 @@ import main.parse.JSONToAutomata;
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
+import netscape.javascript.JSObject;
 
 /**
  * First menu people see when loading the program.
@@ -176,6 +177,8 @@ public class MainPane extends GridPane {
 			@Override
 			public void handle(ActionEvent e) {
 				// grab the traces
+				//data/traces/
+				
 				/*
 				 * File f = new File("data/traces/test.json");//TODO Automata
 				 * auto = JSONToAutomata.generateAutomata(f);
@@ -184,7 +187,7 @@ public class MainPane extends GridPane {
 				 * g.parseAutomata();
 				 */
 				
-				File fi = new File("src/web/test/automata1.json");
+				File fi = new File("src/web/test/linearAutomata.json");
 				Scanner scan;
 				String str = "";
 				try {
@@ -197,33 +200,18 @@ public class MainPane extends GridPane {
 					e1.printStackTrace();
 				}
 
-				//TODO cant call this until page is loaded
 				BrowserBox bb = new BrowserBox(str);
 				browserWindows.put(count++, bb);// add cb to hash map
-				//bb.visualizeTrace(str); now handled internally
+				// bb.visualizeTrace(str); now handled internally
 			}
 		});
 		this.add(btn, 0, 4);
 	}
 
 	/**
-	 * <<<<<<< HEAD Object that creates a new window containing a browser that
-	 * is used to visualize out data.
-	 *
-	 * Use: just create a new BrowserBox() and a new window will pop up in
-	 * addition to the current javafx scene. use Browser() to get the browser
-	 * associated so you can make javascript calls on it
-	 *
-	 * usage: Object ret = BrowserBox.Browser().executeScript(
-	 * "var a = function (){return 'hello world';};a();"); ret is the object
-	 * returned by the javascript function ======= Object that creates a new
-	 * window containing a browser that is used to visualize out data.
-	 *
-	 * Use: just create a new BrowserBox() and a new window will pop up in
-	 * addition to the current javafx scene. use Browser() to get the browser
-	 * associated so you can make javascript calls on it
-	 *
-	 * >>>>>>> 5edcb9337ae976150cd87b1258f7207858dc4883
+	 * Object that creates a new window containing a browser that is used to
+	 * visualize out data. Usage: Create a new BrowserBox(dat), passing in the
+	 * data (in stringified json format) you want to visualise
 	 * 
 	 * @author rj
 	 *
@@ -234,7 +222,8 @@ public class MainPane extends GridPane {
 
 		private boolean loaded = false;
 
-		private String data; 
+		private String data;
+
 		/**
 		 * creates a new Stage that contains a Scene that contains the Browser
 		 * that displays the visualization
@@ -242,7 +231,10 @@ public class MainPane extends GridPane {
 		 * after browser creation, i don't think we need to save the references
 		 * to the Scene or Stage, just the Browser (for calling script on it)
 		 * this may need to be changed in the future.
-		 * @param dat data that is to be loaded in to the visualization once the page has loaded
+		 * 
+		 * @param dat
+		 *            data that is to be loaded in to the visualization once the
+		 *            page has loaded
 		 */
 
 		public BrowserBox(String dat) {
@@ -264,7 +256,18 @@ public class MainPane extends GridPane {
 			for (Object o : scene.getRoot().getChildrenUnmodifiable()) {
 				if (o instanceof WebView) {
 					wv = (WebView) o;
-					wv.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
+					WebEngine enge = wv.getEngine(); 
+					enge.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) ->
+					{
+					    JSObject window = (JSObject) enge.executeScript("window");
+					    JavaBridge bridge = new JavaBridge();
+					    window.setMember("java", bridge);
+					    enge.executeScript("console.log = function(message)\n" +
+					        "{\n" +
+					        "    java.log(message);\n" +
+					        "};");
+					});
+					enge.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
 						@SuppressWarnings("rawtypes")
 						public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
 							if (newState == State.SUCCEEDED) {
@@ -276,6 +279,9 @@ public class MainPane extends GridPane {
 
 				}
 			}
+			
+			
+			
 		}
 
 		/**
@@ -308,10 +314,13 @@ public class MainPane extends GridPane {
 		 *            string version of Jon object with data to visualise
 		 */
 		public void visualizeTrace(String jsonString) {
-			//TODO check if page loaded
-				Browser br = (Browser) scene.getRoot();
-				String arg = "viz.automata.init('" + jsonString + "')";
-				br.executeScript(arg);// TODO check this works, that this is the
+			Browser br = (Browser) scene.getRoot();
+			
+			String arg = "viz.automata.init(JSON.stringify({" + jsonString + "}))"; // this is
+																		// wrong
+																		// method
+			//System.out.println(arg);
+			br.executeScript(arg);// TODO check this works, that this is the
 			// right context to call jscript
 		}
 	}
