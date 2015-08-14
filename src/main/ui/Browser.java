@@ -61,7 +61,12 @@ class Browser extends Region {
 		if (!webEngine.isJavaScriptEnabled())
 			return null;
 
+		try {
 		return webEngine.executeScript(script);
+		} catch ( netscape.javascript.JSException e ){
+			e.printStackTrace();
+			return null;
+		} 
 	}
 
 	private Node createSpacer() {

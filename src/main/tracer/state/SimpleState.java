@@ -12,7 +12,7 @@ public class SimpleState extends State {
 
 	@Override
 	public String toString() {
-		return "\"" + stringValue + "\"";
+		return stringValue;
 	}
 
 	@Override

@@ -49,15 +49,6 @@ public class ObjectState extends State {
 		});
 
 		boolean first = true;
-		/*for(int i = 0; i < sortedFields.size(); i++){
-			result.append("\""+ sortedFields.get(i).name +"\": ");
-			State value = fields.get(sortedFields.get(i).name);
-			result.append("\"" + value.toString(alreadySeenObjects) + "\"");
-			if(i != sortedFields.size() - 1){
-				result.append(", ");
-			}
-		}*/
-
 		for(FieldKey fk : sortedFields) {
 			if(first){
 				first = false;
@@ -66,13 +57,13 @@ public class ObjectState extends State {
 				result.append(',');
 			}
 
-			State value = getFields().get(fk);
-			//result.append(fk.className);
-			//result.append(" ");
+			State value = fields.get(fk);
+			result.append("\n\t\t");
 			result.append("\"" + fk.name + "\": ");
 			result.append(value.toString(alreadySeenObjects));
 		}
-		result.append('}');
+
+		result.append("\n      }\n");
 
 		return result.toString();
 	}
