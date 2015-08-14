@@ -176,9 +176,8 @@ public class MainPane extends GridPane {
 				
 				BrowserBox bb = new BrowserBox();
 				browserWindows.put(count++, bb);// add cb to hash map
-				String arg = "automata.viz.init(" + json + ")";
-				bb.Browser().executeScript(arg);//TODO check this works
-		
+				
+				bb.visualizeTrace( json);
 			}
 		});
 		this.add(btn, 0, 4);
@@ -240,7 +239,7 @@ public class MainPane extends GridPane {
 		 */
 
 		/**
-		 * returns reference to Browser so you can mkae javascript calls to it
+		 * use visualizeTrace() instead
 		 *
 		 * @return the Browser in this scene
 		 */
@@ -250,6 +249,16 @@ public class MainPane extends GridPane {
 
 		public Stage Stage() {
 			return stage;
+		}
+		/**
+		 * gives jsonString to browser to visualise
+		 * 
+		 * @param jsonString string version of Jon object with data to visualise
+		 */
+		public void visualizeTrace(String jsonString){
+			Browser br = (Browser) scene.getRoot();
+			String arg = "automata.viz.init(" + jsonString + ")";
+			br.executeScript(arg);//TODO check this works, that this is the right context to call jscript 
 		}
 	}
 }
