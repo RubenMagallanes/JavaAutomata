@@ -3,8 +3,10 @@ package main.parse;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -54,7 +56,7 @@ public class JSONToAutomata {
 	public static Automata generateAutomata(String json) throws JSONToAutomataException{
 		JSONArray data = new JSONArray(json);
 
-		Set<AutomataState> states = new HashSet<AutomataState>();
+		Map<Integer, AutomataState> states = new HashMap<Integer, AutomataState>();
 		Set<AutomataLink> links = new HashSet<AutomataLink>();
 		int id = 0;
 
@@ -73,9 +75,16 @@ public class JSONToAutomata {
 			else{
 				throw new JSONToAutomataException("Error: expecting either " + ENTER_METHOD + " or " + EXIT_METHOD + " as key.");
 			}
-			if(!states.contains(current)){
-				states.add(current);
+			if(!states.values().contains(current)){
+				states.put(id, current);
 				id++; // increment id to ensure unique value
+			}
+			else{
+				for(int j = 0; j < id; j++){
+					if(states.get(j).equals(current)){
+						current = states.get(j);
+					}
+				}
 			}
 
 			// construct link between the current and previous states
@@ -88,7 +97,7 @@ public class JSONToAutomata {
 			previous = current;
 		}
 
-		return new Automata(states, links);
+		return new Automata(new HashSet<AutomataState>(states.values()), links);
 	}
 
 	/**
@@ -163,5 +172,17 @@ public class JSONToAutomata {
 		}
 		scan.close();
 		return json;
+	}
+
+	public static void main(String[] args){
+		File file = new File("data/traces/TestProgram2Trace.json");
+		try {
+			Automata a = generateAutomata(file);
+			GeneralFormatToAutomata json = new GeneralFormatToAutomata(a);
+			System.out.println(json.parseAutomata());
+		} catch (JSONToAutomataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
