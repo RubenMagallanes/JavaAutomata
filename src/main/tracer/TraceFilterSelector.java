@@ -34,12 +34,10 @@ public class TraceFilterSelector {
 	public void addMethodsToFilter(List<String> methodNamesToFilter){
 
 		for(String s : methodNamesToFilter){
-			System.out.println("Passed in " + s);
 			this.methodNames.add(s);
 
 		}
 
-		System.out.println("After " +methodNames.size());
 	}
 
 
@@ -117,9 +115,7 @@ public class TraceFilterSelector {
 			@Override
 			public boolean isMethodTraced(MethodKey m) {
 				for(String s : methodNames){
-					System.out.println("Checking Traced " +s);
-					if(m.name.equals(s)){
-						System.out.println("Traced = " + s);
+					if(m.name.equals(s)){//TODO Update to use getName which is the longer name so we differentiate between methods in other classes
 						return true;
 					}
 				}

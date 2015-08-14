@@ -5,8 +5,10 @@ import java.util.List;
 
 public class TraceManager {
 
+	//the original traces output from the program
 	private Trace[] traces;
 
+	//a copy of the traces that can be filtered
 	private Trace[] tracesFiltered;
 
 
@@ -18,7 +20,10 @@ public class TraceManager {
 		copyToFilter();
 	}
 
-	public void copyToFilter(){
+	/**
+	 * Copies the traces to a new array used for filtering
+	 * */
+	private  void copyToFilter(){
 		tracesFiltered = new Trace[traces.length];
 
 		for(int i = 0; i < traces.length; i++){
@@ -41,7 +46,6 @@ public class TraceManager {
 	 * */
 	public void applyFilter(TraceFilter filter){
 		copyToFilter();
-		System.out.println("Apply Filter");
 		for(Trace t : tracesFiltered){
 			t.applyFilter(filter);
 		}

@@ -119,10 +119,6 @@ public class TraceStringUtil {
 			for(String s : methods){
 					exitEvents += "\t " + s + "\n";
 			}
-			return exitEvents;
-}
-
-
-
-
+			return exitEvents;	
+	}
 }
