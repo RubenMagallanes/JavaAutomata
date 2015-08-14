@@ -607,4 +607,6 @@ var svg = d3.select("svg")
     .attr("height", 800)
     .attr("transform", "translate(0,0)");
 
-automata.viz.init(testData, svg);
+// set up automata visualisation
+viz.automata.setSvg(svg);
+viz.automata.init(JSON.stringify(testData));
