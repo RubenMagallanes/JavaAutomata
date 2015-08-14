@@ -1,11 +1,7 @@
 package main.tracer;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
-
-import com.sun.jdi.connect.Connector.Argument;
 
 import main.tracer.state.State;
 
@@ -49,6 +45,11 @@ public class TraceEntry implements Serializable{
 
 
 	public void filterFields(TraceFilter f) {
+		if(f == null)System.out.println("Null Filter");
+		if(state == null){
+			System.out.println("Null state");
+			return;
+		}
 		state.filterFields(f);
 	}
 
@@ -61,7 +62,7 @@ public class TraceEntry implements Serializable{
 			string += stateToText(state);
 		}
 		else{
-			string += "\n";
+			string += ",\n      \"state\": {}\n";
 		}
 
 		/*if(arguments !=null){
@@ -81,7 +82,7 @@ public class TraceEntry implements Serializable{
 
 	private String stateToText(State state){
 		String string = "      \"state\": {\n";
-		String s = state.toString();
+
 		String[] data = state.toString().substring(1, state.toString().length() - 1).split(",");
 		for(int i = 0; i < data.length; i++){
 			String[] temp = data[i].split(" ", 2);

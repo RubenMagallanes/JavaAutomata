@@ -7,8 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.processing.Filer;
+
+import com.sun.net.httpserver.Filter;
+
 import main.Main;
 import main.load.JarData;
+import main.tracer.TraceFilter;
+import main.tracer.TraceFilterSelector;
+import main.tracer.TraceManager;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBoxTreeItem;
@@ -82,7 +89,7 @@ public class SelectionPane extends TreeView {
 									classesSelected.put(name,
 											new MethodAndField());
 								}
-								System.out.println(classesSelected);
+								//System.out.println(classesSelected);
 							}
 							if (arg0.wasSelectionChanged()
 									&& !checkBoxTreeItem.isSelected()
@@ -91,10 +98,14 @@ public class SelectionPane extends TreeView {
 								if (classesSelected.containsKey(name)) {
 									classesSelected.remove(name);
 								}
-								System.out.println(classesSelected);
+								//System.out.println(classesSelected);
 							}
-
+							if (arg0.wasSelectionChanged() &&
+								Main.getManager() != null){
+								setSelected(Main.getManager());
+							}
 						}
+
 
 					});
 			checkBoxTreeItem.setExpanded(false);
@@ -175,7 +186,7 @@ public class SelectionPane extends TreeView {
 									}
 								}
 							}
-							System.out.println(classesSelected);
+							//System.out.println(classesSelected);
 						}
 					});
 			checkBoxTreeItem.getChildren().add(checkBoxMethod);
@@ -253,7 +264,7 @@ public class SelectionPane extends TreeView {
 									}
 								}
 							}
-							System.out.println(classesSelected);
+							//System.out.println(classesSelected);
 						}
 					});
 			checkBoxTreeItem.getChildren().add(checkBoxField);
@@ -261,8 +272,15 @@ public class SelectionPane extends TreeView {
 		}
 	}
 
-	public void getSelected() {
-
+	public void setSelected(TraceManager traceManager) {
+		TraceFilterSelector filter = new TraceFilterSelector();
+		filter.addClassToFilter(new ArrayList<String>(classesSelected.keySet()));
+		for (MethodAndField mf : classesSelected.values()){
+			filter.addFieldToFilter(mf.fieldList);
+			filter.addMethodsToFilter(mf.methodList);
+		}
+		//System.out.println("Setting filter");
+		traceManager.applyFilter(filter.getFilter());
 	}
 
 	private class MethodAndField {

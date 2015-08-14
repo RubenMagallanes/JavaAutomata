@@ -16,7 +16,7 @@ public class Automata {
 	private Set<AutomataState> states;
 	private Set<AutomataLink> links;
 
-	protected Automata(Set<AutomataState> states, Set<AutomataLink> links){
+	public Automata(Set<AutomataState> states, Set<AutomataLink> links){
 		this.states = states;
 		this.links = links;
 	}

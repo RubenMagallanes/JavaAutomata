@@ -16,7 +16,10 @@ import javafx.stage.Stage;
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
-import main.tracer.TestSimpleProgram;
+import main.parse.Automata;
+import main.parse.GeneralFormatToAutomata;
+import main.parse.JSONToAutomata;
+import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
 
@@ -109,9 +112,10 @@ public class MainPane extends GridPane {
 
 			@Override
 			public void handle(ActionEvent e) {
-				TestSimpleProgram tracer = new TestSimpleProgram(Main
+				TraceLauncher tracer = new TraceLauncher(Main
 						.getJarData().getFile().getAbsolutePath());
 				Trace[] tr = tracer.run();
+				System.out.println(tr == null);
 				TraceManager manager = new TraceManager(tr);
 				Main.setManager(manager);
 				manager.traceToFile("", "timmy");
@@ -121,6 +125,8 @@ public class MainPane extends GridPane {
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
+	
+	//convertTraceToJson() TODO
 
 	/**
 	 * Sets up the Save section of the menu
@@ -140,7 +146,10 @@ public class MainPane extends GridPane {
 			@Override
 			public void handle(ActionEvent e) {
 				String fileName = loadDisplay.getText();
-				// TODO: Set up Trace saving.
+				if (fileName.equals("")){}
+				else {
+					Main.getManager().traceToFile("data/traces/", fileName);
+				}
 				System.out.println(fileName + " TODO: Trace Saveing");
 			}
 
@@ -159,10 +168,17 @@ public class MainPane extends GridPane {
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				// create new browser window
-
-				BrowserBox bb = new BrowserBox();			
-				browserWindows.put(count++, bb);// add cb to hash map	
+				//grab the traces 
+				File f = new File("data/traces/test.json");//TODO
+				Automata auto = JSONToAutomata.generateAutomata(f);
+				GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
+				String json = g.parseAutomata();
+				
+				BrowserBox bb = new BrowserBox();
+				browserWindows.put(count++, bb);// add cb to hash map
+				String arg = "automata.viz.init(" + json + ")";
+				bb.Browser().executeScript(arg);//TODO check this works
+		
 			}
 		});
 		this.add(btn, 0, 4);
@@ -172,11 +188,11 @@ public class MainPane extends GridPane {
 <<<<<<< HEAD
 	 * Object that creates a new window containing a browser that is used to visualize
 	 * out data.
-	 * 
-	 * Use: just create a new BrowserBox() and a new window will pop up in addition to 
-	 * the current javafx scene. 
+	 *
+	 * Use: just create a new BrowserBox() and a new window will pop up in addition to
+	 * the current javafx scene.
 	 * use Browser() to get the browser associated so you can make javascript calls on it
-	 * 
+	 *
 	 * usage: Object ret = BrowserBox.Browser().executeScript("var a = function (){return 'hello world';};a();");
 	 *ret is the object returned by the javascript function
 =======
@@ -192,8 +208,7 @@ public class MainPane extends GridPane {
 	 *
 	 */
 	private class BrowserBox {
-		private Scene scene; // (Browser) scene for calls to page//TODO make
-								// geters and setters
+		private Scene scene; // (Browser) scene for calls to page
 		private Stage stage; // for calls to the java- bits
 
 		/**
@@ -205,8 +220,8 @@ public class MainPane extends GridPane {
 		 * this may need to be changed in the future.
 		 */
 
-		public BrowserBox() {	
-			scene = new Scene(new Browser(),700,700, Color.web("#666970"));			
+		public BrowserBox() {
+			scene = new Scene(new Browser(),700,700, Color.web("#666970"));
 
 
 			stage = new Stage();

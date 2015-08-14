@@ -46,7 +46,7 @@ public class GenerateAutomata {
 			automatastates.add(new AutomataState(generateFields(),i));
 		}
 		generateLinks();	
-		GeneralFormatToAutomata g = new GeneralFormatToAutomata(automatastates, automatalinks);	
+		GeneralFormatToAutomata g = new GeneralFormatToAutomata(new Automata(automatastates, automatalinks));	
 		String automata = g.parseAutomata();
 		System.out.println(automata);
 		
@@ -101,8 +101,6 @@ public class GenerateAutomata {
 			int index = (int) (Math.random()*types.length);
 			fieldsToTypes.put(names,types[index]);
 		}
-		
-
 	}	
 	
 	/**
