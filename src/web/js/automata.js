@@ -29,6 +29,9 @@
 
     // initialise the layout with data
     self.init = function (dataStr){
+    	console.log("printing data recieved \n");
+    	console.log(dataStr);
+    	
         var data = JSON.parse(dataStr);
         states = data.states;
         links = data.links;
