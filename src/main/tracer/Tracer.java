@@ -312,14 +312,14 @@ public class Tracer {
 
 				if(!filter.isFieldTraced(fk))
 					continue;
-
-				state.fields.put(fk, valueToState(filter, object.getValue(f), alreadySeenObjects));
+				state.getFields().put(fk, valueToState(filter, object.getValue(f), alreadySeenObjects));
+				state.setFields(state.getFields());
 			}
 
 			return state;
 
 		} else if(type instanceof ArrayType) {
-
+			//TODO Fix this area
 			ArrayState state = new ArrayState();
 			alreadySeenObjects.put(object, state);
 

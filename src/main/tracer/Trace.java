@@ -22,14 +22,31 @@ public class Trace implements Serializable {
 		return lines;
 	}
 
+	public void setLines(List<TraceEntry> lines) {
+		this.lines = lines;
+	}
+
 	public void applyFilter(TraceFilter f) {
 		Iterator<TraceEntry> it = lines.iterator();
 
-		while(it.hasNext()) {
-			if(!f.isMethodTraced(it.next().method)){
-				it.remove();
+		for(int i = 0; i < lines.size(); i++){
+
+			MethodKey meth = lines.get(i).method;
+
+			if(!f.isMethodTraced(meth)){
+				System.out.println("Removed " + lines.get(i).method);
+				lines.remove(i);//new
+				i--;
 			}
 		}
+
+//		while(it.hasNext()) {
+//			MethodKey meth = it.next().method;
+//			System.out.println("Tracer Apply :"+meth.name);
+//			if(!f.isMethodTraced(meth)){
+//				lines.remove(lines.indexOf(meth));//new
+//			}
+//		}
 
 		for(TraceEntry te : lines){
 			te.filterFields(f);
@@ -61,4 +78,6 @@ public class Trace implements Serializable {
 			e1.printStackTrace();
 		}
 	}
+
+
 }
