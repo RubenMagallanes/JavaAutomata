@@ -27,6 +27,7 @@ import main.load.JarLoader;
 import main.parse.Automata;
 import main.parse.GeneralFormatToAutomata;
 import main.parse.JSONToAutomata;
+import main.parse.JSONToAutomataException;
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
@@ -49,6 +50,7 @@ public class MainPane extends GridPane {
 																					// windows
 
 	private MenuPane parent;
+	private TextField loadDisplay;
 
 	/**
 	 * Constructs the menu Pane
@@ -142,7 +144,7 @@ public class MainPane extends GridPane {
 		Button btn = new Button();
 
 		// Text field for user input.
-		TextField loadDisplay = new TextField();
+		loadDisplay = new TextField();
 		this.add(loadDisplay, 1, 3);
 
 		// Sets up the save button
@@ -185,21 +187,30 @@ public class MainPane extends GridPane {
 				 * GeneralFormatToAutomata(auto); String json =
 				 * g.parseAutomata();
 				 */
-				
-				File fi = new File("src/web/test/linearAutomata.json");
-				Scanner scan;
-				String str = "";
+				Automata auto = null;
 				try {
-					scan = new Scanner(fi);
-					while (scan.hasNextLine()) {
-						str += scan.nextLine();
-					}
-				} catch (FileNotFoundException e1) {
+					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + "json"));
+				} catch (JSONToAutomataException error) {
 
-					e1.printStackTrace();
 				}
 
-				BrowserBox bb = new BrowserBox(str);
+				GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
+				String json = g.parseAutomata();
+//
+//				File fi = new File("src/web/test/linearAutomata.json");
+//				Scanner scan;
+//				String str = "";
+//				try {
+//					scan = new Scanner(fi);
+//					while (scan.hasNextLine()) {
+//						str += scan.nextLine();
+//					}
+//				} catch (FileNotFoundException e1) {
+//
+//					e1.printStackTrace();
+//				}
+
+				BrowserBox bb = new BrowserBox(json);
 				browserWindows.put(count++, bb);// add cb to hash map
 				// bb.visualizeTrace(str); now handled internally
 			}
