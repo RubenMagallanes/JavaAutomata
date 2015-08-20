@@ -138,7 +138,7 @@ public class MainPane extends GridPane {
 		Tooltip tooltip3 = new Tooltip();
 		tooltip3.setText(
 			    "Generate a trace from the *.jar you selected.\n" +
-			    " \n");
+			    "You should save the trace afterwards. \n");
 		
 		btn.setTooltip(tooltip3);
 		this.add(btn, 1, 1);
@@ -146,7 +146,7 @@ public class MainPane extends GridPane {
 
 	}
 
-	// convertTraceToJson() TODO
+	// convertTraceToJson() TODO  i think this is done somewhere else so this isn't needed? 
 
 	/**
 	 * Sets up the Save section of the menu
