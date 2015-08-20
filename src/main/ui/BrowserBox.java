@@ -14,15 +14,15 @@ import netscape.javascript.JSObject;
 
 /**
  * Object that creates a new window containing a browser that is used to
- * visualize out data. Usage: Create a new BrowserBox(dat), passing in the
- * data (in stringified json format) you want to visualise
+ * visualize out data. Usage: Create a new BrowserBox(dat), passing in the data
+ * (in stringified json format) you want to visualise
  * 
  * @author rj
  *
  */
 public class BrowserBox {
 
-	private Scene scene; // (Browser) scene for calls to page
+	private Scene scene; // (Browser) scene for calls to page, Browser is 'Root' of scene
 	private Stage stage; // for calls to the java- bits
 
 	private WebEngine engine;
@@ -31,12 +31,12 @@ public class BrowserBox {
 	private String data;
 
 	/**
-	 * creates a new Stage that contains a Scene that contains the Browser
-	 * that displays the visualization
+	 * creates a new Stage that contains a Scene that contains the Browser that
+	 * displays the visualization
 	 *
-	 * after browser creation, i don't think we need to save the references
-	 * to the Scene or Stage, just the Browser (for calling script on it)
-	 * this may need to be changed in the future.
+	 * after browser creation, i don't think we need to save the references to
+	 * the Scene or Stage, just the Browser (for calling script on it) this may
+	 * need to be changed in the future.
 	 * 
 	 * @param dat
 	 *            data that is to be loaded in to the visualization once the
@@ -53,52 +53,43 @@ public class BrowserBox {
 		stage.show();
 
 		/*
-		 * this next piece of code adds a listener to the browser's
-		 * loadworker, which changes 'loaded' variable to true when the page
-		 * is loaded. after it's loaded we're allowed to call javascript on
-		 * it.
+		 * This next piece of code adds listeners to the browser's loadworker,
+		 * which checks the page is loaded before allowing any script to execute on it.
+		 * 
+		 * The first function makes javascript's console.log print to java's stdout, this
+		 * is just for testing.
+		 * 
+		 * The second function sets a boolean value to true when the page is loaded and then
+		 * calls visualiseTrace(data), asking the page to visualise the tarce data which is 
+		 * what it's for. 
 		 */
 		WebView wv;
 		for (Object o : scene.getRoot().getChildrenUnmodifiable()) {
 			if (o instanceof WebView) {
 				wv = (WebView) o;
-				engine = wv.getEngine(); 
-				engine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) ->
-				{
-				    JSObject window = (JSObject) engine.executeScript("window");
-				    JavaBridge bridge = new JavaBridge();
-				    window.setMember("java", bridge);
-				    engine.executeScript("console.log = function(message)\n" +
-				        "{\n" +
-				        "    java.log(message);\n" +
-				        "};");
+				engine = wv.getEngine();
+				engine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+					JSObject window = (JSObject) engine.executeScript("window");
+					JavaBridge bridge = new JavaBridge();
+					window.setMember("java", bridge);
+					// makes console.log print to java's stdout
+					engine.executeScript(
+							"console.log = function(message)\n" + "{\n" + "    java.log(message);\n" + "};");
 				});
-				engine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
-					@SuppressWarnings("rawtypes")
-					public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
-						if (newState == State.SUCCEEDED) {
-							loaded = true;
-							
-							visualizeTrace(data);
+				if (this.data != null) {
+					engine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
+						@SuppressWarnings("rawtypes")
+						public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
+							if (newState == State.SUCCEEDED) {
+								loaded = true;
+								visualizeTrace(data);
+							}
 						}
-					}
-				});
-
+					});
+				}
 			}
 		}
-		
-		
-		
 	}
-
-	/**
-	 * returns a reference to the newly constructed browser
-	 *
-	 * @return the Browser that just got created.
-	 */
-	/*
-	 * public Browser getReference(){ return (Browser) scene.getRoot(); }
-	 */
 
 	/**
 	 * use visualizeTrace() instead
@@ -110,30 +101,27 @@ public class BrowserBox {
 		return (Browser) scene.getRoot();
 	}
 
+	/**
+	 * returns the Stage the 
+	 * @return
+	 */
 	public Stage Stage() {
 		return stage;
 	}
 
 	/**
-	 * gives jsonString to browser to visualise
+	 * gives jsonString to browser to visualize
+	 * Fails if the Browser isn't loaded yet. 
 	 * 
 	 * @param jsonString
-	 *            string version of Jon object with data to visualise
+	 *            string version of JSON object with data to visualize
 	 */
 	public void visualizeTrace(String jsonString) {
 		Browser br = (Browser) scene.getRoot();
-		/*try{
-	
-		JSObject jsobj = (JSObject)engine.executeScript("window");
-		jsobj.call("viz.automata.init","{"+ jsonString + "}");
-		jsobj.call ("console.log", "hey rofl");
-		}catch(JSException je){
-			je.printStackTrace();
-		}*/
-		String arg = "viz.automata.init(JSON.stringify({" + jsonString + "}))"; 
-																
-		//System.out.println(arg);
-		br.executeScript(arg);// TODO check this works, that this is the
-		// right context to call jscript
+
+		if (loaded) {
+			String arg = "viz.automata.init(JSON.stringify({" + jsonString + "}))";
+			br.executeScript(arg);// TODO check this works, that this is the
+		} // right context to call jscript
 	}
 }
