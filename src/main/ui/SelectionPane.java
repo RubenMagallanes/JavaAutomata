@@ -104,8 +104,9 @@ public class SelectionPane extends TreeView {
 								}
 							}
 							//Updates the manager. If slow change implementation.
-							if (arg0.wasSelectionChanged() &&
-								Main.getManager() != null){
+
+							//does not check if manager is null so we can filter before the traces is generated
+							if (arg0.wasSelectionChanged() 	){
 								setSelected(Main.getManager());
 							}
 						}
@@ -278,13 +279,17 @@ public class SelectionPane extends TreeView {
 
 	public void setSelected(TraceManager traceManager) {
 		TraceFilterSelector filter = new TraceFilterSelector();
+
 		filter.addClassToFilter(new ArrayList<String>(classesSelected.keySet()));
 		for (MethodAndField mf : classesSelected.values()){
 			filter.addFieldToFilter(mf.fieldList);
 			filter.addMethodsToFilter(mf.methodList);
 		}
-		//System.out.println("Setting filter");
-		traceManager.applyFilter(filter.getFilter());
+		System.out.println("Setting filter");
+		if(traceManager != null){//trace manager might be null becuase no trace has been generated yet
+			traceManager.applyFilter(filter.getFilter());
+		}
+		Main.setFilter(filter.getFilter());//sets the filter that will be used by the program to generate the traces
 	}
 
 	private class MethodAndField {
