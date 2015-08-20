@@ -146,12 +146,14 @@ public class Tracer {
 
 								if(filter.isMethodTraced(new MethodKey(event2.method()))) {
 
+
 									// Handle a method entry
 									StackFrame frame = event2.thread().frame(0);
 									ObjectReference _this = frame.thisObject();
 
 									TraceEntry te = new TraceEntry();
 									te.method = new MethodKey(event2.method());
+									//System.out.println(te.method.name);
 
 									if(_this == null){
 
@@ -193,8 +195,6 @@ public class Tracer {
 											Value v = argValues.get(k);
 
 											if(filter.isParameterTraced(new ParameterKey(te.method, k))) {
-												//System.out.println(valueToState(filter, v, new HashMap<ObjectReference, main.tracer.state.State>()));
-
 												te.arguments.add(valueToState(filter, v, new HashMap<ObjectReference, main.tracer.state.State>()));
 
 
