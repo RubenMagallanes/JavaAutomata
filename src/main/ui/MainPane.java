@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import main.Main;
@@ -33,13 +34,9 @@ import main.tracer.TraceManager;
  */
 public class MainPane extends GridPane {
 
-	// private Browser b; // reference to the browser for javascript calls
 	private int count;// number of browser windows currently open.
-	Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();// holds
-																					// references
-																					// to
-																					// diff
-																					// windows
+	//holds reference to browser windows
+	Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();
 
 	private MenuPane parent;
 	private TextField loadDisplay;
@@ -61,8 +58,8 @@ public class MainPane extends GridPane {
 	 * Sets up the button layout for the Load section of the pane.
 	 */
 	private void setUpLoadMenu() {
-		Button btn = new Button();
-
+		Button btn = new Button();		
+		
 		// Text field to be used
 		TextField loadDisplay = new TextField();
 		loadDisplay.setEditable(false);
@@ -90,6 +87,15 @@ public class MainPane extends GridPane {
 			}
 
 		});
+		
+		Tooltip tooltip = new Tooltip();
+		tooltip.setText(
+			    "Load in a *.jar file to be traced.\n" +
+			    "This is the first step in using this tool.\n"
+			    + "Use 'run trace' next to generate a trace file"
+			    + "from the *.jar."  );
+		btn.setTooltip(tooltip);
+		
 		this.add(btn, 0, 0);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
@@ -105,6 +111,13 @@ public class MainPane extends GridPane {
 				System.out.println("TODO: load trace");
 			}
 		});
+		Tooltip tooltip2 = new Tooltip();
+		tooltip2.setText(
+			    "Load a Trace for displaying.\n" +
+			    "Use this if you have previously loaded \n"
+			    + " a jar and already outputted a trace file.\n"  );
+		btn.setTooltip(tooltip2);
+		
 		this.add(btn, 0, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
@@ -122,6 +135,12 @@ public class MainPane extends GridPane {
 				Main.setManager(manager);
 			}
 		});
+		Tooltip tooltip3 = new Tooltip();
+		tooltip3.setText(
+			    "Generate a trace from the *.jar you selected.\n" +
+			    " \n");
+		
+		btn.setTooltip(tooltip3);
 		this.add(btn, 1, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
