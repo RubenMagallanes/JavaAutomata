@@ -113,14 +113,8 @@ public class TraceLauncher {
 			};
 
 			if(Main.getFilter() != null){
-				System.out.println("Main Filter");
 				initialFilter = Main.getFilter();
 			}
-			else{
-				System.out.println("No main filter");
-			}
-
-
 
 			traces = new Trace[executionsArray.length];
 

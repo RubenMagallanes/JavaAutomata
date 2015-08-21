@@ -124,6 +124,10 @@ public class TraceEntry implements Serializable{
 		return method;
 	}
 
+	public boolean isReturn(){
+		return isReturn;
+	}
+
 	public void setMethod(MethodKey method) {
 		this.method = method;
 	}
