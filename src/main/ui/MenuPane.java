@@ -6,6 +6,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * Menu
@@ -14,7 +16,7 @@ import javafx.scene.layout.GridPane;
  * @author brewershan
  *
  */
-public class MenuPane extends TabPane{
+public class MenuPane extends VBox {
 
 	private SelectionPane selection;
 
@@ -22,19 +24,19 @@ public class MenuPane extends TabPane{
 	 * Constructs the menu pane and assigns tabs.
 	 */
 	public MenuPane(){
+		//Make a hozontal box to store the two hrozontal attribues
+		HBox temp = new HBox();
+		temp.setPrefWidth(GUIFrame.width / 2);
 		GridPane grid = setUpMainPane(this);
-		Tab tab = new Tab();
-		tab.setClosable(false);
-		tab.setText("Jar Selection");
-		tab.setContent(grid);
-		this.getTabs().add(tab);
+		temp.getChildren().add(grid);
 
 		selection = new SelectionPane(this);
-		tab = new Tab();
-		tab.setClosable(false);
-		tab.setText("Selection Menu");
-		tab.setContent(selection);
-		this.getTabs().add(tab);
+		temp.getChildren().add(selection);
+
+		this.setPrefWidth(GUIFrame.width / 2);
+
+		this.getChildren().add(temp);
+		this.getChildren().add(new ConsoleLogPane());
 	}
 
 	/**
