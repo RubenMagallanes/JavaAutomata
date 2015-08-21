@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
  * An unambiguous name of a field - that is, a class name and a field name.
  * @author campbealex2
  */
-public final class FieldKey implements Serializable {
+public final class FieldKey implements Serializable, Comparable<FieldKey> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,5 +52,10 @@ public final class FieldKey implements Serializable {
 	@Override
 	public String toString() {
 		return className + "." + name;
+	}
+
+	@Override
+	public int compareTo(FieldKey o) {
+		return name.compareTo(o.name);
 	}
 }

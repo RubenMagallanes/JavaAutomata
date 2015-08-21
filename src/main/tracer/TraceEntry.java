@@ -73,35 +73,10 @@ public class TraceEntry implements Serializable{
 			string += ",\n      \"state\": {}\n";
 		}
 
-		/*if(arguments !=null){
-			for(State arg :  arguments){
-				if(arg != null){
-					string += "Arg " + arg.toString();
-				}
-			}
-
-		}*/
-
 		string += "    }\n";
 		string += "  }";
 		return string;
 
-	}
-
-	private String stateToText(State state){
-		String string = "      \"state\": {\n";
-		System.out.println(state);
-		String[] data = state.toString().substring(1, state.toString().length() - 1).split(",");
-		for(int i = 0; i < data.length; i++){
-			String[] temp = data[i].split(" ", 2);
-			if(temp.length > 1){
-				String[] fieldData = temp[1].split("=");
-				string += "        \""+fieldData[0]+"\": \"" + fieldData[1].replace("\"", "") + "\"";
-				string += (i < data.length - 1) ? ",\n" : "\n";
-			}
-		}
-		string += "      }\n";
-		return string;
 	}
 
 	public State getState() {
