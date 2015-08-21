@@ -3,9 +3,9 @@
 // http://bl.ocks.org/mbostock/1153292
 (function (self){
 
-    var places, // nodes bound to field states
-        methods, // boxes which represent methods
-        links, // links bound to transitions between places and methods
+    var groups = [], // nodes bound to field states
+        methods = [], // boxes which represent methods
+        links = [], // links bound to transitions between places and methods
         svg; // the svg element to draw viz on
 
     // force layout
@@ -27,6 +27,15 @@
     self.init = function (dataStr){
         var data = JSON.parse(dataStr);
         convertToPetriData(data);
+
+        svg = d3.select("svg")
+            .attr("width", 1200)
+            .attr("height", 800);
+
+        var places = [];
+        groups.forEach(function(group){
+            places.concat(group.places);
+        });
 
         var node = svg.selectAll(".place")
             .data(places)
@@ -93,62 +102,68 @@
         force.start();
     }
 
-    function convertToPetriData(data){
-        fieldGroups = [];
-        var fields = data.states[0].fields;
-        // initialise the fields.
-        fields.forEach(function (field, index){
-            var group = {
-                fields: [ {
-                    name: field.name,
-                    changes: [ {
-                        value: field.value,
-                        methodIndex: -1
-                    } ]
-                } ],
-                colour = colour(index);
-            }
-            fieldGroups.push(groups);
-        });
-
-        data.links.forEach(function (method, methodIndex){
-            var sourceState = data.states[link.source];
-            var targetState = data.states[link.target];
-
-            fieldGroups.forEach(function (group){
-                var field = group.fields[0]; // assumes places only have one field to begin with
-                var name = field.name;
-                var targetVal = getField(targetState.fields, name).value;
-                var sourceVal = getField(sourceState.fields, name).value;
-                // if value has changed, add the change to the field's changes
-                if (sourceVal !== targetVal){
-                    field.changes.push({
-                        value: targetVal,
-                        methodIndex: methodIndex
-                    });
-                }
-            });
-        });
-
-        function getField(source, name){
-            var found;
-            source.fields.forEach(function (field){
-                if (field.name === name) found = field;
-            });
-            return found;
-        }
-    }
-
     // update the layout data
     self.updateData = function (data) {
         convertToPetriData(data);
 
-        force.nodes(places);
+        force.nodes(node);
         force.links(links);
 
         // should start?
         force.start();
     };
+
+    function convertToPetriData(data){
+        var fields = data.states[0].fields;
+
+        // initialise groups, one per field
+        fields.forEach(function (field, i){
+            groups.push({
+                fieldNames: [field.name],
+                places: [],
+                colour: colour(i)
+            });
+        });
+
+        // make and add places to groups
+        data.states.forEach(function (state, stateI){
+            var places = [];
+            groups.forEach(function (group){
+                places.push([]);
+            });
+
+            state.fields.forEach(function (field, fieldI){
+                var groupI = groups.indexOf(getGroup(field.name));
+
+                // if field is different from last state, put it into a place
+                if (fieldI === 0 || data.states[stateI][fieldI] !== field.value){
+                    places[groupI].push({
+                        name: field.name,
+                        value: field.value
+                    });
+                }
+            });
+
+            groups.forEach(function (group, i){
+                var place = places[i];
+                if (place.length > 0){
+                    group.places.push(place);
+                }
+            });
+        });
+
+        console.log(groups);
+    }
+
+    function getGroup(fieldName){
+        var groupo;
+        groups.forEach(function (group){
+            if ($.inArray(fieldName, group.fieldNames)){
+                groupo = group;
+            }
+        });
+        return groupo;
+    }
 
     function selectPlace(d){
         d3.select("#state-info")
