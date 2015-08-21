@@ -13,9 +13,7 @@ import com.sun.net.httpserver.Filter;
 
 import main.Main;
 import main.load.JarData;
-import main.tracer.TraceFilter;
-import main.tracer.TraceFilterSelector;
-import main.tracer.TraceManager;
+import main.tracer.*;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBoxTreeItem;
@@ -27,9 +25,9 @@ import javafx.scene.image.ImageView;
 
 public class SelectionPane extends TreeView {
 
-	private CheckBoxTreeItem<String> rootItem;
+	private CheckBoxTreeItem<ShortLongNames> rootItem;
 	private MenuPane parent;
-	private Map<String, MethodAndField> classesSelected = new HashMap<String, MethodAndField>();
+	private Map<ShortLongNames, MethodAndField> classesSelected = new HashMap<ShortLongNames, MethodAndField>();
 
 	public SelectionPane(MenuPane parent) {
 		this.parent = parent;
@@ -51,20 +49,20 @@ public class SelectionPane extends TreeView {
 		System.out.println("IS WORKING");
 		JarData data = Main.getJarData();
 
-		rootItem = new CheckBoxTreeItem<String>(data.getName());
+		rootItem = new CheckBoxTreeItem<ShortLongNames>(new ShortLongNames(data.getName(), null));
 		rootItem.setExpanded(true);
 
 		// Getting the list of classes for the program
 		List<Class<?>> classList = data.getClasses();
 		// Makeing a factory for the checkbox's
-		this.setCellFactory(CheckBoxTreeCell.<String> forTreeView());
+		this.setCellFactory(CheckBoxTreeCell.<ShortLongNames> forTreeView());
 
 		// Goes through all the classes and added them to the list.
 		for (Class<?> tempClass : classList) {
 			Node classIcon = new ImageView(new Image(getClass()
 					.getResourceAsStream("icons/class_obj.gif")));
-			final CheckBoxTreeItem<String> checkBoxTreeItem = new CheckBoxTreeItem<String>(
-					tempClass.getName(), classIcon);
+			final CheckBoxTreeItem<ShortLongNames> checkBoxTreeItem = new CheckBoxTreeItem<ShortLongNames>(
+			           new ShortLongNames(tempClass.getName(), tempClass.toGenericString()), classIcon);
 			try {
 				// Trys to add methods and fields as children.
 				addMethods(tempClass, checkBoxTreeItem);
@@ -76,10 +74,10 @@ public class SelectionPane extends TreeView {
 			// Adds them to the parent.
 			checkBoxTreeItem.addEventHandler(
 					CheckBoxTreeItem.checkBoxSelectionChangedEvent(),
-					new EventHandler<TreeModificationEvent<String>>() {
+					new EventHandler<TreeModificationEvent<ShortLongNames>>() {
 						@Override
-						public void handle(TreeModificationEvent<String> arg0) {
-							String name = checkBoxTreeItem.getValue();
+						public void handle(TreeModificationEvent<ShortLongNames> arg0) {
+							ShortLongNames name = checkBoxTreeItem.getValue();
 							//Checks that the selectiong was changed
 							//If the parent that the event handler is part of
 							//and the argument is the item we are monitoring.
@@ -132,11 +130,11 @@ public class SelectionPane extends TreeView {
 	 *             - error thrown when there is not class defintion found.
 	 */
 	private void addMethods(Class<?> tempClass,
-			CheckBoxTreeItem<String> checkBoxTreeItem)
+			CheckBoxTreeItem<ShortLongNames> checkBoxTreeItem)
 			throws NoClassDefFoundError {
 		for (Method method : tempClass.getDeclaredMethods()) {
-			final CheckBoxTreeItem<String> checkBoxMethod = new CheckBoxTreeItem<String>(
-					method.getName());
+			final CheckBoxTreeItem<ShortLongNames> checkBoxMethod = new CheckBoxTreeItem<ShortLongNames>(
+					new ShortLongNames(method.getName(), new MethodKey(method).toString()));
 			if (method.toString().contains("public")) {
 				Node methodIcon = new ImageView(new Image(getClass()
 						.getResourceAsStream("icons/methpub_obj.gif")));
@@ -161,11 +159,11 @@ public class SelectionPane extends TreeView {
 			 */
 			checkBoxMethod.addEventHandler(
 					CheckBoxTreeItem.checkBoxSelectionChangedEvent(),
-					new EventHandler<TreeModificationEvent<String>>() {
+					new EventHandler<TreeModificationEvent<ShortLongNames>>() {
 						@Override
-						public void handle(TreeModificationEvent<String> arg0) {
-							String name = checkBoxMethod.getValue();
-							String parentName = checkBoxMethod.getParent()
+						public void handle(TreeModificationEvent<ShortLongNames> arg0) {
+							ShortLongNames name = checkBoxMethod.getValue();
+							ShortLongNames parentName = checkBoxMethod.getParent()
 									.getValue();
 							if (arg0.wasSelectionChanged()
 									&& checkBoxMethod.isSelected()) {
@@ -210,11 +208,11 @@ public class SelectionPane extends TreeView {
 	 *             - error thrown when there is not class defintion found.
 	 */
 	private void addFields(Class<?> tempClass,
-			CheckBoxTreeItem<String> checkBoxTreeItem)
+			CheckBoxTreeItem<ShortLongNames> checkBoxTreeItem)
 			throws NoClassDefFoundError {
 		for (Field field : tempClass.getDeclaredFields()) {
-			final CheckBoxTreeItem<String> checkBoxField = new CheckBoxTreeItem<String>(
-					field.getName());
+			final CheckBoxTreeItem<ShortLongNames> checkBoxField = new CheckBoxTreeItem<ShortLongNames>(
+					new ShortLongNames(field.getName(), new FieldKey(field).toString()));
 			if (field.isEnumConstant()) {
 				Node methodIcon = new ImageView(new Image(getClass()
 						.getResourceAsStream("icons/enum_obj.gif")));
@@ -238,11 +236,11 @@ public class SelectionPane extends TreeView {
 			}
 			checkBoxField.addEventHandler(
 					CheckBoxTreeItem.checkBoxSelectionChangedEvent(),
-					new EventHandler<TreeModificationEvent<String>>() {
+					new EventHandler<TreeModificationEvent<ShortLongNames>>() {
 						@Override
-						public void handle(TreeModificationEvent<String> arg0) {
-							String name = checkBoxField.getValue();
-							String parentName = checkBoxField.getParent()
+						public void handle(TreeModificationEvent<ShortLongNames> arg0) {
+							ShortLongNames name = checkBoxField.getValue();
+							ShortLongNames parentName = checkBoxField.getParent()
 									.getValue();
 							if (arg0.wasSelectionChanged()
 									&& checkBoxField.isSelected()) {
@@ -279,11 +277,22 @@ public class SelectionPane extends TreeView {
 
 	public void setSelected(TraceManager traceManager) {
 		TraceFilterSelector filter = new TraceFilterSelector();
-
-		filter.addClassToFilter(new ArrayList<String>(classesSelected.keySet()));
+		List<String> classNames = new ArrayList<String>();
+		for (ShortLongNames snc: classesSelected.keySet()){
+			classNames.add(snc.name);
+		}
+		filter.addClassToFilter(classNames);
 		for (MethodAndField mf : classesSelected.values()){
-			filter.addFieldToFilter(mf.fieldList);
-			filter.addMethodsToFilter(mf.methodList);
+			List<String> fieldNames = new ArrayList<>();
+			for (ShortLongNames SLN : mf.fieldList){
+				fieldNames.add(SLN.nameLong);
+			}
+			filter.addFieldToFilter(fieldNames);
+			List<String> methodNames = new ArrayList<>();
+			for (ShortLongNames SLN : mf.methodList){
+				methodNames.add(SLN.nameLong);
+			}
+			filter.addMethodsToFilter(methodNames);
 		}
 		System.out.println("Setting filter");
 		if(traceManager != null){//trace manager might be null becuase no trace has been generated yet
@@ -293,13 +302,47 @@ public class SelectionPane extends TreeView {
 	}
 
 	private class MethodAndField {
-		public List<String> methodList = new ArrayList<String>();
-		public List<String> fieldList = new ArrayList<String>();
+		public List<ShortLongNames> methodList = new ArrayList<ShortLongNames>();
+		public List<ShortLongNames> fieldList = new ArrayList<ShortLongNames>();
 
 		@Override
 		public String toString() {
 			return "MethodAndField [methodList=" + methodList + ", fieldList="
 					+ fieldList + "]";
+		}
+	}
+
+	private class ShortLongNames {
+		public String name;
+		public String nameLong;
+
+		public ShortLongNames (String name, String nameLong){
+			this.name = name;
+			this.nameLong = nameLong;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) return true;
+			if (o == null || getClass() != o.getClass()) return false;
+
+			ShortLongNames that = (ShortLongNames) o;
+
+			if (name != null ? !name.equals(that.name) : that.name != null) return false;
+			return !(nameLong != null ? !nameLong.equals(that.nameLong) : that.nameLong != null);
+
+		}
+
+		@Override
+		public int hashCode() {
+			int result = name != null ? name.hashCode() : 0;
+			result = 31 * result + (nameLong != null ? nameLong.hashCode() : 0);
+			return result;
+		}
+
+		@Override
+		public String toString() {
+			return  name;
 		}
 	}
 
