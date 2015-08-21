@@ -61,8 +61,8 @@ public class MainPane extends GridPane {
 	 * Sets up the button layout for the Load section of the pane.
 	 */
 	private void setUpLoadMenu() {
-		Button btn = new Button();		
-		
+		Button btn = new Button();
+
 		// Text field to be used
 		TextField loadDisplay = new TextField();
 		loadDisplay.setEditable(false);
@@ -80,8 +80,6 @@ public class MainPane extends GridPane {
 					loadDisplay.setText(file.getName());
 					JarData jarData = JarLoader.loadJarFile(file);
 					Main.setJarData(jarData);
-					// System.out.println(parent);
-					// System.out.println(parent.getSelectionPane());
 					parent.getSelectionPane().makeNewTree();
 				} else {
 					loadDisplay.setText("");
@@ -90,7 +88,7 @@ public class MainPane extends GridPane {
 			}
 
 		});
-		
+
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(
 			    "Load in a *.jar file to be traced.\n" +
@@ -98,7 +96,7 @@ public class MainPane extends GridPane {
 			    + "Use 'run trace' next to generate a trace file"
 			    + "from the *.jar."  );
 		btn.setTooltip(tooltip);
-		
+
 		this.add(btn, 0, 0);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
@@ -120,7 +118,7 @@ public class MainPane extends GridPane {
 			    "Use this if you have previously loaded \n"
 			    + " a jar and already outputted a trace file.\n"  );
 		btn.setTooltip(tooltip2);
-		
+
 		this.add(btn, 0, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
@@ -133,7 +131,6 @@ public class MainPane extends GridPane {
 			public void handle(ActionEvent e) {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
 				Trace[] tr = tracer.run();
-				System.out.println(tr == null);
 				TraceManager manager = new TraceManager(tr);
 				Main.setManager(manager);
 			}
@@ -142,14 +139,13 @@ public class MainPane extends GridPane {
 		tooltip3.setText(
 			    "Generate a trace from the *.jar you selected.\n" +
 			    "You should save the trace afterwards. \n");
-		
+
 		btn.setTooltip(tooltip3);
 		this.add(btn, 1, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
 
-	// convertTraceToJson() TODO  i think this is done somewhere else so this isn't needed? 
 
 	/**
 	 * Sets up the Save section of the menu
@@ -173,7 +169,6 @@ public class MainPane extends GridPane {
 				} else {
 					Main.getManager().traceToFile("data/traces/", fileName);
 				}
-				System.out.println(fileName + " TODO: Trace Saveing");
 			}
 
 		});
@@ -209,20 +204,6 @@ public class MainPane extends GridPane {
 					
 					GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
 					String json = g.parseAutomata();
-	//
-//					File fi = new File("src/web/test/linearAutomata.json");
-//					Scanner scan;
-//					String str = "";
-//					try {
-//						scan = new Scanner(fi);
-//						while (scan.hasNextLine()) {
-//							str += scan.nextLine();
-//						}
-//					} catch (FileNotFoundException e1) {
-	//
-//						e1.printStackTrace();
-//					}
-
 					BrowserBox bb = new BrowserBox(json);
 					browserWindows.put(count++, bb);// add cb to hash map
 					// bb.visualizeTrace(str); now handled internally
