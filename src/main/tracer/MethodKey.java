@@ -10,6 +10,7 @@ public final class MethodKey implements Serializable {
 	public final String name;
 	public final String[] argTypes;
 
+
 	public MethodKey(String className, String name, String[] argTypes) {
 		if(className == null || name == null)
 			throw new NullPointerException();
@@ -65,6 +66,7 @@ public final class MethodKey implements Serializable {
 		return className + "." + name + "(" + getReadableArgs() + ")";
 	}
 
+
 	private String toReadableClassName(String className) {
 		if(className.equals("[B")) return "byte[]";
 		if(className.equals("[C")) return "char[]";
@@ -97,5 +99,26 @@ public final class MethodKey implements Serializable {
 		if(argTypes.length != 0)
 			argsString.setLength(argsString.length() - 2);
 		return argsString.toString();
+	}
+
+	/**
+	 * returns whether or not the string passed in matched the method key
+	 * matches on:
+	 * 	-The name
+	 *  -The class path
+	 *  -Parameters
+	 *
+	 * @param the other method to match
+	 * */
+	public boolean matchMethodString(String otherMethod){
+		//TODO args
+		if(otherMethod == null)return false;
+
+		if(otherMethod.equals(className + "." + name))return true;
+
+		return false;
+
+
+
 	}
 }

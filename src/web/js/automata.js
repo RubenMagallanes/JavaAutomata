@@ -13,7 +13,7 @@
     var force = d3.layout.force()
         .charge(-2000)
         .size([1200, 800])
-        .linkDistance(100)
+        .linkDistance(150)
         .gravity(0.1);
 
     var colour = d3.scale.category20(),
@@ -24,15 +24,18 @@
 
     // initialise the layout with data
     self.init = function (dataStr){
-    	console.log("printing data recieved \n");
-    	console.log(dataStr);
         svg = d3.select("svg")
             .attr("width", 1200)
             .attr("height", 800);
 
         var data = JSON.parse(dataStr);
+
         states = data.states;
         links = data.links;
+
+        svg = d3.select("svg")
+            .attr("width", 1200)
+            .attr("height", 800);
 
     	force.nodes(states);
         force.links(links);
@@ -81,15 +84,17 @@
             .attr("marker-end", "url(#end)")
             .on("end");
 
-        //setTimeout(self.showMethodNames, 10);
         self.showMethodNames();
 
         force.on("tick", function (){
             node.attr("transform", transform)
-            link.select(".line").attr("d", linkArc);
+            //link.select(".line").attr("d", linkArc);
+            // straight lines
+            var path = link.select(".line");
+            path.attr("d", function (d){
+                return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
+            })
         });
-
-        //force.linkDistance(100);
 
         // updates a curved link
         function linkArc(d) {

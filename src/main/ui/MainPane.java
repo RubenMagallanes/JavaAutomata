@@ -25,6 +25,7 @@ import main.parse.JSONToAutomataException;
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
+import sun.awt.image.GifImageDecoder;
 
 /**
  * First menu people see when loading the program.
@@ -45,6 +46,8 @@ public class MainPane extends GridPane {
 	 * Constructs the menu Pane
 	 */
 	public MainPane(MenuPane parent) {
+		this.setPrefWidth(GUIFrame.width/2 - GUIFrame.diffrence);
+		this.setPrefHeight(GUIFrame.height - GUIFrame.consoleSize);
 		count = 0;
 		this.parent = parent;
 		setUpLoadMenu();
