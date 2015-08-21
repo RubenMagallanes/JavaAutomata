@@ -185,20 +185,8 @@ public class MainPane extends GridPane {
 		// Sets up the load view button
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load View");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				// grab the traces
-				//data/traces/
+		btn.setOnAction((ActionEvent e) -> {
 				
-				/*
-				 * File f = new File("data/traces/test.json");//TODO Automata
-				 * auto = JSONToAutomata.generateAutomata(f);
-				 * GeneralFormatToAutomata g = new
-				 * GeneralFormatToAutomata(auto); String json =
-				 * g.parseAutomata();
-				 */
-
 				Automata auto = null;
 
 				try {
@@ -206,33 +194,24 @@ public class MainPane extends GridPane {
 					
 					GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
 					String json = g.parseAutomata();
-	//
-//					File fi = new File("src/web/test/linearAutomata.json");
-//					Scanner scan;
-//					String str = "";
-//					try {
-//						scan = new Scanner(fi);
-//						while (scan.hasNextLine()) {
-//							str += scan.nextLine();
-//						}
-//					} catch (FileNotFoundException e1) {
-	//
-//						e1.printStackTrace();
-//					}
 
+					//this starts the thread that takes care of the browser window and visualization within 
 					BrowserBox bb = new BrowserBox(json);
-					browserWindows.put(count++, bb);// add cb to hash map
-					// bb.visualizeTrace(str); now handled internally
+					browserWindows.put(count++, bb);// add bb to hash map if we want to reference it later
+
 				} catch (JSONToAutomataException error) {
 					System.out.println("error :^)");
+					error. printStackTrace();
+					
 				}
-
-				
-			}
+			
 		});
 		this.add(btn, 0, 4);
 	}
 
 	
 	
+	/*btn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) */
 }
