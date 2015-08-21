@@ -118,7 +118,6 @@ public class TraceThread extends Thread {
 			try {
 				frame = event.thread().frame(0);
 			} catch (IncompatibleThreadStateException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			ObjectReference _this = frame.thisObject();
@@ -173,7 +172,6 @@ public class TraceThread extends Thread {
 			try {
 				frame = event.thread().frame(0);
 			} catch (IncompatibleThreadStateException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			ObjectReference _this = frame.thisObject();

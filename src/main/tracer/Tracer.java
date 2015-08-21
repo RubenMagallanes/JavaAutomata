@@ -41,10 +41,8 @@ public class Tracer {
 	 * @return A string representation of the program trace
 	 * @throws Exception This becomes your problem if thrown
 	 */
-	public static void launchAndTraceAsync(String vmOptions, String mainClass, TraceFilter filter, RealtimeTraceConsumer consumer) throws Exception
-	{
+	public static void launchAndTraceAsync(String vmOptions, String mainClass, TraceFilter filter, RealtimeTraceConsumer consumer) throws Exception{
 		VirtualMachine vm = launchTracee(mainClass, vmOptions);
-
 		TraceAsync(vm, filter, consumer);
 	}
 
@@ -69,10 +67,12 @@ public class Tracer {
 	 */
 	private static State objectToState(TraceFilter filter, ObjectReference object, Map<ObjectReference, State> alreadySeenObjects) {
 
-		if(alreadySeenObjects.containsKey(object))
+		if(alreadySeenObjects.containsKey(object)){
 			return alreadySeenObjects.get(object);
+		}
 
 		Type type = object.type();
+
 		if(type instanceof ClassType) {
 
 			if(((ClassType)object.type()).isEnum()) {
@@ -86,38 +86,36 @@ public class Tracer {
 							fullyInitialized = false;
 					}
 				}
-				if(!fullyInitialized)
+				if(!fullyInitialized){
 					return new EnumState("<uninitialized-enum>"); // TODO should this be a separate class?
+				}
 				throw new AssertionError("failed to find enum constant name");
 			}
 
-			if(object instanceof StringReference)
+			if(object instanceof StringReference){
 				return new StringState(((StringReference)object).value());
-
-			//if(((ClassType)object.type()).name().equals("java.lang.String")) {
-			//	return "<string>";
-			//}
+			}
 
 			ObjectState state = new ObjectState(object.type().name());
 			alreadySeenObjects.put(object, state);
 
 			List<Field> fields = ((ClassType)object.type()).allFields();
 
-			for(int k = 0; k < fields.size(); k++) {
+			for(int i = 0; i < fields.size(); i++) {
+				Field field = fields.get(i);
+				FieldKey fieldKey = new FieldKey(field);
 
-				Field f = fields.get(k);
-				FieldKey fk = new FieldKey(f);
-
-
-				if(!filter.isFieldTraced(fk))
+				if(!filter.isFieldTraced(fieldKey)){
 					continue;
-				state.getFields().put(fk, valueToState(filter, object.getValue(f), alreadySeenObjects));
+				}
+				state.getFields().put(fieldKey, valueToState(filter, object.getValue(field), alreadySeenObjects));
 				state.setFields(state.getFields());
 			}
 
 			return state;
 
-		} else if(type instanceof ArrayType) {
+		}
+		else if(type instanceof ArrayType) {
 			//TODO Fix this area
 			ArrayState state = new ArrayState();
 			alreadySeenObjects.put(object, state);
@@ -129,18 +127,22 @@ public class Tracer {
 			}
 			return state;
 
-		} else
+		}
+		else{
 			throw new AssertionError("Unsupported type "+type.name());
+		}
 	}
 
 	/**
 	 * Returns a string containing the relevant state of any value, in some human-readable format.
 	 */
 	public static State valueToState(TraceFilter filter, Value value, Map<ObjectReference, State> alreadySeenObjects) {
-		if(value == null)
+		if(value == null){
 			return new NullState();
-		if(value instanceof ObjectReference)
+		}
+		if(value instanceof ObjectReference){
 			return objectToState(filter, (ObjectReference)value, alreadySeenObjects);
+		}
 		return new SimpleState(value.toString());
 	}
 
@@ -154,9 +156,9 @@ public class Tracer {
 				break;
 			}
 		}
-		if(processConnector == null)
+		if(processConnector == null){
 			throw new Exception("didn't find CommandLineLaunch connector");
-
+		}
 
 		// Launch the program, initially suspended
 		// Possible Java bug: with suspend=true, processConnector.launch throws an exception
