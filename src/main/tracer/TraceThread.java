@@ -112,6 +112,7 @@ public class TraceThread extends Thread {
 	}
 
 	private void handleMethodEntryEvent(MethodEntryEvent event) {
+		System.out.println("HANDLE ENTRY METHOD");
 		if (filter.isMethodTraced(new MethodKey(event.method()))) {
 			// Handle a method entry
 			StackFrame frame = null;
@@ -160,12 +161,14 @@ public class TraceThread extends Thread {
 					}
 				}
 			}
+			System.out.println(te);
 			consumer.onTraceLine(te);
 		}
 		threadsToResume.add(event.thread());
 	}
 
 	private void handleMethodExitEvent(MethodExitEvent event) {
+		System.out.println("HANDLE EXIT METHOD");
 		// Handle a method return
 		if (filter.isMethodTraced(new MethodKey(event.method()))) {
 			StackFrame frame = null;
@@ -183,6 +186,7 @@ public class TraceThread extends Thread {
 				te.state = Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
 			}
 			te.isReturn = true;
+			System.out.println(te);
 			consumer.onTraceLine(te);
 		}
 		threadsToResume.add(event.thread());
