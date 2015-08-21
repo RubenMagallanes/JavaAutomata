@@ -63,7 +63,7 @@ public class TraceEntry implements Serializable{
 
 	@Override
 	public String toString(){
-		String isEntry = isReturn ? "  { \"exitMethod\": {\n" : "  { \"enterMethod\": {\n";
+		String isEntry = (isReturn) ? "  { \"exitMethod\": {\n" : "  { \"enterMethod\": {\n";
 		String string = isEntry + "      \"methodName\": \"" + method.toString().substring(5) + "\"";
 		if(state != null){
 			string += ",\n";
@@ -122,6 +122,10 @@ public class TraceEntry implements Serializable{
 
 	public MethodKey getMethod() {
 		return method;
+	}
+
+	public boolean isReturn(){
+		return isReturn;
 	}
 
 	public void setMethod(MethodKey method) {

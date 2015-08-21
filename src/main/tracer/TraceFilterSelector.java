@@ -13,18 +13,17 @@ public class TraceFilterSelector {
 	//filtered items
 	private List<String> fieldNames;
 	private List<String> methodNames;
-	private List<String> paramatersNames;
 	private List<String> classNames;
 
 
 	public TraceFilterSelector(){
 		this.fieldNames = new ArrayList<>();
 		this.methodNames = new ArrayList<>();
-		this.paramatersNames= new ArrayList<>();
 		this.classNames = new ArrayList<>();
 
 		updateFilter();
 	}
+
 
 	/**
 	 * Adds the methods to the filter specified by the name
@@ -32,12 +31,10 @@ public class TraceFilterSelector {
 	 * @param list of methods to filter
 	 * */
 	public void addMethodsToFilter(List<String> methodNamesToFilter){
-
 		for(String s : methodNamesToFilter){
 			this.methodNames.add(s);
-
 		}
-
+		updateFilter();
 	}
 
 
@@ -75,7 +72,6 @@ public class TraceFilterSelector {
 	 * */
 	public void clearMethods(){
 		methodNames.clear();
-		//updateFilter();
 	}
 
 
@@ -84,7 +80,6 @@ public class TraceFilterSelector {
 	 * */
 	public void clearClasses(){
 		classNames.clear();
-		//updateFilter();
 	}
 
 	/**
@@ -92,7 +87,6 @@ public class TraceFilterSelector {
 	 * */
 	public void clearFields(){
 		fieldNames.clear();
-		//updateFilter();
 	}
 
 
@@ -105,17 +99,13 @@ public class TraceFilterSelector {
 
 			@Override
 			public boolean isParameterTraced(ParameterKey p) {
-				for(String s : paramatersNames){
-					//if(p.)
-					//p.
-				}
-				return false;
+				return false;//Don't case about parameters
 			}
 
 			@Override
 			public boolean isMethodTraced(MethodKey m) {
 				for(String s : methodNames){
-					if(m.name.equals(s)){//TODO Update to use getName which is the longer name so we differentiate between methods in other classes
+					if(m.toString().equals(s)){//TODO Update to use getName which is the longer name so we differentiate between methods in other classes
 						return true;
 					}
 				}
@@ -125,13 +115,11 @@ public class TraceFilterSelector {
 			@Override
 			public boolean isFieldTraced(FieldKey f) {
 				for(String s : fieldNames){
-					if(f.name.equals(s))return true;
+					if(f.toString().equals(s))return true;
 				}
 				return false;
 			}
 		};
-
-		printFilter();
 	}
 
 
