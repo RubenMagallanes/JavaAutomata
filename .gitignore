@@ -4,3 +4,6 @@
 /out/
 JavaAutomata.iml
 
+javaautomata.properties
+javaautomata.xml
+module_javaautomata.xml
