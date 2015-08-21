@@ -12,7 +12,7 @@ public class GUIFrame extends Application{
 
 
 	private static Stage primaryStage;
-	final static int width = 800;
+	final static int width = 1000;
 	final static int diffrence = 100;
 	final static int consoleSize = 100;
 	final static int height = 500;
@@ -20,7 +20,7 @@ public class GUIFrame extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		GUIFrame.primaryStage = primaryStage;
-		primaryStage.setTitle("Automita");
+		primaryStage.setTitle("Automata");
 
 		MenuPane menu = new MenuPane();
 
@@ -32,11 +32,4 @@ public class GUIFrame extends Application{
 		launch(args);
 	}
 
-	public static double getWidth (){
-		return primaryStage.getWidth();
-	}
-
-	public static double getHeight (){
-		return primaryStage.getHeight();
-	}
 }

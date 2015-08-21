@@ -9,11 +9,14 @@ import java.lang.reflect.Field;
  */
 public final class FieldKey implements Serializable, Comparable<FieldKey> {
 
+	//TODO: Generate this later.
 	private static final long serialVersionUID = 1L;
 
 	public final String className;
 	public final String name;
 
+	//Constructors that keep track of the
+	// names of the fields and classes they belong to.
 	public FieldKey(String className, String name) {
 		if(className == null || name == null)
 			throw new NullPointerException();
