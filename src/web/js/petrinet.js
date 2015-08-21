@@ -152,7 +152,7 @@
             });
         });
 
-        console.log(groups);
+        console.log("groups: ", groups);
     }
 
     function getGroup(fieldName){
