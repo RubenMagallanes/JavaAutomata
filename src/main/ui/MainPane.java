@@ -126,7 +126,7 @@ public class MainPane extends GridPane {
 
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setText("Run Trace");
+		btn.setText("Run Trace"); 
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -170,8 +170,8 @@ public class MainPane extends GridPane {
 			public void handle(ActionEvent e) {
 				String fileName = loadDisplay.getText();
 				if (fileName.equals("")) {
-				} else {
-					Main.getManager().traceToFile("data/traces/", fileName);
+				} else {// TODO change so it loads from ibject not file
+					Main.getManager().traceToFile("data/traces/", fileName); 
 				}
 				System.out.println(fileName + " TODO: Trace Saveing");
 			}
