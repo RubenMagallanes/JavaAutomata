@@ -1,11 +1,8 @@
 package main.tracer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import main.tracer.state.ArrayState;
 import main.tracer.state.EnumState;
@@ -20,45 +17,13 @@ import com.sun.jdi.ArrayType;
 import com.sun.jdi.Bootstrap;
 import com.sun.jdi.ClassType;
 import com.sun.jdi.Field;
-import com.sun.jdi.IncompatibleThreadStateException;
-import com.sun.jdi.InternalException;
-import com.sun.jdi.Method;
 import com.sun.jdi.ObjectReference;
-import com.sun.jdi.ReferenceType;
-import com.sun.jdi.StackFrame;
 import com.sun.jdi.StringReference;
-import com.sun.jdi.ThreadReference;
 import com.sun.jdi.Type;
 import com.sun.jdi.Value;
 import com.sun.jdi.VirtualMachine;
 import com.sun.jdi.connect.Connector;
 import com.sun.jdi.connect.LaunchingConnector;
-import com.sun.jdi.event.ClassPrepareEvent;
-import com.sun.jdi.event.Event;
-import com.sun.jdi.event.EventSet;
-import com.sun.jdi.event.MethodEntryEvent;
-import com.sun.jdi.event.MethodExitEvent;
-import com.sun.jdi.event.VMDeathEvent;
-import com.sun.jdi.request.ClassPrepareRequest;
-import com.sun.jdi.request.EventRequest;
-import com.sun.jdi.request.MethodEntryRequest;
-import com.sun.jdi.request.MethodExitRequest;
-import com.sun.jdi.request.VMDeathRequest;
-
-
-
-class ObjectReferenceGenerator {
-	private Map<Object, String> map = new HashMap<>();
-
-	public String get(Object obj) {
-		return map.get(obj);
-	}
-
-	private int nextID = 0;
-	public void put(Object obj) {
-		map.put(obj, "REF"+String.valueOf(nextID++));
-	}
-}
 
 /**
  * Main interface class for the tracing subsystem.
@@ -93,176 +58,10 @@ public class Tracer {
 	 * @param consumer The consumer that trace lines will be sent to.
 	 */
 	public static void TraceAsync(final VirtualMachine vm, final TraceFilter filter, final RealtimeTraceConsumer consumer) {
-		Thread thread = new Thread() {
-			@Override
-			public void run() {
-				try {
-					// class -> does it have any traceable methods?
-					Map<ReferenceType, Boolean> knownTraceableClasses = new HashMap<>();
-
-					// When a class is loaded, we need to add a MethodEntryRequest and MethodExitRequest if it's traceable.
-					ClassPrepareRequest classPrepareRequest = vm.eventRequestManager().createClassPrepareRequest();
-					classPrepareRequest.setSuspendPolicy(EventRequest.SUSPEND_EVENT_THREAD);
-					classPrepareRequest.enable();
-
-					VMDeathRequest deathRequest = vm.eventRequestManager().createVMDeathRequest();
-
-					deathRequest.enable();
-
-
-					// Resume the program (AFTER setting up event requests)
-					vm.resume();
-
-
-					while(true) {
-						EventSet events = vm.eventQueue().remove();
-						Set<ThreadReference> threadsToResume = new HashSet<ThreadReference>();
-						for(Event event : events) {
-							if(event instanceof ClassPrepareEvent) {
-								ClassPrepareEvent event2 = (ClassPrepareEvent)event;
-
-								ReferenceType type = event2.referenceType();
-								if(!knownTraceableClasses.containsKey(type)) {
-									boolean traceable = doesClassHaveTraceableMethods(filter, type);
-									knownTraceableClasses.put(type, traceable);
-									if(traceable) {
-										MethodEntryRequest entryRequest = vm.eventRequestManager().createMethodEntryRequest();
-										entryRequest.setSuspendPolicy(EventRequest.SUSPEND_EVENT_THREAD);
-										entryRequest.addClassFilter(type);
-										entryRequest.enable();
-
-										// When a method is exited, send an event to this tracer
-										MethodExitRequest exitRequest = vm.eventRequestManager().createMethodExitRequest();
-										exitRequest.setSuspendPolicy(EventRequest.SUSPEND_EVENT_THREAD);
-										exitRequest.addClassFilter(type);
-										exitRequest.enable();
-									}
-								}
-
-								threadsToResume.add(event2.thread());
-							}
-							if(event instanceof MethodEntryEvent) {
-								MethodEntryEvent event2 = (MethodEntryEvent)event;
-
-								if(filter.isMethodTraced(new MethodKey(event2.method()))) {
-
-
-									// Handle a method entry
-									StackFrame frame = event2.thread().frame(0);
-									ObjectReference _this = frame.thisObject();
-
-									TraceEntry te = new TraceEntry();
-									te.method = new MethodKey(event2.method());
-									//System.out.println(te.method.name);
-
-									if(_this == null){
-
-									}
-										//te.state = null;
-									else{
-										te.state = valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
-
-										//Prints the fields of the program
-										//System.out.println("State : " + te.state);
-
-									}
-
-
-
-									te.isReturn = false;
-
-									// Java bug; InternalException is thrown if getting arguments from a native method
-									// see http://bugs.java.com/view_bug.do?bug_id=6810565
-									if(!event2.method().isNative()) {
-										te.arguments = new ArrayList<>();
-
-										List<Value> argValues = new ArrayList<>();
-
-										try {
-											argValues = frame.getArgumentValues();
-
-
-										} catch(InternalException e) {
-											// https://netbeans.org/bugzilla/show_bug.cgi?id=194822
-											if(!e.getMessage().equals("Unexpected JDWP Error: 35"))
-												throw e;
-
-											while(argValues.size() < te.method.argTypes.length)
-												argValues.add(null);
-										}
-
-										for(int k = 0; k < argValues.size(); k++) {
-											Value v = argValues.get(k);
-
-											if(filter.isParameterTraced(new ParameterKey(te.method, k))) {
-												te.arguments.add(valueToState(filter, v, new HashMap<ObjectReference, main.tracer.state.State>()));
-
-
-											} else {
-												te.arguments.add(null);
-											}
-										}
-									}
-
-									consumer.onTraceLine(te);
-								}
-
-								threadsToResume.add(event2.thread());
-
-							} else if(event instanceof MethodExitEvent) {
-
-								// Handle a method return
-								MethodExitEvent event2 = (MethodExitEvent)event;
-
-								if(filter.isMethodTraced(new MethodKey(event2.method()))) {
-									StackFrame frame = event2.thread().frame(0);
-									ObjectReference _this = frame.thisObject();
-
-									TraceEntry te = new TraceEntry();
-									te.method = new MethodKey(event2.method());
-
-									if(_this == null)
-										te.state = null;
-									else{
-										te.state = valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
-									}
-
-
-									te.isReturn = true;
-									consumer.onTraceLine(te);
-								}
-
-								threadsToResume.add(event2.thread());
-
-							}
-							else if(event instanceof VMDeathEvent)
-							{
-								System.out.println("Tracing done");
-								vm.dispose();
-								return;
-							}
-						}
-						for(ThreadReference thread : threadsToResume)
-							thread.resume();
-					}
-				} catch(InterruptedException | RuntimeException | IncompatibleThreadStateException | Error t) {
-					consumer.onTracerCrash(t);
-				} finally {
-					consumer.onTraceFinish();
-				}
-			}
-		};
-
+		Thread thread = new TraceThread(vm, filter, consumer);
 		thread.setName("Tracer thread");
 		thread.setDaemon(true);
 		thread.start();
-	}
-
-	private static boolean doesClassHaveTraceableMethods(TraceFilter filter, ReferenceType type) {
-		for(Method m : type.methods())
-			if(filter.isMethodTraced(new MethodKey(m)))
-				return true;
-		return false;
 	}
 
 	/**
@@ -337,7 +136,7 @@ public class Tracer {
 	/**
 	 * Returns a string containing the relevant state of any value, in some human-readable format.
 	 */
-	private static State valueToState(TraceFilter filter, Value value, Map<ObjectReference, State> alreadySeenObjects) {
+	public static State valueToState(TraceFilter filter, Value value, Map<ObjectReference, State> alreadySeenObjects) {
 		if(value == null)
 			return new NullState();
 		if(value instanceof ObjectReference)
@@ -366,5 +165,18 @@ public class Tracer {
 		args.get("options").setValue(jvmOptions);
 		args.get("suspend").setValue("true");
 		return processConnector.launch(args);
+	}
+}
+
+class ObjectReferenceGenerator {
+	private Map<Object, String> map = new HashMap<>();
+
+	public String get(Object obj) {
+		return map.get(obj);
+	}
+
+	private int nextID = 0;
+	public void put(Object obj) {
+		map.put(obj, "REF"+String.valueOf(nextID++));
 	}
 }
