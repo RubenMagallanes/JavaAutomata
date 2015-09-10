@@ -186,4 +186,4 @@
         d3.select("state-info").attr("visibiliy", "hidden");
     }
 
-})(viz.automata = viz.automata || {})
+})(viz.automata = viz.automata || {});
