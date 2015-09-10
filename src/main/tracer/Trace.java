@@ -40,14 +40,6 @@ public class Trace implements Serializable {
 			}
 		}
 
-//		while(it.hasNext()) {
-//			MethodKey meth = it.next().method;
-//			System.out.println("Tracer Apply :"+meth.name);
-//			if(!f.isMethodTraced(meth)){
-//				lines.remove(lines.indexOf(meth));//new
-//			}
-//		}
-
 		for(TraceEntry te : lines){
 			te.filterFields(f);
 		}
