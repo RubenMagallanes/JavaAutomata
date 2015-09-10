@@ -34,7 +34,7 @@ public class TraceManager {
 				newT.setState(t.getState());
 				newT.setArguments(t.getArguments());
 				newT.setMethod(t.getMethod());
-				newT.isReturn = t.isReturn();
+				newT.setIsExit(t.isExit());
 				temp.add(newT);
 			}
 			tracesFiltered[i].setLines(temp);

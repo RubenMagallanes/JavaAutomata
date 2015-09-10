@@ -5,39 +5,59 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import main.tracer.state.State;
 import main.tracer.tree.TraceEntryTree;
 
 public class Trace implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	//A list of states of the program
 	private List<TraceEntry> lines;
 
+
+	/**
+	 * Constructs a Trace object initializes the list
+	 * of TraceEntrys
+	 * */
 	public Trace(){
 		lines = new ArrayList<TraceEntry>();
 	}
 
+
+	/**
+	 * Returns a list of TraceEntry which represent the states
+	 * of the traced program
+	 *
+	 * @return list of TraceEntry
+	 * */
 	public List<TraceEntry> getLines(){
 		return lines;
 	}
 
+
+	/**
+	 * Sets the list of TraceEntry objects
+	 *
+	 * @param the list of TraceEntry
+	 * */
 	public void setLines(List<TraceEntry> lines) {
 		this.lines = lines;
 	}
 
+
+	/**
+	 *Removes Items from the Trace if it is not filtered
+	 *
+	 *@param the filter to use on the trace
+	 * */
 	public void applyFilter(TraceFilter f) {
-		Iterator<TraceEntry> it = lines.iterator();
 
 		for(int i = 0; i < lines.size(); i++){
 
-			MethodKey meth = lines.get(i).method;
+			MethodKey meth = lines.get(i).getMethod();
 
 			if(!f.isMethodTraced(meth)){
-				System.out.println("Removed " + lines.get(i).method);
 				lines.remove(i);//new
 				i--;
 			}
@@ -48,38 +68,12 @@ public class Trace implements Serializable {
 		}
 	}
 
-	@Override
-	public String toString(){
-		String toReturn = "[\n";
 
-
-		for(int i = 0; i < lines.size(); i++){
-			toReturn += lines.get(i).toString();
-			toReturn += (i < lines.size() - 1) ? ",\n" : "\n";
-		}
-
-		toReturn += "]";
-		return toReturn;
-	}
-
-	/*
-	private String toJSON(){
-		StringBuilder builder = new StringBuilder();
-		builder.append(State.OPEN_BRACKET + "\n");
-
-		for(int i = 0; i < lines.size(); i++){
-			builder.append(lines.get(i).toString());
-			if(i != lines.size() - 1){
-				builder.append(",");
-			}
-			builder.append("\n");
-		}
-
-		builder.append(State.CLOSE_BRACKET);
-		return builder.toString();
-	}
-	*/
-
+	/**
+	 * Writes the Trace to a JSONFile
+	 *
+	 * @param The name of the file to write the trace to
+	 * */
 	public void constructJSONFile(String filename){
 		TraceEntryTree.generateTraceEntryTree(lines);
 		String path = "data" + File.separatorChar + "traces" + File.separatorChar;
@@ -94,4 +88,17 @@ public class Trace implements Serializable {
 	}
 
 
+	@Override
+	public String toString(){
+		String toReturn = "[\n";
+
+
+		for(int i = 0; i < lines.size(); i++){
+			toReturn += lines.get(i).toString();
+			toReturn += (i < lines.size() - 1) ? ",\n" : "\n";
+		}
+
+		toReturn += "]";
+		return toReturn;
+	}
 }

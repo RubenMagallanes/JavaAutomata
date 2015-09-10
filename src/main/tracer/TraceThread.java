@@ -123,14 +123,14 @@ public class TraceThread extends Thread {
 			}
 			ObjectReference _this = frame.thisObject();
 			TraceEntry te = new TraceEntry();
-			te.method = new MethodKey(event.method());
+			te.setMethod(new MethodKey(event.method()));
 
 
 			if(_this != null) {
-				te.state = Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
+				te.setState(Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>()));
 			}
 
-			te.isReturn = false;
+			te.setIsExit(false);
 
 			// Java bug; InternalException is thrown if getting
 			// arguments from a native method
@@ -138,7 +138,7 @@ public class TraceThread extends Thread {
 			// http://bugs.java.com/view_bug.do?bug_id=6810565
 
 			if (!event.method().isNative()) {
-				te.arguments = new ArrayList<>();
+				te.setArguments(new ArrayList<>());
 				List<Value> argValues = new ArrayList<>();
 				try {
 					argValues = frame.getArgumentValues();
@@ -147,17 +147,17 @@ public class TraceThread extends Thread {
 					if (!e.getMessage().equals("Unexpected JDWP Error: 35")){
 						throw e;
 					}
-					while (argValues.size() < te.method.getArgTypes().length){
+					while (argValues.size() < te.getMethod().getArgTypes().length){
 						argValues.add(null);
 					}
 				}
 
 				for (int k = 0; k < argValues.size(); k++) {
 					Value v = argValues.get(k);
-					if (filter.isParameterTraced(new ParameterKey(te.method, k))) {
-						te.arguments.add(Tracer.valueToState(filter, v, new HashMap<ObjectReference, main.tracer.state.State>()));
+					if (filter.isParameterTraced(new ParameterKey(te.getMethod(), k))) {
+						te.getArguments().add(Tracer.valueToState(filter, v, new HashMap<ObjectReference, main.tracer.state.State>()));
 					} else {
-						te.arguments.add(null);
+						te.getArguments().add(null);
 					}
 				}
 			}
@@ -179,13 +179,13 @@ public class TraceThread extends Thread {
 			}
 			ObjectReference _this = frame.thisObject();
 			TraceEntry te = new TraceEntry();
-			te.method = new MethodKey(event.method());
+			te.setMethod(new MethodKey(event.method()));
 			if (_this == null)
-				te.state = null;
+				te.setState(null);
 			else {
-				te.state = Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
+				te.setState(Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>()));
 			}
-			te.isReturn = true;
+			te.setIsExit(true);
 			System.out.println(te);
 			consumer.onTraceLine(te);
 		}
