@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import main.tracer.state.State;
+import main.tracer.tree.TraceEntryTree;
+
 public class Trace implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -40,14 +43,6 @@ public class Trace implements Serializable {
 			}
 		}
 
-//		while(it.hasNext()) {
-//			MethodKey meth = it.next().method;
-//			System.out.println("Tracer Apply :"+meth.name);
-//			if(!f.isMethodTraced(meth)){
-//				lines.remove(lines.indexOf(meth));//new
-//			}
-//		}
-
 		for(TraceEntry te : lines){
 			te.filterFields(f);
 		}
@@ -67,7 +62,26 @@ public class Trace implements Serializable {
 		return toReturn;
 	}
 
+	/*
+	private String toJSON(){
+		StringBuilder builder = new StringBuilder();
+		builder.append(State.OPEN_BRACKET + "\n");
+
+		for(int i = 0; i < lines.size(); i++){
+			builder.append(lines.get(i).toString());
+			if(i != lines.size() - 1){
+				builder.append(",");
+			}
+			builder.append("\n");
+		}
+
+		builder.append(State.CLOSE_BRACKET);
+		return builder.toString();
+	}
+	*/
+
 	public void constructJSONFile(String filename){
+		TraceEntryTree.generateTraceEntryTree(lines);
 		String path = "data" + File.separatorChar + "traces" + File.separatorChar;
 		FileWriter writer;
 		try {

@@ -25,6 +25,7 @@ import main.parse.JSONToAutomataException;
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
+import sun.awt.image.GifImageDecoder;
 
 /**
  * First menu people see when loading the program.
@@ -45,6 +46,8 @@ public class MainPane extends GridPane {
 	 * Constructs the menu Pane
 	 */
 	public MainPane(MenuPane parent) {
+		this.setPrefWidth(GUIFrame.width/2 - GUIFrame.diffrence);
+		this.setPrefHeight(GUIFrame.height - GUIFrame.consoleSize);
 		count = 0;
 		this.parent = parent;
 		setUpLoadMenu();
@@ -58,8 +61,8 @@ public class MainPane extends GridPane {
 	 * Sets up the button layout for the Load section of the pane.
 	 */
 	private void setUpLoadMenu() {
-		Button btn = new Button();		
-		
+		Button btn = new Button();
+
 		// Text field to be used
 		TextField loadDisplay = new TextField();
 		loadDisplay.setEditable(false);
@@ -77,8 +80,6 @@ public class MainPane extends GridPane {
 					loadDisplay.setText(file.getName());
 					JarData jarData = JarLoader.loadJarFile(file);
 					Main.setJarData(jarData);
-					// System.out.println(parent);
-					// System.out.println(parent.getSelectionPane());
 					parent.getSelectionPane().makeNewTree();
 				} else {
 					loadDisplay.setText("");
@@ -87,7 +88,7 @@ public class MainPane extends GridPane {
 			}
 
 		});
-		
+
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(
 			    "Load in a *.jar file to be traced.\n" +
@@ -95,7 +96,7 @@ public class MainPane extends GridPane {
 			    + "Use 'run trace' next to generate a trace file"
 			    + "from the *.jar."  );
 		btn.setTooltip(tooltip);
-		
+
 		this.add(btn, 0, 0);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
@@ -117,20 +118,19 @@ public class MainPane extends GridPane {
 			    "Use this if you have previously loaded \n"
 			    + " a jar and already outputted a trace file.\n"  );
 		btn.setTooltip(tooltip2);
-		
+
 		this.add(btn, 0, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setText("Run Trace");
+		btn.setText("Run Trace"); 
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
 				Trace[] tr = tracer.run();
-				System.out.println(tr == null);
 				TraceManager manager = new TraceManager(tr);
 				Main.setManager(manager);
 			}
@@ -139,14 +139,13 @@ public class MainPane extends GridPane {
 		tooltip3.setText(
 			    "Generate a trace from the *.jar you selected.\n" +
 			    "You should save the trace afterwards. \n");
-		
+
 		btn.setTooltip(tooltip3);
 		this.add(btn, 1, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
 
-	// convertTraceToJson() TODO  i think this is done somewhere else so this isn't needed? 
 
 	/**
 	 * Sets up the Save section of the menu
@@ -167,10 +166,9 @@ public class MainPane extends GridPane {
 			public void handle(ActionEvent e) {
 				String fileName = loadDisplay.getText();
 				if (fileName.equals("")) {
-				} else {
-					Main.getManager().traceToFile("data/traces/", fileName);
+				} else {// TODO change so it loads from ibject not file
+					Main.getManager().traceToFile("data/traces/", fileName); 
 				}
-				System.out.println(fileName + " TODO: Trace Saveing");
 			}
 
 		});
@@ -185,20 +183,8 @@ public class MainPane extends GridPane {
 		// Sets up the load view button
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load View");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				// grab the traces
-				//data/traces/
+		btn.setOnAction((ActionEvent e) -> {
 				
-				/*
-				 * File f = new File("data/traces/test.json");//TODO Automata
-				 * auto = JSONToAutomata.generateAutomata(f);
-				 * GeneralFormatToAutomata g = new
-				 * GeneralFormatToAutomata(auto); String json =
-				 * g.parseAutomata();
-				 */
-
 				Automata auto = null;
 
 				try {
@@ -206,33 +192,24 @@ public class MainPane extends GridPane {
 					
 					GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
 					String json = g.parseAutomata();
-	//
-//					File fi = new File("src/web/test/linearAutomata.json");
-//					Scanner scan;
-//					String str = "";
-//					try {
-//						scan = new Scanner(fi);
-//						while (scan.hasNextLine()) {
-//							str += scan.nextLine();
-//						}
-//					} catch (FileNotFoundException e1) {
-	//
-//						e1.printStackTrace();
-//					}
-
+					
+					//this starts the thread that takes care of the browser window and visualization within 
 					BrowserBox bb = new BrowserBox(json);
-					browserWindows.put(count++, bb);// add cb to hash map
-					// bb.visualizeTrace(str); now handled internally
+					browserWindows.put(count++, bb);// add bb to hash map if we want to reference it later
+
 				} catch (JSONToAutomataException error) {
 					System.out.println("error :^)");
+					error. printStackTrace();
+					
 				}
-
-				
-			}
+			
 		});
 		this.add(btn, 0, 4);
 	}
 
 	
 	
+	/*btn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) */
 }

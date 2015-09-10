@@ -30,6 +30,9 @@ public class SelectionPane extends TreeView {
 	private Map<ShortLongNames, MethodAndField> classesSelected = new HashMap<ShortLongNames, MethodAndField>();
 
 	public SelectionPane(MenuPane parent) {
+		this.setPrefWidth(GUIFrame.width/2 + GUIFrame.diffrence);
+		this.setPrefHeight(GUIFrame.height - GUIFrame.consoleSize);
+		this.setMaxHeight(GUIFrame.height - GUIFrame.consoleSize);
 		this.parent = parent;
 	}
 
@@ -312,6 +315,10 @@ public class SelectionPane extends TreeView {
 		}
 	}
 
+	/**
+	 * Used for naming each field in the tree ensuring that the
+	 * fields and methods don't have clashes.
+	 */
 	private class ShortLongNames {
 		public String name;
 		public String nameLong;
