@@ -17,33 +17,61 @@ public final class MethodKey implements Serializable {
 
 
 	/**
+	 *Constructor for a MethodKey represents a method its name
+	 *class and argument types
 	 *
+	 * @param class name
+	 *
+	 * @param method name
+	 *
+	 * @param arguments of the method
 	 * */
 	private MethodKey(String className, String name, String[] argTypes) {
+
+		//class or method name should not be null
 		if(className == null || name == null){
 			throw new NullPointerException();
 		}
+
 		this.className = className;
 		this.name = name;
 		this.argTypes = argTypes;
 	}
 
+
+	/**
+	 * Constructs MethodKey object with the information
+	 * from the Method object
+	 *
+	 * @param method to get the required information from
+	 * */
 	public MethodKey(Method method) {
 		this(method.getDeclaringClass().getName(), method.getName(), getArgTypesArray(method.getParameterTypes()));
 	}
 
+
+	/**
+	 * Constructs MethodKey object with the information
+	 * from the Method object
+	 *
+	 * @param method to get the required information from
+	 * */
 	public MethodKey(com.sun.jdi.Method method) {
 		this(method.declaringType().name(), method.name(), method.argumentTypeNames().toArray(new String[0]));
 	}
 
+
+	/**
+	 * Returns an array of the types of arguments used in the method
+	 *
+	 * @return string array of types of arguments
+	 * */
 	private static String[] getArgTypesArray(Class<?>[] types) {
 		String[] stringTypes = new String[types.length];
 		for(int k = 0; k < types.length; k++)
 			stringTypes[k] = types[k].getName();
 		return stringTypes;
 	}
-
-
 
 
 	/***
@@ -77,7 +105,7 @@ public final class MethodKey implements Serializable {
 	 *
 	 * @return strings representing arguments
 	 */
-	public String getReadableArgs() {
+	private String getReadableArgs() {
 		StringBuilder argsString = new StringBuilder();
 		for(String argType : argTypes) {
 			argsString.append(toReadableClassName(argType));
@@ -99,6 +127,7 @@ public final class MethodKey implements Serializable {
 		return this.className;
 	}
 
+
 	/**
 	 * Returns the method name
 	 *
@@ -107,6 +136,7 @@ public final class MethodKey implements Serializable {
 	public String getName(){
 		return this.name;
 	}
+
 
 	/**
 	 * Returns the type of arguments in the method
