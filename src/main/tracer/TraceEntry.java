@@ -11,7 +11,8 @@ public class TraceEntry implements Serializable{
 	public boolean isReturn;
 
 	/** The state of the object before the method was called (or before it returned).
-	 * Null if the method is static. */
+	 * Null if the method is static.
+	 * */
 	public State state;
 
 	/**
@@ -20,8 +21,6 @@ public class TraceEntry implements Serializable{
 	 * Contains nulls in place of parameters that aren't recorded.
 	 */
 	public List<State> arguments;
-
-
 	public MethodKey method;
 
 
@@ -63,19 +62,26 @@ public class TraceEntry implements Serializable{
 
 	@Override
 	public String toString(){
-		String isEntry = (isReturn) ? "  { \"exitMethod\": {\n" : "  { \"enterMethod\": {\n";
-		String string = isEntry + "      \"methodName\": \"" + method.toString().substring(5) + "\"";
-		if(state != null){
-			string += ",\n";
-			string += "      " + state;
+		StringBuilder builder = new StringBuilder();
+		if(isReturn){
+			builder.append("  { \"exitMethod\": {\n");
 		}
 		else{
-			string += ",\n      \"state\": {}\n";
+			builder.append("  { \"enterMethod\": {\n");
 		}
 
-		string += "    }\n";
-		string += "  }";
-		return string;
+		builder.append("      \"methodName\": \"" + method.toString().substring(5) + "\"");
+		if(state != null){
+			builder.append(",\n");
+			builder.append("      " + state);
+		}
+		else{
+			builder.append(",\n      \"state\": {}\n");
+		}
+
+		builder.append("    }\n");
+		builder.append("  }");
+		return builder.toString();
 
 	}
 
