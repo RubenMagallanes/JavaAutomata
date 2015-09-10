@@ -30,15 +30,15 @@ public class TraceEntry implements Serializable{
 	 */
 	public String getLongMethodName() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(method.className);
+		sb.append(method.getClassName());
 		sb.append(' ');
-		sb.append(method.name);
+		sb.append(method.getName());
 		sb.append('(');
-		for(String s : method.argTypes) {
+		for(String s : method.getArgTypes()) {
 			sb.append(s);
 			sb.append(',');
 		}
-		if(method.argTypes.length > 0)
+		if(method.getArgTypes().length > 0)
 			sb.setLength(sb.length() - 1);
 		sb.append(')');
 		return sb.toString();

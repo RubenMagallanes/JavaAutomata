@@ -53,7 +53,7 @@ public class ObjectState extends State {
 
 			State value = fields.get(fk);
 			result.append("\n\t\t");
-			result.append("\"" + fk.name + "\": ");
+			result.append("\"" + fk.getName() + "\": ");
 			result.append(value.toString(alreadySeenObjects));
 		}
 
@@ -86,7 +86,7 @@ public class ObjectState extends State {
 
 		for(int i = 0; i < sortedFields.size(); i++){
 			builder.append(State.OPEN_BRACE + "\n");
-			builder.append(NAME + ": \"" + sortedFields.get(i).name + "\",\n");
+			builder.append(NAME + ": \"" + sortedFields.get(i).getName() + "\",\n");
 			//builder.append(TYPE + ": " +);
 			builder.append(VALUE + ": " + fields.get(sortedFields.get(i)) + "\n");
 			builder.append(State.CLOSE_BRACE);

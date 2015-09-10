@@ -38,7 +38,7 @@ public class TraceStringUtil {
 		//place the names in set to remove duplicates
 		for(Trace t : traces){
 			for(TraceEntry te : t.getLines()){
-				methods.add(te.method.name);
+				methods.add(te.method.getName());
 			}
 		}
 
@@ -119,6 +119,6 @@ public class TraceStringUtil {
 			for(String s : methods){
 					exitEvents += "\t " + s + "\n";
 			}
-			return exitEvents;	
+			return exitEvents;
 	}
 }

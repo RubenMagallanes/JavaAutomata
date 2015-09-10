@@ -147,7 +147,7 @@ public class TraceThread extends Thread {
 					if (!e.getMessage().equals("Unexpected JDWP Error: 35")){
 						throw e;
 					}
-					while (argValues.size() < te.method.argTypes.length){
+					while (argValues.size() < te.method.getArgTypes().length){
 						argValues.add(null);
 					}
 				}

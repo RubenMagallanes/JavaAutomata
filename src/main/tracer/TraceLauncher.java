@@ -98,12 +98,12 @@ public class TraceLauncher {
 			TraceFilter initialFilter = new TraceFilter() {
 				@Override
 				public boolean isMethodTraced(MethodKey m) {
-					return loadedClasses.contains(m.className);
+					return loadedClasses.contains(m.getClassName());
 				}
 
 				@Override
 				public boolean isFieldTraced(FieldKey f) {
-					return loadedClasses.contains(f.className);
+					return loadedClasses.contains(f.getClassName());
 				}
 
 				@Override
@@ -125,7 +125,7 @@ public class TraceLauncher {
 				FutureTraceConsumer future = new FutureTraceConsumer();
 				try {
 					Tracer.launchAndTraceAsync("-cp \"" + jarPath + "\"",
-							mainClass + " " + ed.commandLineArguments,
+							mainClass + " " + ed.getCommandLineArguments(),
 							initialFilter, future);
 				} catch (Exception e) {
 					e.printStackTrace();
