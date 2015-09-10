@@ -6,14 +6,17 @@ import java.util.Map;
 import main.tracer.TraceFilter;
 
 public class State implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
-	public void filterFields(TraceFilter f) {
-	}
+	public static final String OPEN_BRACE = "{";
+	public static final String CLOSE_BRACE = "}";
+	public static final String OPEN_BRACKET = "[";
+	public static final String CLOSE_BRACKET = "]";
+
+	public void filterFields(TraceFilter f) {}
 
 	public String toString(Map<State, String> alreadySeenObjects) {
-		//String s = toString();
-		//System.out.println(s);
 		return toString();
 	}
 }
