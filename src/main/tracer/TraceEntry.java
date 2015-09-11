@@ -27,6 +27,7 @@ public class TraceEntry implements Serializable{
 	private MethodKey method;
 
 
+
 	/**
 	 * Returns the method name and parameters in the format: packagename.ClassName methodName(p1type,p2type,p3type)
 	 *
@@ -69,6 +70,7 @@ public class TraceEntry implements Serializable{
 		}
 		state.filterFields(f);
 	}
+
 
 	/**
 	 * Returns the state of the TraceEntry
@@ -151,19 +153,26 @@ public class TraceEntry implements Serializable{
 
 	@Override
 	public String toString(){
-		String isEntry = (isExit) ? "  { \"exitMethod\": {\n" : "  { \"enterMethod\": {\n";
-		String string = isEntry + "      \"methodName\": \"" + method.toString().substring(5) + "\"";
-		if(state != null){
-			string += ",\n";
-			string += "      " + state;
+		StringBuilder builder = new StringBuilder();
+		if(isExit){
+			builder.append("  { \"exitMethod\": {\n");
 		}
 		else{
-			string += ",\n      \"state\": {}\n";
+			builder.append("  { \"enterMethod\": {\n");
 		}
 
-		string += "    }\n";
-		string += "  }";
-		return string;
+		builder.append("      \"methodName\": \"" + method.toString().substring(5) + "\"");
+		if(state != null){
+			builder.append(",\n");
+			builder.append("      " + state);
+		}
+		else{
+			builder.append(",\n      \"state\": {}\n");
+		}
+
+		builder.append("    }\n");
+		builder.append("  }");
+		return builder.toString();
 
 	}
 }
