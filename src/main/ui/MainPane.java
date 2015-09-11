@@ -166,15 +166,20 @@ public class MainPane extends GridPane {
 			public void handle(ActionEvent e) {
 				String fileName = loadDisplay.getText();
 				if (fileName.equals("")) {
+					//TODO console log need filename
 				} else {// TODO change so it loads from ibject not file
 					Main.getManager().traceToFile("data/traces/", fileName); 
 				}
 			}
-
 		});
+		Tooltip tooltip = new Tooltip();
+		tooltip.setText(
+			    "Save the trace currently in memory to the disk.\n" +
+			    "This allows you to visualise it later without \n"
+			    + "having to rerun the trace again."  );
+		btn.setTooltip(tooltip);
 		this.add(btn, 0, 3);
 	}
-
 	/**
 	 * Sets up the view button, opens browser window to view trace
 	 */
@@ -184,9 +189,7 @@ public class MainPane extends GridPane {
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load View");
 		btn.setOnAction((ActionEvent e) -> {
-				
 				Automata auto = null;
-
 				try {
 					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
 					
@@ -198,12 +201,17 @@ public class MainPane extends GridPane {
 					browserWindows.put(count++, bb);// add bb to hash map if we want to reference it later
 
 				} catch (JSONToAutomataException error) {
-					System.out.println("error :^)");
-					error. printStackTrace();
-					
-				}
-			
+					System.out.println("error\n");
+					error. printStackTrace();					
+				} 
 		});
+		Tooltip tooltip = new Tooltip();
+		tooltip.setText(
+			    "Visualise a trace. \n"
+			    + "This requires either a trace to be in memory\n"
+			    + "from the 'Run Trace' button, or you to specify\n"
+			    + "one saved on the disk to load."  );
+		btn.setTooltip(tooltip);		
 		this.add(btn, 0, 4);
 	}
 

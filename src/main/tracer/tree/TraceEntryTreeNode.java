@@ -82,6 +82,8 @@ public class TraceEntryTreeNode {
 	 */
 	public void addChild(TraceEntryTreeNode child){
 		children.add(child);
+		System.out.println("ADDED CHILD");
+		System.out.println(this + "\n");
 	}
 
 	/**
@@ -94,5 +96,13 @@ public class TraceEntryTreeNode {
 	 */
 	public boolean isLeaf(){
 		return children.isEmpty();
+	}
+
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("{State Before: " + before);
+		builder.append(", State After: " + after);
+		builder.append(", Number of Children: " + children.size() + "}");
+		return builder.toString();
 	}
 }
