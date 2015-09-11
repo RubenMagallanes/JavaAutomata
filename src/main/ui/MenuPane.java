@@ -25,6 +25,7 @@ public class MenuPane extends VBox {
 	 */
 	public MenuPane(){
 		//Make a hozontal box to store the two hrozontal attribues
+		
 		HBox temp = new HBox();
 		temp.setPrefWidth(GUIFrame.width / 2);
 		GridPane grid = setUpMainPane(this);
@@ -37,6 +38,7 @@ public class MenuPane extends VBox {
 
 		this.getChildren().add(temp);
 		this.getChildren().add(new ConsoleLogPane());
+		
 	}
 
 	/**
