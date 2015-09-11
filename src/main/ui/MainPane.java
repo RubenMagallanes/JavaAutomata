@@ -41,9 +41,6 @@ public class MainPane extends GridPane {
 	//holds reference to browser windows
 	Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();
 
-	//private String state = "start"; 
-	// possible options: start, jarLoaded traceInMem, traceSaved, visualizing
-	
 	private MenuPane parent;
 	private TextField loadDisplay;
 
@@ -65,7 +62,7 @@ public class MainPane extends GridPane {
 		
 	}
 	
-	private void printToConsole(String text){
+	public void printToConsole(String text){
 		for (javafx.scene.Node n: parent.getChildrenUnmodifiable()){
 			if (n instanceof ConsoleLogPane){
 				ConsoleLogPane clp = (ConsoleLogPane) n ;
@@ -86,7 +83,6 @@ public class MainPane extends GridPane {
 		printToConsole("button pressed: "+buttonName);
 
 		List<String> buttons = new ArrayList<String>();
-		//printToConsole("Load in a JAR to trace or a trace already produced to start.");
 		
 			if (buttonName.equalsIgnoreCase("start")){
 				buttons.add("Load Jar");
