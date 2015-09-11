@@ -54,7 +54,7 @@ public class TraceEntryTree {
 			// create root on first iteration of loop
 			if(i == 0){
 				MethodKey key = entries.get(i).getMethod();
-				String methodName = key.className + "." + key.name;
+				String methodName = key.getClassName() + "." + key.getName();
 				root = new TraceEntryTreeNode(methodName, entries.get(i).getState());
 				treeNodes.push(root);
 				size++;
@@ -63,7 +63,7 @@ public class TraceEntryTree {
 			// check if current entry is entering or exiting method
 			if(!entries.get(i).isExit()){
 				MethodKey key = entries.get(i).getMethod();
-				String methodName = key.className + "." + key.name;
+				String methodName = key.getClassName() + "." + key.getName();
 				TraceEntryTreeNode current = new TraceEntryTreeNode(methodName, entries.get(i).getState());
 				treeNodes.peek().addChild(current);
 				treeNodes.push(current);

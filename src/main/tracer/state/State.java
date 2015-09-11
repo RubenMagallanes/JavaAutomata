@@ -3,10 +3,12 @@ package main.tracer.state;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import main.tracer.TraceFilter;
 
 public class State implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public static final String OPEN_BRACE = "{";
@@ -18,5 +20,9 @@ public class State implements Serializable {
 
 	public String toString(Map<State, String> alreadySeenObjects) {
 		return toString();
+	}
+
+	public JSONObject toJSON(){
+		return new JSONObject();
 	}
 }
