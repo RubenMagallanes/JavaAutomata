@@ -124,14 +124,14 @@ public class MainPane extends GridPane {
 
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setText("Run Trace"); 
+		btn.setText("Run Trace");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
-				Trace[] tr = tracer.run();
-				TraceManager manager = new TraceManager(tr);
+				Trace tr = tracer.run();
+				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 				Main.setManager(manager);
 			}
 		});
@@ -168,7 +168,7 @@ public class MainPane extends GridPane {
 				if (fileName.equals("")) {
 					//TODO console log need filename
 				} else {// TODO change so it loads from ibject not file
-					Main.getManager().traceToFile("data/traces/", fileName); 
+					Main.getManager().traceToFile("data/traces/", fileName);
 				}
 			}
 		});
@@ -192,18 +192,18 @@ public class MainPane extends GridPane {
 				Automata auto = null;
 				try {
 					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
-					
+
 					GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
 					String json = g.parseAutomata();
-					
-					//this starts the thread that takes care of the browser window and visualization within 
+
+					//this starts the thread that takes care of the browser window and visualization within
 					BrowserBox bb = new BrowserBox(json);
 					browserWindows.put(count++, bb);// add bb to hash map if we want to reference it later
 
 				} catch (JSONToAutomataException error) {
 					System.out.println("error\n");
-					error. printStackTrace();					
-				} 
+					error. printStackTrace();
+				}
 		});
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(
@@ -211,12 +211,12 @@ public class MainPane extends GridPane {
 			    + "This requires either a trace to be in memory\n"
 			    + "from the 'Run Trace' button, or you to specify\n"
 			    + "one saved on the disk to load."  );
-		btn.setTooltip(tooltip);		
+		btn.setTooltip(tooltip);
 		this.add(btn, 0, 4);
 	}
 
-	
-	
+
+
 	/*btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) */
