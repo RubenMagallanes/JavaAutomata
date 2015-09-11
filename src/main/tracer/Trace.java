@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import main.parse.TraceToJSON;
 import main.tracer.state.State;
 import main.tracer.tree.TraceEntryTree;
 
@@ -81,12 +82,12 @@ public class Trace implements Serializable {
 	*/
 
 	public void constructJSONFile(String filename){
-		TraceEntryTree.generateTraceEntryTree(lines);
+		TraceEntryTree tree = TraceEntryTree.generateTraceEntryTree(lines);
 		String path = "data" + File.separatorChar + "traces" + File.separatorChar;
 		FileWriter writer;
 		try {
 			writer = new FileWriter(path + filename + ".json");
-			writer.write(toString());
+			writer.write(TraceToJSON.generateJSON(tree));
 			writer.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();

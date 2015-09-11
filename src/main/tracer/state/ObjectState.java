@@ -39,7 +39,7 @@ public class ObjectState extends State {
 		}
 		alreadySeenObjects.put(this, "OBJ"+alreadySeenObjects.size());
 
-		StringBuilder result = new StringBuilder();
+		/*StringBuilder result = new StringBuilder();
 		result.append("\"state\": {");
 		List<FieldKey> sortedFields = new ArrayList<FieldKey>(getFields().keySet());
 		Collections.sort(sortedFields);
@@ -61,10 +61,11 @@ public class ObjectState extends State {
 
 		result.append("\n      }\n");
 
-		return result.toString();
+		return result.toString();*/
+		return toJSON().toString(2);
 	}
 
-	public JSONObject toJSON(){
+	public JSONArray toJSON(){
 		JSONArray state = new JSONArray();
 
 		List<FieldKey> sortedFields = new ArrayList<FieldKey>(fields.keySet());
@@ -72,12 +73,12 @@ public class ObjectState extends State {
 
 		for(int i = 0; i < sortedFields.size(); i++){
 			JSONObject field = new JSONObject();
-			field.append(NAME, sortedFields.get(i).name);
-			field.append(VALUE, fields.get(sortedFields.get(i)));
+			field.put(NAME, sortedFields.get(i).name);
+			field.put(VALUE, fields.get(sortedFields.get(i)));
 			state.put(field);
 		}
 
-		return new JSONObject(state);
+		return state;
 	}
 
 	@Override
