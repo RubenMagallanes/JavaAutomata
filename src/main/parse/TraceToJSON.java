@@ -3,6 +3,7 @@ package main.parse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import main.tracer.state.State;
 import main.tracer.tree.TraceEntryTree;
 import main.tracer.tree.TraceEntryTreeNode;
 
@@ -20,6 +21,7 @@ public class TraceToJSON {
 	public static final String STATE_AFTER = "stateAfter";
 	public static final String CHILDREN = "children";
 	public static final int INDENT_FACTOR = 2;
+	public static final JSONObject EMPTY_JSON_OBJECT = new JSONObject();
 
 	/**
 	 * Converts the specified {@code TraceEntryTree} into a JSON {@code String}.
@@ -47,15 +49,29 @@ public class TraceToJSON {
 	private static JSONObject convertTraceEntryTreeNodeToJSON(TraceEntryTreeNode node){
 		JSONObject json = new JSONObject();
 		json.append(METHOD_NAME, node.getMethodName());
-		json.append(STATE_BEFORE, node.getStateBefore().toJSON());
-		json.append(STATE_AFTER, node.getStateAfter().toJSON());
+
+		State before = node.getStateBefore();
+		if(before == null){
+			json.put(STATE_BEFORE, EMPTY_JSON_OBJECT);
+		}
+		else{
+			json.put(STATE_BEFORE, node.getStateBefore().toJSON());
+		}
+
+		State after = node.getStateAfter();
+		if(after == null){
+			json.put(STATE_AFTER, EMPTY_JSON_OBJECT);
+		}
+		else{
+			json.put(STATE_AFTER, node.getStateAfter().toJSON());
+		}
 
 		// get children
 		JSONArray children = new JSONArray();
 		for(TraceEntryTreeNode child : node.getChildren()){
 			children.put(convertTraceEntryTreeNodeToJSON(child));
 		}
-		json.append(CHILDREN, children);
+		json.put(CHILDREN, children);
 
 		return json;
 	}
