@@ -32,35 +32,36 @@ public class TraceEntryTree {
 		this.root = root;
 	}
 
+	/**
+	 * Generates a {@code TraceEntryTree} from the specified list of {@code TraceEntries}.
+	 *
+	 * @param entries
+	 * 		- list of entries
+	 * @return
+	 * 		- {@code TraceEntryTree}
+	 */
 	public static TraceEntryTree generateTraceEntryTree(List<TraceEntry> entries){
 		TraceEntryTreeNode root = null;
 
 		Stack<TraceEntryTreeNode> treeNodes = new Stack<TraceEntryTreeNode>();
-		boolean isEntry = false;
 
+		// iterate through entries and construct tree
 		for(int i = 0; i < entries.size(); i++){
-			TraceEntryTreeNode current = new TraceEntryTreeNode(entries.get(i).getState());
-
 			// create root on first iteration of loop
 			if(i == 0){
-				root = current;
+				root = new TraceEntryTreeNode(entries.get(i).getState());
+				treeNodes.push(root);
 			}
 
 			// check if current entry is entering or exiting method
-			if(!entries.get(i).isReturn()){
+			else if(!entries.get(i).isReturn()){
+				TraceEntryTreeNode current = new TraceEntryTreeNode(entries.get(i).getState());
+				treeNodes.peek().addChild(current);
 				treeNodes.push(current);
-
-				// if last entry was a method enter then current method is nested
-				if(isEntry){
-					treeNodes.peek().addChild(current);
-				}
-
-				isEntry = true;
 			}
 			else{
 				TraceEntryTreeNode previous = treeNodes.pop();
 				previous.setStateAfter(entries.get(i).getState());
-				isEntry = false;
 			}
 		}
 
