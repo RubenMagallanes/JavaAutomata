@@ -139,7 +139,8 @@
                 if (fieldI === 0 || data.states[stateI][fieldI] !== field.value){
                     places[groupI].push({
                         name: field.name,
-                        value: field.value
+                        value: field.value,
+                        state: stateI
                     });
                 }
             });
@@ -152,7 +153,24 @@
             });
         });
 
-        console.log("groups: ", groups);
+        // set up method nodes
+        data.links.forEach(function (method){
+            var before = data.states[method.source];
+            var after = data.states[method.target];
+
+            var placesInvolved = [];
+
+            var transition = ({
+                name: method.name,
+                places: []
+            });
+
+            before.forEach(function (field, index){
+                transition.places = findPlaces(before, after);
+            });
+
+            transitions.push(transition);
+        });
     }
 
     function getGroup(fieldName){

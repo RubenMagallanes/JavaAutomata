@@ -220,5 +220,5 @@ var testSimpleMonkeyData = {
     ]
 }
 
-//viz.automata.init(JSON.stringify(testData));
-viz.petri.init(JSON.stringify(testSimpleMonkeyData));
+viz.automata.init(JSON.stringify(testData));
+//viz.petri.init(JSON.stringify(testSimpleMonkeyData));
