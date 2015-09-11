@@ -17,9 +17,11 @@ import main.tracer.state.State;
 public class TraceEntryTreeNode {
 
 	// fields
+
+	private String methodName;
 	private State before;
-	private List<TraceEntryTreeNode> children;
 	private State after;
+	private List<TraceEntryTreeNode> children;
 
 	/**
 	 * Constructs a new instance of a {@Ccode TraceEntryTreeNode} with the containing
@@ -29,9 +31,20 @@ public class TraceEntryTreeNode {
 	 * @param before
 	 * 		- state of program before method executed
 	 */
-	public TraceEntryTreeNode(State before){
+	public TraceEntryTreeNode(String methodName, State before){
+		this.methodName = methodName;
 		this.before = before;
 		children = new ArrayList<TraceEntryTreeNode>();
+	}
+
+	/**
+	 * Returns the name of the method this {@TraceEntryTreeNode} is representing.
+	 *
+	 * @return
+	 * 		- name of method
+	 */
+	public String getMethodName(){
+		return methodName;
 	}
 
 	/**
@@ -82,8 +95,6 @@ public class TraceEntryTreeNode {
 	 */
 	public void addChild(TraceEntryTreeNode child){
 		children.add(child);
-		System.out.println("ADDED CHILD");
-		System.out.println(this + "\n");
 	}
 
 	/**
@@ -98,11 +109,10 @@ public class TraceEntryTreeNode {
 		return children.isEmpty();
 	}
 
+	/**
+	 * Returns a {@code String} representation of this {@code TraceEntryTreeNode}.
+	 */
 	public String toString(){
-		StringBuilder builder = new StringBuilder();
-		builder.append("{State Before: " + before);
-		builder.append(", State After: " + after);
-		builder.append(", Number of Children: " + children.size() + "}");
-		return builder.toString();
+		return methodName;
 	}
 }
