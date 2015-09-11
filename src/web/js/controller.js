@@ -189,6 +189,18 @@ var testSimpleMonkeyData = {
                 },
                 {
                     name: "chimp",
+                    value: "rodger"
+                }
+            ]
+        },
+        {
+            fields: [
+                {
+                    name: "monkey",
+                    value: "tom"
+                },
+                {
+                    name: "chimp",
                     value: "randy"
                 }
             ]
@@ -208,17 +220,22 @@ var testSimpleMonkeyData = {
     ],
     links: [
         {
-            methodName: "nameChange",
+            methodName: "monkeyNameChange",
             source: 0,
             target: 1
         },
         {
-            methodName: "sexChange",
+            methodName: "chimpNameChange",
             source: 1,
             target: 2
+        },
+        {
+            methodName: "sexChange",
+            source: 2,
+            target: 3
         }
     ]
 }
 
-viz.automata.init(JSON.stringify(testData));
-//viz.petri.init(JSON.stringify(testSimpleMonkeyData));
+//viz.automata.init(JSON.stringify(testData));
+viz.petri.init(JSON.stringify(testSimpleMonkeyData));

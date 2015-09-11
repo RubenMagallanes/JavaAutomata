@@ -4,8 +4,9 @@
 (function (self){
 
     var groups = [], // nodes bound to field states
-        methods = [], // boxes which represent methods
-        links = [], // links bound to transitions between places and methods
+        transitions = [], // boxes which represent methods
+        arcs = [], // links bound to transitions between places and methods
+        states = [], // all states, regardless of group
         svg; // the svg element to draw viz on
 
     // force layout
@@ -16,7 +17,9 @@
         .gravity(0.1);
 
     var colour = d3.scale.category20(),
-        circleRad = 10;
+        circleRad = 10,
+        transWidth = 10,
+        transHeight = 10;
 
     self.getLinks = function() { return links; }
 
@@ -37,7 +40,7 @@
             places.concat(group.places);
         });
 
-        var node = svg.selectAll(".place")
+        var place = svg.selectAll(".place")
             .data(places)
              .enter().append("g")
             .attr("class", "place")
@@ -45,44 +48,63 @@
                 return "place-" + i;
             });
 
-        node.append("circle")
+        place.append("circle")
             .attr("class", "place-circle")
             .attr("id", function (d, i){
                 return "place-circle-" + i;
             })
             .attr("r", circleRad)
             .style("fill", function (d, i){
-                return colour(i);
+                return colour(d.group);
+            });
+
+        var transition = svg.selectAll(".transition")
+            .data(transitions)
+             .enter().append("g")
+            .attr("class", "transition")
+            .attr("id", function (d,i){
+                return "transition-" + i;
+            });
+
+        transition.append("rect")
+            .attr("id", function (d, i){
+                return "trans-rect-" + i;
             })
+            .attr("width", transWidth)
+            .attr("height", transHeight)
+            .style("fill", function (d, i){
+                return colour(d.group);
+            });
 
         // build the arrowhead for lines.
-        svg.append("defs")
-             .append("marker")
-            .attr("id", "end")
-            .attr("viewBox", "0 -5 10 10")
-            .attr("refX", circleRad + 10)
-            .attr("refY", 0)
-            .attr("markerWidth", 6)
-            .attr("markerHeight", 6)
-            .attr("orient", "auto")
-             .append("path")
-            .attr("d", "M0,-5L10,0L0,5");
+        //svg.append("defs")
+             //.append("marker")
+            //.attr("id", "end")
+            //.attr("viewBox", "0 -5 10 10")
+            //.attr("refX", circleRad + 10)
+            //.attr("refY", 0)
+            //.attr("markerWidth", 6)
+            //.attr("markerHeight", 6)
+            //.attr("orient", "auto")
+             //.append("path")
+            //.attr("d", "M0,-5L10,0L0,5");
 
-        var link = svg.selectAll(".link")
-            .data(links)
-             .enter().insert("g", ":first-child");
+        //var arc = svg.selectAll(".arc")
+            //.data(arcs)
+            //// draw first
+             //.enter().insert("g", ":first-child");
 
-        link.attr("class", "link")
-             .append("path")
-            .attr("class", "line")
-            .attr("id", function (d, i) { return "link-" + d.source + "-" + d.target; })
-            .attr("marker-end", "url(#end)")
-            .on("end");
+        //arc.attr("class", "arc")
+             //.append("path")
+            //.attr("class", "line")
+            //.attr("id", function (d, i) { return "arc-" + d.source + "-" + d.target; })
+            //.attr("marker-end", "url(#end)")
+            //.on("end");
 
-        force.on("tick", function (){
-            node.attr("transform", transform)
-            link.select(".line").attr("d", linkArc);
-        });
+        //force.on("tick", function (){
+            //node.attr("transform", transform)
+            //link.select(".line").attr("d", linkArc);
+        //});
 
         // updates a curved link
         function linkArc(d) {
@@ -98,8 +120,8 @@
             return "translate(" + d.x + "," + d.y + ")";
         }
 
-        node.call(force.drag);
-        force.start();
+        //node.call(force.drag);
+        //force.start();
     }
 
     // update the layout data
@@ -125,58 +147,110 @@
             });
         });
 
+        // copying states to local variable
+        states = data.states;
+
+        // give each a place a link back to the state
+        states.forEach(function (place,i){
+            place.id = i;
+        });
+
         // make and add places to groups
-        data.states.forEach(function (state, stateI){
-            var places = [];
-            groups.forEach(function (group){
-                places.push([]);
-            });
-
-            state.fields.forEach(function (field, fieldI){
-                var groupI = groups.indexOf(getGroup(field.name));
-
-                // if field is different from last state, put it into a place
-                if (fieldI === 0 || data.states[stateI][fieldI] !== field.value){
-                    places[groupI].push({
-                        name: field.name,
-                        value: field.value,
-                        state: stateI
+        groups.forEach(function (group, groupI){
+            states.forEach(function (state, stateI){
+                if (stateAffectsGroup(group, states, stateI)){
+                    group.places.push({
+                        group: groupI, // backlink to group
+                        state: stateI, // backlink to state
+                        fields: getFieldChanges(group, states, stateI)
                     });
-                }
-            });
-
-            groups.forEach(function (group, i){
-                var place = places[i];
-                if (place.length > 0){
-                    group.places.push(place);
                 }
             });
         });
 
-        // set up method nodes
+        console.log("groups", groups);
+
+        // set up transitions
         data.links.forEach(function (method){
             var before = data.states[method.source];
             var after = data.states[method.target];
 
             var placesInvolved = [];
 
-            var transition = ({
-                name: method.name,
-                places: []
+            transitions.push({
+                name: method.methodName,
+                fromPlaces: findPlaces(before),
+                toPlaces: findPlaces(after)
             });
-
-            before.forEach(function (field, index){
-                transition.places = findPlaces(before, after);
-            });
-
-            transitions.push(transition);
         });
+
+        console.log("transitions", transitions);
     }
 
-    function getGroup(fieldName){
+    function stateAffectsGroup(group, states, stateI){
+        if (stateI === 0) return true;
+
+        var state = states[stateI];
+        var last = states[stateI-1];
+
+        var affects = false;
+
+        state.fields.forEach(function (field, i){
+            if (fieldInGroup(field, group)){
+                if (field.value !== last.fields[i].value){
+                    affects = true;
+                }
+            }
+        });
+        return affects;
+    }
+
+    function getFieldChanges(group, states, stateI){
+        if (stateI === 0){
+            var state = states[stateI];
+            var changes = [];
+            state.fields.forEach(function (field){
+                if (fieldInGroup(field, group)){
+                    changes.push(field);
+                };
+            });
+            return changes;
+        }
+        var state = states[stateI];
+        var last = states[stateI-1];
+
+        var changes = [];
+
+        state.fields.forEach(function (field, fieldI){
+            if (fieldInGroup(field, group)){
+                if (field.value !== last.fields[fieldI].value){
+                    changes.push(field);
+                }
+            }
+        });
+        return changes;
+    }
+
+    function findPlaces(state){
+        var stateIndex = states.indexOf(state);
+        var places = [];
+        groups.forEach(function (group, groupIndex){
+            group.places.forEach(function (place, placeIndex){
+                if (place.state === stateIndex){
+                    places.push({
+                        groupIndex: groupIndex,
+                        placeIndex: placeIndex
+                    });
+                }
+            });
+        });
+        return places;
+    }
+
+    function getGroupWithField(field){
         var groupo;
         groups.forEach(function (group){
-            if ($.inArray(fieldName, group.fieldNames)){
+            if (fieldInGroup(field, group)){
                 groupo = group;
             }
         });
@@ -187,6 +261,11 @@
         d3.select("#state-info")
             .attr("visibility", "visible")
             .html(function() { return stateInfo(d); });
+    }
+
+    function fieldInGroup(field, group){
+        // look at this if condition. Wtf right?
+        return $.inArray(field.name, group.fieldNames) !== -1;
     }
 
 })(viz.petri = viz.petri || {})
