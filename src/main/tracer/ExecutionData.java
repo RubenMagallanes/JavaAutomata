@@ -8,12 +8,14 @@ import java.io.Serializable;
  * ExecutionData contains the data that is different for each program execution
  * (e.g. command-line arguments).
  *
- * @author campbealex2
+ * @author campbealex2 and Nicky van Hulst
  */
 public class ExecutionData implements Serializable, Cloneable {
-	private static final long serialVersionUID = 1L;
 
-	public String commandLineArguments = "";
+	private static final long serialVersionUID = -9163374641745446124L;
+
+	//the command line arguments of the execution
+	private String commandLineArguments = "";
 
 	@Override
 	public String toString() {
@@ -27,5 +29,15 @@ public class ExecutionData implements Serializable, Cloneable {
 		} catch(CloneNotSupportedException e) {
 			throw new AssertionError(e);
 		}
+	}
+
+
+	/**
+	 * Returns the command line arguments of the execution
+	 *
+	 * @return the arguments
+	 * */
+	public String getCommandLineArguments(){
+		return this.commandLineArguments;
 	}
 }

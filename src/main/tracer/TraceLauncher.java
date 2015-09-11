@@ -21,12 +21,23 @@ import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 public class TraceLauncher {
 
+	//the path to the jar to be executed
 	private String jarPath;
-	private List<ExecutionData> executions = new ArrayList<ExecutionData>(Arrays.asList(new ExecutionData()));
 
+	//list of different executions of the program
+	//private List<ExecutionData> executions;
+
+
+	/**
+	 * Constructs the TraceLauncher object with the pathname of the jar
+	 *
+	 * @param path of the jar to execute
+	 * */
 	public TraceLauncher(String JarPathName){
 		this.jarPath = JarPathName;
+		//this.executions = new ArrayList<ExecutionData>(Arrays.asList(new ExecutionData()));
 	}
+
 
 	/**
 	 * Runs the jar file and generates and returns the traces specified by the jarPath
@@ -46,10 +57,9 @@ public class TraceLauncher {
 		//the path of the jar file
 		jarPath = jd.getFile().getAbsolutePath();
 
-		final ExecutionData[] executionsArray = executions.toArray(new ExecutionData[executions.size()]);
+		//final ExecutionData[] executionsArray = executions.toArray(new ExecutionData[executions.size()]);
 
 
-		//grabs the jar file main class
 		//grabs the main class of the jar file
 		final String mainClass = jd.getManifest().getMainAttributes().getValue(Name.MAIN_CLASS);
 
@@ -58,9 +68,10 @@ public class TraceLauncher {
 		for (Class<?> cl : jd.getClasses()){
 			loadedClasses.add(cl.getName());
 		}
+		//TestThread thread = new TestThread(loadedClasses, executionsArray, mainClass);
+		TestThread thread = new TestThread(loadedClasses, null, mainClass);
 
-		TestThread thread = new TestThread(loadedClasses, executionsArray, mainClass);
-
+		//set thread options and start
 		thread.setName("MainWindow tracer thread");
 		thread.setDaemon(true);
 		thread.start();
@@ -72,9 +83,11 @@ public class TraceLauncher {
 
 	private class TestThread extends Thread{
 
-		// fields
+		//loaded classes of the program
 		private Set<String> loadedClasses;
-		private ExecutionData[] executionsArray;
+
+
+		//private ExecutionData[] executionsArray;
 		private String mainClass;
 
 
@@ -82,7 +95,7 @@ public class TraceLauncher {
 
 		public TestThread(Set<String> loadedClasses, ExecutionData[] executionsArray, String mainClass){
 			this.loadedClasses = loadedClasses;
-			this.executionsArray = executionsArray;
+		//	this.executionsArray = executionsArray;
 			this.mainClass = mainClass;
 		}
 
@@ -98,12 +111,12 @@ public class TraceLauncher {
 			TraceFilter initialFilter = new TraceFilter() {
 				@Override
 				public boolean isMethodTraced(MethodKey m) {
-					return loadedClasses.contains(m.className);
+					return loadedClasses.contains(m.getClassName());
 				}
 
 				@Override
 				public boolean isFieldTraced(FieldKey f) {
-					return loadedClasses.contains(f.className);
+					return loadedClasses.contains(f.getClassName());
 				}
 
 				@Override
@@ -116,27 +129,28 @@ public class TraceLauncher {
 				initialFilter = Main.getFilter();
 			}
 
-			traces = new Trace[executionsArray.length];
+			traces = new Trace[1];
 
 
 
-			for (int k = 0; k < executions.size(); k++) {
-				ExecutionData ed = executions.get(k);
+			//for (int k = 0; k < executions.size(); k++) {
+
+				//ExecutionData ed = executions.get(k);
 				FutureTraceConsumer future = new FutureTraceConsumer();
 				try {
 					Tracer.launchAndTraceAsync("-cp \"" + jarPath + "\"",
-							mainClass + " " + ed.commandLineArguments,
+							mainClass + " " + null,
 							initialFilter, future);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
 				try {
-					traces[k] = future.get();
+					traces[0] = future.get();
 				} catch (InterruptedException | ExecutionException e) {
 					e.printStackTrace();
 				}
-			}
+			//}
 		}
 
 		public Trace[] getTraces(){return this.traces;}
