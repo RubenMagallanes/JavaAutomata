@@ -126,7 +126,6 @@ public class Tracer{
 				state.values.add(valueToState(filter, v, alreadySeenObjects));
 			}
 			return state;
-
 		}
 		else{
 			throw new AssertionError("Unsupported type "+type.name());

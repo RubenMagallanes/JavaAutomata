@@ -8,7 +8,7 @@ public class EnumState extends State {
 
 	/**
 	 * Constructs an EnumState Object holds a string representation
-	 * of the state
+	 * of an enum string
 	 * */
 	public EnumState(String value) {
 		this.value = value;

@@ -57,7 +57,7 @@ public class MainPane extends GridPane {
 		setUpViewMenu();
 
 		this.prefWidth(Double.MAX_VALUE);
-		disableAllButtons();
+		//disableAllButtons();
 		buttonClicked("start");
 
 	}
@@ -84,7 +84,7 @@ public class MainPane extends GridPane {
 
 		List<String> buttons = new ArrayList<String>();
 
-			if (buttonName.equalsIgnoreCase("start")){
+			/*if (buttonName.equalsIgnoreCase("start")){
 				buttons.add("Load Jar");
 				buttons.add("Load Trace");
 			}else if (buttonName.equalsIgnoreCase("Load Jar")){
@@ -92,11 +92,11 @@ public class MainPane extends GridPane {
 			}else if (buttonName.equalsIgnoreCase("Run Trace")){
 				buttons.add("Save Trace");
 				buttons.add("Load View");
-			}
+			}*/
 
 
 		//call enable buttons
-		enableButtons(buttons);
+		//enableButtons(buttons);
 	}
 	/**
 	 * enables the buttons with names in the list passed in.

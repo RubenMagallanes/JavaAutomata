@@ -51,8 +51,7 @@ public class TraceThread extends Thread {
 	 *
 	 * @param consumer
 	 * */
-	public TraceThread(VirtualMachine vm, TraceFilter filter,
-			RealtimeTraceConsumer consumer) {
+	public TraceThread(VirtualMachine vm, TraceFilter filter,RealtimeTraceConsumer consumer) {
 		this.vm = vm;
 		this.filter = filter;
 		this.consumer = consumer;
@@ -88,7 +87,6 @@ public class TraceThread extends Thread {
 						handleMethodExitEvent((MethodExitEvent)event);
 					}
 					else if (event instanceof VMDeathEvent) {
-						System.out.println("Tracing done");
 						vm.dispose();
 						return;
 					}

@@ -156,39 +156,4 @@ public class TraceLauncher {
 			return this.trace;
 		}
 	}
-
-	public static void main(String[] args){
-
-		//the jar to load the generate the trace off
-		File file = new File("data/tests/TestProgram2.jar");
-
-		//loads the jar
-		JarData jarData = JarLoader.loadJarFile(file);
-
-		//sets the path of the jar in the tracer
-		TraceLauncher tracer = new TraceLauncher(jarData.getFile().getAbsolutePath());
-
-		//start the tracer and get the traces
-		Trace tr = tracer.run();
-
-		//pass the traces to the trace manager
-		TraceManager trm = new TraceManager(new Trace[]{tr});
-
-		//pass the traces to the string util
-		//TraceStringUtil tu = new TraceStringUtil(new Trace[]{tr});
-
-		//create a new filter selector
-		TraceFilterSelector trs = new TraceFilterSelector();
-
-
-		List<String> methodTofilter = new ArrayList<>();
-
-		methodTofilter.add("bob");
-
-		trs.addMethodsToFilter(methodTofilter);
-
-		trm.applyFilter(trs.getFilter());
-
-		//TraceManager manager = new TraceManager(new Trace[]{tr});
-	}
 }
