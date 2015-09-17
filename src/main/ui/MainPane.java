@@ -148,14 +148,14 @@ public class MainPane extends GridPane {
 
 		this.add(btn, 0, 0);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
-
+		
 		// Sets up the Load Trace Program.
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load Trace");
 		btn.setOnAction((ActionEvent e) ->{
 				// TODO: Set up trace loading.
-				System.out.println("TODO: load trace");
+				
 				this.buttonClicked("Load Trace");
 			});
 		Tooltip tooltip2 = new Tooltip();
@@ -259,9 +259,6 @@ public class MainPane extends GridPane {
 			    + "one saved on the disk to load."  );
 		btn.setTooltip(tooltip);
 		this.add(btn, 0, 4);
-
-
-
 	}
 
 	private void setUpDynamic(){
@@ -280,8 +277,4 @@ public class MainPane extends GridPane {
 		btn2.setTooltip(tooltip2);
 		this.add(btn2, 0, 5);
 	}
-
-	/*btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) */
 }
