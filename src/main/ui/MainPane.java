@@ -55,9 +55,10 @@ public class MainPane extends GridPane {
 		setUpLoadMenu();
 		setUpSaveMenu();
 		setUpViewMenu();
+		setUpDynamic();
 
 		this.prefWidth(Double.MAX_VALUE);
-		//disableAllButtons();
+
 		buttonClicked("start");
 
 	}
@@ -72,9 +73,6 @@ public class MainPane extends GridPane {
 	}
 //======================================================================
 	/**
-	 * call this whwn
-	 * keeps track of the programs current state and greys out buttons
-	 * that arent relevant abd lets the user click on ones that are
 	 *
 	 * should only be called if the previous button's action was
 	 * followed through with
@@ -82,28 +80,31 @@ public class MainPane extends GridPane {
 	private void buttonClicked(String buttonName){
 		printToConsole("button pressed: "+buttonName);
 
-		List<String> buttons = new ArrayList<String>();
+		//List<String> buttons = new ArrayList<String>();
 
-			/*if (buttonName.equalsIgnoreCase("start")){
-				buttons.add("Load Jar");
-				buttons.add("Load Trace");
+			if (buttonName.equalsIgnoreCase("start")){
+				printToConsole("Program started");
+				printToConsole("next steps: ");
+				printToConsole("Load Jar, Load Trace");
+				//buttons.add("Load Jar");
+				//buttons.add("Load Trace");
+
 			}else if (buttonName.equalsIgnoreCase("Load Jar")){
-				buttons.add("Run Trace");
+				//buttons.add("Run Trace");
 			}else if (buttonName.equalsIgnoreCase("Run Trace")){
-				buttons.add("Save Trace");
-				buttons.add("Load View");
-			}*/
+
+				//buttons.add("Save Trace");
+				//buttons.add("Load View");
+			}
 
 
-		//call enable buttons
-		//enableButtons(buttons);
 	}
 	/**
 	 * enables the buttons with names in the list passed in.
 	 *
 	 * @param buttonNames list
 	 */
-	private void enableButtons(List<String> buttonNames){
+	/*private void enableButtons(List<String> buttonNames){
 
 		for (String name: buttonNames){
 			for (javafx.scene.Node n: this.getChildrenUnmodifiable()){
@@ -116,19 +117,19 @@ public class MainPane extends GridPane {
 			}
 		}
 
-	}
+	}*/
 	/**
 	 * disables all buttons in the UI
 	 * only use this if you immediately enable one or more buttons
 	 */
-	private void disableAllButtons(){
+	/*private void disableAllButtons(){
 		for (javafx.scene.Node n: this.getChildrenUnmodifiable()){
 			if(n instanceof javafx.scene.control.Button ){
 				Button b = (Button) n;
 				b.setDisable(true);
 			}
 		}
-	}
+	}*/
 //=======================================================================
 	/**
 	 * Sets up the button layout for the Load section of the pane.
@@ -277,8 +278,26 @@ public class MainPane extends GridPane {
 			    + "one saved on the disk to load."  );
 		btn.setTooltip(tooltip);
 		this.add(btn, 0, 4);
+
+
+
 	}
 
+	private void setUpDynamic(){
+		Button btn2 = new Button();
+		// Sets up the load view button
+		btn2.setMaxWidth(Double.MAX_VALUE);
+		btn2.setText("DYNAMIC :^)");
+		btn2.setOnAction((ActionEvent e) -> {
+				//YOUR CODE GOES HERE
+
+		});
+		Tooltip tooltip2 = new Tooltip();
+		tooltip2.setText(
+			    "ayy lmao"  );
+		btn2.setTooltip(tooltip2);
+		this.add(btn2, 0, 5);
+	}
 
 	/*btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
