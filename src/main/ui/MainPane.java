@@ -58,7 +58,7 @@ public class MainPane extends GridPane {
 		setUpDynamic();
 
 		this.prefWidth(Double.MAX_VALUE);
-		
+
 
 	}
 
@@ -74,10 +74,11 @@ public class MainPane extends GridPane {
 	}
 //======================================================================
 	/**
-	 * 
+	 *
 	 * should only be called if the previous button's action was
 	 * followed through with
 	 */
+
 	private void buttonClicked(String buttonName) {
 		//printToConsole(buttonName + " selected");
 
@@ -103,6 +104,8 @@ public class MainPane extends GridPane {
 			
 		} else if (buttonName.equalsIgnoreCase("DYNAMIC :^)")) {
 		}
+
+
 
 	}
 
@@ -256,9 +259,9 @@ public class MainPane extends GridPane {
 			    + "one saved on the disk to load."  );
 		btn.setTooltip(tooltip);
 		this.add(btn, 0, 4);
-	
-		
-		
+
+
+
 	}
 
 	private void setUpDynamic(){
