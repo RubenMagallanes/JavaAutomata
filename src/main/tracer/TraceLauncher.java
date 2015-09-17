@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.jar.Attributes.Name;
-
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
@@ -176,7 +175,7 @@ public class TraceLauncher {
 		TraceManager trm = new TraceManager(new Trace[]{tr});
 
 		//pass the traces to the string util
-		TraceStringUtil tu = new TraceStringUtil(new Trace[]{tr});
+		//TraceStringUtil tu = new TraceStringUtil(new Trace[]{tr});
 
 		//create a new filter selector
 		TraceFilterSelector trs = new TraceFilterSelector();
@@ -190,6 +189,6 @@ public class TraceLauncher {
 
 		trm.applyFilter(trs.getFilter());
 
-		TraceManager manager = new TraceManager(new Trace[]{tr});
+		//TraceManager manager = new TraceManager(new Trace[]{tr});
 	}
 }

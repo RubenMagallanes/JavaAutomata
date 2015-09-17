@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import com.sun.jdi.IncompatibleThreadStateException;
 import com.sun.jdi.InternalException;
 import com.sun.jdi.Method;
@@ -29,13 +28,29 @@ import com.sun.jdi.request.MethodExitRequest;
 import com.sun.jdi.request.VMDeathRequest;
 
 public class TraceThread extends Thread {
-	// fields
+
+	//virtual machine to run traced program on
 	private final VirtualMachine vm;
+
+	//filter to apply to the trace
 	private final TraceFilter filter;
+
 	private final RealtimeTraceConsumer consumer;
+
 	private Map<ReferenceType, Boolean> knownTraceableClasses;
+
 	private Set<ThreadReference> threadsToResume;
 
+
+	/**
+	 * Constructs the TraceThread object
+	 *
+	 * @param vm the virtual machine to run on
+	 *
+	 * @param filter to apply to the program
+	 *
+	 * @param consumer
+	 * */
 	public TraceThread(VirtualMachine vm, TraceFilter filter,
 			RealtimeTraceConsumer consumer) {
 		this.vm = vm;
@@ -111,8 +126,13 @@ public class TraceThread extends Thread {
 		threadsToResume.add(event.thread());
 	}
 
+
+	/**
+	 * Handles when a method is entered in the traced program
+	 *
+	 * @param the event of the entry
+	 * */
 	private void handleMethodEntryEvent(MethodEntryEvent event) {
-		System.out.println("HANDLE ENTRY METHOD");
 		if (filter.isMethodTraced(new MethodKey(event.method()))) {
 			// Handle a method entry
 			StackFrame frame = null;
@@ -161,14 +181,19 @@ public class TraceThread extends Thread {
 					}
 				}
 			}
-			System.out.println(te);
 			consumer.onTraceLine(te);
 		}
 		threadsToResume.add(event.thread());
 	}
 
+
+
+	/**
+	 * Handles when a method is exited in the traced program
+	 *
+	 * @param the event of the exit
+	 * */
 	private void handleMethodExitEvent(MethodExitEvent event) {
-		System.out.println("HANDLE EXIT METHOD");
 		// Handle a method return
 		if (filter.isMethodTraced(new MethodKey(event.method()))) {
 			StackFrame frame = null;
@@ -193,6 +218,13 @@ public class TraceThread extends Thread {
 	}
 
 
+	/**
+	 * Returns whether or not the class has methods that are traces
+	 *
+	 * @param filter to use
+	 *
+	 * @param type //TODO find out what this is
+	 * */
 	private static boolean doesClassHaveTraceableMethods(TraceFilter filter,
 			ReferenceType type) {
 		for (Method m : type.methods())

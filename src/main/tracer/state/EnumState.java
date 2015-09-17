@@ -6,6 +6,10 @@ public class EnumState extends State {
 
 	private String value;
 
+	/**
+	 * Constructs an EnumState Object holds a string representation
+	 * of the state
+	 * */
 	public EnumState(String value) {
 		this.value = value;
 	}

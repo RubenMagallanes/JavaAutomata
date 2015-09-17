@@ -20,20 +20,24 @@ public class ObjectState extends State {
 	private static final String NAME = "name";
 	private static final String VALUE = "value";
 
-	// fields
+	//The name of the class
 	private String className;
+
+	//A map of all the fields the class holds
 	private Map<FieldKey, State> fields = new HashMap<>();
+
+
 	private Map<FieldKey, State> originalFields = new HashMap<>();
 
 	public ObjectState(String className) {
 		this.className = className;
 	}
 
-	public String toString() {
-		return toString(new IdentityHashMap<State, String>());
-	}
 
-	public String toString(Map<State, String> alreadySeenObjects) {
+	@Override
+	public String toString() {
+		Map<State, String> alreadySeenObjects = new IdentityHashMap<State, String>();
+
 		if(alreadySeenObjects.containsKey(this)){
 			return alreadySeenObjects.get(this);
 		}
@@ -64,6 +68,10 @@ public class ObjectState extends State {
 		return result.toString();
 	}
 
+
+	/**
+	 * Returns a JSON object representing the object
+	 * */
 	public JSONObject toJSON(){
 		JSONArray state = new JSONArray();
 
@@ -79,6 +87,7 @@ public class ObjectState extends State {
 
 		return new JSONObject(state);
 	}
+
 
 	@Override
 	public void filterFields(TraceFilter f) {
@@ -100,6 +109,34 @@ public class ObjectState extends State {
 		}
 	}
 
+
+	/**
+	 * Returns the class name of the object
+	 * */
+	public String getClassName() {
+		return className;
+	}
+
+
+	/**
+	 * Returns the fields of the object
+	 * */
+	public Map<FieldKey, State> getFields() {
+		return fields;
+	}
+
+
+	/**
+	 * Sets the fields of the object
+	 * */
+	public void setFields(Map<FieldKey, State> fields) {
+		for (Map.Entry<FieldKey, State> m : fields.entrySet()){
+			originalFields.put(m.getKey(), m.getValue());
+		}
+		this.fields = fields;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return 0; // TODO
@@ -108,20 +145,5 @@ public class ObjectState extends State {
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof ObjectState && ((ObjectState)obj).getFields().equals(getFields());
-	}
-
-	public String getClassName() {
-		return className;
-	}
-
-	public Map<FieldKey, State> getFields() {
-		return fields;
-	}
-
-	public void setFields(Map<FieldKey, State> fields) {
-		for (Map.Entry<FieldKey, State> m : fields.entrySet()){
-			originalFields.put(m.getKey(), m.getValue());
-		}
-		this.fields = fields;
 	}
 }

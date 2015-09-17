@@ -28,7 +28,7 @@ import com.sun.jdi.connect.LaunchingConnector;
 /**
  * Main interface class for the tracing subsystem.
  */
-public class Tracer {
+public class Tracer{
 
 	/**
 	 * Starts a program and traces it, asynchronously.
