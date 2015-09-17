@@ -2,7 +2,9 @@ package main.ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -55,8 +57,79 @@ public class MainPane extends GridPane {
 		setUpViewMenu();
 
 		this.prefWidth(Double.MAX_VALUE);
+		disableAllButtons();
+		buttonClicked("start");
+
 	}
 
+	public void printToConsole(String text){
+		for (javafx.scene.Node n: parent.getChildrenUnmodifiable()){
+			if (n instanceof ConsoleLogPane){
+				ConsoleLogPane clp = (ConsoleLogPane) n ;
+				clp.appendText(text + "\n");
+			}
+		}
+	}
+//======================================================================
+	/**
+	 * call this whwn
+	 * keeps track of the programs current state and greys out buttons
+	 * that arent relevant abd lets the user click on ones that are
+	 *
+	 * should only be called if the previous button's action was
+	 * followed through with
+	 */
+	private void buttonClicked(String buttonName){
+		printToConsole("button pressed: "+buttonName);
+
+		List<String> buttons = new ArrayList<String>();
+
+			if (buttonName.equalsIgnoreCase("start")){
+				buttons.add("Load Jar");
+				buttons.add("Load Trace");
+			}else if (buttonName.equalsIgnoreCase("Load Jar")){
+				buttons.add("Run Trace");
+			}else if (buttonName.equalsIgnoreCase("Run Trace")){
+				buttons.add("Save Trace");
+				buttons.add("Load View");
+			}
+
+
+		//call enable buttons
+		enableButtons(buttons);
+	}
+	/**
+	 * enables the buttons with names in the list passed in.
+	 *
+	 * @param buttonNames list
+	 */
+	private void enableButtons(List<String> buttonNames){
+
+		for (String name: buttonNames){
+			for (javafx.scene.Node n: this.getChildrenUnmodifiable()){
+				if(n instanceof javafx.scene.control.Button ){
+					Button b = (Button) n;
+					if (b.getText().equalsIgnoreCase(name)){
+						b.setDisable(false);//enables button matching name
+					}
+				}
+			}
+		}
+
+	}
+	/**
+	 * disables all buttons in the UI
+	 * only use this if you immediately enable one or more buttons
+	 */
+	private void disableAllButtons(){
+		for (javafx.scene.Node n: this.getChildrenUnmodifiable()){
+			if(n instanceof javafx.scene.control.Button ){
+				Button b = (Button) n;
+				b.setDisable(true);
+			}
+		}
+	}
+//=======================================================================
 	/**
 	 * Sets up the button layout for the Load section of the pane.
 	 */
@@ -71,22 +144,18 @@ public class MainPane extends GridPane {
 		// Sets up the Jar Load button.
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load Jar");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
+		btn.setOnAction((ActionEvent e)-> {
 
-			@Override
-			public void handle(ActionEvent e) {
 				File file = JarFileChooser.chooseJarFile();
 				if (file != null) {
 					loadDisplay.setText(file.getName());
 					JarData jarData = JarLoader.loadJarFile(file);
 					Main.setJarData(jarData);
 					parent.getSelectionPane().makeNewTree();
+					this.buttonClicked("Load Jar");
 				} else {
 					loadDisplay.setText("");
 				}
-
-			}
-
 		});
 
 		Tooltip tooltip = new Tooltip();
@@ -104,14 +173,11 @@ public class MainPane extends GridPane {
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load Trace");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent e) {
+		btn.setOnAction((ActionEvent e) ->{
 				// TODO: Set up trace loading.
 				System.out.println("TODO: load trace");
-			}
-		});
+				this.buttonClicked("Load Trace");
+			});
 		Tooltip tooltip2 = new Tooltip();
 		tooltip2.setText(
 			    "Load a Trace for displaying.\n" +
@@ -124,16 +190,16 @@ public class MainPane extends GridPane {
 
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setText("Run Trace");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent e) {
+		btn.setText("Run Trace");
+
+
+		btn.setOnAction((ActionEvent e)-> {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
 				Trace tr = tracer.run();
 				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 				Main.setManager(manager);
-			}
+				this.buttonClicked("Ruun Trace");
 		});
 		Tooltip tooltip3 = new Tooltip();
 		tooltip3.setText(
@@ -160,17 +226,14 @@ public class MainPane extends GridPane {
 		// Sets up the save button
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Save Trace");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent e) {
+		btn.setOnAction((ActionEvent e)-> {
 				String fileName = loadDisplay.getText();
 				if (fileName.equals("")) {
-					//TODO console log need filename
-				} else {// TODO change so it loads from ibject not file
+					this.printToConsole("To save a trace you need to supply a filename in the text box.");
+				} else {// TODO change so it may load from obj or file
 					Main.getManager().traceToFile("data/traces/", fileName);
+
 				}
-			}
 		});
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(
@@ -204,6 +267,7 @@ public class MainPane extends GridPane {
 					System.out.println("error\n");
 					error. printStackTrace();
 				}
+
 		});
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(
@@ -214,7 +278,6 @@ public class MainPane extends GridPane {
 		btn.setTooltip(tooltip);
 		this.add(btn, 0, 4);
 	}
-
 
 
 	/*btn.setOnAction(new EventHandler<ActionEvent>() {

@@ -25,6 +25,8 @@ public class MenuPane extends VBox {
 	 */
 	public MenuPane(){
 		//Make a hozontal box to store the two hrozontal attribues
+		
+		
 		HBox temp = new HBox();
 		temp.setPrefWidth(GUIFrame.width / 2);
 		GridPane grid = setUpMainPane(this);
@@ -37,6 +39,16 @@ public class MenuPane extends VBox {
 
 		this.getChildren().add(temp);
 		this.getChildren().add(new ConsoleLogPane());
+		
+		//this prints a welcome message to the console.
+		//we need to do it here because the MainPane can't yet 'see' the ConsolePane
+		for (javafx.scene.Node n: this.getChildren()){
+			if (n instanceof ConsoleLogPane){//find console
+				ConsoleLogPane cl = (ConsoleLogPane) n;
+				cl.appendText("Load in a JAR to trace, or Load a "
+						+ "Trace you want to visualise to start.");
+			}		
+		}
 	}
 
 	/**
