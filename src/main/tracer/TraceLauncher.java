@@ -15,6 +15,12 @@ public class TraceLauncher {
 
 	//the path to the jar to be executed
 	private String jarPath;
+	
+	private static DynamicHandler dynamicHandler;
+	
+	public void setDynamicHandler(DynamicHandler dh){
+		this.dynamicHandler = dh;
+	}
 
 	//the arguments to execute the traced program with
 	private String commanLineArgumnets;

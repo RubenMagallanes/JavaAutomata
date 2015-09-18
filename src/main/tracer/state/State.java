@@ -3,7 +3,7 @@ package main.tracer.state;
 import java.io.Serializable;
 import java.util.Map;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import main.tracer.TraceFilter;
 
@@ -22,7 +22,7 @@ public class State implements Serializable {
 		return toString();
 	}
 
-	public JSONObject toJSON(){
-		return new JSONObject();
+	public JSONArray toJSON(){
+		return new JSONArray();
 	}
 }
