@@ -80,12 +80,12 @@ public class ObjectState extends State {
 
 		for(int i = 0; i < sortedFields.size(); i++){
 			JSONObject field = new JSONObject();
-			field.append(NAME, sortedFields.get(i).getName());
-			field.append(VALUE, fields.get(sortedFields.get(i)));
+			field.put(NAME, sortedFields.get(i).getName());
+			field.put(VALUE, fields.get(sortedFields.get(i)));
 			state.put(field);
 		}
 
-		return new JSONArray(state);
+		return state;
 	}
 
 

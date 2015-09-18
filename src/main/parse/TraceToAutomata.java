@@ -53,11 +53,6 @@ public class TraceToAutomata {
 	private static final String VAR_VALUE = "value";
 
 	/**
-	 * Initial ID number.
-	 */
-	private static final int START_ID = 0;
-
-	/**
 	 * Parses the specified {@code String} containing JSON data and converts that
 	 * into an {@code Automata}.
 	 *
@@ -74,7 +69,7 @@ public class TraceToAutomata {
 		Map<Integer, AutomataState> states = new HashMap<Integer, AutomataState>();
 		Set<AutomataLink> links = new HashSet<AutomataLink>();
 
-		JSONObjectToAutomata(data, START_ID, states, links);
+		JSONObjectToAutomata(data, states, links);
 
 		return new Automata(new HashSet<AutomataState>(states.values()), links);
 	}
@@ -110,14 +105,13 @@ public class TraceToAutomata {
 	 * @return
 	 * 		- the next id value
 	 */
-	private static int JSONObjectToAutomata(JSONObject json, int id, Map<Integer, AutomataState> states, Set<AutomataLink> links){
-		int currentId = id++;
+	private static void JSONObjectToAutomata(JSONObject json, Map<Integer, AutomataState> states, Set<AutomataLink> links){
 		// check if the json object has any children
 		JSONArray array = json.getJSONArray(CHILDREN);
 
 		for(int i = 0; i < array.length(); i++){
 			JSONObject data = array.getJSONObject(i);
-			id = JSONObjectToAutomata(data, id, states, links);
+			JSONObjectToAutomata(data, states, links);
 		}
 
 		AutomataState stateBefore = parseState(json.optJSONArray(STATE_BEFORE), states.size());
@@ -130,8 +124,6 @@ public class TraceToAutomata {
 
 		AutomataLink link = new AutomataLink(json.getJSONArray(METHOD).getString(0), stateBefore.getId(), stateAfter.getId());
 		links.add(link);
-
-		return id;
 	}
 
 	/**
