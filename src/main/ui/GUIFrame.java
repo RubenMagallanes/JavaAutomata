@@ -1,5 +1,10 @@
 package main.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -65,6 +70,17 @@ public class GUIFrame extends Application{
 
 			server.start();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		 String htmlFilePath = "http://localhost:8080"; 
+
+		 try {
+			 Desktop.getDesktop().browse(new URL(htmlFilePath).toURI());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
