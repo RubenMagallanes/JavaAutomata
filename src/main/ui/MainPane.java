@@ -59,11 +59,12 @@ public class MainPane extends GridPane {
 
 		this.prefWidth(Double.MAX_VALUE);
 
-		buttonClicked("start");
 
 	}
 
 	public void printToConsole(String text){
+		/*tp the code to change the message first printed to the consolePane when 
+		the program is started is in MenuPane */
 		for (javafx.scene.Node n: parent.getChildrenUnmodifiable()){
 			if (n instanceof ConsoleLogPane){
 				ConsoleLogPane clp = (ConsoleLogPane) n ;
@@ -77,59 +78,37 @@ public class MainPane extends GridPane {
 	 * should only be called if the previous button's action was
 	 * followed through with
 	 */
-	private void buttonClicked(String buttonName){
-		printToConsole("button pressed: "+buttonName);
 
-		//List<String> buttons = new ArrayList<String>();
+	private void buttonClicked(String buttonName) {
+		//printToConsole(buttonName + " selected");
 
-			if (buttonName.equalsIgnoreCase("start")){
-				printToConsole("Program started");
-				printToConsole("next steps: ");
-				printToConsole("Load Jar, Load Trace");
-				//buttons.add("Load Jar");
-				//buttons.add("Load Trace");
+		if (buttonName.equalsIgnoreCase("Load Jar")) {
+			printToConsole("jar loaded. \n"
+					+ "Select what you want to trace with the UI to the right \n"
+					+ "then click 'Run trace' to trace the Jar you have loaded in");
+			
+		} else if (buttonName.equalsIgnoreCase("Run Trace")) {
+			printToConsole("Trace is now in memory, you can either: \n" 
+					+ "\tenter a name in the text field and then save it to the disk (Save Trace), \n"
+					+ "\tor load the visualisation with (Load view)");
+			
+		} else if (buttonName.equalsIgnoreCase("Load Trace")) {
+			printToConsole("Trace loaded from disk. \n" 
+					+ "to visualise it select \"Load View\")");
+			
+		} else if (buttonName.equalsIgnoreCase("Save Trace")) {
+			printToConsole("Trace saved to disk. \n");//TODO maybe add more text?
+			
+		} else if (buttonName.equalsIgnoreCase("Load View")) {
+			printToConsole("Visualisation loaded. \n");
+			
+		} else if (buttonName.equalsIgnoreCase("DYNAMIC :^)")) {
+		}
 
-			}else if (buttonName.equalsIgnoreCase("Load Jar")){
-				//buttons.add("Run Trace");
-			}else if (buttonName.equalsIgnoreCase("Run Trace")){
-
-				//buttons.add("Save Trace");
-				//buttons.add("Load View");
-			}
 
 
 	}
-	/**
-	 * enables the buttons with names in the list passed in.
-	 *
-	 * @param buttonNames list
-	 */
-	/*private void enableButtons(List<String> buttonNames){
 
-		for (String name: buttonNames){
-			for (javafx.scene.Node n: this.getChildrenUnmodifiable()){
-				if(n instanceof javafx.scene.control.Button ){
-					Button b = (Button) n;
-					if (b.getText().equalsIgnoreCase(name)){
-						b.setDisable(false);//enables button matching name
-					}
-				}
-			}
-		}
-
-	}*/
-	/**
-	 * disables all buttons in the UI
-	 * only use this if you immediately enable one or more buttons
-	 */
-	/*private void disableAllButtons(){
-		for (javafx.scene.Node n: this.getChildrenUnmodifiable()){
-			if(n instanceof javafx.scene.control.Button ){
-				Button b = (Button) n;
-				b.setDisable(true);
-			}
-		}
-	}*/
 //=======================================================================
 	/**
 	 * Sets up the button layout for the Load section of the pane.
@@ -169,14 +148,14 @@ public class MainPane extends GridPane {
 
 		this.add(btn, 0, 0);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
-
+		
 		// Sets up the Load Trace Program.
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load Trace");
 		btn.setOnAction((ActionEvent e) ->{
 				// TODO: Set up trace loading.
-				System.out.println("TODO: load trace");
+				
 				this.buttonClicked("Load Trace");
 			});
 		Tooltip tooltip2 = new Tooltip();
@@ -200,7 +179,7 @@ public class MainPane extends GridPane {
 				Trace tr = tracer.run();
 				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 				Main.setManager(manager);
-				this.buttonClicked("Ruun Trace");
+				this.buttonClicked("Run Trace");
 		});
 		Tooltip tooltip3 = new Tooltip();
 		tooltip3.setText(
@@ -233,7 +212,7 @@ public class MainPane extends GridPane {
 					this.printToConsole("To save a trace you need to supply a filename in the text box.");
 				} else {// TODO change so it may load from obj or file
 					Main.getManager().traceToFile("data/traces/", fileName);
-
+					this.buttonClicked("Save Trace");
 				}
 		});
 		Tooltip tooltip = new Tooltip();
@@ -263,10 +242,12 @@ public class MainPane extends GridPane {
 					//this starts the thread that takes care of the browser window and visualization within
 					BrowserBox bb = new BrowserBox(json);
 					browserWindows.put(count++, bb);// add bb to hash map if we want to reference it later
-
+					this.buttonClicked("Load View");
 				} catch (JSONToAutomataException error) {
 					System.out.println("error\n");
 					error. printStackTrace();
+					System.out.println("error\n");
+
 				}
 
 		});
@@ -278,9 +259,6 @@ public class MainPane extends GridPane {
 			    + "one saved on the disk to load."  );
 		btn.setTooltip(tooltip);
 		this.add(btn, 0, 4);
-
-
-
 	}
 
 	private void setUpDynamic(){
@@ -291,6 +269,7 @@ public class MainPane extends GridPane {
 		btn2.setOnAction((ActionEvent e) -> {
 				//YOUR CODE GOES HERE
 
+			this.buttonClicked("DYNAMIC :^)");
 		});
 		Tooltip tooltip2 = new Tooltip();
 		tooltip2.setText(
@@ -298,8 +277,4 @@ public class MainPane extends GridPane {
 		btn2.setTooltip(tooltip2);
 		this.add(btn2, 0, 5);
 	}
-
-	/*btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) */
 }
