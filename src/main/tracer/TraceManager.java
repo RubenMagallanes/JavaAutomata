@@ -63,6 +63,19 @@ public class TraceManager {
 			t.constructJSONFile(name);
 		}
 	}
+	
+	/**
+	 * returns the json reprisentation of the trace in this manager
+	 * @return
+	 */
+	public String getJson (){
+		String ret = "";
+		for (int i = 0; i< traces.length; i++){
+			ret += traces[i].toString();
+		}
+		return ret;
+		
+	}
 
 
 	/**

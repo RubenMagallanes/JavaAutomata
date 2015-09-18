@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import main.parse.TraceToJSON;
 import main.tracer.tree.TraceEntryTree;
 
 public class Trace implements Serializable {
@@ -80,12 +82,14 @@ public class Trace implements Serializable {
 		FileWriter writer;
 		try {
 			writer = new FileWriter(path + filename + ".json");
-			writer.write(toString());
+			writer.write(TraceToJSON.generateJSON(tree));
 			writer.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
+
+
 
 
 	@Override

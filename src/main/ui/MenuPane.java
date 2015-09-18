@@ -8,6 +8,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import main.Main;
 
 /**
  * Menu
@@ -45,8 +46,8 @@ public class MenuPane extends VBox {
 		for (javafx.scene.Node n: this.getChildren()){
 			if (n instanceof ConsoleLogPane){//find console
 				ConsoleLogPane cl = (ConsoleLogPane) n;
-				cl.appendText("Load in a JAR to trace, or Load a "
-						+ "Trace you want to visualise to start.");
+				cl.appendText("To start, Load in a Jar to trace (Load Jar), or Load a "
+						+ "Trace you want to visualise (Load Trace).\n");
 			}		
 		}
 	}
