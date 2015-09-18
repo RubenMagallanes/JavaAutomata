@@ -216,7 +216,7 @@ public class TraceThread extends Thread {
 				te.setState(Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>()));
 			}
 			te.setIsExit(true);
-			System.out.println(te);
+			//System.out.println(te);
 			consumer.onTraceLine(te);
 
 			if(dynamicHandler != null){

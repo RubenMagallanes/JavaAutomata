@@ -218,10 +218,6 @@ public class TraceToAutomata {
 	}
 
 	public static void main(String[] args){
-		AutomataLink l1 = new AutomataLink("test", 1, 2);
-		AutomataLink l2 = new AutomataLink("test", 1, 2);
-		System.out.println(l1 == l2);
-
 		File file = new File("data/traces/NESTED.json");
 		try {
 			Automata a = generateAutomata(file);
