@@ -6,12 +6,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-=======
 
 import main.parse.TraceToJSON;
-import main.tracer.state.State;
->>>>>>> trace_to_automata
 import main.tracer.tree.TraceEntryTree;
 
 public class Trace implements Serializable {
@@ -92,8 +88,8 @@ public class Trace implements Serializable {
 			e1.printStackTrace();
 		}
 	}
-	
-	
+
+
 
 
 	@Override
