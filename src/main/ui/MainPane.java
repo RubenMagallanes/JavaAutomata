@@ -41,6 +41,7 @@ public class MainPane extends GridPane {
 	//holds reference to browser windows
 	Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();
 
+	private boolean traceInMem = false; //..for testing
 	private MenuPane parent;
 	private TextField loadDisplay;
 
@@ -68,7 +69,10 @@ public class MainPane extends GridPane {
 		for (javafx.scene.Node n: parent.getChildrenUnmodifiable()){
 			if (n instanceof ConsoleLogPane){
 				ConsoleLogPane clp = (ConsoleLogPane) n ;
+				clp.clear();
 				clp.appendText(text + "\n");
+				
+				
 			}
 		}
 	}
@@ -91,11 +95,11 @@ public class MainPane extends GridPane {
 			printToConsole("Trace is now in memory, you can either: \n" 
 					+ "\tenter a name in the text field and then save it to the disk (Save Trace), \n"
 					+ "\tor load the visualisation with (Load view)");
-			
+			this.traceInMem = true;
 		} else if (buttonName.equalsIgnoreCase("Load Trace")) {
 			printToConsole("Trace loaded from disk. \n" 
 					+ "to visualise it select \"Load View\")");
-			
+			this.traceInMem = true;
 		} else if (buttonName.equalsIgnoreCase("Save Trace")) {
 			printToConsole("Trace saved to disk. \n");//TODO maybe add more text?
 			
@@ -155,7 +159,10 @@ public class MainPane extends GridPane {
 		btn.setText("Load Trace");
 		btn.setOnAction((ActionEvent e) ->{
 				// TODO: Set up trace loading.
+			//auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
+			
 				
+			this.traceInMem = true;
 				this.buttonClicked("Load Trace");
 			});
 		Tooltip tooltip2 = new Tooltip();
@@ -171,7 +178,7 @@ public class MainPane extends GridPane {
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
 
-		btn.setText("Run Trace");
+		btn.setText("Run Trace");	
 
 
 		btn.setOnAction((ActionEvent e)-> {
@@ -179,6 +186,7 @@ public class MainPane extends GridPane {
 				Trace tr = tracer.run();
 				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 				Main.setManager(manager);
+				this.traceInMem = true;
 				this.buttonClicked("Run Trace");
 		});
 		Tooltip tooltip3 = new Tooltip();
@@ -210,7 +218,7 @@ public class MainPane extends GridPane {
 				String fileName = loadDisplay.getText();
 				if (fileName.equals("")) {
 					this.printToConsole("To save a trace you need to supply a filename in the text box.");
-				} else {// TODO change so it may load from obj or file
+				} else {
 					Main.getManager().traceToFile("data/traces/", fileName);
 					this.buttonClicked("Save Trace");
 				}
@@ -232,10 +240,16 @@ public class MainPane extends GridPane {
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load View");
 		btn.setOnAction((ActionEvent e) -> {
+			
 				Automata auto = null;
 				try {
+					if (!traceInMem)throw new Exception();
+					String j = Main.getManager().getJson();
+					auto = JSONToAutomata.generateAutomata(j);
+					/*// old code that loads from disk
+					 * 
 					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
-
+					 		*/
 					GeneralFormatToAutomata g = new GeneralFormatToAutomata(auto);
 					String json = g.parseAutomata();
 
@@ -243,11 +257,17 @@ public class MainPane extends GridPane {
 					BrowserBox bb = new BrowserBox(json);
 					browserWindows.put(count++, bb);// add bb to hash map if we want to reference it later
 					this.buttonClicked("Load View");
+					
+					
 				} catch (JSONToAutomataException error) {
-					System.out.println("error\n");
-					error. printStackTrace();
-					System.out.println("error\n");
+					this.printToConsole("Automata Exception!");
 
+				} catch (NullPointerException n){
+					this.printToConsole("Null pointer exception! \n");
+				}catch (Exception n){
+					this.printToConsole("Error! \n"
+							+ "There isnt a Trace in memory to visualise. \n"
+							+ "First load in a trace with either \"Load Trace\" or load in a Jar to trace.");
 				}
 
 		});

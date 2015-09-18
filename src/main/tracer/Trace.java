@@ -86,6 +86,8 @@ public class Trace implements Serializable {
 			e1.printStackTrace();
 		}
 	}
+	
+	
 
 
 	@Override
