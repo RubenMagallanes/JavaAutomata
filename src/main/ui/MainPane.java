@@ -168,12 +168,13 @@ public class MainPane extends GridPane {
 			});
 		Tooltip tooltip2 = new Tooltip();
 		tooltip2.setText(
-			    "Load a Trace for displaying.\n" +
+			    "Load a previously generated Trace \n"
+			    + "for displaying.\n" +
 			    "Use this if you have previously loaded \n"
 			    + " a jar and already outputted a trace file.\n"  );
 		btn.setTooltip(tooltip2);
 
-		this.add(btn, 0, 0);
+		this.add(btn, 0, 6);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
@@ -305,7 +306,7 @@ public class MainPane extends GridPane {
 		tooltip2.setText(
 			    "ayy lmao"  );
 		btn2.setTooltip(tooltip2);
-		this.add(btn2, 0, 6);
+		this.add(btn2, 0, 7);
 	}
 	
 
