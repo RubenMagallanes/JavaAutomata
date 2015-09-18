@@ -168,24 +168,68 @@
             });
         });
 
-        console.log("groups", groups);
+        //console.log("groups", groups);
 
         // set up transitions
         data.links.forEach(function (method){
             var before = data.states[method.source];
             var after = data.states[method.target];
-
-            var placesInvolved = [];
-
+            var places = placesAffected(before, after);
             transitions.push({
                 name: method.methodName,
-                fromPlaces: findPlaces(before),
-                toPlaces: findPlaces(after)
+                fromPlaces: places.before,
+                toPlaces: places.after
             });
         });
 
-        console.log("transitions", transitions);
+        //console.log("transitions", transitions);
     }
+
+    function placesAffected(stateBefore, stateAfter){
+        //console.log("before", stateBefore);
+        //console.log("after", stateAfter);
+        var fieldsChanged = getFieldsChanged(stateBefore, stateAfter);
+        var places = {
+            before: [],
+            after: []
+        };
+        // get groups which are affected by these state changes
+        var relevantGroups = groups.filter(function(group){
+            // if any relevant fields are changed
+            return group.fieldNames.some(function (fieldName){
+                return $.inArray(fieldName, fieldsChanged) !== -1;
+            });
+        });
+        console.log("relevant groups: ", relevantGroups);
+        relevantGroups.forEach(function (group){
+            // before
+            group.places.filter(function(place){
+                // only places that have the same values as stateAfter
+                return place.fields.every(function(field, i){
+                    return field.value === getFieldWithName(field.name, stateBefore.fields).value;
+                });
+            }).forEach( function (place){
+                places.before.push({
+                    groupIndex: groups.indexOf(group),
+                    placeIndex: group.places.indexOf(place)
+                });
+            });
+            // after
+            group.places.filter(function(place){
+                // only places that have the same values as stateAfter
+                return place.fields.every(function(field, i){
+                    return field.value === getFieldWithName(field.name, stateAfter.fields).value;
+                });
+            }).forEach( function (place, placeIndex){
+                places.after.push({
+                    groupIndex: groups.indexOf(group),
+                    placeIndex: group.places.indexOf(place)
+                });
+            });
+        });
+        return places;
+    }
+
 
     function stateAffectsGroup(group, states, stateI){
         if (stateI === 0) return true;
@@ -231,20 +275,14 @@
         return changes;
     }
 
-    function findPlaces(state){
-        var stateIndex = states.indexOf(state);
-        var places = [];
-        groups.forEach(function (group, groupIndex){
-            group.places.forEach(function (place, placeIndex){
-                if (place.state === stateIndex){
-                    places.push({
-                        groupIndex: groupIndex,
-                        placeIndex: placeIndex
-                    });
-                }
-            });
-        });
-        return places;
+    function getFieldsChanged(stateBefore, stateAfter){
+        var fields = [];
+        for (var i = 0; i < stateBefore.fields.length; i++){
+            if (stateBefore.fields[i].value !== stateAfter.fields[i].value){
+                fields.push(stateBefore.fields[i].name);
+            }
+        }
+        return fields;
     }
 
     function getGroupWithField(field){
@@ -255,6 +293,16 @@
             }
         });
         return groupo;
+    }
+
+    function getFieldWithName(name, fields){
+        var found = null;
+        fields.forEach(function (field){
+            if (field.name == name){
+                found = field;
+            }
+        });
+        return found;
     }
 
     function selectPlace(d){
