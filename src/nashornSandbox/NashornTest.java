@@ -38,7 +38,6 @@ public class NashornTest {
 		 * returns whatever the Jscript function returns, saved in result
 		 */
 		Object result = invoke.invokeFunction("fun1", "hi");
-
 		
 		System.out.println("from java code");
 		System.out.println(result);
