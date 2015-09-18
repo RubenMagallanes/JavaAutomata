@@ -75,7 +75,7 @@ public class Trace implements Serializable {
 	 * @param The name of the file to write the trace to
 	 * */
 	public void constructJSONFile(String filename){
-		TraceEntryTree.generateTraceEntryTree(lines);
+		TraceEntryTree tree = TraceEntryTree.generateTraceEntryTree(lines);
 		String path = "data" + File.separatorChar + "traces" + File.separatorChar;
 		FileWriter writer;
 		try {

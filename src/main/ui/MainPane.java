@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -24,9 +26,11 @@ import main.parse.GeneralFormatToAutomata;
 import main.parse.JSONToAutomata;
 import main.parse.JSONToAutomataException;
 
+import main.tracer.DynamicHandler;
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
+import main.tracer.Tracer;
 import sun.awt.image.GifImageDecoder;
 
 /**
@@ -289,8 +293,26 @@ public class MainPane extends GridPane {
 		btn2.setMaxWidth(Double.MAX_VALUE);
 		btn2.setText("DYNAMIC :^)");
 		btn2.setOnAction((ActionEvent e) -> {
-				//YOUR CODE GOES HERE
 
+
+			//Tracer setup
+			TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
+			Trace tr = null;
+
+			BrowserBox bb = new BrowserBox(null);//TODO change
+			browserWindows.put(count++, bb);// add bb to hash map if we want to reference it later
+
+			DynamicHandler dh = new DynamicHandler(bb, tr);
+
+			tr =tracer.run();
+
+			TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
+
+			Tracer.setDynamicHandler(dh);
+
+
+			Main.setManager(manager);
+			//this.buttonClicked("Dynamic");
 		});
 		Tooltip tooltip2 = new Tooltip();
 		tooltip2.setText(

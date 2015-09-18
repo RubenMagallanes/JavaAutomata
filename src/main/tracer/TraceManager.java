@@ -59,7 +59,6 @@ public class TraceManager {
 	 * @param file path to save the file
 	 * */
 	public void traceToFile(String filePath, String name){
-
 		for(Trace t : tracesFiltered){
 			t.constructJSONFile(name);
 		}
