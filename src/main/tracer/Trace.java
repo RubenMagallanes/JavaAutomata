@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
+=======
+
+import main.parse.TraceToJSON;
+import main.tracer.state.State;
+>>>>>>> trace_to_automata
 import main.tracer.tree.TraceEntryTree;
 
 public class Trace implements Serializable {
@@ -75,12 +81,12 @@ public class Trace implements Serializable {
 	 * @param The name of the file to write the trace to
 	 * */
 	public void constructJSONFile(String filename){
-		TraceEntryTree.generateTraceEntryTree(lines);
+		TraceEntryTree tree = TraceEntryTree.generateTraceEntryTree(lines);
 		String path = "data" + File.separatorChar + "traces" + File.separatorChar;
 		FileWriter writer;
 		try {
 			writer = new FileWriter(path + filename + ".json");
-			writer.write(toString());
+			writer.write(TraceToJSON.generateJSON(tree));
 			writer.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();

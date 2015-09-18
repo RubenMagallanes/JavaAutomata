@@ -72,7 +72,7 @@ public class ObjectState extends State {
 	/**
 	 * Returns a JSON object representing the object
 	 * */
-	public JSONObject toJSON(){
+	public JSONArray toJSON(){
 		JSONArray state = new JSONArray();
 
 		List<FieldKey> sortedFields = new ArrayList<FieldKey>(fields.keySet());
@@ -85,7 +85,7 @@ public class ObjectState extends State {
 			state.put(field);
 		}
 
-		return new JSONObject(state);
+		return new JSONArray(state);
 	}
 
 
