@@ -3,34 +3,34 @@
     "id": 0,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "878909.665959304f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "172374.04413328096f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "492903"
+        "value": "205047.19158689587"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "536762.6206456365"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "855346.5045232537f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "18970.988548881352"
+        "value": "630735"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "780363.458014468f"
+        "value": "548699.7924474516f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "236446.31493620895f"
+        "value": "Nicky"
       }
     ]
   },
@@ -38,34 +38,34 @@
     "id": 1,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "372260.1894626334f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "427702.7907869222f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "627996"
+        "value": "328484.1477903003"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "232601.18350961833"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "89298.74780033487f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "20834.33365693943"
+        "value": "407538"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "464542.17653778195f"
+        "value": "843387.6615517779f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "231470.45509496622f"
+        "value": "Chris"
       }
     ]
   },
@@ -73,34 +73,34 @@
     "id": 2,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "432272.13483846036f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "94872.01287508196f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "21400"
+        "value": "889807.5170499579"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "105163.95837186454"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "424721.0534225718f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "106186.45212125088"
+        "value": "130229"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "557694.8326547114f"
+        "value": "605337.0955799178f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "904461.5154229209f"
+        "value": "Will"
       }
     ]
   },
@@ -108,34 +108,34 @@
     "id": 3,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "57780.46035854001f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "351333.2470122872f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "735564"
+        "value": "229268.57886712605"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "966960.9786646052"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "489072.0529068532f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "438163.7182251513"
+        "value": "664130"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "670653.0144785737f"
+        "value": "510225.63657743216f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "995843.1047281768f"
+        "value": "Shane"
       }
     ]
   },
@@ -143,34 +143,34 @@
     "id": 4,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "421178.1822333065f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "860155.2474095692f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "56950"
+        "value": "959679.0753963512"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "593958.7644317559"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "129376.69181953227f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "283823.55126459256"
+        "value": "75308"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "439606.08019816206f"
+        "value": "840946.1098123406f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "196020.0153541658f"
+        "value": "David"
       }
     ]
   },
@@ -178,34 +178,34 @@
     "id": 5,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "335473.04498900555f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "743772.2410920981f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "630770"
+        "value": "898318.3957015177"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "64686.11826914528"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "826783.4146263612f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "150507.32368934606"
+        "value": "638254"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "59760.95880630839f"
+        "value": "300394.2978302366f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "678714.0225086524f"
+        "value": "Will"
       }
     ]
   },
@@ -213,34 +213,34 @@
     "id": 6,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "252398.40254806867f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "660802.7133291231f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "872400"
+        "value": "73350.25854803923"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "386110.0105992891"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "821765.1874826672f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "579732.3231619778"
+        "value": "928465"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "228520.26578159735f"
+        "value": "74954.194972632f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "844521.6943505178f"
+        "value": "David"
       }
     ]
   },
@@ -248,34 +248,34 @@
     "id": 7,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "95959.42278351322f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "661655.6589618003f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "941557"
+        "value": "203046.9339826949"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "370518.43493184855"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "141502.2670571887f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "588550.8561212886"
+        "value": "947695"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "181733.23039369527f"
+        "value": "412205.5218286098f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "447199.35266535485f"
+        "value": "Ruben"
       }
     ]
   },
@@ -283,34 +283,34 @@
     "id": 8,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "157613.40517522072f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "143024.28548688474f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "844686"
+        "value": "862666.66595099"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "826451.4591467857"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "34906.84986565029f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "84651.76303071532"
+        "value": "834098"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "847458.9517203597f"
+        "value": "917559.7544000288f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "734138.062451609f"
+        "value": "Shane"
       }
     ]
   },
@@ -318,34 +318,34 @@
     "id": 9,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "401479.4852773198f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "874232.7712368937f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "119792"
+        "value": "80276.60762743361"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "108766.45236623695"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "468596.8272633769f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "390169.1019115763"
+        "value": "719689"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "298179.58479902416f"
+        "value": "908033.0813743181f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "299542.2877495606f"
+        "value": "Ruben"
       }
     ]
   },
@@ -353,34 +353,34 @@
     "id": 10,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "218711.3645197538f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "886978.9272865403f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "65229"
+        "value": "164356.91661929252"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "83714.77759287738"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "97214.52274828068f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "713054.6281937874"
+        "value": "937041"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "553925.8151409093f"
+        "value": "468635.7148621266f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "962446.8009529993f"
+        "value": "Shane"
       }
     ]
   },
@@ -388,34 +388,34 @@
     "id": 11,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "969487.2019836274f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "708404.4714695353f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "30112"
+        "value": "597228.9494478176"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "734329.4203965957"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "631516.738021131f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "723691.1743939291"
+        "value": "4022"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "446617.4011359781f"
+        "value": "428713.7215532356f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "127248.4492539393f"
+        "value": "Nicky"
       }
     ]
   },
@@ -423,34 +423,34 @@
     "id": 12,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "520886.4161193683f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "476601.7953058659f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "991839"
+        "value": "123169.92528280335"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "323733.91887132777"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "534698.765120583f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "594776.3226182797"
+        "value": "571920"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "193243.08687759796f"
+        "value": "762220.0305962748f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "44119.537838125725f"
+        "value": "Shane"
       }
     ]
   },
@@ -458,34 +458,34 @@
     "id": 13,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "563023.7075164089f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "455483.85578794504f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "529902"
+        "value": "121825.94790505296"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "97813.19190373684"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "87909.3503040167f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "7864.542681964126"
+        "value": "985403"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "707342.8872936188f"
+        "value": "976884.4382060166f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "989609.2220496413f"
+        "value": "Chris"
       }
     ]
   },
@@ -493,212 +493,77 @@
     "id": 14,
     "fields": [
       {
-        "type": "float",
+        "type": "double",
         "name": "a",
-        "value": "319860.0283742894f"
-      },
-      {
-        "type": "float",
-        "name": "b",
-        "value": "207127.75635016235f"
-      },
-      {
-        "type": "int",
-        "name": "c",
-        "value": "561171"
+        "value": "748912.4394152671"
       },
       {
         "type": "double",
+        "name": "b",
+        "value": "527048.3127251674"
+      },
+      {
+        "type": "float",
+        "name": "c",
+        "value": "795680.0128108468f"
+      },
+      {
+        "type": "int",
         "name": "x",
-        "value": "830673.5392641544"
+        "value": "933409"
       },
       {
         "type": "float",
         "name": "y",
-        "value": "591529.4701877517f"
+        "value": "811543.7235666958f"
       },
       {
-        "type": "float",
+        "type": "String",
         "name": "z",
-        "value": "259904.7449574735f"
+        "value": "Ruben"
       }
     ]
   }
 ],"links":[
   {
+    "methodName": "add",
+    "source": 0,
+    "target": 1
+  },
+  {
     "methodName": "minus",
-    "source": 0,
-    "target": 1
-  },
-  {
-    "methodName": "add",
-    "source": 0,
-    "target": 7
-  },
-  {
-    "methodName": "clone",
-    "source": 0,
-    "target": 1
-  },
-  {
-    "methodName": "multiply",
-    "source": 0,
-    "target": 13
-  },
-  {
-    "methodName": "add",
     "source": 1,
     "target": 2
   },
   {
-    "methodName": "divide",
-    "source": 1,
-    "target": 5
-  },
-  {
-    "methodName": "toString",
-    "source": 1,
-    "target": 7
-  },
-  {
     "methodName": "multiply",
-    "source": 1,
-    "target": 8
-  },
-  {
-    "methodName": "minus",
     "source": 2,
     "target": 3
   },
   {
-    "methodName": "multiply",
-    "source": 2,
-    "target": 12
-  },
-  {
     "methodName": "mutate",
-    "source": 2,
-    "target": 11
-  },
-  {
-    "methodName": "toString",
-    "source": 2,
-    "target": 13
-  },
-  {
-    "methodName": "add",
     "source": 3,
     "target": 4
   },
   {
-    "methodName": "minus",
-    "source": 3,
-    "target": 6
-  },
-  {
-    "methodName": "multiply",
-    "source": 3,
-    "target": 11
-  },
-  {
-    "methodName": "mutate",
-    "source": 3,
-    "target": 13
-  },
-  {
-    "methodName": "clone",
+    "methodName": "toString",
     "source": 4,
     "target": 5
   },
   {
-    "methodName": "mutate",
-    "source": 4,
-    "target": 10
-  },
-  {
     "methodName": "divide",
-    "source": 4,
-    "target": 11
-  },
-  {
-    "methodName": "toString",
-    "source": 4,
-    "target": 14
-  },
-  {
-    "methodName": "clone",
     "source": 5,
     "target": 6
   },
   {
-    "methodName": "minus",
-    "source": 5,
-    "target": 13
-  },
-  {
-    "methodName": "divide",
-    "source": 5,
-    "target": 12
-  },
-  {
-    "methodName": "toString",
-    "source": 5,
-    "target": 8
-  },
-  {
-    "methodName": "minus",
+    "methodName": "mutate",
     "source": 6,
     "target": 7
   },
   {
-    "methodName": "add",
-    "source": 6,
-    "target": 10
-  },
-  {
-    "methodName": "multiply",
-    "source": 6,
-    "target": 14
-  },
-  {
-    "methodName": "mutate",
-    "source": 6,
-    "target": 11
-  },
-  {
-    "methodName": "add",
+    "methodName": "divide",
     "source": 7,
     "target": 8
-  },
-  {
-    "methodName": "toString",
-    "source": 7,
-    "target": 8
-  },
-  {
-    "methodName": "minus",
-    "source": 7,
-    "target": 14
-  },
-  {
-    "methodName": "mutate",
-    "source": 7,
-    "target": 11
-  },
-  {
-    "methodName": "mutate",
-    "source": 8,
-    "target": 9
-  },
-  {
-    "methodName": "multiply",
-    "source": 8,
-    "target": 11
-  },
-  {
-    "methodName": "minus",
-    "source": 8,
-    "target": 12
   },
   {
     "methodName": "clone",
@@ -706,39 +571,14 @@
     "target": 9
   },
   {
-    "methodName": "multiply",
+    "methodName": "divide",
     "source": 9,
     "target": 10
   },
   {
-    "methodName": "toString",
-    "source": 9,
-    "target": 11
-  },
-  {
-    "methodName": "clone",
-    "source": 9,
-    "target": 10
-  },
-  {
-    "methodName": "minus",
-    "source": 9,
-    "target": 13
-  },
-  {
-    "methodName": "add",
+    "methodName": "divide",
     "source": 10,
     "target": 11
-  },
-  {
-    "methodName": "toString",
-    "source": 10,
-    "target": 11
-  },
-  {
-    "methodName": "mutate",
-    "source": 10,
-    "target": 13
   },
   {
     "methodName": "multiply",
@@ -746,32 +586,12 @@
     "target": 12
   },
   {
-    "methodName": "mutate",
-    "source": 11,
-    "target": 12
-  },
-  {
-    "methodName": "add",
-    "source": 11,
-    "target": 14
-  },
-  {
-    "methodName": "add",
+    "methodName": "divide",
     "source": 12,
     "target": 13
   },
   {
-    "methodName": "clone",
-    "source": 12,
-    "target": 14
-  },
-  {
-    "methodName": "mutate",
-    "source": 13,
-    "target": 14
-  },
-  {
-    "methodName": "toString",
+    "methodName": "divide",
     "source": 13,
     "target": 14
   }
