@@ -63,6 +63,45 @@ public class AutomataLink {
 		return target;
 	}
 
+	/**
+	 * Generates a hash code for this {@code AutomataLink}.
+	 */
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((methodName == null) ? 0 : methodName.hashCode());
+		result = prime * result + source;
+		result = prime * result + target;
+		return result;
+	}
+
+	/**
+	 * Returns true if the specified {@code Object is identical to this
+	 * {@code AutomataLink}, otherwise returns false.
+	 */
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		AutomataLink other = (AutomataLink) obj;
+		if (methodName == null) {
+			if (other.methodName != null)
+				return false;
+		} else if (!methodName.equals(other.methodName))
+			return false;
+		if (source != other.source)
+			return false;
+		if (target != other.target)
+			return false;
+		return true;
+	}
+
 	public String toString(){
 		return "Link: { Method Name = " + methodName + ", sourceID = " + source + ", targetID = " + target + "}";
 	}
