@@ -88,12 +88,13 @@
 
         force.on("tick", function (){
             node.attr("transform", transform)
-            //link.select(".line").attr("d", linkArc);
+            // curved links
+            link.select(".line").attr("d", linkArc);
             // straight lines
-            var path = link.select(".line");
-            path.attr("d", function (d){
-                return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
-            })
+            //var path = link.select(".line");
+            //path.attr("d", function (d){
+                //return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
+            //})
         });
 
         // updates a curved link
