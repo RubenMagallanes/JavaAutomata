@@ -1,7 +1,11 @@
 package main.ui;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,15 +25,14 @@ import javafx.scene.layout.Priority;
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
-
 import main.parse.Automata;
 import main.parse.GeneralFormatToAutomata;
 import main.parse.JSONToAutomata;
 import main.parse.JSONToAutomataException;
-
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
+import main.util.DesktopApi;
 import sun.awt.image.GifImageDecoder;
 
 /**
@@ -44,7 +47,7 @@ public class MainPane extends GridPane {
 	//holds reference to browser windows
 	Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();
 
-	
+
 	private MenuPane parent;
 	private TextField loadDisplay;
 
@@ -67,15 +70,15 @@ public class MainPane extends GridPane {
 	}
 
 	public void printToConsole(String text){
-		/*tp the code to change the message first printed to the consolePane when 
+		/*tp the code to change the message first printed to the consolePane when
 		the program is started is in MenuPane */
 		for (javafx.scene.Node n: parent.getChildrenUnmodifiable()){
 			if (n instanceof ConsoleLogPane){
 				ConsoleLogPane clp = (ConsoleLogPane) n ;
 				clp.clear();
 				clp.appendText(text + "\n");
-				
-				
+
+
 			}
 		}
 	}
@@ -93,22 +96,22 @@ public class MainPane extends GridPane {
 			printToConsole("jar loaded. \n"
 					+ "Select what you want to trace with the UI to the right \n"
 					+ "then click 'Run trace' to trace the Jar you have loaded in");
-			
+
 		} else if (buttonName.equalsIgnoreCase("Run Trace")) {
-			printToConsole("Trace is now in memory, you can either: \n" 
+			printToConsole("Trace is now in memory, you can either: \n"
 					+ "\tenter a name in the text field and then save it to the disk (Save Trace), \n"
 					+ "\tor load the visualisation with (Load view)");
-		
+
 		} else if (buttonName.equalsIgnoreCase("Load Trace")) {
-			printToConsole("Trace loaded from disk. \n" 
+			printToConsole("Trace loaded from disk. \n"
 					+ "to visualise it select \"Load View\")");
-			
+
 		} else if (buttonName.equalsIgnoreCase("Save Trace")) {
 			printToConsole("Trace saved to disk. \n");//TODO maybe add more text?
-			
+
 		} else if (buttonName.equalsIgnoreCase("Load View")) {
 			printToConsole("Visualisation loaded. \n");
-			
+
 		} else if (buttonName.equalsIgnoreCase("DYNAMIC :^)")) {
 		}
 
@@ -155,7 +158,7 @@ public class MainPane extends GridPane {
 
 		this.add(btn, 0, 0);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
-		
+
 		// Sets up the Load Trace Program.
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
@@ -170,7 +173,7 @@ public class MainPane extends GridPane {
 			} catch (Exception e1) {
 				printToConsole("error ");
 			}
-			
+
 				this.buttonClicked("Load Trace");
 			});
 		Tooltip tooltip2 = new Tooltip();
@@ -186,7 +189,7 @@ public class MainPane extends GridPane {
 		btn = new Button();
 		btn.setMaxWidth(Double.MAX_VALUE);
 
-		btn.setText("Run Trace");	
+		btn.setText("Run Trace");
 
 
 		btn.setOnAction((ActionEvent e)-> {
@@ -194,7 +197,7 @@ public class MainPane extends GridPane {
 				Trace tr = tracer.run();
 				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 				Main.setManager(manager);
-				
+
 				this.buttonClicked("Run Trace");
 		});
 		Tooltip tooltip3 = new Tooltip();
@@ -248,30 +251,30 @@ public class MainPane extends GridPane {
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load View");
 		btn.setOnAction((ActionEvent e) -> {
-			
+
 				Automata auto = null;
-				try {
-					
-					String j = Main.getManager().getJson();
-					auto = JSONToAutomata.generateAutomata(j);
-					/*// old code that loads from disk
-					 * 
-					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
-					*/
-					//moved to visualise method
+				//try {
+
+//					String j = Main.getManager().getJson();
+//					auto = JSONToAutomata.generateAutomata(j);
+//					/*// old code that loads from disk
+//					 *
+//					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
+//					*/
+//					//moved to visualise method
 					this.visualise(auto);
 					this.buttonClicked("Load View");
-					
-					
-				} catch (JSONToAutomataException error) {
-					this.printToConsole("Automata Exception!");
 
-				} catch (NullPointerException n){
-					this.printToConsole("Error! \n"
-							+ "There must be a Trace in memory to visualise. \n"
-							+ "First load in a trace with either \"Load Trace\" or load in a Jar to trace.");
-				
-				}
+//
+//				} catch (JSONToAutomataException error) {
+//					this.printToConsole("Automata Exception!");
+//
+//				} catch (NullPointerException n){
+//					this.printToConsole("Error! \n"
+//							+ "There must be a Trace in memory to visualise. \n"
+//							+ "First load in a trace with either \"Load Trace\" or load in a Jar to trace.");
+//
+//				}
 
 		});
 		Tooltip tooltip = new Tooltip();
@@ -289,14 +292,25 @@ public class MainPane extends GridPane {
 	 * @param a automata you to be visualised
 	 */
 	private void visualise (Automata a){
-		GeneralFormatToAutomata g = new GeneralFormatToAutomata(a);
-		String json = g.parseAutomata();
 
-		//this starts the thread that takes care of the browser window and visualization within
-		BrowserBox bb = new BrowserBox(json);
-		this.browserWindows.put(this.count++, bb);
-	} 
-	
+		 String htmlFilePath = "http://localhost:8080";
+
+		 try {
+			 DesktopApi.browse(new URL(htmlFilePath).toURI());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		GeneralFormatToAutomata g = new GeneralFormatToAutomata(a);
+//		String json = g.parseAutomata();
+//
+//		//this starts the thread that takes care of the browser window and visualization within
+//		BrowserBox bb = new BrowserBox(json);
+//		this.browserWindows.put(this.count++, bb);
+	}
+
 	private void setUpDynamic(){
 		Button btn2 = new Button();
 		// Sets up the load view button
@@ -313,7 +327,7 @@ public class MainPane extends GridPane {
 		btn2.setTooltip(tooltip2);
 		this.add(btn2, 0, 5);
 	}
-	
+
 	private  File chooseTraceFile(){
 
 		JFileChooser chooser = new JFileChooser();

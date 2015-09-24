@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import main.server.JsonHandler;
+
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -61,8 +63,12 @@ public class GUIFrame extends Application{
 	        resource_handler.setResourceBase("src/web/");
 
 	        // Add the ResourceHandler to the server.
+	        HandlerList list = new HandlerList();
 	        GzipHandler gzip = new GzipHandler();
-	        server.setHandler(gzip);
+	        list.addHandler(new JsonHandler());
+	        list.addHandler(gzip);
+
+	        server.setHandler(list);
 	        HandlerList handlers = new HandlerList();
 	        handlers.setHandlers(new Handler[] { resource_handler, new DefaultHandler() });
 	        gzip.setHandler(handlers);
@@ -72,17 +78,8 @@ public class GUIFrame extends Application{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		 String htmlFilePath = "http://localhost:8080"; 
 
-		 try {
-			 Desktop.getDesktop().browse(new URL(htmlFilePath).toURI());
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 
 
 	}
