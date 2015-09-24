@@ -1,7 +1,10 @@
 "use strict";
+
+var url = 'test/TestProgram2Automata.json'
+
 $.ajax({
   type: 'GET',
-  url: 'test/TestProgram2Automata.json',
+  url: url,
   contentType: 'application/json',
   success: function(data) { 
 	  console.log("success");

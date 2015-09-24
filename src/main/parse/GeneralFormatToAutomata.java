@@ -63,6 +63,7 @@ public class GeneralFormatToAutomata {
 	public String parseAutomata(){
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();	
 		String s = "{\"states\":" + gson.toJson(states) + ",\"links\":" +gson.toJson(links) + "}"; 
+		System.out.println(s);
 		return s;		
 	}	   
 }
