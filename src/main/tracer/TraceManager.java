@@ -17,7 +17,7 @@ public class TraceManager {
 	 * */
 	public TraceManager(Trace[] traces){
 		this.traces = traces;
-		copyToFilter();
+
 	}
 
 	/**
@@ -63,9 +63,9 @@ public class TraceManager {
 			t.constructJSONFile(name);
 		}
 	}
-	
+
 	/**
-	 * returns the json reprisentation of the trace in this manager
+	 * returns the json representation of the trace in this manager
 	 * @return
 	 */
 	public String getJson (){
@@ -74,7 +74,7 @@ public class TraceManager {
 			ret += traces[i].toString();
 		}
 		return ret;
-		
+
 	}
 
 

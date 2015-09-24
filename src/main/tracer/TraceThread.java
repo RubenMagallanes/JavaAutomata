@@ -185,7 +185,7 @@ public class TraceThread extends Thread {
 			consumer.onTraceLine(te);
 
 			if(dynamicHandler != null){
-				dynamicHandler.eventOccoured();
+				dynamicHandler.eventOccoured(te);
 			}
 		}
 		threadsToResume.add(event.thread());
@@ -220,7 +220,7 @@ public class TraceThread extends Thread {
 			consumer.onTraceLine(te);
 
 			if(dynamicHandler != null){
-				dynamicHandler.eventOccoured();
+				dynamicHandler.eventOccoured(te);
 			}
 		}
 		threadsToResume.add(event.thread());

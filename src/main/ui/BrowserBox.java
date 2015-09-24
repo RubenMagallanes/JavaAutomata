@@ -16,7 +16,7 @@ import netscape.javascript.JSObject;
  * Object that creates a new window containing a browser that is used to
  * visualize out data. Usage: Create a new BrowserBox(dat), passing in the data
  * (in stringified json format) you want to visualise
- * 
+ *
  * @author rj
  *
  */
@@ -37,7 +37,7 @@ public class BrowserBox {
 	 * after browser creation, i don't think we need to save the references to
 	 * the Scene or Stage, just the Browser (for calling script on it) this may
 	 * need to be changed in the future.
-	 * 
+	 *
 	 * @param dat
 	 *            data that is to be loaded in to the visualization once the
 	 *            page has loaded
@@ -55,13 +55,13 @@ public class BrowserBox {
 		/*
 		 * This next piece of code adds listeners to the browser's loadworker,
 		 * which checks the page is loaded before allowing any script to execute on it.
-		 * 
+		 *
 		 * The first function makes javascript's console.log print to java's stdout, this
 		 * is just for testing.
-		 * 
+		 *
 		 * The second function sets a boolean value to true when the page is loaded and then
-		 * calls visualiseTrace(data), asking the page to visualise the tarce data which is 
-		 * what it's for. 
+		 * calls visualiseTrace(data), asking the page to visualise the tarce data which is
+		 * what it's for.
 		 */
 		WebView wv;
 		for (Object o : scene.getRoot().getChildrenUnmodifiable()) {
@@ -102,7 +102,7 @@ public class BrowserBox {
 	}
 
 	/**
-	 * returns the Stage the 
+	 * returns the Stage the
 	 * @return
 	 */
 	public Stage Stage() {
@@ -111,8 +111,8 @@ public class BrowserBox {
 
 	/**
 	 * gives jsonString to browser to visualize
-	 * Fails if the Browser isn't loaded yet. 
-	 * 
+	 * Fails if the Browser isn't loaded yet.
+	 *
 	 * @param jsonString
 	 *            string version of JSON object with data to visualize
 	 */
@@ -123,5 +123,32 @@ public class BrowserBox {
 			String arg = "viz.automata.init(JSON.stringify({" + jsonString + "}))";
 			br.executeScript(arg);// TODO check this works, that this is the
 		} // right context to call jscript
+	}
+
+
+
+
+	public void visualizeTraceDynamic(String jsonString) {
+		data = jsonString;
+
+		if (this.data != null) {
+			engine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
+					if (newState == State.SUCCEEDED) {
+						loaded = true;
+						visualizeTrace(data);
+					}
+				}
+			});
+		}
+
+
+//		Browser br = (Browser) scene.getRoot();
+//
+//		if (loaded) {
+//			String arg = "viz.automata.init(JSON.stringify({" + jsonString + "}))";
+//			br.executeScript(arg);// TODO check this works, that this is the
+//		} // right context to call jscript
 	}
 }
