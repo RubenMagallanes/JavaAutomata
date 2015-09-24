@@ -71,6 +71,21 @@ public class TraceToAutomata {
 
 		JSONObjectToAutomata(data, states, links);
 
+		// remove the empty state from states
+		int id = states.size() - 1;
+		states.remove(id);
+
+		// remove any references to empty state from links
+		Set<AutomataLink> remove = new HashSet<AutomataLink>();
+		for(AutomataLink link : links){
+			if(link.getSource() == id || link.getTarget() == id){
+				remove.add(link);
+			}
+		}
+		for(AutomataLink link : remove){
+			links.remove(link);
+		}
+
 		return new Automata(new HashSet<AutomataState>(states.values()), links);
 	}
 
@@ -123,7 +138,10 @@ public class TraceToAutomata {
 		states.put(stateAfter.getId(), stateAfter);
 
 		AutomataLink link = new AutomataLink(json.getJSONArray(METHOD).getString(0), stateBefore.getId(), stateAfter.getId());
-		links.add(link);
+		// only add link if it is not already in links
+		if(!links.contains(link)){
+			links.add(link);
+		}
 	}
 
 	/**

@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -25,7 +29,9 @@ import main.tracer.DynamicHandler;
 import main.tracer.Trace;
 import main.tracer.TraceLauncher;
 import main.tracer.TraceManager;
+
 import main.tracer.Tracer;
+
 
 /**
  * First menu people see when loading the program.
@@ -119,7 +125,7 @@ public class MainPane extends GridPane {
 		// Text field to be used
 		TextField loadDisplay = new TextField();
 		loadDisplay.setEditable(false);
-		this.add(loadDisplay, 1, 0);
+		this.add(loadDisplay, 1, 2);
 
 		// Sets up the Jar Load button.
 		btn.setMaxWidth(Double.MAX_VALUE);
@@ -145,7 +151,7 @@ public class MainPane extends GridPane {
 			    + "from the *.jar."  );
 		btn.setTooltip(tooltip);
 
-		this.add(btn, 0, 0);
+		this.add(btn, 0, 2);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	}
 	/**
@@ -170,12 +176,13 @@ public class MainPane extends GridPane {
 			});
 		Tooltip tooltip2 = new Tooltip();
 		tooltip2.setText(
-			    "Load a Trace for displaying.\n" +
+			    "Load a previously generated Trace \n"
+			    + "for displaying.\n" +
 			    "Use this if you have previously loaded \n"
 			    + " a jar and already outputted a trace file.\n"  );
 		btn.setTooltip(tooltip2);
 
-		this.add(btn, 0, 1);
+		this.add(btn, 0, 6);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
@@ -209,7 +216,7 @@ public class MainPane extends GridPane {
 			    "You should save the trace afterwards. \n");
 
 		btn.setTooltip(tooltip3);
-		this.add(btn, 1, 1);
+		this.add(btn, 0, 3);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	}
 
@@ -241,7 +248,7 @@ public class MainPane extends GridPane {
 			    "This allows you to visualise it later without \n"
 			    + "having to rerun the trace again."  );
 		btn.setTooltip(tooltip);
-		this.add(btn, 0, 3);
+		this.add(btn, 1, 4);
 	}
 	/**
 	 * Sets up the view button, opens browser window to view trace
@@ -327,7 +334,7 @@ public class MainPane extends GridPane {
 		tooltip2.setText(
 			    "ayy lmao"  );
 		btn2.setTooltip(tooltip2);
-		this.add(btn2, 0, 5);
+		this.add(btn2, 0, 7);
 	}
 
 
