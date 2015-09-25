@@ -120,7 +120,7 @@ public class BrowserBox {
 		Browser br = (Browser) scene.getRoot();
 
 		if (loaded) {
-			String arg = "viz.automata.init(JSON.stringify({" + jsonString + "}))";
+			String arg = "viz.automata.init(JSON.stringify(" + jsonString + "))";
 			br.executeScript(arg);// TODO check this works, that this is the
 		} // right context to call jscript
 	}
