@@ -142,6 +142,10 @@ public class TraceToAutomata {
 		if(!links.contains(link)){
 			links.add(link);
 		}
+		else{
+			// otherwise increment count of link
+			link.incrementCount();
+		}
 	}
 
 	/**

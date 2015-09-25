@@ -1,6 +1,15 @@
 package main.ui;
 
+import java.awt.Desktop;
 import java.io.File;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,12 +34,20 @@ import main.parse.Automata;
 import main.parse.GeneralFormatToAutomata;
 import main.parse.JSONToAutomata;
 import main.parse.JSONToAutomataException;
+
+import main.tracer.TraceLauncher;
 import main.tracer.DynamicHandler;
+
 import main.tracer.Trace;
 import main.tracer.TraceLauncher;
 import main.tracer.TraceManager;
 
+import main.util.DesktopApi;
+import sun.awt.image.GifImageDecoder;
+
+
 import main.tracer.Tracer;
+
 
 
 /**
@@ -68,6 +85,10 @@ public class MainPane extends GridPane {
 
 	}
 
+	/**
+	 * sends text to be printed to the programs console
+	 * @param text to be printed
+	 */
 	public void printToConsole(String text){
 		/*tp the code to change the message first printed to the consolePane when
 		the program is started is in MenuPane */
@@ -81,14 +102,11 @@ public class MainPane extends GridPane {
 			}
 		}
 	}
-//======================================================================
 	/**
-	 * prints out text to the console when a buttons is clicked
+	 * prints out text to the console when a button is clicked.
+	 * what is printed changes depending on which button is clicked
 	 */
-
 	private void buttonClicked(String buttonName) {
-		//printToConsole(buttonName + " selected");
-
 		if (buttonName.equalsIgnoreCase("Load Jar")) {
 			printToConsole("jar loaded. \n"
 					+ "Select what you want to trace with the UI to the right \n"
@@ -100,10 +118,12 @@ public class MainPane extends GridPane {
 					+ "\tor load the visualisation with (Load view)");
 
 		} else if (buttonName.equalsIgnoreCase("Load Trace")) {
+
 			printToConsole("Trace loaded from disk. \n");
 
 		} else if (buttonName.equalsIgnoreCase("Save Trace")) {
 			printToConsole("Trace saved to disk. \n");
+
 
 		} else if (buttonName.equalsIgnoreCase("Load View")) {
 			printToConsole("Visualisation loaded. \n");
@@ -154,11 +174,13 @@ public class MainPane extends GridPane {
 		this.add(btn, 0, 2);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	}
+
 	/**
 	 * sets up load trace button
 	 */
 	private void setupLoadTrace(){
 		Button btn = new Button();
+
 
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load Trace");
@@ -166,14 +188,18 @@ public class MainPane extends GridPane {
 
 			Automata auto = null;
 			File trace = chooseTraceFile ();
-			try {
-				auto = JSONToAutomata.generateAutomata(trace);
-				visualise(auto);
-			} catch (Exception e1) {
-				printToConsole("error ");
-			}
+			if (trace != null)
+			{
+				try {
+					auto = JSONToAutomata.generateAutomata(trace);
+					visualise(auto);
+				} catch (Exception e1) {
+					printToConsole("error ");
+				}
 				this.buttonClicked("Load Trace");
+			}
 			});
+
 		Tooltip tooltip2 = new Tooltip();
 		tooltip2.setText(
 			    "Load a previously generated Trace \n"
@@ -186,6 +212,10 @@ public class MainPane extends GridPane {
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
+	/**
+	 * opens file chooser, with a filter on so you can only see trace files.
+	 * @return user chosen Trace file
+	 */
 	private  File chooseTraceFile(){
 
 		JFileChooser chooser = new JFileChooser();
@@ -198,6 +228,9 @@ public class MainPane extends GridPane {
 		}
 		return null;
 	}
+	/**
+	 * set up run trace button
+	 */
 	private void setupRunTrace(){
 		Button btn = new Button();
 
@@ -261,21 +294,29 @@ public class MainPane extends GridPane {
 		btn.setOnAction((ActionEvent e) -> {
 
 				Automata auto = null;
-				try {
-					String j = Main.getManager().getJson();
-					auto = JSONToAutomata.generateAutomata(j);
+				//try {
+
+//					String j = Main.getManager().getJson();
+//					auto = JSONToAutomata.generateAutomata(j);
+//					/*// old code that loads from disk
+//					 *
+//					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
+//					*/
+//					//moved to visualise method
 					this.visualise(auto);
 					this.buttonClicked("Load View");
 
-				} catch (JSONToAutomataException error) {
-					this.printToConsole("Automata Exception!");
+//
+//				} catch (JSONToAutomataException error) {
+//					this.printToConsole("Automata Exception!");
+//
+//				} catch (NullPointerException n){
+//					this.printToConsole("Error! \n"
+//							+ "There must be a Trace in memory to visualise. \n"
+//							+ "First load in a trace with either \"Load Trace\" or load in a Jar to trace.");
+//
+//				}
 
-				} catch (NullPointerException n){
-					this.printToConsole("Error! \n"
-							+ "There must be a Trace in memory to visualise. \n"
-							+ "First load in a trace with either \"Load Trace\""
-							+ " or load in a Jar to trace.");
-				}
 		});
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(
@@ -289,15 +330,27 @@ public class MainPane extends GridPane {
 
 	/**
 	 * displays an automata in a browser
-	 * @param a automata you to be visualised
+	 * @param a automata you want to be visualised
 	 */
 	private void visualise (Automata a){
-		GeneralFormatToAutomata g = new GeneralFormatToAutomata(a);
-		String json = g.parseAutomata();
 
-		//this starts the thread that takes care of the browser window and visualization within
-		BrowserBox bb = new BrowserBox(json);
-		this.browserWindows.put(this.count++, bb);
+		 String htmlFilePath = "http://localhost:8080";
+
+		 try {
+			 DesktopApi.browse(new URL(htmlFilePath).toURI());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		GeneralFormatToAutomata g = new GeneralFormatToAutomata(a);
+//		String json = g.parseAutomata();
+//
+//		//this starts the thread that takes care of the browser window and visualization within
+//		BrowserBox bb = new BrowserBox(json);
+//		this.browserWindows.put(this.count++, bb);
+
 	}
 
 	private void setUpDynamic(){
