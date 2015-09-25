@@ -41,6 +41,8 @@ public class TraceThread extends Thread {
 
 	private Set<ThreadReference> threadsToResume;
 
+	DynamicHandler dynamicHandler;
+
 
 	/**
 	 * Constructs the TraceThread object
@@ -51,10 +53,11 @@ public class TraceThread extends Thread {
 	 *
 	 * @param consumer
 	 * */
-	public TraceThread(VirtualMachine vm, TraceFilter filter,RealtimeTraceConsumer consumer) {
+	public TraceThread(VirtualMachine vm, TraceFilter filter,RealtimeTraceConsumer consumer, DynamicHandler dh) {
 		this.vm = vm;
 		this.filter = filter;
 		this.consumer = consumer;
+		this.dynamicHandler = dh;
 		knownTraceableClasses = new HashMap<ReferenceType, Boolean>();
 		threadsToResume = new HashSet<ThreadReference>();
 	}
@@ -180,6 +183,10 @@ public class TraceThread extends Thread {
 				}
 			}
 			consumer.onTraceLine(te);
+
+			if(dynamicHandler != null){
+				dynamicHandler.eventOccoured();
+			}
 		}
 		threadsToResume.add(event.thread());
 	}
@@ -209,8 +216,12 @@ public class TraceThread extends Thread {
 				te.setState(Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>()));
 			}
 			te.setIsExit(true);
-			System.out.println(te);
+			//System.out.println(te);
 			consumer.onTraceLine(te);
+
+			if(dynamicHandler != null){
+				dynamicHandler.eventOccoured();
+			}
 		}
 		threadsToResume.add(event.thread());
 	}

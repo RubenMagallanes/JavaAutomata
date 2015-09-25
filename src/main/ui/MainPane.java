@@ -2,26 +2,31 @@ package main.ui;
 
 import java.awt.Desktop;
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
@@ -29,11 +34,21 @@ import main.parse.Automata;
 import main.parse.GeneralFormatToAutomata;
 import main.parse.JSONToAutomata;
 import main.parse.JSONToAutomataException;
+
 import main.tracer.TraceLauncher;
+import main.tracer.DynamicHandler;
+
 import main.tracer.Trace;
+import main.tracer.TraceLauncher;
 import main.tracer.TraceManager;
+
 import main.util.DesktopApi;
 import sun.awt.image.GifImageDecoder;
+
+
+import main.tracer.Tracer;
+
+
 
 /**
  * First menu people see when loading the program.
@@ -59,16 +74,21 @@ public class MainPane extends GridPane {
 		this.setPrefHeight(GUIFrame.height - GUIFrame.consoleSize);
 		count = 0;
 		this.parent = parent;
-		setUpLoadMenu();
-		setUpSaveMenu();
+		setupLoadJar();
+		setupLoadTrace();
+		setupRunTrace();
+		setupSaveMenu();
 		setUpViewMenu();
 		setUpDynamic();
 
 		this.prefWidth(Double.MAX_VALUE);
 
-
 	}
 
+	/**
+	 * sends text to be printed to the programs console
+	 * @param text to be printed
+	 */
 	public void printToConsole(String text){
 		/*tp the code to change the message first printed to the consolePane when
 		the program is started is in MenuPane */
@@ -82,16 +102,11 @@ public class MainPane extends GridPane {
 			}
 		}
 	}
-//======================================================================
 	/**
-	 *
-	 * should only be called if the previous button's action was
-	 * followed through with
+	 * prints out text to the console when a button is clicked.
+	 * what is printed changes depending on which button is clicked
 	 */
-
 	private void buttonClicked(String buttonName) {
-		//printToConsole(buttonName + " selected");
-
 		if (buttonName.equalsIgnoreCase("Load Jar")) {
 			printToConsole("jar loaded. \n"
 					+ "Select what you want to trace with the UI to the right \n"
@@ -103,11 +118,12 @@ public class MainPane extends GridPane {
 					+ "\tor load the visualisation with (Load view)");
 
 		} else if (buttonName.equalsIgnoreCase("Load Trace")) {
-			printToConsole("Trace loaded from disk. \n"
-					+ "to visualise it select \"Load View\")");
+
+			printToConsole("Trace loaded from disk. \n");
 
 		} else if (buttonName.equalsIgnoreCase("Save Trace")) {
-			printToConsole("Trace saved to disk. \n");//TODO maybe add more text?
+			printToConsole("Trace saved to disk. \n");
+
 
 		} else if (buttonName.equalsIgnoreCase("Load View")) {
 			printToConsole("Visualisation loaded. \n");
@@ -123,13 +139,13 @@ public class MainPane extends GridPane {
 	/**
 	 * Sets up the button layout for the Load section of the pane.
 	 */
-	private void setUpLoadMenu() {
+	private void setupLoadJar() {
 		Button btn = new Button();
 
 		// Text field to be used
 		TextField loadDisplay = new TextField();
 		loadDisplay.setEditable(false);
-		this.add(loadDisplay, 1, 0);
+		this.add(loadDisplay, 1, 2);
 
 		// Sets up the Jar Load button.
 		btn.setMaxWidth(Double.MAX_VALUE);
@@ -147,7 +163,6 @@ public class MainPane extends GridPane {
 					loadDisplay.setText("");
 				}
 		});
-
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(
 			    "Load in a *.jar file to be traced.\n" +
@@ -156,48 +171,76 @@ public class MainPane extends GridPane {
 			    + "from the *.jar."  );
 		btn.setTooltip(tooltip);
 
-		this.add(btn, 0, 0);
+		this.add(btn, 0, 2);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
+	}
 
-		// Sets up the Load Trace Program.
-		btn = new Button();
+	/**
+	 * sets up load trace button
+	 */
+	private void setupLoadTrace(){
+		Button btn = new Button();
+
+
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load Trace");
 		btn.setOnAction((ActionEvent e) ->{
 
 			Automata auto = null;
 			File trace = chooseTraceFile ();
-			try {
-				auto = JSONToAutomata.generateAutomata(trace);
-				visualise(auto);
-			} catch (Exception e1) {
-				printToConsole("error ");
-			}
-
+			if (trace != null)
+			{
+				try {
+					auto = JSONToAutomata.generateAutomata(trace);
+					visualise(auto);
+				} catch (Exception e1) {
+					printToConsole("error ");
+				}
 				this.buttonClicked("Load Trace");
+			}
 			});
+
 		Tooltip tooltip2 = new Tooltip();
 		tooltip2.setText(
-			    "Load a Trace for displaying.\n" +
+			    "Load a previously generated Trace \n"
+			    + "for displaying.\n" +
 			    "Use this if you have previously loaded \n"
 			    + " a jar and already outputted a trace file.\n"  );
 		btn.setTooltip(tooltip2);
 
-		this.add(btn, 0, 1);
+		this.add(btn, 0, 6);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
-		btn = new Button();
+	}
+	/**
+	 * opens file chooser, with a filter on so you can only see trace files.
+	 * @return user chosen Trace file
+	 */
+	private  File chooseTraceFile(){
+
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Trace file", "json");
+		chooser.setFileFilter(filter);
+
+		int returnVal = chooser.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION){
+			return chooser.getSelectedFile();
+		}
+		return null;
+	}
+	/**
+	 * set up run trace button
+	 */
+	private void setupRunTrace(){
+		Button btn = new Button();
+
 		btn.setMaxWidth(Double.MAX_VALUE);
-
 		btn.setText("Run Trace");
-
-
 		btn.setOnAction((ActionEvent e)-> {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
 				Trace tr = tracer.run();
 				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 				Main.setManager(manager);
-
 				this.buttonClicked("Run Trace");
 		});
 		Tooltip tooltip3 = new Tooltip();
@@ -206,23 +249,21 @@ public class MainPane extends GridPane {
 			    "You should save the trace afterwards. \n");
 
 		btn.setTooltip(tooltip3);
-		this.add(btn, 1, 1);
+		this.add(btn, 0, 3);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
-
 	}
 
 
 	/**
 	 * Sets up the Save section of the menu
 	 */
-	private void setUpSaveMenu() {
+	private void setupSaveMenu() {
 		Button btn = new Button();
 
 		// Text field for user input.
 		loadDisplay = new TextField();
 		this.add(loadDisplay, 1, 3);
 
-		// Sets up the save button
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Save Trace");
 		btn.setOnAction((ActionEvent e)-> {
@@ -240,7 +281,7 @@ public class MainPane extends GridPane {
 			    "This allows you to visualise it later without \n"
 			    + "having to rerun the trace again."  );
 		btn.setTooltip(tooltip);
-		this.add(btn, 0, 3);
+		this.add(btn, 1, 4);
 	}
 	/**
 	 * Sets up the view button, opens browser window to view trace
@@ -289,7 +330,7 @@ public class MainPane extends GridPane {
 
 	/**
 	 * displays an automata in a browser
-	 * @param a automata you to be visualised
+	 * @param a automata you want to be visualised
 	 */
 	private void visualise (Automata a){
 
@@ -309,6 +350,7 @@ public class MainPane extends GridPane {
 //		//this starts the thread that takes care of the browser window and visualization within
 //		BrowserBox bb = new BrowserBox(json);
 //		this.browserWindows.put(this.count++, bb);
+
 	}
 
 	private void setUpDynamic(){
@@ -317,7 +359,24 @@ public class MainPane extends GridPane {
 		btn2.setMaxWidth(Double.MAX_VALUE);
 		btn2.setText("DYNAMIC :^)");
 		btn2.setOnAction((ActionEvent e) -> {
-				//YOUR CODE GOES HERE
+
+
+			//Tracer setup
+			TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
+			Trace tr = null;
+
+			BrowserBox bb = new BrowserBox(null);//TODO change
+			browserWindows.put(count++, bb);// add bb to hash map if we want to reference it later
+
+			DynamicHandler dh = new DynamicHandler(bb, tr);
+
+			tr=tracer.run();
+
+			TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
+
+			Tracer.setDynamicHandler(dh);
+
+			Main.setManager(manager);
 
 			this.buttonClicked("DYNAMIC :^)");
 		});
@@ -325,19 +384,8 @@ public class MainPane extends GridPane {
 		tooltip2.setText(
 			    "ayy lmao"  );
 		btn2.setTooltip(tooltip2);
-		this.add(btn2, 0, 5);
+		this.add(btn2, 0, 7);
 	}
 
-	private  File chooseTraceFile(){
 
-		JFileChooser chooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Trace file", "json");
-		chooser.setFileFilter(filter);
-
-		int returnVal = chooser.showOpenDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION){
-			return chooser.getSelectedFile();
-		}
-		return null;
-	}
 }
