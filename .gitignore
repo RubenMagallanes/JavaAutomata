@@ -1,5 +1,6 @@
 /bin/
 .classpath
+/.settings/
 /.idea/
 /out/
 JavaAutomata.iml

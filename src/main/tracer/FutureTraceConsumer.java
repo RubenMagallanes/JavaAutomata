@@ -50,7 +50,6 @@ public class FutureTraceConsumer implements Future<Trace>, RealtimeTraceConsumer
 		return false;
 	}
 
-
 	@Override
 	public void onTraceLine(TraceEntry line) {
 		t.getLines().add(line);

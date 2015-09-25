@@ -8,7 +8,8 @@ import java.util.List;
  * */
 public class TraceFilterSelector {
 
-	TraceFilter customFilter;
+	//the filter object that holds the filtered items
+	private TraceFilter customFilter;
 
 	//filtered items
 	private List<String> fieldNames;
@@ -16,6 +17,9 @@ public class TraceFilterSelector {
 	private List<String> classNames;
 
 
+	/**
+	 * Constructs the TraceFilterSector
+	 * */
 	public TraceFilterSelector(){
 		this.fieldNames = new ArrayList<>();
 		this.methodNames = new ArrayList<>();
@@ -49,8 +53,6 @@ public class TraceFilterSelector {
 			this.fieldNames.add(s);
 			updateFilter();
 		}
-
-
 	}
 
 

@@ -9,7 +9,7 @@ import java.util.List;
  * @author David Sheridan
  *
  */
-public class AutomataState {
+public class AutomataState implements Comparable<AutomataState>{
 
 	// fields
 	private int id;
@@ -78,6 +78,10 @@ public class AutomataState {
 		} else if (!fields.equals(other.fields))
 			return false;
 		return true;
+	}
+
+	public int compareTo(AutomataState o){
+		return id - o.getId();
 	}
 
 	public String toString(){

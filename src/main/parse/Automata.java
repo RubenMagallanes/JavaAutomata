@@ -28,4 +28,25 @@ public class Automata {
 	public Set<AutomataLink> getLinks(){
 		return links;
 	}
+
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("States:\n");
+		for(AutomataState state : states){
+			builder.append("ID = " + state.getId() + ", ");
+			builder.append("Fields = [");
+			for(AutomataField field : state.getFields()){
+				builder.append("{" + field.getName() + " = " + field.getValue() + "}");
+			}
+			builder.append("]\n");
+		}
+
+		builder.append("\nLinks:\n");
+		for(AutomataLink link : links){
+			builder.append("Method = " + link.getName() + ", Source = " + link.getSource() + ", Target = " + link.getTarget() + "\n");
+		}
+
+		return builder.toString();
+	}
 }

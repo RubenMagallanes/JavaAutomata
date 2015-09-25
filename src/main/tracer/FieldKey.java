@@ -4,19 +4,28 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 
 /**
- * An unambiguous name of a field - that is, a class name and a field name.
- * @author campbealex2
+ * A class that represents a field made unique by using class contained in
+ *
+ * @author campbealex2 and Nicky van Hulst
  */
 public final class FieldKey implements Serializable, Comparable<FieldKey> {
 
-	//TODO: Generate this later.
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5947697860425373926L;
 
-	public final String className;
-	public final String name;
+	//name of the class holding the field
+	private final String className;
 
-	//Constructors that keep track of the
-	// names of the fields and classes they belong to.
+	//name of the field
+	private final String name;
+
+
+	/**
+	 * Constructor for the FieldKey
+	 *
+	 * @param name of the class
+	 *
+	 * @param name of the field
+	 * */
 	public FieldKey(String className, String name) {
 		if(className == null || name == null)
 			throw new NullPointerException();
@@ -24,10 +33,23 @@ public final class FieldKey implements Serializable, Comparable<FieldKey> {
 		this.name = name;
 	}
 
+
+	/**
+	 * Constructor for the FieldKey used the field
+	 * object to get declaring class
+	 *
+	 * @param Field to represent
+	 * */
 	public FieldKey(Field field) {
 		this(field.getDeclaringClass().getName(), field.getName());
 	}
 
+	/**
+	 * Constructor for the FieldKey used the field
+	 * object to get declaring class
+	 *
+	 * @param Field to represent
+	 * */
 	public FieldKey(com.sun.jdi.Field field) {
 		this(field.declaringType().name(), field.name());
 	}
@@ -45,6 +67,26 @@ public final class FieldKey implements Serializable, Comparable<FieldKey> {
 			return false;
 
 		return true;
+	}
+
+
+	/**
+	 * Returns the name of the class holding the field
+	 *
+	 * @return class name
+	 * */
+	public String getClassName(){
+		return this.className;
+	}
+
+
+	/**
+	 * Returns the name of the field
+	 *
+	 * @return field name
+	 * */
+	public String getName(){
+		return this.name;
 	}
 
 	@Override

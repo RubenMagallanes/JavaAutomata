@@ -10,14 +10,13 @@ import main.tracer.TraceFilter;
 public class ArrayState extends State {
 	private static final long serialVersionUID = 1L;
 
+	//the values in the array
 	public List<State> values = new ArrayList<State>();
 
 	@Override
 	public String toString() {
-		return toString(new IdentityHashMap<State, String>());
-	}
+		Map<State, String> alreadySeenObjects = new IdentityHashMap<State, String>();
 
-	public String toString(Map<State, String> alreadySeenObjects) {
 		if(alreadySeenObjects.containsKey(this))
 			return alreadySeenObjects.get(this);
 		alreadySeenObjects.put(this, "OBJ"+alreadySeenObjects.size());

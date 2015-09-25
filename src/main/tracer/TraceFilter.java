@@ -8,6 +8,7 @@ package main.tracer;
  * @author campbealex2
  */
 public interface TraceFilter {
+
 	/**
 	 * Returns whether a field's value should be recorded.
 	 * @param f The field.
