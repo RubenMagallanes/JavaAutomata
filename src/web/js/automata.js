@@ -45,22 +45,22 @@
     	force.nodes(states);
         force.links(links);
 
-        //title
-        var title = svg.append("text")
-           .attr("class", "title")
-           .attr("dy", ".100em")
-           .text("Automata")
-           .attr("x",10)
-           .attr("y",10);
+        // //title
+        // var title = svg.append("text")
+        //    .attr("class", "title")
+        //    .attr("dy", ".100em")
+        //    .text("Automata")
+        //    .attr("x",10)
+        //    .attr("y",10);
 
-        var tracesText = svg.append("text")
-           .attr("class", "title")
-           .attr("dy", ".100em")
-           .attr("x",1200)
-           .attr("y",10)
-           .attr("width",300)
-           .attr("height",400)           
-           .html(getTraceList());
+        // var tracesText = svg.append("text")
+        //    .attr("class", "title")
+        //    .attr("dy", ".100em")
+        //    .attr("x",1200)
+        //    .attr("y",10)
+        //    .attr("width",300)
+        //    .attr("height",400)           
+        //    .html(getTraceList());
 
         var node = svg.selectAll(".state")
             .data(states)
@@ -189,19 +189,19 @@
             .html(function() { return stateInfo(d); });
     }
 
-    function getTraceList(){
-        //call handler
-        //list
-        var list =["testApplication","BattleShips","TestApplication2"];
+    // function getTraceList(){
+    //     //call handler
+    //     //list
+    //     var list =["testApplication","BattleShips","TestApplication2"];
 
-        var output = "Trace List<br>";
-        for(var i=0; i<list.length; i++){
-            output += list[i];
-            output += "<br>";
-        }
-        console.log(output);
-        return output;
-    }
+    //     var output = "Trace List<br>";
+    //     for(var i=0; i<list.length; i++){
+    //         output += list[i];
+    //         output += "<br>";
+    //     }
+    //     console.log(output);
+    //     return output;
+    // }
 
     // return state info as a string
     function stateInfo(state){
