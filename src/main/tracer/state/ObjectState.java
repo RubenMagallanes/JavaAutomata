@@ -7,6 +7,9 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import main.tracer.FieldKey;
 import main.tracer.TraceFilter;
 
@@ -14,24 +17,27 @@ public class ObjectState extends State {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String NAME = "\"name\"";
-	//private static final String TYPE = "\"type\"";
-	private static final String VALUE = "\"value\"";
+	private static final String NAME = "name";
+	private static final String VALUE = "value";
 
-	// fields
+	//The name of the class
 	private String className;
+
+	//A map of all the fields the class holds
 	private Map<FieldKey, State> fields = new HashMap<>();
+
+
 	private Map<FieldKey, State> originalFields = new HashMap<>();
 
 	public ObjectState(String className) {
 		this.className = className;
 	}
 
-	public String toString() {
-		return toString(new IdentityHashMap<State, String>());
-	}
 
-	public String toString(Map<State, String> alreadySeenObjects) {
+	@Override
+	public String toString() {
+		Map<State, String> alreadySeenObjects = new IdentityHashMap<State, String>();
+
 		if(alreadySeenObjects.containsKey(this)){
 			return alreadySeenObjects.get(this);
 		}
@@ -53,7 +59,7 @@ public class ObjectState extends State {
 
 			State value = fields.get(fk);
 			result.append("\n\t\t");
-			result.append("\"" + fk.name + "\": ");
+			result.append("\"" + fk.getName() + "\": ");
 			result.append(value.toString(alreadySeenObjects));
 		}
 
@@ -62,46 +68,26 @@ public class ObjectState extends State {
 		return result.toString();
 	}
 
+
 	/**
-	 * Constructs and returns a {@code JSON} representation of this {@code ObjectState}.
-	 * This is of the form:
-	 * <p><p>
-	 * [<p>
-	 *   {<p>
-	 *     "name": -name-,<p>
-	 *     "value": -value-<p>
-	 *   },<p>
-	 *   ...<p>
-	 * ]
-	 *<p>
-	 * @return
-	 * 		json representation of this object state
-	 */
-	public String toJSON(){
-		StringBuilder builder = new StringBuilder();
-		builder.append(State.OPEN_BRACKET + "\n");
+	 * Returns a JSON object representing the object
+	 * */
+	public JSONArray toJSON(){
+		JSONArray state = new JSONArray();
 
 		List<FieldKey> sortedFields = new ArrayList<FieldKey>(fields.keySet());
 		Collections.sort(sortedFields);
 
 		for(int i = 0; i < sortedFields.size(); i++){
-			builder.append(State.OPEN_BRACE + "\n");
-			builder.append(NAME + ": \"" + sortedFields.get(i).name + "\",\n");
-			//builder.append(TYPE + ": " +);
-			builder.append(VALUE + ": " + fields.get(sortedFields.get(i)) + "\n");
-			builder.append(State.CLOSE_BRACE);
-
-			if(i != sortedFields.size() - 1){
-				builder.append(",\n");
-			}
-			else{
-				builder.append("\n");
-			}
+			JSONObject field = new JSONObject();
+			field.put(NAME, sortedFields.get(i).getName());
+			field.put(VALUE, fields.get(sortedFields.get(i)));
+			state.put(field);
 		}
 
-		builder.append(State.CLOSE_BRACKET + "\n");
-		return builder.toString();
+		return state;
 	}
+
 
 	@Override
 	public void filterFields(TraceFilter f) {
@@ -123,6 +109,34 @@ public class ObjectState extends State {
 		}
 	}
 
+
+	/**
+	 * Returns the class name of the object
+	 * */
+	public String getClassName() {
+		return className;
+	}
+
+
+	/**
+	 * Returns the fields of the object
+	 * */
+	public Map<FieldKey, State> getFields() {
+		return fields;
+	}
+
+
+	/**
+	 * Sets the fields of the object
+	 * */
+	public void setFields(Map<FieldKey, State> fields) {
+		for (Map.Entry<FieldKey, State> m : fields.entrySet()){
+			originalFields.put(m.getKey(), m.getValue());
+		}
+		this.fields = fields;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return 0; // TODO
@@ -131,20 +145,5 @@ public class ObjectState extends State {
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof ObjectState && ((ObjectState)obj).getFields().equals(getFields());
-	}
-
-	public String getClassName() {
-		return className;
-	}
-
-	public Map<FieldKey, State> getFields() {
-		return fields;
-	}
-
-	public void setFields(Map<FieldKey, State> fields) {
-		for (Map.Entry<FieldKey, State> m : fields.entrySet()){
-			originalFields.put(m.getKey(), m.getValue());
-		}
-		this.fields = fields;
 	}
 }

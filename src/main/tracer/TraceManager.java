@@ -34,7 +34,7 @@ public class TraceManager {
 				newT.setState(t.getState());
 				newT.setArguments(t.getArguments());
 				newT.setMethod(t.getMethod());
-				newT.isReturn = t.isReturn();
+				newT.setIsExit(t.isExit());
 				temp.add(newT);
 			}
 			tracesFiltered[i].setLines(temp);
@@ -59,10 +59,22 @@ public class TraceManager {
 	 * @param file path to save the file
 	 * */
 	public void traceToFile(String filePath, String name){
-
 		for(Trace t : tracesFiltered){
 			t.constructJSONFile(name);
 		}
+	}
+	
+	/**
+	 * returns the json reprisentation of the trace in this manager
+	 * @return
+	 */
+	public String getJson (){
+		String ret = "";
+		for (int i = 0; i< traces.length; i++){
+			ret += traces[i].toString();
+		}
+		return ret;
+		
 	}
 
 

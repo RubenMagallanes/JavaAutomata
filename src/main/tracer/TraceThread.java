@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import com.sun.jdi.IncompatibleThreadStateException;
 import com.sun.jdi.InternalException;
 import com.sun.jdi.Method;
@@ -29,18 +28,36 @@ import com.sun.jdi.request.MethodExitRequest;
 import com.sun.jdi.request.VMDeathRequest;
 
 public class TraceThread extends Thread {
-	// fields
+
+	//virtual machine to run traced program on
 	private final VirtualMachine vm;
+
+	//filter to apply to the trace
 	private final TraceFilter filter;
+
 	private final RealtimeTraceConsumer consumer;
+
 	private Map<ReferenceType, Boolean> knownTraceableClasses;
+
 	private Set<ThreadReference> threadsToResume;
 
-	public TraceThread(VirtualMachine vm, TraceFilter filter,
-			RealtimeTraceConsumer consumer) {
+	DynamicHandler dynamicHandler;
+
+
+	/**
+	 * Constructs the TraceThread object
+	 *
+	 * @param vm the virtual machine to run on
+	 *
+	 * @param filter to apply to the program
+	 *
+	 * @param consumer
+	 * */
+	public TraceThread(VirtualMachine vm, TraceFilter filter,RealtimeTraceConsumer consumer, DynamicHandler dh) {
 		this.vm = vm;
 		this.filter = filter;
 		this.consumer = consumer;
+		this.dynamicHandler = dh;
 		knownTraceableClasses = new HashMap<ReferenceType, Boolean>();
 		threadsToResume = new HashSet<ThreadReference>();
 	}
@@ -73,7 +90,6 @@ public class TraceThread extends Thread {
 						handleMethodExitEvent((MethodExitEvent)event);
 					}
 					else if (event instanceof VMDeathEvent) {
-						System.out.println("Tracing done");
 						vm.dispose();
 						return;
 					}
@@ -111,8 +127,13 @@ public class TraceThread extends Thread {
 		threadsToResume.add(event.thread());
 	}
 
+
+	/**
+	 * Handles when a method is entered in the traced program
+	 *
+	 * @param the event of the entry
+	 * */
 	private void handleMethodEntryEvent(MethodEntryEvent event) {
-		System.out.println("HANDLE ENTRY METHOD");
 		if (filter.isMethodTraced(new MethodKey(event.method()))) {
 			// Handle a method entry
 			StackFrame frame = null;
@@ -123,14 +144,14 @@ public class TraceThread extends Thread {
 			}
 			ObjectReference _this = frame.thisObject();
 			TraceEntry te = new TraceEntry();
-			te.method = new MethodKey(event.method());
+			te.setMethod(new MethodKey(event.method()));
 
 
 			if(_this != null) {
-				te.state = Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
+				te.setState(Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>()));
 			}
 
-			te.isReturn = false;
+			te.setIsExit(false);
 
 			// Java bug; InternalException is thrown if getting
 			// arguments from a native method
@@ -138,7 +159,7 @@ public class TraceThread extends Thread {
 			// http://bugs.java.com/view_bug.do?bug_id=6810565
 
 			if (!event.method().isNative()) {
-				te.arguments = new ArrayList<>();
+				te.setArguments(new ArrayList<>());
 				List<Value> argValues = new ArrayList<>();
 				try {
 					argValues = frame.getArgumentValues();
@@ -147,28 +168,37 @@ public class TraceThread extends Thread {
 					if (!e.getMessage().equals("Unexpected JDWP Error: 35")){
 						throw e;
 					}
-					while (argValues.size() < te.method.argTypes.length){
+					while (argValues.size() < te.getMethod().getArgTypes().length){
 						argValues.add(null);
 					}
 				}
 
 				for (int k = 0; k < argValues.size(); k++) {
 					Value v = argValues.get(k);
-					if (filter.isParameterTraced(new ParameterKey(te.method, k))) {
-						te.arguments.add(Tracer.valueToState(filter, v, new HashMap<ObjectReference, main.tracer.state.State>()));
+					if (filter.isParameterTraced(new ParameterKey(te.getMethod(), k))) {
+						te.getArguments().add(Tracer.valueToState(filter, v, new HashMap<ObjectReference, main.tracer.state.State>()));
 					} else {
-						te.arguments.add(null);
+						te.getArguments().add(null);
 					}
 				}
 			}
-			System.out.println(te);
 			consumer.onTraceLine(te);
+
+			if(dynamicHandler != null){
+				dynamicHandler.eventOccoured();
+			}
 		}
 		threadsToResume.add(event.thread());
 	}
 
+
+
+	/**
+	 * Handles when a method is exited in the traced program
+	 *
+	 * @param the event of the exit
+	 * */
 	private void handleMethodExitEvent(MethodExitEvent event) {
-		System.out.println("HANDLE EXIT METHOD");
 		// Handle a method return
 		if (filter.isMethodTraced(new MethodKey(event.method()))) {
 			StackFrame frame = null;
@@ -179,20 +209,31 @@ public class TraceThread extends Thread {
 			}
 			ObjectReference _this = frame.thisObject();
 			TraceEntry te = new TraceEntry();
-			te.method = new MethodKey(event.method());
+			te.setMethod(new MethodKey(event.method()));
 			if (_this == null)
-				te.state = null;
+				te.setState(null);
 			else {
-				te.state = Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>());
+				te.setState(Tracer.valueToState(filter, _this, new HashMap<ObjectReference, main.tracer.state.State>()));
 			}
-			te.isReturn = true;
-			System.out.println(te);
+			te.setIsExit(true);
+			//System.out.println(te);
 			consumer.onTraceLine(te);
+
+			if(dynamicHandler != null){
+				dynamicHandler.eventOccoured();
+			}
 		}
 		threadsToResume.add(event.thread());
 	}
 
 
+	/**
+	 * Returns whether or not the class has methods that are traces
+	 *
+	 * @param filter to use
+	 *
+	 * @param type //TODO find out what this is
+	 * */
 	private static boolean doesClassHaveTraceableMethods(TraceFilter filter,
 			ReferenceType type) {
 		for (Method m : type.methods())

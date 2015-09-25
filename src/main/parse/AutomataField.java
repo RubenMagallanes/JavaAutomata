@@ -61,6 +61,23 @@ public class AutomataField {
 		return value;
 	}
 
+	public boolean equals(Object o){
+		if(o == null){
+			return false;
+		}
+		if(o instanceof AutomataField){
+			AutomataField other = (AutomataField)o;
+			if(!name.equals(other.getName())){
+				return false;
+			}
+			else if(!value.equals(other.getValue())){
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
 	public String toString(){
 		return "{ type = " + type + ", name = " + name + ", value = " + value + "}";
 	}

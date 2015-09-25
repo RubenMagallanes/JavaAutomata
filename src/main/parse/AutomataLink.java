@@ -8,12 +8,13 @@ package main.parse;
  * @author David Sheridan
  *
  */
-public class AutomataLink {
+public class AutomataLink implements Comparable<AutomataLink>{
 
 	// fields
 	private String methodName;
 	private int source;
 	private int target;
+	private int count;
 
 	/**
 	 * Constructs a new instance of an {@code AutomataLink} between the specified
@@ -30,6 +31,7 @@ public class AutomataLink {
 		this.methodName = methodName;
 		this.source = source;
 		this.target = target;
+		count = 1;
 	}
 
 	/**
@@ -61,6 +63,82 @@ public class AutomataLink {
 	 */
 	public int getTarget(){
 		return target;
+	}
+
+	/**
+	 * Returns a count of the number of times this {@code AutomataLink} occurs within
+	 * an {@code Automata}.
+	 *
+	 * @return
+	 * 		- count
+	 */
+	public int getCount(){
+		return count;
+	}
+
+	/**
+	 * Increments the number of times this {@code AutomataLink} occurs within an {@code Automata}
+	 * by one.
+	 */
+	public void incrementCount(){
+		count++;
+	}
+
+	/**
+	 * Generates a hash code for this {@code AutomataLink}.
+	 */
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((methodName == null) ? 0 : methodName.hashCode());
+		result = prime * result + source;
+		result = prime * result + target;
+		return result;
+	}
+
+	/**
+	 * Returns true if the specified {@code Object is identical to this
+	 * {@code AutomataLink}, otherwise returns false.
+	 */
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		AutomataLink other = (AutomataLink) obj;
+		if (methodName == null) {
+			if (other.methodName != null)
+				return false;
+		} else if (!methodName.equals(other.methodName))
+			return false;
+		if (source != other.source)
+			return false;
+		if (target != other.target)
+			return false;
+		return true;
+	}
+
+	public int compareTo(AutomataLink o) {
+		if(source < o.getSource()){
+			return -1;
+		}
+		else if(source > o.getSource()){
+			return 1;
+		}
+		else{
+			if(target < o.getTarget()){
+				return -1;
+			}
+			else if(target > o.getTarget()){
+				return 1;
+			}
+		}
+		return 0;
 	}
 
 	public String toString(){

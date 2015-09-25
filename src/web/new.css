@@ -1,0 +1,30 @@
+text {
+    font: 16px sans-serif;
+    pointer-events: none;
+    text-shadow: 0 2px 0 #fff, 2px 0 0 #fff, 0 -2px 0 #fff, -2px 0 0 #fff;
+}
+
+#auto {
+	width: 100px;
+	float: right
+}
+
+#petri{
+	width: 100px;
+	float: right
+	
+}
+
+#both{
+	float: right
+}
+
+#buttons {
+	 overflow: hidden;
+	
+	
+}
+
+#files{
+
+}

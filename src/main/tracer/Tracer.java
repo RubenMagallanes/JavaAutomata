@@ -28,7 +28,9 @@ import com.sun.jdi.connect.LaunchingConnector;
 /**
  * Main interface class for the tracing subsystem.
  */
-public class Tracer {
+public class Tracer{
+
+	private static DynamicHandler dynamicHandler;
 
 	/**
 	 * Starts a program and traces it, asynchronously.
@@ -56,7 +58,7 @@ public class Tracer {
 	 * @param consumer The consumer that trace lines will be sent to.
 	 */
 	public static void TraceAsync(final VirtualMachine vm, final TraceFilter filter, final RealtimeTraceConsumer consumer) {
-		Thread thread = new TraceThread(vm, filter, consumer);
+		Thread thread = new TraceThread(vm, filter, consumer, dynamicHandler);
 		thread.setName("Tracer thread");
 		thread.setDaemon(true);
 		thread.start();
@@ -126,7 +128,6 @@ public class Tracer {
 				state.values.add(valueToState(filter, v, alreadySeenObjects));
 			}
 			return state;
-
 		}
 		else{
 			throw new AssertionError("Unsupported type "+type.name());
@@ -167,6 +168,10 @@ public class Tracer {
 		args.get("options").setValue(jvmOptions);
 		args.get("suspend").setValue("true");
 		return processConnector.launch(args);
+	}
+
+	public static void setDynamicHandler(DynamicHandler dh){
+		dynamicHandler = dh;
 	}
 }
 
