@@ -68,6 +68,10 @@ public class MainPane extends GridPane {
 
 	}
 
+	/**
+	 * sends text to be printed to the programs console
+	 * @param text to be printed 
+	 */
 	public void printToConsole(String text){
 		/*tp the code to change the message first printed to the consolePane when
 		the program is started is in MenuPane */
@@ -81,14 +85,11 @@ public class MainPane extends GridPane {
 			}
 		}
 	}
-//======================================================================
 	/**
-	 * prints out text to the console when a buttons is clicked
+	 * prints out text to the console when a button is clicked.
+	 * what is printed changes depending on which button is clicked
 	 */
-
 	private void buttonClicked(String buttonName) {
-		//printToConsole(buttonName + " selected");
-
 		if (buttonName.equalsIgnoreCase("Load Jar")) {
 			printToConsole("jar loaded. \n"
 					+ "Select what you want to trace with the UI to the right \n"
@@ -166,14 +167,18 @@ public class MainPane extends GridPane {
 
 			Automata auto = null;
 			File trace = chooseTraceFile ();
-			try {
-				auto = JSONToAutomata.generateAutomata(trace);
-				visualise(auto);
-			} catch (Exception e1) {
-				printToConsole("error ");
-			}
+			if (trace != null)
+			{
+				try {
+					auto = JSONToAutomata.generateAutomata(trace);
+					visualise(auto);
+				} catch (Exception e1) {
+					printToConsole("error ");
+				}
 				this.buttonClicked("Load Trace");
+			}
 			});
+		
 		Tooltip tooltip2 = new Tooltip();
 		tooltip2.setText(
 			    "Load a previously generated Trace \n"
@@ -186,6 +191,10 @@ public class MainPane extends GridPane {
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
+	/**
+	 * opens file chooser, with a filter on so you can only see trace files. 
+	 * @return user chosen Trace file
+	 */
 	private  File chooseTraceFile(){
 
 		JFileChooser chooser = new JFileChooser();
@@ -198,6 +207,9 @@ public class MainPane extends GridPane {
 		}
 		return null;
 	}
+	/**
+	 * set up run trace button
+	 */
 	private void setupRunTrace(){
 		Button btn = new Button();
 
@@ -289,7 +301,7 @@ public class MainPane extends GridPane {
 
 	/**
 	 * displays an automata in a browser
-	 * @param a automata you to be visualised
+	 * @param a automata you want to be visualised
 	 */
 	private void visualise (Automata a){
 		GeneralFormatToAutomata g = new GeneralFormatToAutomata(a);

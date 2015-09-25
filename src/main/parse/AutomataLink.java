@@ -14,6 +14,7 @@ public class AutomataLink {
 	private String methodName;
 	private int source;
 	private int target;
+	private int count;
 
 	/**
 	 * Constructs a new instance of an {@code AutomataLink} between the specified
@@ -30,6 +31,7 @@ public class AutomataLink {
 		this.methodName = methodName;
 		this.source = source;
 		this.target = target;
+		count = 1;
 	}
 
 	/**
@@ -61,6 +63,25 @@ public class AutomataLink {
 	 */
 	public int getTarget(){
 		return target;
+	}
+
+	/**
+	 * Returns a count of the number of times this {@code AutomataLink} occurs within
+	 * an {@code Automata}.
+	 *
+	 * @return
+	 * 		- count
+	 */
+	public int getCount(){
+		return count;
+	}
+
+	/**
+	 * Increments the number of times this {@code AutomataLink} occurs within an {@code Automata}
+	 * by one.
+	 */
+	public void incrementCount(){
+		count++;
 	}
 
 	/**
