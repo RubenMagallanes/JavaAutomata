@@ -14,7 +14,6 @@
     var force = d3.layout.force()
         .charge(-2000)
         .size([1200, 800])
-        //.linkDistance(100)
         .gravity(0.1)
         .friction(0.8); // default
 
@@ -87,7 +86,7 @@
             .text(function (d){
                 return d.name;
             })
-            //.style("alignment-baseline", "auto")
+            .style("alignment-baseline", "middle")
             .attr("x", 10);
 
         // build the arrowhead for lines.
@@ -125,9 +124,8 @@
             arc.select(".line").attr("d", arcArc);
         });
 
-        // updates a curved link
+        // updates a curved arc (arcs the arc)
         function arcArc(d) {
-
             var dx = d.target.x - d.source.x,
                 dy = d.target.y - d.source.y,
                 dr = Math.sqrt(dx * dx + dy * dy);
@@ -156,6 +154,9 @@
         //force.start();
     //};
 
+    // ---------------------------
+    // Important function: most other smaller functions are children of this
+    // converts (states, transitions) to (groups(places), transitions)
     function convertToPetriData(data){
         var fields = data.states[0].fields;
 
@@ -356,7 +357,7 @@
     }
 
     function fieldInGroup(field, group){
-        // look at this if condition. Wtf right?
+        // look at this method. Wtf right?
         return $.inArray(field.name, group.fieldNames) !== -1;
     }
 
@@ -372,6 +373,7 @@
         return index;
     }
 
+    // makes sliders to control force layout properties
     function makeGUI(){
         var properties = [ "charge", "linkStrength", "gravity", "friction"];
         var div = $("<div>").addClass("properties-cont");
@@ -388,7 +390,7 @@
                 .change(changeForceAttr)
                 .attr("min", function(){
                     if (this.name === "charge"){
-                        return -3000;
+                        return -4000;
                     } else {
                         return 0;
                     }

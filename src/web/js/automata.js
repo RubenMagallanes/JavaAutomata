@@ -145,7 +145,7 @@
         svg.selectAll(".link")
              .append("text")
             .style("text-anchor", "middle")
-             .attr("dy", 4)
+             .attr("dy", -5)
              .append("textPath")
             .attr("xlink:href", function(d, i) { return "#link-" + d.source + "-" + d.target; })
             .attr("class", "label")

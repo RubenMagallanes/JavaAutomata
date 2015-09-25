@@ -10,7 +10,7 @@ circle {
 }
 
 text {
-    font: 16px sans-serif;
+    font: 12px sans-serif;
     pointer-events: none;
     text-shadow: 0 2px 0 #fff, 2px 0 0 #fff, 0 -2px 0 #fff, -2px 0 0 #fff;
 }
