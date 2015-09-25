@@ -8,7 +8,7 @@ package main.parse;
  * @author David Sheridan
  *
  */
-public class AutomataLink {
+public class AutomataLink implements Comparable<AutomataLink>{
 
 	// fields
 	private String methodName;
@@ -121,6 +121,24 @@ public class AutomataLink {
 		if (target != other.target)
 			return false;
 		return true;
+	}
+
+	public int compareTo(AutomataLink o) {
+		if(source < o.getSource()){
+			return -1;
+		}
+		else if(source > o.getSource()){
+			return 1;
+		}
+		else{
+			if(target < o.getTarget()){
+				return -1;
+			}
+			else if(target > o.getTarget()){
+				return 1;
+			}
+		}
+		return 0;
 	}
 
 	public String toString(){
