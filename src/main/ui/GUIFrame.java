@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import main.server.JsonHandler;
+import main.server.TraceListRequestHandler;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -66,6 +67,7 @@ public class GUIFrame extends Application{
 	        HandlerList list = new HandlerList();
 	        GzipHandler gzip = new GzipHandler();
 	        list.addHandler(new JsonHandler());
+	        list.addHandler(new TraceListRequestHandler());
 	        list.addHandler(gzip);
 
 	        server.setHandler(list);
