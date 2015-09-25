@@ -3,9 +3,10 @@
 // http://bl.ocks.org/mbostock/1153292
 (function (self){
 
-    var groups = [], // nodes bound to field states
+    var groups = [], // field groups (contains places)
         transitions = [], // boxes which represent methods
-        arcs = [], // links bound to transitions between places and methods
+        nodes = [], // all transitions and places (for force layout)
+        arcs = [], // arcs bound to transitions between places and methods
         states = [], // all states, regardless of group
         svg; // the svg element to draw viz on
 
@@ -21,7 +22,7 @@
         transWidth = 10,
         transHeight = 10;
 
-    self.getLinks = function() { return links; }
+    self.getLinks = function() { return arcs; }
 
     self.setSvg = function(_svg){
         svg = _svg;
@@ -37,8 +38,10 @@
 
         var places = [];
         groups.forEach(function(group){
-            places.concat(group.places);
+            places = places.concat(group.places);
         });
+
+        console.log(places);
 
         var place = svg.selectAll(".place")
             .data(places)
@@ -70,44 +73,61 @@
             .attr("id", function (d, i){
                 return "trans-rect-" + i;
             })
+            .attr("x", -transWidth/2)
+            .attr("y", -transHeight/2)
             .attr("width", transWidth)
             .attr("height", transHeight)
             .style("fill", function (d, i){
                 return colour(d.group);
             });
 
+        transition.append("text")
+            .text(function (d){
+                return d.name;
+            })
+            //.style("alignment-baseline", "auto")
+            .attr("x", 10);
+
         // build the arrowhead for lines.
-        //svg.append("defs")
-             //.append("marker")
-            //.attr("id", "end")
-            //.attr("viewBox", "0 -5 10 10")
-            //.attr("refX", circleRad + 10)
-            //.attr("refY", 0)
-            //.attr("markerWidth", 6)
-            //.attr("markerHeight", 6)
-            //.attr("orient", "auto")
-             //.append("path")
-            //.attr("d", "M0,-5L10,0L0,5");
+        svg.append("defs")
+             .append("marker")
+            .attr("id", "end")
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", circleRad + 10)
+            .attr("refY", 0)
+            .attr("markerWidth", 6)
+            .attr("markerHeight", 6)
+            .attr("orient", "auto")
+             .append("path")
+            .attr("d", "M0,-5L10,0L0,5");
 
-        //var arc = svg.selectAll(".arc")
-            //.data(arcs)
-            //// draw first
-             //.enter().insert("g", ":first-child");
+        // arcs between transitions and places
+        var arc = svg.selectAll(".arc")
+            .data(arcs)
+            // draw first
+             .enter().insert("g", ":first-child")
+             .attr("class", "arc");
 
-        //arc.attr("class", "arc")
-             //.append("path")
-            //.attr("class", "line")
-            //.attr("id", function (d, i) { return "arc-" + d.source + "-" + d.target; })
-            //.attr("marker-end", "url(#end)")
-            //.on("end");
+        arc.append("path")
+            .attr("class", "line")
+            .attr("id", function (d, i) { return "arc-" + d.source + "-" + d.target; })
+            .attr("marker-end", "url(#end)")
+            .on("end");
 
-        //force.on("tick", function (){
-            //node.attr("transform", transform)
-            //link.select(".line").attr("d", linkArc);
-        //});
+        console.log("nodes", nodes);
+        console.log("arcs", arcs);
+        force.nodes(nodes);
+        force.links(arcs);
+
+        force.on("tick", function (){
+            place.attr("transform", transform)
+            transition.attr("transform", transform)
+            arc.select(".line").attr("d", arcArc);
+        });
 
         // updates a curved link
-        function linkArc(d) {
+        function arcArc(d) {
+
             var dx = d.target.x - d.source.x,
                 dy = d.target.y - d.source.y,
                 dr = Math.sqrt(dx * dx + dy * dy);
@@ -120,20 +140,21 @@
             return "translate(" + d.x + "," + d.y + ")";
         }
 
-        //node.call(force.drag);
-        //force.start();
+        place.call(force.drag);
+        transition.call(force.drag);
+        force.start();
     }
 
     // update the layout data
-    self.updateData = function (data) {
-        convertToPetriData(data);
+    //self.updateData = function (data) {
+        //convertToPetriData(data);
 
-        force.nodes(node);
-        force.links(links);
+        //force.nodes(node);
+        //force.links(arcs);
 
-        // should start?
-        force.start();
-    };
+        //// should start?
+        //force.start();
+    //};
 
     function convertToPetriData(data){
         var fields = data.states[0].fields;
@@ -182,12 +203,36 @@
             });
         });
 
-        //console.log("transitions", transitions);
+        // put all places and transitions into shared nodes collection (for
+        // force layout)
+        groups.forEach(function (group){
+            nodes = nodes.concat(group.places);
+        });
+        nodes = nodes.concat(transitions);
+
+        // make arcs (between transitions and places)
+        nodes.filter(function(node, nodeIndex){
+            return isTransition(node);
+        }).forEach(function (trans){
+            var transIndex = nodes.indexOf(trans);
+            // create links between transition and from places
+            trans.fromPlaces.forEach(function (fromPlace){
+                arcs.push({
+                    source: getPlaceIndex(fromPlace, nodes),
+                    target: transIndex, // transition
+                });
+            });
+            // create links between transition and to places
+            trans.toPlaces.forEach(function (toPlace){
+                arcs.push({
+                    source: transIndex, // transition
+                    target: getPlaceIndex(toPlace, nodes)
+                });
+            });
+        });
     }
 
     function placesAffected(stateBefore, stateAfter){
-        //console.log("before", stateBefore);
-        //console.log("after", stateAfter);
         var fieldsChanged = getFieldsChanged(stateBefore, stateAfter);
         var places = {
             before: [],
@@ -200,7 +245,6 @@
                 return $.inArray(fieldName, fieldsChanged) !== -1;
             });
         });
-        console.log("relevant groups: ", relevantGroups);
         relevantGroups.forEach(function (group){
             // before
             group.places.filter(function(place){
@@ -314,6 +358,18 @@
     function fieldInGroup(field, group){
         // look at this if condition. Wtf right?
         return $.inArray(field.name, group.fieldNames) !== -1;
+    }
+
+    // gross
+    function isTransition(node){
+        return node.fromPlaces !== undefined && node.toPlaces !== undefined;
+    }
+
+    // gross
+    function getPlaceIndex(placeInfo, array){
+        var place = groups[placeInfo.groupIndex].places[placeInfo.placeIndex];
+        var index = array.indexOf(place);
+        return index;
     }
 
 })(viz.petri = viz.petri || {})

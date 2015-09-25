@@ -75,10 +75,10 @@
 
         var link = svg.selectAll(".link")
             .data(links)
-             .enter().insert("g", ":first-child");
+             .enter().insert("g", ":first-child")
+             .attr("class", "link");
 
-        link.attr("class", "link")
-             .append("path")
+        link.append("path")
             .attr("class", "line")
             .attr("id", function (d, i) { return "link-" + d.source + "-" + d.target; })
             .attr("marker-end", "url(#end)")

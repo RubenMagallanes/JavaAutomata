@@ -220,22 +220,22 @@ var testSimpleMonkeyData = {
     ],
     links: [
         {
-            methodName: "monkeyNameChange",
+            methodName: "monkeyChange",
             source: 0,
             target: 1
         },
         {
-            methodName: "chimpNameChange",
+            methodName: "chimpChange",
             source: 1,
             target: 2
         },
         {
-            methodName: "sexChange",
+            methodName: "bothChange",
             source: 2,
             target: 3
         }
     ]
 }
 
-viz.automata.init(JSON.stringify(testData));
-//viz.petri.init(JSON.stringify(testSimpleMonkeyData));
+//viz.automata.init(JSON.stringify(testData));
+viz.petri.init(JSON.stringify(testSimpleMonkeyData));
