@@ -12,7 +12,7 @@ public class StringState extends State {
 
 	@Override
 	public String toString() {
-		return "\""+stringValue.replace("\"","\\\"")+"\"";
+		return stringValue.replace("\"","\\\"");
 	}
 
 	@Override

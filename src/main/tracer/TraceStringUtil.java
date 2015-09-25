@@ -38,7 +38,7 @@ public class TraceStringUtil {
 		//place the names in set to remove duplicates
 		for(Trace t : traces){
 			for(TraceEntry te : t.getLines()){
-				methods.add(te.method.name);
+				methods.add(te.getMethod().getName());
 			}
 		}
 
@@ -60,7 +60,7 @@ public class TraceStringUtil {
 		//place the names in set to remove duplicates
 		for(Trace t : traces){
 			for(TraceEntry te : t.getLines()){
-				if(te.state != null)fieldSet.add(te.state.toString());
+				if(te.getState() != null)fieldSet.add(te.getState().toString());
 			}
 		}
 
@@ -86,7 +86,7 @@ public class TraceStringUtil {
 				//place the names in set to remove duplicates
 				for(Trace t : traces){
 					for(TraceEntry te : t.getLines()){
-						if(!te.isReturn)methods.add(te.getLongMethodName());
+						if(!te.isExit())methods.add(te.getLongMethodName());
 					}
 				}
 				//add each of the unique method names to the string
@@ -111,7 +111,7 @@ public class TraceStringUtil {
 			//place the names in set to remove duplicates
 			for(Trace t : traces){
 				for(TraceEntry te : t.getLines()){
-					if(te.isReturn)methods.add(te.getLongMethodName());
+					if(te.isExit())methods.add(te.getLongMethodName());
 				}
 			}
 
@@ -119,6 +119,6 @@ public class TraceStringUtil {
 			for(String s : methods){
 					exitEvents += "\t " + s + "\n";
 			}
-			return exitEvents;	
+			return exitEvents;
 	}
 }
