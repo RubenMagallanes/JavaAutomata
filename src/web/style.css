@@ -27,7 +27,8 @@ text {
 	padding-left: 10%
 }
 
-#pannel {
-	float:center;
-	text-align: center;
+div.properties-cont {
+    position: absolute;
+    left: 0;
+    top: 0;
 }
