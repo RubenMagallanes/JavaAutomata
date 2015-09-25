@@ -11,32 +11,33 @@
 </head>
 
 <body>
+
+	<!--->  visualisations will load on page load? that or we'll pass in data to them idk <--->
 	
-	<div id="auto">
-		<FORM METHOD="LINK" ACTION="automata.html">
-		<INPUT TYPE="submit" VALUE="automata">
-		</FORM>
+	<div id="buttons">
+		<div id="both">
+			<FORM METHOD="LINK" ACTION="both.html">
+				<INPUT TYPE="submit" VALUE="both">
+			</FORM>
+		</div>
+		<div id="petri">
+			<FORM METHOD="LINK" ACTION="petrinet.html">
+				<INPUT TYPE="submit" VALUE="petri net">
+			</FORM>
+		</div>
+		<div id="auto">
+			<FORM METHOD="LINK" ACTION="automata.html">
+				<INPUT TYPE="submit" VALUE="automata">
+			</FORM>
+		</div>
 	</div>
-	<div id="petri">
-		<FORM METHOD="LINK" ACTION="petrinet.html">
-		<INPUT TYPE="submit" VALUE="petri net">
-		</FORM>
-	</div>
-		
-	<div id="both">
-		<FORM METHOD="LINK" ACTION="both.html">
-		<INPUT TYPE="submit" VALUE="both">
-		</FORM>	
+	<div id="files">
+		<!---> this is where we need our drop down menu of files. probably will be edited by D3 after asking server for list of files we are allowed to grab <--->
 	</div>
 
-	<div id="files">
-		
-	</div>
 
 	<script src="UI.js"></script>
 
 </body>
 
 </html>
-
-  
