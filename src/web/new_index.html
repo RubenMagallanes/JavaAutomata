@@ -12,12 +12,14 @@
 
 <body>
 
-	<!--->  visualisations will load on page load? that or we'll pass in data to them idk <--->
+		<script >
+			var link = "" ;// get curr ulr
+			</script>
 	
 	<div id="buttons">
 		<div id="both">
-			<FORM METHOD="LINK" ACTION="both.html">
-				<INPUT TYPE="submit" VALUE="both">
+			<FORM METHOD="LINK" ACTION="link">
+				<INPUT TYPE="submit" VALUE="both" onClick="link +='view/'">
 			</FORM>
 		</div>
 		<div id="petri">
@@ -30,13 +32,15 @@
 				<INPUT TYPE="submit" VALUE="automata">
 			</FORM>
 		</div>
+		<div id="filebutton"><>
 	</div>
 	<div id="files">
-		<!---> this is where we need our drop down menu of files. probably will be edited by D3 after asking server for list of files we are allowed to grab ALSO this is suppsed to be a comment lmao<--->
+		
+
 	</div>
 
+	
 
-	<script src="UI.js"></script>
 
 </body>
 
