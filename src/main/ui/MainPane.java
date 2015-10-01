@@ -64,7 +64,6 @@ public class MainPane extends GridPane {
 
 
 	private MenuPane parent;
-	private TextField loadDisplay;
 
 	/**
 	 * Constructs the menu Pane
@@ -79,10 +78,9 @@ public class MainPane extends GridPane {
 		setupRunTrace();
 		setupSaveMenu();
 		setUpViewMenu();
-		setUpDynamic();
-
+		//setUpDynamic(); //button denied
+		
 		this.prefWidth(Double.MAX_VALUE);
-
 	}
 
 	/**
@@ -145,7 +143,7 @@ public class MainPane extends GridPane {
 		// Text field to be used
 		TextField loadDisplay = new TextField();
 		loadDisplay.setEditable(false);
-		this.add(loadDisplay, 1, 2);
+		this.add(loadDisplay, 1, 1);
 
 		// Sets up the Jar Load button.
 		btn.setMaxWidth(Double.MAX_VALUE);
@@ -171,7 +169,7 @@ public class MainPane extends GridPane {
 			    + "from the *.jar."  );
 		btn.setTooltip(tooltip);
 
-		this.add(btn, 0, 2);
+		this.add(btn, 0, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	}
 
@@ -233,11 +231,16 @@ public class MainPane extends GridPane {
 	 */
 	private void setupRunTrace(){
 		Button btn = new Button();
+		
+		TextField argsBox = new TextField();
+		this.add(argsBox, 1, 2);
 
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Run Trace");
 		btn.setOnAction((ActionEvent e)-> {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
+				String args = argsBox.getText();
+				tracer.setCommanLineArguments(args);
 				Trace tr = tracer.run();
 				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 				Main.setManager(manager);
@@ -249,7 +252,7 @@ public class MainPane extends GridPane {
 			    "You should save the trace afterwards. \n");
 
 		btn.setTooltip(tooltip3);
-		this.add(btn, 0, 3);
+		this.add(btn, 0, 2);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	}
 
@@ -261,7 +264,7 @@ public class MainPane extends GridPane {
 		Button btn = new Button();
 
 		// Text field for user input.
-		loadDisplay = new TextField();
+		TextField loadDisplay = new TextField();
 		this.add(loadDisplay, 1, 3);
 
 		btn.setMaxWidth(Double.MAX_VALUE);
@@ -281,7 +284,7 @@ public class MainPane extends GridPane {
 			    "This allows you to visualise it later without \n"
 			    + "having to rerun the trace again."  );
 		btn.setTooltip(tooltip);
-		this.add(btn, 1, 4);
+		this.add(btn, 0, 3);
 	}
 	/**
 	 * Sets up the view button, opens browser window to view trace
@@ -292,31 +295,9 @@ public class MainPane extends GridPane {
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load View");
 		btn.setOnAction((ActionEvent e) -> {
-
 				Automata auto = null;
-				//try {
-
-//					String j = Main.getManager().getJson();
-//					auto = JSONToAutomata.generateAutomata(j);
-//					/*// old code that loads from disk
-//					 *
-//					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
-//					*/
-//					//moved to visualise method
 					this.visualise(auto);
 					this.buttonClicked("Load View");
-
-//
-//				} catch (JSONToAutomataException error) {
-//					this.printToConsole("Automata Exception!");
-//
-//				} catch (NullPointerException n){
-//					this.printToConsole("Error! \n"
-//							+ "There must be a Trace in memory to visualise. \n"
-//							+ "First load in a trace with either \"Load Trace\" or load in a Jar to trace.");
-//
-//				}
-
 		});
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(
@@ -339,9 +320,12 @@ public class MainPane extends GridPane {
 		 try {
 			 DesktopApi.browse(new URL(htmlFilePath).toURI());
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			printToConsole("IOException ");
+			printToConsole(e1.getMessage());
+			//e1.printStackTrace();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
+			//printT
 			e.printStackTrace();
 		}
 //		GeneralFormatToAutomata g = new GeneralFormatToAutomata(a);
@@ -353,6 +337,7 @@ public class MainPane extends GridPane {
 
 	}
 
+	/*@Deprecated
 	private void setUpDynamic(){
 		Button btn2 = new Button();
 		// Sets up the load view button
@@ -385,7 +370,7 @@ public class MainPane extends GridPane {
 			    "ayy lmao"  );
 		btn2.setTooltip(tooltip2);
 		this.add(btn2, 0, 7);
-	}
+	}*/
 
 
 }
