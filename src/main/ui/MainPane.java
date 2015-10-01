@@ -337,7 +337,7 @@ public class MainPane extends GridPane {
 
 	}
 
-	@Deprecated
+	/*@Deprecated
 	private void setUpDynamic(){
 		Button btn2 = new Button();
 		// Sets up the load view button
@@ -370,7 +370,7 @@ public class MainPane extends GridPane {
 			    "ayy lmao"  );
 		btn2.setTooltip(tooltip2);
 		this.add(btn2, 0, 7);
-	}
+	}*/
 
 
 }
