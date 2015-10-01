@@ -79,7 +79,7 @@ public class MainPane extends GridPane {
 		setupRunTrace();
 		setupSaveMenu();
 		setUpViewMenu();
-		setUpDynamic();
+		//setUpDynamic(); //button denied
 
 		this.prefWidth(Double.MAX_VALUE);
 
@@ -339,9 +339,12 @@ public class MainPane extends GridPane {
 		 try {
 			 DesktopApi.browse(new URL(htmlFilePath).toURI());
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			printToConsole("IOException ");
+			printToConsole(e1.getMessage());
+			//e1.printStackTrace();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
+			//printT
 			e.printStackTrace();
 		}
 //		GeneralFormatToAutomata g = new GeneralFormatToAutomata(a);
@@ -353,6 +356,7 @@ public class MainPane extends GridPane {
 
 	}
 
+	@Deprecated
 	private void setUpDynamic(){
 		Button btn2 = new Button();
 		// Sets up the load view button
