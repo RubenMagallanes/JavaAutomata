@@ -178,7 +178,7 @@ public class JSONToAutomata {
 		File file = new File("data/traces/TestProgram2Trace.json");
 		try {
 			Automata a = generateAutomata(file);
-			GeneralFormatToAutomata json = new GeneralFormatToAutomata(a);
+			AutomataToVisualisation json = new AutomataToVisualisation(a);
 			System.out.println(json.parseAutomata());
 		} catch (JSONToAutomataException e) {
 			// TODO Auto-generated catch block

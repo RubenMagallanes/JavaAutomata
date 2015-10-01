@@ -7,7 +7,7 @@ import java.util.Set;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class GeneralFormatToAutomata {
+public class AutomataToVisualisation {
 	
 	Set<AutomataState> states;
 	Set<AutomataLink> links;
@@ -21,7 +21,7 @@ public class GeneralFormatToAutomata {
 	 * @param methods
 	 * @param fields
 	 */
-	public GeneralFormatToAutomata(Automata auto,List<String> methods, List<String> fields){
+	public AutomataToVisualisation(Automata auto,List<String> methods, List<String> fields){
 		this.states = auto.getStates();
 		this.links = auto.getLinks();	
 		this.methods = methods;
@@ -33,7 +33,7 @@ public class GeneralFormatToAutomata {
 	 * Converts the general format of the trace to a json which can be used to draw an automata
 	 * @param auto
 	 */
-	public GeneralFormatToAutomata(Automata auto){
+	public AutomataToVisualisation(Automata auto){
 		this.states = auto.getStates();
 		this.links = auto.getLinks();	
 	}	

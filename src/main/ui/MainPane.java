@@ -31,7 +31,7 @@ import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
 import main.parse.Automata;
-import main.parse.GeneralFormatToAutomata;
+import main.parse.AutomataToVisualisation;
 import main.parse.JSONToAutomata;
 import main.parse.JSONToAutomataException;
 
