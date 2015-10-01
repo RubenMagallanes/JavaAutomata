@@ -35,7 +35,7 @@ public class JsonHandler extends AbstractHandler {
 	        while (reader.ready()){
 	        	out.println(reader.readLine());
 	        }
-
+	        reader.close();
 	        baseRequest.setHandled(true);
 		}
 
