@@ -64,7 +64,7 @@ public class MainPane extends GridPane {
 
 
 	private MenuPane parent;
-	private TextField loadDisplay;
+	//private TextField loadDisplay;
 
 	/**
 	 * Constructs the menu Pane
@@ -80,9 +80,8 @@ public class MainPane extends GridPane {
 		setupSaveMenu();
 		setUpViewMenu();
 		//setUpDynamic(); //button denied
-
+		
 		this.prefWidth(Double.MAX_VALUE);
-
 	}
 
 	/**
@@ -233,11 +232,27 @@ public class MainPane extends GridPane {
 	 */
 	private void setupRunTrace(){
 		Button btn = new Button();
+		
+		
+		/*loadDisplay = new TextField();
+		this.add(loadDisplay, 1, 3);
 
+		btn.setMaxWidth(Double.MAX_VALUE);
+		btn.setText("Save Trace");
+		btn.setOnAction((ActionEvent e)-> {
+				String fileName = loadDisplay.getText();
+				if (fileName.equals("")) {
+					this.printToConsole("To save a trace you need to supply a filename in the text box.");
+				} else {
+					Main.getManager().traceToFile("data/traces/", fileName);
+					this.buttonClicked("Save Trace");
+				}
+		});*/
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Run Trace");
 		btn.setOnAction((ActionEvent e)-> {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
+				//TODO get args from text box
 				Trace tr = tracer.run();
 				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 				Main.setManager(manager);
@@ -261,7 +276,7 @@ public class MainPane extends GridPane {
 		Button btn = new Button();
 
 		// Text field for user input.
-		loadDisplay = new TextField();
+		TextField loadDisplay = new TextField();
 		this.add(loadDisplay, 1, 3);
 
 		btn.setMaxWidth(Double.MAX_VALUE);
@@ -292,31 +307,9 @@ public class MainPane extends GridPane {
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Load View");
 		btn.setOnAction((ActionEvent e) -> {
-
 				Automata auto = null;
-				//try {
-
-//					String j = Main.getManager().getJson();
-//					auto = JSONToAutomata.generateAutomata(j);
-//					/*// old code that loads from disk
-//					 *
-//					auto = JSONToAutomata.generateAutomata(new File("data/traces/" + loadDisplay.getText() + ".json"));
-//					*/
-//					//moved to visualise method
 					this.visualise(auto);
 					this.buttonClicked("Load View");
-
-//
-//				} catch (JSONToAutomataException error) {
-//					this.printToConsole("Automata Exception!");
-//
-//				} catch (NullPointerException n){
-//					this.printToConsole("Error! \n"
-//							+ "There must be a Trace in memory to visualise. \n"
-//							+ "First load in a trace with either \"Load Trace\" or load in a Jar to trace.");
-//
-//				}
-
 		});
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(
