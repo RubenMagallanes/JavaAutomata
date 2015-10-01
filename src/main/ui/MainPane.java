@@ -1,15 +1,10 @@
 package main.ui;
 
-import java.awt.Desktop;
 import java.io.File;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,29 +19,16 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
 import main.parse.Automata;
-import main.parse.AutomataToVisualisation;
 import main.parse.JSONToAutomata;
-import main.parse.JSONToAutomataException;
-
 import main.tracer.TraceLauncher;
-import main.tracer.DynamicHandler;
-
 import main.tracer.Trace;
-import main.tracer.TraceLauncher;
 import main.tracer.TraceManager;
 
 import main.util.DesktopApi;
-import sun.awt.image.GifImageDecoder;
-
-
-import main.tracer.Tracer;
 
 
 
