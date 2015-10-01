@@ -64,7 +64,6 @@ public class MainPane extends GridPane {
 
 
 	private MenuPane parent;
-	//private TextField loadDisplay;
 
 	/**
 	 * Constructs the menu Pane
@@ -144,7 +143,7 @@ public class MainPane extends GridPane {
 		// Text field to be used
 		TextField loadDisplay = new TextField();
 		loadDisplay.setEditable(false);
-		this.add(loadDisplay, 1, 2);
+		this.add(loadDisplay, 1, 1);
 
 		// Sets up the Jar Load button.
 		btn.setMaxWidth(Double.MAX_VALUE);
@@ -170,7 +169,7 @@ public class MainPane extends GridPane {
 			    + "from the *.jar."  );
 		btn.setTooltip(tooltip);
 
-		this.add(btn, 0, 2);
+		this.add(btn, 0, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	}
 
@@ -233,26 +232,15 @@ public class MainPane extends GridPane {
 	private void setupRunTrace(){
 		Button btn = new Button();
 		
-		
-		/*loadDisplay = new TextField();
-		this.add(loadDisplay, 1, 3);
+		TextField argsBox = new TextField();
+		this.add(argsBox, 1, 2);
 
-		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setText("Save Trace");
-		btn.setOnAction((ActionEvent e)-> {
-				String fileName = loadDisplay.getText();
-				if (fileName.equals("")) {
-					this.printToConsole("To save a trace you need to supply a filename in the text box.");
-				} else {
-					Main.getManager().traceToFile("data/traces/", fileName);
-					this.buttonClicked("Save Trace");
-				}
-		});*/
 		btn.setMaxWidth(Double.MAX_VALUE);
 		btn.setText("Run Trace");
 		btn.setOnAction((ActionEvent e)-> {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
-				//TODO get args from text box
+				String args = argsBox.getText();
+				tracer.setCommanLineArguments(args);
 				Trace tr = tracer.run();
 				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 				Main.setManager(manager);
@@ -264,7 +252,7 @@ public class MainPane extends GridPane {
 			    "You should save the trace afterwards. \n");
 
 		btn.setTooltip(tooltip3);
-		this.add(btn, 0, 3);
+		this.add(btn, 0, 2);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	}
 
@@ -296,7 +284,7 @@ public class MainPane extends GridPane {
 			    "This allows you to visualise it later without \n"
 			    + "having to rerun the trace again."  );
 		btn.setTooltip(tooltip);
-		this.add(btn, 1, 4);
+		this.add(btn, 0, 3);
 	}
 	/**
 	 * Sets up the view button, opens browser window to view trace
