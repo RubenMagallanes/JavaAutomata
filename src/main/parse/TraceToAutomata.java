@@ -227,7 +227,7 @@ public class TraceToAutomata {
 		File file = new File("data/traces/checktrace.json");
 		try {
 			Automata a = generateAutomata(file);
-			GeneralFormatToAutomata json = new GeneralFormatToAutomata(a);
+			AutomataToVisualisation json = new AutomataToVisualisation(a);
 			System.out.println(json.parseAutomata());
 		} catch (JSONToAutomataException e) {
 			e.printStackTrace();

@@ -2,7 +2,7 @@ package main.tracer;
 
 import java.io.File;
 
-import main.parse.GeneralFormatToAutomata;
+import main.parse.AutomataToVisualisation;
 import main.parse.JSONToAutomata;
 import main.parse.TraceToJSON;
 import main.tracer.tree.TraceEntryTree;

@@ -9,7 +9,7 @@ import main.parse.Automata;
 import main.parse.AutomataField;
 import main.parse.AutomataLink;
 import main.parse.AutomataState;
-import main.parse.GeneralFormatToAutomata;
+import main.parse.AutomataToVisualisation;
 
 import org.junit.Test;
 
@@ -40,7 +40,7 @@ public class GeneralFormatToAutomataTests {
 		automatalinks.add(l);
 		automatalinks.add(l);		
 		
-		GeneralFormatToAutomata g = new GeneralFormatToAutomata(new Automata(automatastates, automatalinks));		
+		AutomataToVisualisation g = new AutomataToVisualisation(new Automata(automatastates, automatalinks));		
 //		System.out.println(g.parseAutomata());	
 	}
 	
@@ -78,7 +78,7 @@ public class GeneralFormatToAutomataTests {
 		List<String> fields = new ArrayList<String>();
 		fields.add("count");
 		
-		GeneralFormatToAutomata g = new GeneralFormatToAutomata(new Automata(automatastates, automatalinks), methods, fields);		
+		AutomataToVisualisation g = new AutomataToVisualisation(new Automata(automatastates, automatalinks), methods, fields);		
 		System.out.println(g.parseAutomata());		
 	}
 }
