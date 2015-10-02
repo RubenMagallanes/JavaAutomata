@@ -129,10 +129,10 @@
                 dy = d.target.y - d.source.y,
                 dr = Math.sqrt(dx * dx + dy * dy);
                  if ( dx ===0 && dy===0 ){
-                    var xRotation = -45;
+                    var xRotation = 0;
 
                     // Make drx and dry different to get an ellipse instead of a circle.
-                    var drx = 20;
+                    var drx = 30;
                     var dry = 20;
 
                     return "M" + d.source.x + "," + d.source.y + "A" + drx + "," + dry + " " + xRotation + "," + 1 + "," + 0 + " " + (d.target.x + 1) + "," + (d.target.y + 1);
