@@ -1,4 +1,4 @@
-.link .line {
+.line {
     stroke: black;
     stroke-width: 1.5px;
     fill: none;
@@ -10,7 +10,7 @@ circle {
 }
 
 text {
-    font: 16px sans-serif;
+    font: 12px sans-serif;
     pointer-events: none;
     text-shadow: 0 2px 0 #fff, 2px 0 0 #fff, 0 -2px 0 #fff, -2px 0 0 #fff;
 }
@@ -27,7 +27,8 @@ text {
 	padding-left: 10%
 }
 
-#pannel {
-	float:center;
-	text-align: center;
+div.properties-cont {
+    position: absolute;
+    left: 0;
+    top: 0;
 }

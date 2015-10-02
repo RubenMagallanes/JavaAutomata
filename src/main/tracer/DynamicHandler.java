@@ -2,6 +2,8 @@ package main.tracer;
 
 import java.util.ArrayList;
 import java.util.List;
+import main.tracer.TraceEntry;
+
 
 import main.parse.TraceToJSON;
 import main.tracer.tree.TraceEntryTree;

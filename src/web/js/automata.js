@@ -3,6 +3,8 @@
 // http://bl.ocks.org/mbostock/1153292
 (function (self){
 
+    console.log(window.outerWidth + " " +window.outerHeight);
+
     var states, // nodes bound to program states
         links, // links bound to state transitions
         varsChosen = [], // variables to be shown NOT USED YET
@@ -19,13 +21,16 @@
     var colour = d3.scale.category20(),
         circleRad = 10;
 
+   
+
+
     // for testing
     self.getLinks = function() { return links; }
 
     // initialise the layout with data
     self.init = function (dataStr){
         svg = d3.select("svg")
-            .attr("width", 1200)
+            .attr("width", 1600)
             .attr("height", 800);
 
         var data = JSON.parse(dataStr);
@@ -34,11 +39,28 @@
         links = data.links;
 
         svg = d3.select("svg")
-            .attr("width", 1200)
+            .attr("width", 1600)
             .attr("height", 800);
 
     	force.nodes(states);
         force.links(links);
+
+        // //title
+        // var title = svg.append("text")
+        //    .attr("class", "title")
+        //    .attr("dy", ".100em")
+        //    .text("Automata")
+        //    .attr("x",10)
+        //    .attr("y",10);
+
+        // var tracesText = svg.append("text")
+        //    .attr("class", "title")
+        //    .attr("dy", ".100em")
+        //    .attr("x",1200)
+        //    .attr("y",10)
+        //    .attr("width",300)
+        //    .attr("height",400)           
+        //    .html(getTraceList());
 
         var node = svg.selectAll(".state")
             .data(states)
@@ -75,10 +97,10 @@
 
         var link = svg.selectAll(".link")
             .data(links)
-             .enter().insert("g", ":first-child");
+             .enter().insert("g", ":first-child")
+             .attr("class", "link");
 
-        link.attr("class", "link")
-             .append("path")
+        link.append("path")
             .attr("class", "line")
             .attr("id", function (d, i) { return "link-" + d.source + "-" + d.target; })
             .attr("marker-end", "url(#end)")
@@ -88,12 +110,13 @@
 
         force.on("tick", function (){
             node.attr("transform", transform)
-            //link.select(".line").attr("d", linkArc);
+            // curved links
+            link.select(".line").attr("d", linkArc);
             // straight lines
-            var path = link.select(".line");
-            path.attr("d", function (d){
-                return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
-            })
+            //var path = link.select(".line");
+            //path.attr("d", function (d){
+                //return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
+            //})
         });
 
         // updates a curved link
@@ -101,6 +124,15 @@
             var dx = d.target.x - d.source.x,
                 dy = d.target.y - d.source.y,
                 dr = Math.sqrt(dx * dx + dy * dy);
+                 if ( dx ===0 && dy===0 ){
+                    var xRotation = -45;
+
+                    // Make drx and dry different to get an ellipse instead of a circle.
+                    var drx = 20;
+                    var dry = 20;
+
+                    return "M" + d.source.x + "," + d.source.y + "A" + drx + "," + dry + " " + xRotation + "," + 1 + "," + 0 + " " + (d.target.x + 1) + "," + (d.target.y + 1);
+                }
                 //return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + (d.source.x + (dx/2)) + "," + (d.source.y + (20))
                 //+ "M" + (d.source.x + (dx/2)) + "," + (d.source.y + (20)) + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
                 return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
@@ -144,7 +176,7 @@
         svg.selectAll(".link")
              .append("text")
             .style("text-anchor", "middle")
-             .attr("dy", 4)
+             .attr("dy", -5)
              .append("textPath")
             .attr("xlink:href", function(d, i) { return "#link-" + d.source + "-" + d.target; })
             .attr("class", "label")
@@ -166,6 +198,20 @@
             .attr("visibility", "visible")
             .html(function() { return stateInfo(d); });
     }
+
+    // function getTraceList(){
+    //     //call handler
+    //     //list
+    //     var list =["testApplication","BattleShips","TestApplication2"];
+
+    //     var output = "Trace List<br>";
+    //     for(var i=0; i<list.length; i++){
+    //         output += list[i];
+    //         output += "<br>";
+    //     }
+    //     console.log(output);
+    //     return output;
+    // }
 
     // return state info as a string
     function stateInfo(state){

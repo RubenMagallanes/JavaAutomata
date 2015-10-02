@@ -8,12 +8,11 @@ import main.tracer.state.State;
 public class TraceEntry implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	//boolean to show if it is a method exit or method entry call
-	private boolean isExit;
-
-	//the state of the object before the method was called or finished
-	private State state;
-
+	// fields
+	private State state; // the state of the object before the method was called or finished
+	private MethodKey method; // the MethodKey holding this info of the method call
+	private boolean isExit; // boolean to show if it is a method exit or method entry call
+	private boolean isConstructor; // boolean to show if this method is a constructor
 
 	/**
 	 * The arguments to the current method call.
@@ -21,12 +20,6 @@ public class TraceEntry implements Serializable{
 	 * Contains nulls in place of parameters that aren't recorded.
 	 */
 	private List<State> arguments;
-
-
-	//The MethodKey holding this info of the method call
-	private MethodKey method;
-
-
 
 	/**
 	 * Returns the method name and parameters in the format: packagename.ClassName methodName(p1type,p2type,p3type)
@@ -93,6 +86,61 @@ public class TraceEntry implements Serializable{
 
 
 	/**
+	 * Returns the method key for this TraceEntry
+	 *
+	 * @return the MethodKey representing the method
+	 * */
+	public MethodKey getMethod() {
+		return method;
+	}
+
+	/**
+	 * Sets the MethodKey for the TraceEntry
+	 *
+	 * @param the method to set
+	 * */
+	public void setMethod(MethodKey method) {
+		this.method = method;
+	}
+
+	/**
+	 * Sets whether or not this method call is a method entry or exit
+	 *
+	 * @param boolean for exit or entry to method
+	 * */
+	public void setIsExit(boolean isExit){
+		this.isExit = isExit;
+	}
+
+	/**
+	 * Returns whether or not this method call was a method entry or exit
+	 *
+	 * @return boolean for exit or entry to method
+	 * */
+	public boolean isExit(){
+		return isExit;
+	}
+
+	/**
+	 * Sets whether or not this method call is to a constructor.
+	 *
+	 * @param isConstructor
+	 */
+	public void setConstructor(boolean isConstructor){
+		this.isConstructor = isConstructor;
+	}
+
+	/**
+	 * Returns whether or not this method call was a constructor.
+	 *
+	 * @return
+	 * 		true if constructor, otherwise false
+	 */
+	public boolean isConstructor(){
+		return isConstructor;
+	}
+
+	/**
 	 * Returns the arguments of the TraceEntry
 	 *
 	 *  @return the list of arguments
@@ -108,46 +156,6 @@ public class TraceEntry implements Serializable{
 	 * */
 	public void setArguments(List<State> arguments) {
 		this.arguments = arguments;
-	}
-
-
-	/**
-	 * Returns the method key for this TraceEntry
-	 *
-	 * @return the MethodKey representing the method
-	 * */
-	public MethodKey getMethod() {
-		return method;
-	}
-
-
-	/**
-	 * Returns whether or not this method call was a method entry or exit
-	 *
-	 * @return boolean for exit or entry to method
-	 * */
-	public boolean isExit(){
-		return isExit;
-	}
-
-
-	/**
-	 * Sets whether or not this method call is a method entry or exit
-	 *
-	 * @param boolean for exit or entry to method
-	 * */
-	public void setIsExit(boolean isExit){
-		this.isExit = isExit;
-	}
-
-
-	/**
-	 * Sets the MethodKey for the TraceEntry
-	 *
-	 * @param the method to set
-	 * */
-	public void setMethod(MethodKey method) {
-		this.method = method;
 	}
 
 

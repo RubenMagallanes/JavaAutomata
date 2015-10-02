@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
+import main.parse.AutomataToVisualisation;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -66,8 +69,8 @@ public class TraceToAutomata {
 	public static Automata generateAutomata(String json) throws JSONToAutomataException{
 		JSONObject data = new JSONObject(json);
 
-		Map<Integer, AutomataState> states = new HashMap<Integer, AutomataState>();
-		Set<AutomataLink> links = new HashSet<AutomataLink>();
+		Map<Integer, AutomataState> states = new TreeMap<Integer, AutomataState>();
+		Set<AutomataLink> links = new TreeSet<AutomataLink>();
 
 		JSONObjectToAutomata(data, states, links);
 
@@ -86,7 +89,7 @@ public class TraceToAutomata {
 			links.remove(link);
 		}
 
-		return new Automata(new HashSet<AutomataState>(states.values()), links);
+		return new Automata(new TreeSet<AutomataState>(states.values()), links);
 	}
 
 	/**
@@ -222,13 +225,14 @@ public class TraceToAutomata {
 	}
 
 	public static void main(String[] args){
-		File file = new File("data/traces/SortNotStatic.json");
+
+		File file = new File("data/traces/checktrace.json");
+
 		try {
 			Automata a = generateAutomata(file);
-			GeneralFormatToAutomata json = new GeneralFormatToAutomata(a);
+			AutomataToVisualisation json = new AutomataToVisualisation(a);
 			System.out.println(json.parseAutomata());
 		} catch (JSONToAutomataException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

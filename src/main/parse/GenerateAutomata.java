@@ -46,7 +46,7 @@ public class GenerateAutomata {
 			automatastates.add(new AutomataState(generateFields(),i));
 		}
 		generateLinks();	
-		GeneralFormatToAutomata g = new GeneralFormatToAutomata(new Automata(automatastates, automatalinks));	
+		AutomataToVisualisation g = new AutomataToVisualisation(new Automata(automatastates, automatalinks));	
 		String automata = g.parseAutomata();
 		System.out.println(automata);
 		
