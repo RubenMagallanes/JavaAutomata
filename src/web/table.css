@@ -1,0 +1,105 @@
+//@import "compass/css3";
+
+/*
+
+RESPONSTABLE 2.0 by jordyvanraaij
+  Designed mobile first!
+
+If you like this solution, you might also want to check out the 1.0 version:
+  https://gist.github.com/jordyvanraaij/9069194
+
+*/
+/*
+// Default options for table style
+$table-breakpoint: 480px;
+$table-background-color: #FFF;
+$table-text-color: #024457;
+$table-outer-border: 1px solid #167F92;
+$table-cell-border: 1px solid #D9E4E6;
+
+// Extra options for table style (parse these arguments when including your mixin)
+$table-border-radius: 10px;
+$table-highlight-color: #EAF3F3;
+$table-header-background-color: #167F92;
+$table-header-text-color: #FFF;
+$table-header-border: 1px solid #FFF;*/
+  
+  .responstable {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    overflow: hidden;  
+    background: #FFF;
+    color: #024457;
+    border-radius: 10px;
+    border: 1px solid #167F92;
+  }
+
+  label {
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}
+
+  .file_radios{
+     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+    tr {
+      border: 1px solid #D9E4E6;
+    }
+  
+    th {
+      width: 100%;
+      border: 1px solid #D9E4E6;
+      /*background-color: #167F92;*/
+      color: #024457;
+      padding: 1em;  
+      }
+      
+  
+    td {
+      word-wrap: break-word;
+      max-width: 7em;
+    }
+  
+    th, td {
+      text-align: left;
+      margin: .5em 1em;  
+      
+    }  
+  }    
+
+
+// General styles
+
+body {
+  padding: 0 2em;
+  font-family: Arial, sans-serif;
+  color: #024457;
+  background: #f2f2f2;
+}
+
+h1 {
+  font-family: Verdana;
+  font-weight: normal;
+  color: #024457;
+}
+
+.btn-group-wrap {
+    text-align: center;
+}
+
+div.btn-group {
+    margin: 0 auto; 
+    
+    width: 100%;
+    display: inline-block;
+}
+button.btn-primary{
+  width: 33.4%;
+  text-align: center;
+}
+

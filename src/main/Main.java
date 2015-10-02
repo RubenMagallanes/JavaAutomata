@@ -1,17 +1,9 @@
 package main;
 
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.server.handler.gzip.GzipHandler;
-
 import main.load.JarData;
 import main.tracer.TraceFilter;
-import main.tracer.TraceFilterSelector;
 import main.tracer.TraceManager;
-import main.ui.*;
+import main.ui.GUIFrame;
 
 public class Main {
 

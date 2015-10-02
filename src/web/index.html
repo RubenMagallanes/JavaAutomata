@@ -1,20 +1,55 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <script src="lib/d3.js"></script>
-    <script src="lib/jquery-1.11.3.js"></script>
 
-    <!-- local css -->
-    <link rel="stylesheet" type="text/css" href="style.css">
+<head>
+	<meta charset="UTF-8">
+	<script src="lib/d3.js"></script>
+	<script src="lib/jquery-1.11.3.js"></script>
+	<!-- local css -->
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="new.css">
+	<link rel="stylesheet" type="text/css" href="table.css">
+	
 </head>
-<body>
-    <p id="state-info"></p>
-    <svg id="viz"/>
 
-    <script src="js/init.js"></script>
-    <script src="js/petrinet.js"></script>
-    <script src="js/automata.js"></script>
-    <script src="js/controller.js"></script>
+<body>
+
+		<script >
+			var link = window.location.href ;
+			console.log(link);
+		</script>
+	<div class="container">
+		<div align="center" id="files">
+		</div>
+		<div align="center">
+			<div class="btn-group" data-toggle="buttons">
+  				<button type="button" class="btn btn-primary" id="automata">Automata</button>
+  				<button type="button" class="btn btn-primary" id="petri_net">Petri Net</button>
+  				<button type="button" class="btn btn-primary" id="both">Both</button>
+			</div>
+		</div>
+	</div>
+	<!-- <div id="buttons">
+		<div id="both">
+			<FORM METHOD="LINK" ACTION="automata&petri_net=test1.json">
+				<INPUT TYPE="submit" VALUE="Both">
+			</FORM>
+		</div>
+		<div id="petri">
+			<FORM METHOD="LINK" ACTION="automata=test1.json">
+				<INPUT TYPE="submit" VALUE="Automata">
+			</FORM>
+		</div>
+		<div id="auto">
+			<FORM METHOD="LINK" ACTION="petri_net=test1.json">
+				<INPUT TYPE="submit" VALUE="Petri-Net">
+			</FORM>
+		</div>
+	</div> -->
+	<div id="filebutton">
+	</div>
+	
+	<script src="js/ui.js"></script>
 </body>
+
 </html>

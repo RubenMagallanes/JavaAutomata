@@ -6,15 +6,15 @@
     <script src="lib/jquery-1.11.3.js"></script>
 
     <!-- local css -->
-    <link rel="stylesheet" type="text/css" href="viz.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div id="petrinet" class="fullscreen">
-        <h1>Petri net</h1>
-    </div>
+    <p id="state-info"></p>
+    <svg id="viz"/>
 
     <script src="js/init.js"></script>
     <script src="js/petrinet.js"></script>
-    <script src="js/petri_controller.js"></script>
+    <script src="js/automata.js"></script>
+    <script src="js/controller.js"></script>
 </body>
 </html>
