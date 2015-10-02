@@ -18,7 +18,7 @@ public class TraceListRequestHandler extends AbstractHandler {
 	private final String requestType  = "ListTraceFiles";
 
 	//folder to look in for traces
-	private final File folder = new File("data/traces");
+	private final File folder = new File("data/visualisations");
 
 	@Override
 	public void handle(String arg0, Request arg1, HttpServletRequest arg2,

@@ -13,8 +13,8 @@ function load(url){
         url: url,
         contentType: 'application/json',
         success: function(data) {
-            viz.automata.init(JSON.stringify(data), $("div#automata");
-            viz.petri.init(JSON.stringify(data), $("div#petrinet");
+            viz.automata.init(JSON.stringify(data), $("div#automata"));
+            viz.petri.init(JSON.stringify(data), $("div#petrinet"));
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           console.log("Status: " + textStatus);
