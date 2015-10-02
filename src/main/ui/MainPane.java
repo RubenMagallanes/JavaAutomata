@@ -89,8 +89,10 @@ public class MainPane extends GridPane {
 	private void buttonClicked(String buttonName) {
 		if (buttonName.equalsIgnoreCase("Load Jar")) {
 			printToConsole("jar loaded. \n"
-					+ "Select what you want to trace with the UI to the right \n"
-					+ "then click 'Run trace' to trace the Jar you have loaded in");
+					+ "Select what you want to trace with the UI to the right "
+					+ "then click 'Run trace' to trace the Jar you have loaded in.\n"
+					+ "Optionally, put any args for when running the trace in the "
+					+ "text field next to the 'run trace' button");
 
 		} else if (buttonName.equalsIgnoreCase("Run Trace")) {
 			printToConsole("Trace is now in memory, you can either: \n"
@@ -199,6 +201,7 @@ public class MainPane extends GridPane {
 	private  File chooseTraceFile(){
 
 		JFileChooser chooser = new JFileChooser();
+		//TODO change the 'json' to 'trace' to filter for 
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Trace file", "json");
 		chooser.setFileFilter(filter);
 
@@ -306,16 +309,10 @@ public class MainPane extends GridPane {
 			printToConsole(e1.getMessage());
 			//e1.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			//printT
 			e.printStackTrace();
 		}
-//		GeneralFormatToAutomata g = new GeneralFormatToAutomata(a);
-//		String json = g.parseAutomata();
-//
-//		//this starts the thread that takes care of the browser window and visualization within
-//		BrowserBox bb = new BrowserBox(json);
-//		this.browserWindows.put(this.count++, bb);
+
 
 	}
 
