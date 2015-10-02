@@ -14,10 +14,11 @@
 
     // force layout
     var force = d3.layout.force()
-        .charge(-2000)
-        .linkDistance(150)
+        .charge(-8000)
+        //.linkDistance(150)
         .gravity(0.1)
-        .friction(0.8);
+        .friction(0.8)
+        .linkStrength(0.5);
 
     var colour = d3.scale.category20(),
         circleRad = 10;
@@ -35,15 +36,16 @@
 
         states = data.states;
         links = data.links;
-
         boundingDiv = _boundingDiv;
+
+        // creates GUI elements like sliders to change layout properties
+        makeGUI(boundingDiv, force);
+
         var width = boundingDiv.width();
         var height = boundingDiv.height();
         svg = d3.select("#" + boundingDiv.attr("id")).append("svg")
             .attr("width", width)
             .attr("height", height);
-
-        console.log("automata w, h", width, height);
 
     	force.nodes(states);
         force.links(links);
