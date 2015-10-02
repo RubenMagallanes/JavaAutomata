@@ -3,8 +3,6 @@
 // http://bl.ocks.org/mbostock/1153292
 (function (self){
 
-    console.log(window.outerWidth + " " +window.outerHeight);
-
     var states, // nodes bound to program states
         links, // links bound to state transitions
         varsChosen = [], // variables to be shown NOT USED YET

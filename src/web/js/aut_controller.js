@@ -74,17 +74,18 @@ var testSimpleMonkeyData = {
 
 // get automata data from server
 // and use data to start viz
-//$.ajax({
-  //type: 'GET',
-  //url: url,
-  //contentType: 'application/json',
-  //success: function(data) {
-      //viz.automata.init(JSON.stringify(data, $("div#automata"));
-  //},
-  //error: function(XMLHttpRequest, textStatus, errorThrown) {
-      //console.log("Status: " + textStatus);
-      //console.log("Error: " + errorThrown);
-  //}
-//});
+$.ajax({
+  type: 'GET',
+  url: url,
+  contentType: 'application/json',
+  success: function(data) {
+      viz.automata.init(JSON.stringify(data, $("div#automata"));
+  },
+  error: function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("Status: " + textStatus);
+      console.log("Error: " + errorThrown);
+  }
+});
 
-viz.automata.init(JSON.stringify(testSimpleMonkeyData), $("div#automata"));
+// test without server
+//viz.automata.init(JSON.stringify(testSimpleMonkeyData), $("div#automata"));

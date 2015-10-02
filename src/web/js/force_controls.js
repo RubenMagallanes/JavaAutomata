@@ -3,7 +3,6 @@ function makeGUI(boundingDiv, force){
     var properties = [ "charge", "linkStrength", "gravity", "friction"];
     var guiDiv = $("<div>").addClass("petri-controls");
     boundingDiv.append(guiDiv);
-    console.log("append gui");
     properties.forEach(function (property){
         var id = property;
         var control = $("<div>").addClass("control");
