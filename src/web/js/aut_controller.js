@@ -1,8 +1,5 @@
 "use strict";
 
-// get automata data from server
-// and use data to start viz
-
 var temp = window.location.href;
 temp = temp.replace("automata=", "TraceRequest/")
 load(temp);
