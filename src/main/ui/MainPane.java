@@ -1,15 +1,10 @@
 package main.ui;
 
-import java.awt.Desktop;
 import java.io.File;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,29 +19,16 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
 import main.parse.Automata;
-import main.parse.AutomataToVisualisation;
 import main.parse.JSONToAutomata;
-import main.parse.JSONToAutomataException;
-
 import main.tracer.TraceLauncher;
-import main.tracer.DynamicHandler;
-
 import main.tracer.Trace;
-import main.tracer.TraceLauncher;
 import main.tracer.TraceManager;
 
 import main.util.DesktopApi;
-import sun.awt.image.GifImageDecoder;
-
-
-import main.tracer.Tracer;
 
 
 
@@ -79,7 +61,7 @@ public class MainPane extends GridPane {
 		setupSaveMenu();
 		setUpViewMenu();
 		//setUpDynamic(); //button denied
-		
+
 		this.prefWidth(Double.MAX_VALUE);
 	}
 
@@ -107,8 +89,10 @@ public class MainPane extends GridPane {
 	private void buttonClicked(String buttonName) {
 		if (buttonName.equalsIgnoreCase("Load Jar")) {
 			printToConsole("jar loaded. \n"
-					+ "Select what you want to trace with the UI to the right \n"
-					+ "then click 'Run trace' to trace the Jar you have loaded in");
+					+ "Select what you want to trace with the UI to the right "
+					+ "then click 'Run trace' to trace the Jar you have loaded in.\n"
+					+ "Optionally, put any args for when running the trace in the "
+					+ "text field next to the 'run trace' button");
 
 		} else if (buttonName.equalsIgnoreCase("Run Trace")) {
 			printToConsole("Trace is now in memory, you can either: \n"
@@ -217,7 +201,9 @@ public class MainPane extends GridPane {
 	private  File chooseTraceFile(){
 
 		JFileChooser chooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Trace file", "json");
+
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Trace file", "trace");
+
 		chooser.setFileFilter(filter);
 
 		int returnVal = chooser.showOpenDialog(null);
@@ -231,7 +217,7 @@ public class MainPane extends GridPane {
 	 */
 	private void setupRunTrace(){
 		Button btn = new Button();
-		
+
 		TextField argsBox = new TextField();
 		this.add(argsBox, 1, 2);
 
@@ -309,7 +295,7 @@ public class MainPane extends GridPane {
 		this.add(btn, 0, 4);
 	}
 
-	/**
+	/** 
 	 * displays an automata in a browser
 	 * @param a automata you want to be visualised
 	 */
@@ -324,16 +310,10 @@ public class MainPane extends GridPane {
 			printToConsole(e1.getMessage());
 			//e1.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			//printT
 			e.printStackTrace();
 		}
-//		GeneralFormatToAutomata g = new GeneralFormatToAutomata(a);
-//		String json = g.parseAutomata();
-//
-//		//this starts the thread that takes care of the browser window and visualization within
-//		BrowserBox bb = new BrowserBox(json);
-//		this.browserWindows.put(this.count++, bb);
+
 
 	}
 
@@ -355,11 +335,14 @@ public class MainPane extends GridPane {
 
 			DynamicHandler dh = new DynamicHandler(bb, tr);
 
-			tr=tracer.run();
-
 			TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 
 			Tracer.setDynamicHandler(dh);
+
+			tr=tracer.run();
+
+
+
 
 			Main.setManager(manager);
 

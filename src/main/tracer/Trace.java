@@ -76,12 +76,12 @@ public class Trace implements Serializable {
 	 *
 	 * @param The name of the file to write the trace to
 	 * */
-	public void constructJSONFile(String filename){
+	public void constructTraceFile(String filename){
 		TraceEntryTree tree = TraceEntryTree.generateTraceEntryTree(lines);
 		String path = "data" + File.separatorChar + "traces" + File.separatorChar;
 		FileWriter writer;
 		try {
-			writer = new FileWriter(path + filename + ".json");
+			writer = new FileWriter(path + filename + ".trace");
 			writer.write(TraceToJSON.generateJSON(tree));
 			writer.close();
 		} catch (IOException e1) {

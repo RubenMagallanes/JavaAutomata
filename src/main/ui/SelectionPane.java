@@ -49,7 +49,7 @@ public class SelectionPane extends TreeView {
 	 */
 	public void makeNewTree() {
 		clearTreeView();
-		System.out.println("IS WORKING");
+		//System.out.println("IS WORKING");
 		JarData data = Main.getJarData();
 
 		rootItem = new CheckBoxTreeItem<ShortLongNames>(new ShortLongNames(data.getName(), null));
@@ -297,7 +297,7 @@ public class SelectionPane extends TreeView {
 			}
 			filter.addMethodsToFilter(methodNames);
 		}
-		System.out.println("Setting filter");
+
 		if(traceManager != null){//trace manager might be null becuase no trace has been generated yet
 			traceManager.applyFilter(filter.getFilter());
 		}
