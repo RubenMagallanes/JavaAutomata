@@ -55,7 +55,7 @@ public class TraceEntryTree {
 			if(i == 0){
 				MethodKey key = entries.get(i).getMethod();
 				String methodName = key.getClassName() + "." + key.getName();
-				root = new TraceEntryTreeNode(methodName, entries.get(i).getState());
+				root = new TraceEntryTreeNode(methodName, entries.get(i).isConstructor(), entries.get(i).getState());
 				treeNodes.push(root);
 				size++;
 			}
@@ -64,7 +64,7 @@ public class TraceEntryTree {
 			if(!entries.get(i).isExit()){
 				MethodKey key = entries.get(i).getMethod();
 				String methodName = key.getClassName() + "." + key.getName();
-				TraceEntryTreeNode current = new TraceEntryTreeNode(methodName, entries.get(i).getState());
+				TraceEntryTreeNode current = new TraceEntryTreeNode(methodName, entries.get(i).isConstructor(), entries.get(i).getState());
 				treeNodes.peek().addChild(current);
 				treeNodes.push(current);
 				size++;
