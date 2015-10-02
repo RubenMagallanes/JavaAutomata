@@ -228,7 +228,7 @@ public class MainPane extends GridPane {
 				String args = argsBox.getText();
 				tracer.setCommanLineArguments(args);
 				Trace tr = tracer.run();
-				TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
+				TraceManager manager = new TraceManager(tr);//TODO Change trace manager
 				Main.setManager(manager);
 				this.buttonClicked("Run Trace");
 		});
@@ -295,7 +295,7 @@ public class MainPane extends GridPane {
 		this.add(btn, 0, 4);
 	}
 
-	/** 
+	/**
 	 * displays an automata in a browser
 	 * @param a automata you want to be visualised
 	 */
