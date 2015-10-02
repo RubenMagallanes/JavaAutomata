@@ -1,12 +1,11 @@
 package main.tracer;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.jar.Attributes.Name;
+
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
@@ -15,15 +14,18 @@ public class TraceLauncher {
 
 	//the path to the jar to be executed
 	private String jarPath;
-	
-	private static DynamicHandler dynamicHandler;
-	
-	public void setDynamicHandler(DynamicHandler dh){
-		this.dynamicHandler = dh;
-	}
+
 
 	//the arguments to execute the traced program with
+	//private String commanLineArgumnets;
 	private String commanLineArgumnets;
+
+
+//Code for dynamic incomplete
+//	public void setDynamicHandler(DynamicHandler dh){
+//		this.dynamicHandler = dh;
+//	}
+
 
 	/**
 	 * Sets the command line arguments for the program to be executed

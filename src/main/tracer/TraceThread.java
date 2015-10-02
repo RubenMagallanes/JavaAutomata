@@ -41,7 +41,8 @@ public class TraceThread extends Thread {
 
 	private Set<ThreadReference> threadsToResume;
 
-	DynamicHandler dynamicHandler;
+//Incomplete Dynamic code
+//	DynamicHandler dynamicHandler;
 
 
 	/**
@@ -57,7 +58,7 @@ public class TraceThread extends Thread {
 		this.vm = vm;
 		this.filter = filter;
 		this.consumer = consumer;
-		this.dynamicHandler = dh;
+//		this.dynamicHandler = dh;
 		knownTraceableClasses = new HashMap<ReferenceType, Boolean>();
 		threadsToResume = new HashSet<ThreadReference>();
 	}
@@ -152,6 +153,7 @@ public class TraceThread extends Thread {
 			}
 
 			te.setIsExit(false);
+			te.setConstructor(event.method().isConstructor());
 
 			// Java bug; InternalException is thrown if getting
 			// arguments from a native method
@@ -184,9 +186,10 @@ public class TraceThread extends Thread {
 			}
 			consumer.onTraceLine(te);
 
-			if(dynamicHandler != null){
-				dynamicHandler.eventOccoured();
-			}
+//Incomplete dynamic code
+//			if(dynamicHandler != null){
+//				dynamicHandler.eventOccoured(te);
+//			}
 		}
 		threadsToResume.add(event.thread());
 	}
@@ -204,10 +207,12 @@ public class TraceThread extends Thread {
 			StackFrame frame = null;
 			try {
 				frame = event.thread().frame(0);
+
 			} catch (IncompatibleThreadStateException e) {
 				e.printStackTrace();
 			}
 			ObjectReference _this = frame.thisObject();
+
 			TraceEntry te = new TraceEntry();
 			te.setMethod(new MethodKey(event.method()));
 			if (_this == null)
@@ -219,9 +224,10 @@ public class TraceThread extends Thread {
 			//System.out.println(te);
 			consumer.onTraceLine(te);
 
-			if(dynamicHandler != null){
-				dynamicHandler.eventOccoured();
-			}
+//Incomplete Dynamic code
+//			if(dynamicHandler != null){
+//				dynamicHandler.eventOccoured(te);
+//			}
 		}
 		threadsToResume.add(event.thread());
 	}

@@ -1,13 +1,17 @@
 package main.tracer;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import main.tracer.TraceEntry;
 
-import main.parse.AutomataToVisualisation;
-import main.parse.JSONToAutomata;
+
 import main.parse.TraceToJSON;
 import main.tracer.tree.TraceEntryTree;
 import main.ui.BrowserBox;
 
+/**
+ * This class is part of the incomplete dynamic functionality remove is you wish
+ * */
 public class DynamicHandler {
 
 	private static BrowserBox bb;
@@ -25,11 +29,14 @@ public class DynamicHandler {
 		bb = new BrowserBox(json);
 	}
 
-	public static void eventOccoured(){
+	public static void eventOccoured(TraceEntry te){
 		System.out.println("Events are happening");
-		TraceEntryTree tree = TraceEntryTree.generateTraceEntryTree(trace.getLines());
+		List<TraceEntry> tes = new ArrayList<TraceEntry>();
+		tes.add(te);
+
+		TraceEntryTree tree = TraceEntryTree.generateTraceEntryTree(tes);
 		String json = TraceToJSON.generateJSON(tree);
-		bb.visualizeTrace(json);
+		bb.visualizeTraceDynamic(json);
 	}
 }
 

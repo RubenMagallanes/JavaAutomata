@@ -26,7 +26,7 @@ public class JsonHandler extends AbstractHandler {
 		if (arg0.contains(CommandRequest)){
 			String request = arg0.substring(arg0.indexOf(CommandRequest)+CommandRequest.length()+1);
 			System.out.println(request);
-			File file = new File("data/traces/"+request);
+			File file = new File("data/visualisations/"+request);
 			response.setContentType("text/json; charset=utf-8");
 	        response.setStatus(HttpServletResponse.SC_OK);
 

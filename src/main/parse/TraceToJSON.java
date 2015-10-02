@@ -20,6 +20,7 @@ public class TraceToJSON {
 	public static final String STATE_BEFORE = "stateBefore";
 	public static final String STATE_AFTER = "stateAfter";
 	public static final String CHILDREN = "children";
+	public static final String START_STATE = "startState";
 	public static final int INDENT_FACTOR = 2;
 	public static final JSONObject EMPTY_JSON_OBJECT = new JSONObject();
 
@@ -65,6 +66,8 @@ public class TraceToJSON {
 		else{
 			json.put(STATE_AFTER, node.getStateAfter().toJSON());
 		}
+
+		json.append(START_STATE, node.isStartState());
 
 		// get children
 		JSONArray children = new JSONArray();

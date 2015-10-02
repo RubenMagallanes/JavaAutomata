@@ -6,8 +6,11 @@
 	<script src="lib/d3.js"></script>
 	<script src="lib/jquery-1.11.3.js"></script>
 	<!-- local css -->
-	<link rel="stylesheet" type="text/css" href="new.css.">
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="new.css">
 	<link rel="stylesheet" type="text/css" href="table.css">
+	<h1 align="center">Choose a Visualisations</h1>
+	
 </head>
 
 <body>
@@ -16,8 +19,18 @@
 			var link = window.location.href ;
 			console.log(link);
 		</script>
-	
-	<div id="buttons">
+	<div class="container">
+		<div align="center" id="files">
+		</div>
+		<div align="center">
+			<div class="btn-group" data-toggle="buttons">
+  				<button type="button" class="btn btn-primary" id="automata">Automata</button>
+  				<button type="button" class="btn btn-primary" id="petri_net">Petri Net</button>
+  				<button type="button" class="btn btn-primary" id="both">Both</button>
+			</div>
+		</div>
+	</div>
+	<!-- <div id="buttons">
 		<div id="both">
 			<FORM METHOD="LINK" ACTION="automata&petri_net=test1.json">
 				<INPUT TYPE="submit" VALUE="Both">
@@ -33,11 +46,10 @@
 				<INPUT TYPE="submit" VALUE="Petri-Net">
 			</FORM>
 		</div>
-	</div>
+	</div> -->
 	<div id="filebutton">
 	</div>
-	<g id="files">
-	</g>
+	
 	<script src="js/ui.js"></script>
 </body>
 

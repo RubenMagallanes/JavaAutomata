@@ -78,10 +78,18 @@ public class GUIFrame extends Application{
 	        gzip.setHandler(handlers);
 
 
+	       
 			server.start();
-		} catch (Exception e) {
+	        
+		} catch (java.net.BindException be){
+			System.out.println("Socket error: Address already in use.");
+			System.out.println("either you have another instance of this program running");
+			System.out.println("or another program is currently occupying port 8080.");
+			System.out.println("You must shut down the previous instance before opening a new one.");
+			//TODO either exit program or do something like increment port number
+		}catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 
 
 
