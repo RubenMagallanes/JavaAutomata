@@ -224,7 +224,7 @@ public class TraceToAutomata {
 	}
 
 	public static void main(String[] args){
-		File file = new File("data/traces/checktrace.json");
+		File file = new File("data/traces/TestProg5.json");
 		try {
 			Automata a = generateAutomata(file);
 			AutomataToVisualisation json = new AutomataToVisualisation(a);

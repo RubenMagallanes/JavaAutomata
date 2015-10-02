@@ -19,6 +19,7 @@ public class TraceEntryTreeNode {
 	// fields
 
 	private String methodName;
+	private boolean isStartState;
 	private State before;
 	private State after;
 	private List<TraceEntryTreeNode> children;
@@ -31,8 +32,9 @@ public class TraceEntryTreeNode {
 	 * @param before
 	 * 		- state of program before method executed
 	 */
-	public TraceEntryTreeNode(String methodName, State before){
+	public TraceEntryTreeNode(String methodName, boolean isStartState, State before){
 		this.methodName = methodName;
+		this.isStartState = isStartState;
 		this.before = before;
 		children = new ArrayList<TraceEntryTreeNode>();
 	}
@@ -45,6 +47,16 @@ public class TraceEntryTreeNode {
 	 */
 	public String getMethodName(){
 		return methodName;
+	}
+
+	/**
+	 * Returns true if this method is a constructor, otherwise returns false
+	 *
+	 * @return
+	 * 		is start state (constructor)
+	 */
+	public boolean isStartState(){
+		return isStartState;
 	}
 
 	/**
