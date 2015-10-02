@@ -6,17 +6,17 @@ text {
 
 #auto {
 	width: 100px;
-	float: right
+	text-align: center;
 }
 
 #petri{
 	width: 100px;
-	float: right
-	
+	text-align: center;
 }
 
 #both{
-	float: right
+	/*float: right*/
+	text-align: center;
 }
 
 #buttons {
