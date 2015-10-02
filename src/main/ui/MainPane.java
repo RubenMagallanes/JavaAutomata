@@ -79,7 +79,7 @@ public class MainPane extends GridPane {
 		setupSaveMenu();
 		setUpViewMenu();
 		//setUpDynamic(); //button denied
-		
+
 		this.prefWidth(Double.MAX_VALUE);
 	}
 
@@ -217,7 +217,7 @@ public class MainPane extends GridPane {
 	private  File chooseTraceFile(){
 
 		JFileChooser chooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Trace file", "json");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Trace file", "trace");
 		chooser.setFileFilter(filter);
 
 		int returnVal = chooser.showOpenDialog(null);
@@ -231,7 +231,7 @@ public class MainPane extends GridPane {
 	 */
 	private void setupRunTrace(){
 		Button btn = new Button();
-		
+
 		TextField argsBox = new TextField();
 		this.add(argsBox, 1, 2);
 

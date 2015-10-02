@@ -62,7 +62,7 @@ public class TraceManager {
 		System.out.println(filePath);
 		System.out.println(name);
 		for(Trace t : tracesFiltered){
-			t.constructJSONFile(name);
+			t.constructTraceFile(name);
 		}
 	}
 
