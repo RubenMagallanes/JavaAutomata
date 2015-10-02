@@ -5,29 +5,24 @@ import java.util.Set;
 
 public class TraceStringUtil {
 
-	private Trace[] traces;
+	private Trace trace;
 
-	public TraceStringUtil(Trace[] traces){
-		this.traces = traces;
+	public TraceStringUtil(Trace trace){
+		this.trace = trace;
 	}
-
 
 	/**
 	 * Returns all of the fields of the program traced
 	 * */
 	public Set<String> getCompareMethods(){
-
 		//the set of method names
 		Set<String> methods = new HashSet<>();
 
 		//place the names in set to remove duplicates
-		for(Trace t : traces){
-			for(TraceEntry te : t.getLines()){
+
+			for(TraceEntry te : trace.getLines()){
 				methods.add(te.getMethodName());
-
-			}
 		}
-
 		return methods;
 	}
 
@@ -36,10 +31,9 @@ public class TraceStringUtil {
 		Set<String> methods = new HashSet<>();
 
 		//place the names in set to remove duplicates
-		for(Trace t : traces){
-			for(TraceEntry te : t.getLines()){
-				methods.add(te.getMethod().getName());
-			}
+
+		for(TraceEntry te : trace.getLines()){
+			methods.add(te.getMethod().getName());
 		}
 
 		return methods;
@@ -58,10 +52,9 @@ public class TraceStringUtil {
 
 
 		//place the names in set to remove duplicates
-		for(Trace t : traces){
-			for(TraceEntry te : t.getLines()){
+
+			for(TraceEntry te : trace.getLines()){
 				if(te.getState() != null)fieldSet.add(te.getState().toString());
-			}
 		}
 
 		//add each of the unique method names to the string
@@ -84,11 +77,11 @@ public class TraceStringUtil {
 
 
 				//place the names in set to remove duplicates
-				for(Trace t : traces){
-					for(TraceEntry te : t.getLines()){
+
+					for(TraceEntry te : trace.getLines()){
 						if(!te.isExit())methods.add(te.getLongMethodName());
 					}
-				}
+
 				//add each of the unique method names to the string
 				for(String s : methods){
 						entryEvents += "\t " + s + "\n";
@@ -109,10 +102,8 @@ public class TraceStringUtil {
 
 
 			//place the names in set to remove duplicates
-			for(Trace t : traces){
-				for(TraceEntry te : t.getLines()){
-					if(te.isExit())methods.add(te.getLongMethodName());
-				}
+			for(TraceEntry te : trace.getLines()){
+				if(te.isExit())methods.add(te.getLongMethodName());
 			}
 
 			//add each of the unique method names to the string

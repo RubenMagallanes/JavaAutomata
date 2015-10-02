@@ -5,18 +5,18 @@ import java.util.List;
 
 public class TraceManager {
 
-	//the original traces output from the program
-	private Trace[] traces;
+	//the original trace output from the program
+	private Trace trace;
 
 	//a copy of the traces that can be filtered
-	private Trace[] tracesFiltered;
+	private Trace traceFiltered;
 
 
 	/**
 	 * Constructor for TraceManager
 	 * */
-	public TraceManager(Trace[] traces){
-		this.traces = traces;
+	public TraceManager(Trace trace){
+		this.trace = trace;
 		this.copyToFilter();
 	}
 
@@ -24,12 +24,10 @@ public class TraceManager {
 	 * Copies the traces to a new array used for filtering
 	 * */
 	private  void copyToFilter(){
-		tracesFiltered = new Trace[traces.length];
 
-		for(int i = 0; i < traces.length; i++){
-			tracesFiltered[i] = new Trace();
+			Trace newTrace = new Trace();
 			List<TraceEntry> temp = new ArrayList<TraceEntry>();
-			for (TraceEntry t : traces[i].getLines()){
+			for (TraceEntry t : trace.getLines()){
 				TraceEntry newT = new TraceEntry();
 				newT.setState(t.getState());
 				newT.setArguments(t.getArguments());
@@ -37,9 +35,10 @@ public class TraceManager {
 				newT.setIsExit(t.isExit());
 				temp.add(newT);
 			}
-			tracesFiltered[i].setLines(temp);
+			newTrace.setLines(temp);
+			this.traceFiltered = newTrace;
 		}
-	}
+
 
 
 	/**
@@ -47,9 +46,7 @@ public class TraceManager {
 	 * */
 	public void applyFilter(TraceFilter filter){
 		copyToFilter();
-		for(Trace t : tracesFiltered){
-			t.applyFilter(filter);
-		}
+		traceFiltered.applyFilter(filter);
 	}
 
 
@@ -59,11 +56,7 @@ public class TraceManager {
 	 * @param file path to save the file
 	 * */
 	public void traceToFile(String filePath, String name){
-		System.out.println(filePath);
-		System.out.println(name);
-		for(Trace t : tracesFiltered){
-			t.constructTraceFile(name);
-		}
+			traceFiltered.constructTraceFile(name);
 	}
 
 	/**
@@ -71,20 +64,15 @@ public class TraceManager {
 	 * @return
 	 */
 	public String getJson (){
-		String ret = "";
-		for (int i = 0; i< traces.length; i++){
-			ret += traces[i].toString();
-		}
-		return ret;
-
+		return trace.toString();
 	}
 
 
 	/**
 	 * Returns the a copy of the array of traces
 	 * */
-	public Trace[] getTraces(){
-		return this.tracesFiltered;
+	public Trace getTraces(){
+		return traceFiltered;
 	}
 
 
