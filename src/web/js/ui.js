@@ -1,5 +1,5 @@
 var host = window.location.href;
-var temp;
+var trace_file_list;
 
 var selection = d3.select("#files")
 	.append("table")
@@ -14,7 +14,7 @@ $.ajax({
   contentType: 'text/fileList',
   success: function(data) {
 	  console.log("success");
-	  	temp = data.split("\n");
+	  	trace_file_list = data.split("\n");
 	  	var strings = data.split("\n");
 	  	for (var i = strings.length - 2; i >= 0; i--) {
 	  		var row = selection
@@ -24,13 +24,13 @@ $.ajax({
 				.text(strings[i]);
 
 			row.append("th")
-				.text("");
-
-			row.append("th")
-				.text("");
-
-			row.append("th")
-				.text("");
+				.append("input")
+				.attr("value", strings[i])
+				.attr("type","radio")
+				.attr("class", "file_radios")
+				.attr("name","file_selection")
+				.attr("id",strings[i]);
+				//.text(" ");
 	  	};
 	  },
 
@@ -40,14 +40,41 @@ $.ajax({
       }
 });
 
+d3.select("#automata")
+	.on("click", function(d,i){
+		for (var i = trace_file_list.length - 2; i >= 0; i--) {
+			if (document.getElementById(trace_file_list[i]).checked) {
+				var url = window.location.href;
+  				window.open(url+"automata="+document.getElementById(trace_file_list[i]).value);
+			}
+		}
+	});
+
+d3.select("#petri_net")
+	.on("click", function(d,i){
+		for (var i = trace_file_list.length - 2; i >= 0; i--) {
+			if (document.getElementById(trace_file_list[i]).checked) {
+				var url = window.location.href;
+  				window.open(url+"petri_net="+document.getElementById(trace_file_list[i]).value);
+			}
+		}
+	});
+
+d3.select("#both")
+	.on("click", function(d,i){
+		for (var i = trace_file_list.length - 2; i >= 0; i--) {
+			if (document.getElementById(trace_file_list[i]).checked) {
+				var url = window.location.href;
+  				window.open(url+"automata&petri_net="+document.getElementById(trace_file_list[i]).value);
+			}
+		}
+	});
+
 header.append("th")
+	.attr("width", "75%")
 	.text("File Name");
 
 header.append("th")
-	.text("Automata");
+	.attr("width", "25%")
+	.text("Selection");
 
-header.append("th")
-	.text("Petri Net");
-
-header.append("th")
-	.text("Automata & Petri Net");
