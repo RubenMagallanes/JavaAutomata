@@ -75,18 +75,18 @@ var testSimpleMonkeyData = {
 // get automata data from server
 // and use data to start viz
 
-//$.ajax({
-  //type: 'GET',
-  //url: url,
-  //contentType: 'application/json',
-  //success: function(data) {
-	  //console.log("success");
-      ////viz.petri.init(JSON.stringify(data), $("div#petrinet"));
-  //},
-  //error: function(XMLHttpRequest, textStatus, errorThrown) {
-      //console.log("Status: " + textStatus);
-      //console.log("Error: " + errorThrown);
-  //}
-//});
+$.ajax({
+  type: 'GET',
+  url: url,
+  contentType: 'application/json',
+  success: function(data) {
+      viz.petri.init(JSON.stringify(data), $("div#petrinet"));
+  },
+  error: function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("Status: " + textStatus);
+      console.log("Error: " + errorThrown);
+  }
+});
 
-viz.petri.init(JSON.stringify(testSimpleMonkeyData), $("div#petrinet"));
+// for testing without a server
+//viz.petri.init(JSON.stringify(testSimpleMonkeyData), $("div#petrinet"));
