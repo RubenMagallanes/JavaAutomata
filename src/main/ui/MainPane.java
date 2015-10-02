@@ -245,8 +245,14 @@ public class MainPane extends GridPane {
 				if (fileName.equals("")) {
 					this.printToConsole("To save a trace you need to supply a filename in the text box.");
 				} else {
+					try {
 					Main.getManager().traceToFile("data/traces/", fileName);
 					this.buttonClicked("Save Trace");
+					} catch (NullPointerException npe){
+						printToConsole("Uh oh! NullPointerException. \n "
+								+ "you probably forgot to click the 'Run Trace' button "
+								+ "to generate a trace to save. ");
+					}
 				}
 		});
 		Tooltip tooltip = new Tooltip();
@@ -303,6 +309,10 @@ public class MainPane extends GridPane {
 	}
 
 
+	/**
+	 * REDUNDANT/ NOT USED
+	 * @return
+	 */
 	private File chooseTraceFile() {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("choose a .trace file");
