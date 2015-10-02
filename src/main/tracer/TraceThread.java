@@ -152,6 +152,7 @@ public class TraceThread extends Thread {
 			}
 
 			te.setIsExit(false);
+			te.setConstructor(event.method().isConstructor());
 
 			// Java bug; InternalException is thrown if getting
 			// arguments from a native method
