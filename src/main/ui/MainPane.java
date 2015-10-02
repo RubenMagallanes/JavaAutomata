@@ -291,7 +291,7 @@ public class MainPane extends GridPane {
 		this.add(btn, 0, 4);
 	}
 
-	/**
+	/** 
 	 * displays an automata in a browser
 	 * @param a automata you want to be visualised
 	 */
