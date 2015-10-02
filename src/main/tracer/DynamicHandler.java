@@ -1,15 +1,15 @@
 package main.tracer;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.parse.GeneralFormatToAutomata;
-import main.parse.JSONToAutomata;
 import main.parse.TraceToJSON;
 import main.tracer.tree.TraceEntryTree;
 import main.ui.BrowserBox;
 
+/**
+ * This class is part of the incomplete dynamic functionality remove is you wish
+ * */
 public class DynamicHandler {
 
 	private static BrowserBox bb;

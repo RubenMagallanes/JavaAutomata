@@ -17,7 +17,7 @@ public class TraceManager {
 	 * */
 	public TraceManager(Trace[] traces){
 		this.traces = traces;
-
+		this.copyToFilter();
 	}
 
 	/**
@@ -59,6 +59,8 @@ public class TraceManager {
 	 * @param file path to save the file
 	 * */
 	public void traceToFile(String filePath, String name){
+		System.out.println(filePath);
+		System.out.println(name);
 		for(Trace t : tracesFiltered){
 			t.constructJSONFile(name);
 		}

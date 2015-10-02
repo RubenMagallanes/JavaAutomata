@@ -222,7 +222,7 @@ public class TraceToAutomata {
 	}
 
 	public static void main(String[] args){
-		File file = new File("data/traces/NESTED.json");
+		File file = new File("data/traces/SortNotStatic.json");
 		try {
 			Automata a = generateAutomata(file);
 			GeneralFormatToAutomata json = new GeneralFormatToAutomata(a);
