@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-
+import javafx.stage.FileChooser;
 import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
@@ -29,7 +29,7 @@ import main.tracer.Trace;
 import main.tracer.TraceManager;
 
 import main.util.DesktopApi;
-
+import main.ui.JarFileChooser;
 
 
 /**
@@ -134,7 +134,7 @@ public class MainPane extends GridPane {
 		btn.setText("Load Jar");
 		btn.setOnAction((ActionEvent e)-> {
 
-				File file = JarFileChooser.chooseJarFile();
+				File file = chooseJarFile();
 				if (file != null) {
 					loadDisplay.setText(file.getName());
 					JarData jarData = JarLoader.loadJarFile(file);
@@ -190,28 +190,13 @@ public class MainPane extends GridPane {
 			    + " a jar and already outputted a trace file.\n"  );
 		btn.setTooltip(tooltip2);
 
-		this.add(btn, 0, 6);
+		//this.add(btn, 0, 6); //DONT ADD LMAO
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
-	/**
-	 * opens file chooser, with a filter on so you can only see trace files.
-	 * @return user chosen Trace file
-	 */
-	private  File chooseTraceFile(){
+	
+	
 
-		JFileChooser chooser = new JFileChooser();
-
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Trace file", "trace");
-
-		chooser.setFileFilter(filter);
-
-		int returnVal = chooser.showOpenDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION){
-			return chooser.getSelectedFile();
-		}
-		return null;
-	}
 	/**
 	 * set up run trace button
 	 */
@@ -317,43 +302,32 @@ public class MainPane extends GridPane {
 
 	}
 
-	/*@Deprecated
-	private void setUpDynamic(){
-		Button btn2 = new Button();
-		// Sets up the load view button
-		btn2.setMaxWidth(Double.MAX_VALUE);
-		btn2.setText("DYNAMIC :^)");
-		btn2.setOnAction((ActionEvent e) -> {
 
-
-			//Tracer setup
-			TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
-			Trace tr = null;
-
-			BrowserBox bb = new BrowserBox(null);//TODO change
-			browserWindows.put(count++, bb);// add bb to hash map if we want to reference it later
-
-			DynamicHandler dh = new DynamicHandler(bb, tr);
-
-			TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
-
-			Tracer.setDynamicHandler(dh);
-
-			tr=tracer.run();
-
-
-
-
-			Main.setManager(manager);
-
-			this.buttonClicked("DYNAMIC :^)");
-		});
-		Tooltip tooltip2 = new Tooltip();
-		tooltip2.setText(
-			    "ayy lmao"  );
-		btn2.setTooltip(tooltip2);
-		this.add(btn2, 0, 7);
-	}*/
-
+	private File chooseTraceFile() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("choose a .trace file");
+		fc.setInitialDirectory(
+	            new File(System.getProperty("user.home"))
+	        ); 
+		fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Trace files", "*.trace"),
+                new FileChooser.ExtensionFilter("json trace files", "*.json")
+            );
+		File file = fc.showOpenDialog(null);//TODO idk if i can say null but ayyyyy
+		return file;
+	}
+	private File chooseJarFile(){
+		FileChooser fc = new FileChooser();
+		fc.setTitle("choose a .jar file");
+		fc.setInitialDirectory(
+	            new File(System.getProperty("user.home"))
+	        ); 
+		fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JAR files", "*.jar")
+            );
+		File file = fc.showOpenDialog(null);//TODO idk if i can say null but ayyyyy
+		return file;
+	}
+	
 
 }
