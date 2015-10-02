@@ -1,4 +1,3 @@
-
 var host = window.location.href;
 var trace_file_list;
 
@@ -13,7 +12,7 @@ $.ajax({
   type: 'GET',
   url: (host + "ListTraceFiles"),
   contentType: 'text/fileList',
-  success: function(data) { 
+  success: function(data) {
 	  console.log("success");
 	  	trace_file_list = data.split("\n");
 	  	var strings = data.split("\n");
@@ -33,12 +32,12 @@ $.ajax({
 				.attr("id",strings[i]);
 				//.text(" ");
 	  	};
-	  },  
+	  },
 
-	  error: function(XMLHttpRequest, textStatus, errorThrown) { 
-          console.log("Status: " + textStatus); 
-          console.log("Error: " + errorThrown); 
-      }  
+	  error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("Status: " + textStatus);
+          console.log("Error: " + errorThrown);
+      }
 });
 
 d3.select("#automata")

@@ -9,41 +9,45 @@
         links, // links bound to state transitions
         varsChosen = [], // variables to be shown NOT USED YET
         funcsChosen = [], // functions to be shown NOT USED YET
-        svg; // the svg element to draw automata on
+        svg, // the svg element to draw automata on
+        boundingDiv;
 
     // force layout
     var force = d3.layout.force()
         .charge(-2000)
-        .size([1200, 800])
         .linkDistance(150)
-        .gravity(0.1);
+        .gravity(0.1)
+        .friction(0.8);
 
     var colour = d3.scale.category20(),
         circleRad = 10;
 
-   
+
 
 
     // for testing
     self.getLinks = function() { return links; }
 
     // initialise the layout with data
-    self.init = function (dataStr){
-        svg = d3.select("svg")
-            .attr("width", 1600)
-            .attr("height", 800);
-
+    // boundingdiv is a jquery selection
+    self.init = function (dataStr, _boundingDiv){
         var data = JSON.parse(dataStr);
 
         states = data.states;
         links = data.links;
 
-        svg = d3.select("svg")
-            .attr("width", 1600)
-            .attr("height", 800);
+        boundingDiv = _boundingDiv;
+        var width = boundingDiv.width();
+        var height = boundingDiv.height();
+        svg = d3.select("#" + boundingDiv.attr("id")).append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        console.log("automata w, h", width, height);
 
     	force.nodes(states);
         force.links(links);
+        force.size([width, height]);
 
         // //title
         // var title = svg.append("text")
@@ -59,7 +63,7 @@
         //    .attr("x",1200)
         //    .attr("y",10)
         //    .attr("width",300)
-        //    .attr("height",400)           
+        //    .attr("height",400)
         //    .html(getTraceList());
 
         var node = svg.selectAll(".state")
