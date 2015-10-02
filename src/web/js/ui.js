@@ -1,4 +1,3 @@
-
 var host = window.location.href;
 var temp;
 
@@ -13,7 +12,7 @@ $.ajax({
   type: 'GET',
   url: (host + "ListTraceFiles"),
   contentType: 'text/fileList',
-  success: function(data) { 
+  success: function(data) {
 	  console.log("success");
 	  	temp = data.split("\n");
 	  	var strings = data.split("\n");
@@ -26,19 +25,19 @@ $.ajax({
 
 			row.append("th")
 				.text("");
-			
+
 			row.append("th")
 				.text("");
-			
+
 			row.append("th")
 				.text("");
 	  	};
-	  },  
+	  },
 
-	  error: function(XMLHttpRequest, textStatus, errorThrown) { 
-          console.log("Status: " + textStatus); 
-          console.log("Error: " + errorThrown); 
-      }  
+	  error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("Status: " + textStatus);
+          console.log("Error: " + errorThrown);
+      }
 });
 
 header.append("th")

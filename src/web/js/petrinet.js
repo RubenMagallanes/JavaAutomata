@@ -8,12 +8,12 @@
         nodes = [], // all transitions and places (for force layout)
         arcs = [], // arcs bound to transitions between places and methods
         states = [], // all states, regardless of group
-        svg; // the svg element to draw viz on
+        svg,// the svg element to draw viz on
+        boundingDiv;
 
     // force layout
     var force = d3.layout.force()
         .charge(-2000)
-        .size([1200, 800])
         .gravity(0.1)
         .friction(0.8); // default
 
@@ -28,16 +28,26 @@
         svg = _svg;
     }
     // initialise the layout with data
-    self.init = function (dataStr){
+    self.init = function (dataStr, _boundingDiv){
+
         var data = JSON.parse(dataStr);
         convertToPetriData(data);
 
-        svg = d3.select("svg")
-            .attr("width", 1200)
-            .attr("height", 800);
+        boundingDiv = _boundingDiv;
 
         // creates GUI elements like sliders to change layout properties
         makeGUI();
+
+        var width = boundingDiv.width();
+        var height = boundingDiv.height();
+
+        svg = d3.select("#" + boundingDiv.attr("id")).append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        force.size([width, height]);
+
+        console.log("petri w, h", width, height);
 
         var places = [];
         groups.forEach(function(group){
@@ -376,12 +386,13 @@
     // makes sliders to control force layout properties
     function makeGUI(){
         var properties = [ "charge", "linkStrength", "gravity", "friction"];
-        var div = $("<div>").addClass("properties-cont");
-        $("body").append(div);
+        var guiDiv = $("<div>").addClass("petri-controls");
+        boundingDiv.append(guiDiv);
+        console.log("append gui");
         properties.forEach(function (property){
             var id = property;
             var control = $("<div>").addClass("control");
-            div.append(control);
+            guiDiv.append(control);
 
             var slider = $("<input>")
                 .attr("type", "range")
