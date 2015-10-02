@@ -355,11 +355,14 @@ public class MainPane extends GridPane {
 
 			DynamicHandler dh = new DynamicHandler(bb, tr);
 
-			tr=tracer.run();
-
 			TraceManager manager = new TraceManager(new Trace[]{tr});//TODO Change trace manager
 
 			Tracer.setDynamicHandler(dh);
+
+			tr=tracer.run();
+
+
+
 
 			Main.setManager(manager);
 
