@@ -1,3 +1,4 @@
+"use strict";
 var host = window.location.href;
 var trace_file_list;
 
@@ -7,7 +8,8 @@ var selection = d3.select("#files")
 
 var header = selection
 	.append("tr");
-
+//Gets the list of files form the server and 
+//makes a table containing them.
 $.ajax({
   type: 'GET',
   url: (host + "ListTraceFiles"),
@@ -40,6 +42,7 @@ $.ajax({
       }
 });
 
+//Sets up the onclick function for the buttons 
 d3.select("#automata")
 	.on("click", function(d,i){
 		for (var i = trace_file_list.length - 2; i >= 0; i--) {
@@ -70,6 +73,7 @@ d3.select("#both")
 		}
 	});
 
+//Sets up the header for the table.
 header.append("th")
 	.attr("width", "75%")
 	.text("File Name");

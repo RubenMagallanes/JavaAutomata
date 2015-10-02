@@ -16,9 +16,8 @@ $.ajax({
 });
 
 var temp = window.location.href;
-        temp = temp.replace("automata=", "TraceRequest/")
-        load(temp);
-        console.log(temp);
+temp = temp.replace("automata=", "TraceRequest/")
+load(temp);
 
 function load(url){
     console.log(url);

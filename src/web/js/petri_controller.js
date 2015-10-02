@@ -6,7 +6,6 @@
 var temp = window.location.href;
 temp = temp.replace("petri_net=", "TraceRequest/")
 load(temp);
-console.log(temp);
 
 function load(url){
 $.ajax({

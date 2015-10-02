@@ -5,7 +5,6 @@
 var temp = window.location.href;
 temp = temp.replace("automata&petri_net=", "TraceRequest/")
 load(temp);
-console.log(temp);
 
 function load(url){
     $.ajax({
