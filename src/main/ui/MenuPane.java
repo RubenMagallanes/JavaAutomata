@@ -43,15 +43,21 @@ public class MenuPane extends VBox {
 		
 		//this prints a welcome message to the console.
 		//we need to do it here because the MainPane can't yet 'see' the ConsolePane
+		printToConsole("To start, Load in a Jar to trace (Load Jar), or Load a "
+		+ "Trace you want to visualise (Load Trace).\n");
+	}
+
+	/**
+	 * prints to MainPane's console from anywhere
+	 */
+	public void printToConsole(String text){
 		for (javafx.scene.Node n: this.getChildren()){
 			if (n instanceof ConsoleLogPane){//find console
 				ConsoleLogPane cl = (ConsoleLogPane) n;
-				cl.appendText("To start, Load in a Jar to trace (Load Jar), or Load a "
-						+ "Trace you want to visualise (Load Trace).\n");
+				cl.appendText(text);
 			}		
 		}
 	}
-
 	/**
 	 * Sets up the button menu.
 	 * @return - a new MainPane that is set up.
