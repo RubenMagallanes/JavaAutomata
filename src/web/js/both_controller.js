@@ -22,6 +22,6 @@ function load(url){
     });
 }
 
-// for testing without a server
+
 //viz.automata.init(JSON.stringify(testSimpleMonkeyData), $("div#automata"));
 //viz.petri.init(JSON.stringify(testSimpleMonkeyData), $("div#petrinet"));
