@@ -123,6 +123,7 @@ public class MainPane extends GridPane {
 		// Text field to be used
 		TextField loadDisplay = new TextField();
 		loadDisplay.setEditable(false);
+		loadDisplay.setPromptText("jar filename");
 		this.add(loadDisplay, 1, 1);
 
 		// Sets up the Jar Load button.
@@ -200,6 +201,7 @@ public class MainPane extends GridPane {
 		Button btn = new Button();
 
 		TextField argsBox = new TextField();
+		argsBox.setPromptText("run with arguments");
 		this.add(argsBox, 1, 2);
 
 		btn.setMaxWidth(Double.MAX_VALUE);
@@ -232,6 +234,7 @@ public class MainPane extends GridPane {
 
 		// Text field for user input.
 		TextField loadDisplay = new TextField();
+		loadDisplay.setPromptText("save trace as ... ");
 		this.add(loadDisplay, 1, 3);
 
 		btn.setMaxWidth(Double.MAX_VALUE);
