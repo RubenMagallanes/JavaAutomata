@@ -89,6 +89,7 @@ public class Trace implements Serializable {
 			String json = TraceToJSON.generateJSON(tree);
 			writer = new FileWriter(tracePath + filename + ".trace");
 			writer.write(json);
+			writer.close();
 
 			Automata automata = TraceToAutomata.generateAutomata(json);
 			AutomataToVisualisation visualise = new AutomataToVisualisation(automata);

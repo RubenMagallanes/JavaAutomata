@@ -18,7 +18,7 @@ public class TraceListRequestHandler extends AbstractHandler {
 	private final String requestType  = "ListTraceFiles";
 
 	//folder to look in for traces
-	private final File folder = new File("data/visualisations");
+	private final File folder = new File("data/traces");
 
 	@Override
 	public void handle(String arg0, Request arg1, HttpServletRequest arg2,
@@ -49,7 +49,7 @@ public class TraceListRequestHandler extends AbstractHandler {
 	        	String fileName = fileEntry.getName();
 
 	        	//check if the file type is json
-	        	if(fileName.substring(fileName.length()-5, fileName.length()).equals(".json")){
+	        	if(fileName.substring(fileName.length()-5, fileName.length()).equals(".json") || fileName.substring(fileName.length()-6, fileName.length()).equals(".trace")){
 	        		out.println(fileName);
 	        	}
 	        }
