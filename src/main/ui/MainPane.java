@@ -201,7 +201,7 @@ public class MainPane extends GridPane {
 		Button btn = new Button();
 
 		TextField argsBox = new TextField();
-		argsBox.setPromptText("run with arguments");
+		argsBox.setPromptText("enter trace cmd line args");
 		this.add(argsBox, 1, 2);
 
 		btn.setMaxWidth(Double.MAX_VALUE);
@@ -234,7 +234,7 @@ public class MainPane extends GridPane {
 
 		// Text field for user input.
 		TextField loadDisplay = new TextField();
-		loadDisplay.setPromptText("save trace as ... ");
+		loadDisplay.setPromptText("save trace as.. ");
 		this.add(loadDisplay, 1, 3);
 
 		btn.setMaxWidth(Double.MAX_VALUE);
