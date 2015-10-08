@@ -74,7 +74,7 @@ function changeForceAttr(event, elem, force){
     } else if (name == "gravity"){
         force.gravity(val);
     } else if (name == "friction"){
-        force.friction($(elem).attr("min") - val);
+        force.friction($(elem).attr("max") - val);
     }
     force.start();
 }

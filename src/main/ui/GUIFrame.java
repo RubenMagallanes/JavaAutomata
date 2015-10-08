@@ -52,6 +52,13 @@ public class GUIFrame extends Application{
 		primaryStage.setScene(new Scene(menu, GUIFrame.width, GUIFrame.height));
 		primaryStage.show();
 
+		/*****************************************************************************************************************
+		 *
+		 * 							SERVER CODE STARTS
+		 *
+		 *****************************************************************************************************************
+		 */
+
 		server = new Server(8080);
 		try {
 
@@ -78,9 +85,9 @@ public class GUIFrame extends Application{
 	        gzip.setHandler(handlers);
 
 
-	       
+
 			server.start();
-	        
+
 		} catch (java.net.BindException be){
 			System.out.println("Socket error: Address already in use.");
 			System.out.println("either you have another instance of this program running");
@@ -89,9 +96,14 @@ public class GUIFrame extends Application{
 			//TODO either exit program or do something like increment port number
 		}catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 
-
+		/*****************************************************************************************************************
+		 *
+		 * 							SERVER CODE ENDS
+		 *
+		 *****************************************************************************************************************
+		 */
 
 
 	}
