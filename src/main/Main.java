@@ -4,6 +4,7 @@ import main.load.JarData;
 import main.tracer.TraceFilter;
 import main.tracer.TraceManager;
 import main.ui.GUIFrame;
+import main.ui.MainPane;
 
 public class Main {
 
@@ -11,7 +12,7 @@ public class Main {
 	static JarData jardata;
 	private static TraceManager manager;
 	private static TraceFilter filter;
-
+	private static MainPane ref;
 
 	public static void main(String[] args){
 		GUIFrame.main(args);
@@ -39,6 +40,14 @@ public class Main {
 
 	public  static TraceFilter getFilter() {
 		return Main.filter;
+	}
+	
+	public static void setMainPane(MainPane mp){
+		Main.ref = mp;
+	}
+	
+	public static void printToWindow(String text){
+		ref.printToConsole(text);
 	}
 
 }

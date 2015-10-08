@@ -8,9 +8,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -29,8 +26,6 @@ import main.tracer.Trace;
 import main.tracer.TraceManager;
 
 import main.util.DesktopApi;
-import main.ui.JarFileChooser;
-
 
 /**
  * First menu people see when loading the program.
@@ -51,6 +46,7 @@ public class MainPane extends GridPane {
 	 * Constructs the menu Pane
 	 */
 	public MainPane(MenuPane parent) {
+		Main.setMainPane(this);
 		this.setPrefWidth(GUIFrame.width/2 - GUIFrame.diffrence);
 		this.setPrefHeight(GUIFrame.height - GUIFrame.consoleSize);
 		count = 0;
