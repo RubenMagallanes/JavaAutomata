@@ -139,7 +139,7 @@ public class MainPane extends GridPane {
 					parent.getSelectionPane().makeNewTree();
 					this.buttonClicked("Load Jar");
 				} else {
-					loadDisplay.setText("");
+					//loadDisplay.setText("");
 				}
 		});
 		Tooltip tooltip = new Tooltip();

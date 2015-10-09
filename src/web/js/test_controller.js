@@ -92,4 +92,4 @@ var testSimpleMonkeyData = {
 //});
 
 viz.automata.init(JSON.stringify(testSimpleMonkeyData), $("div#automata"));
-viz.petri.init(JSON.stringify(testSimpleMonkeyData), $("div#petrinet"));
+//viz.petri.init(JSON.stringify(testSimpleMonkeyData), $("div#petrinet"));

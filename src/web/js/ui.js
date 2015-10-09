@@ -48,7 +48,7 @@ d3.select("#automata")
 		for (var i = trace_file_list.length - 2; i >= 0; i--) {
 			if (document.getElementById(trace_file_list[i]).checked) {
 				var url = window.location.href;
-  				window.open(url+"automata="+document.getElementById(trace_file_list[i]).value);
+  				window.open(url+"automata="+document.getElementById(trace_file_list[i]).value+"?"+getAlgoritum());
 			}
 		}
 	});
@@ -58,7 +58,7 @@ d3.select("#petri_net")
 		for (var i = trace_file_list.length - 2; i >= 0; i--) {
 			if (document.getElementById(trace_file_list[i]).checked) {
 				var url = window.location.href;
-  				window.open(url+"petri_net="+document.getElementById(trace_file_list[i]).value);
+  				window.open(url+"petri_net="+document.getElementById(trace_file_list[i]).value+"?"+getAlgoritum());
 			}
 		}
 	});
@@ -68,7 +68,7 @@ d3.select("#both")
 		for (var i = trace_file_list.length - 2; i >= 0; i--) {
 			if (document.getElementById(trace_file_list[i]).checked) {
 				var url = window.location.href;
-  				window.open(url+"automata&petri_net="+document.getElementById(trace_file_list[i]).value);
+  				window.open(url+"automata&petri_net="+document.getElementById(trace_file_list[i]).value+"?"+getAlgoritum());
 			}
 		}
 	});
@@ -82,3 +82,51 @@ header.append("th")
 	.attr("width", "25%")
 	.text("Selection");
 
+/******************************************************************************************************
+*
+* 			TO add more algoitums modify below
+*
+*******************************************************************************************************/
+
+d3.select("#number_field")
+			.attr("style", "display: none;");
+d3.select("#current_algortum")
+			.attr("value", "normal");
+
+d3.select("#normal")
+	.on("click", function(d,i) {
+		d3.select("#current_algortum")
+			.attr("value", "normal")
+			.text("General");
+		d3.select("#number_field")
+			.attr("style", "display: none;");
+	});
+
+d3.select("#ktails")
+	.on("click", function(d,i) {
+		d3.select("#current_algortum")
+			.attr("value", "ktails")
+			.text("KTails");
+		d3.select("#number_field")
+			.attr("style", null);
+	});
+
+//Gets the current algoritum from appopreate fields
+function getAlgoritum(){
+	var current = d3.select("#current_algortum").text();
+	console.log(current);
+	if (current.indexOf("KTails") >= 0){
+		var number = document.getElementById("number_field").value;
+		if (isNaN(number)){
+			//TODO add error
+		}
+		else {
+			current = "ktails"+number
+		}
+		return current;
+	}
+	else {
+		current = "normal"
+		return current;
+	}
+}
