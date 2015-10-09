@@ -4,7 +4,7 @@
 // and use data to start viz
 var temp = window.location.href;
 temp = temp.replace("automata&petri_net=", "TraceRequest/");
-var algoritum = temp.substring(temp.indexOf('?')+1);
+var algorithm = temp.substring(temp.indexOf('?')+1);
 load(temp);
 
 function load(url){
@@ -14,11 +14,11 @@ function load(url){
         contentType: 'application/json',
         success: function(data) {
             var json = data;
-            if (algoritum.indexOf('ktails') >= 0){
-                var states = algoritum.substring('ktails'.length+1);
+            if (algorithm.indexOf('ktails') >= 0){
+                var states = algorithm.substring('ktails'.length+1);
                 json = convertToKTailsData(json, parseInt(states));
             }
-            else if (algoritum.indexOf('normal') >= 0){
+            else if (algorithm.indexOf('normal') >= 0){
                 json = JSON.stringify(data);
             }
             viz.automata.init(json, $("div#automata"));
@@ -30,7 +30,3 @@ function load(url){
         }
     });
 }
-
-
-//viz.automata.init(JSON.stringify(testSimpleMonkeyData), $("div#automata"));
-//viz.petri.init(JSON.stringify(testSimpleMonkeyData), $("div#petrinet"));

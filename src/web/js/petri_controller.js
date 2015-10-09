@@ -5,7 +5,7 @@
 
 var temp = window.location.href;
 temp = temp.replace("petri_net=", "TraceRequest/")
-var algoritum = temp.substring(temp.indexOf('?')+1);
+var algorithm = temp.substring(temp.indexOf('?')+1);
 load(temp);
 
 function load(url){
@@ -15,11 +15,11 @@ function load(url){
         contentType: 'application/json',
         success: function(data) {
             var json = data;
-            if (algoritum.indexOf('ktails') >= 0){
-                var states = algoritum.substring('ktails'.length+1);
+            if (algorithm.indexOf('ktails') >= 0){
+                var states = algorithm.substring('ktails'.length+1);
                 json = convertToKTailsData(json, parseInt(states));
             }
-            else if (algoritum.indexOf('normal') >= 0){
+            else if (algorithm.indexOf('normal') >= 0){
                 json = JSON.stringify(data);
             }
             viz.petri.init(json, $("div#petrinet"));
