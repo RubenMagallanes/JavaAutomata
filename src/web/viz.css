@@ -46,7 +46,7 @@ circle {
 
 p#state-info {
     position: fixed;
-    left: 5%;
+    left: 150px;
     top: 5%;
 }
 

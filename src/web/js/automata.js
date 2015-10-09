@@ -9,6 +9,8 @@
         funcsChosen = [], // functions to be shown NOT USED YET
         svg, // the svg element to draw automata on
         boundingDiv;
+	
+	
 
     // force layout
     var force = d3.layout.force()
@@ -74,7 +76,20 @@
                 return "state-" + i;
             })
             .on("mouseenter", selectState)
-            .on("mouseout", deselectState);
+            .on("mouseout", deselectState)		
+			
+			//.attr("border",border);
+
+	
+		//border around svg
+           	var borderPath = svg.append("rect")
+       			.attr("x", 0)
+       			.attr("y", 0)
+       			.attr("height", height)
+       			.attr("width", width)
+       			.style("stroke", "grey")
+       			.style("fill", "none")
+       			.style("stroke-width", 5);
 			
         node.append("circle")
             .attr("class", "state-circle")
@@ -113,7 +128,10 @@
         self.showMethodNames();
 
         force.on("tick", function (){
-            node.attr("transform", transform)
+			node.attr("cx", function(d) { return d.x = Math.max(15, Math.min(width - 15, d.x)); })
+    			.attr("cy", function(d) { return d.y = Math.max(15, Math.min(height - 15, d.y)); });
+			
+            node.attr("transform", transform);
             // curved links
             link.select(".line").attr("d", linkArc);
             // straight lines
