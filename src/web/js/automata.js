@@ -75,6 +75,15 @@
             .on("mouseenter", selectState)
             .on("mouseout", deselectState)		
 			
+		/*   force.charge( TODO make this on click
+            function(d2,i){
+                if(d2!=d1)
+                    return force.charge;//calculate your charge for other nodes
+                else
+                    return force.charge  - 500;//calculate your charge for the clicked node
+            });
+
+        force.start();*/
 			//.attr("border",border);
 
 	
@@ -227,13 +236,19 @@
     self.hideFunctionNames = function (){
         svg.selectAll(".label").remove();
     };
-
+	
+	
     function selectState(d){
         //d3.select(this).select("circle").transition()
             //.attr("r", circleRad*2)
             //.ease("cubic-out")
             //.duration(200);
         currentState = d;
+		
+ 
+	
+		
+		
         console.log(currentState);
         d3.select("#state-info")
             .attr("visibility", "visible")
@@ -248,6 +263,8 @@
                     return "";
             });
     }
+	
+	
 
     // return state info as a string
     function stateInfo(state){
@@ -264,6 +281,7 @@
             //.attr("r", circleRad)
             //.ease("cubic-out")
             //.duration(200);
+		
 
         d3.select("state-info").attr("visibiliy", "hidden");
     }
