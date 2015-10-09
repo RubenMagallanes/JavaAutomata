@@ -1,261 +1,5 @@
 "use strict";
 
-var test = {"states":[
-                      {
-                    	    "id": 0,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "f"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "s"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 1,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "ff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "s"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 2,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "ff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "ss"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 3,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "fff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "ss"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 4,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "fff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "sss"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 5,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "ffff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "sss"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 6,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "ffff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "ssss"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 7,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "fff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "ssss"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 8,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "fffff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "ssss"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 9,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "fffff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "sssss"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 10,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "ffffff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "sssss"
-                    	      }
-                    	    ]
-                    	  },
-                    	  {
-                    	    "id": 11,
-                    	    "fields": [
-                    	      {
-                    	        "name": "string1",
-                    	        "value": "ffffff"
-                    	      },
-                    	      {
-                    	        "name": "string2",
-                    	        "value": "ssssss"
-                    	      }
-                    	    ]
-                    	  }
-                    	],"links":[
-                    	  {
-                    	    "methodName": "Strings.multipleIncrements",
-                    	    "source": 0,
-                    	    "target": 0,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString1",
-                    	    "source": 0,
-                    	    "target": 1,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.multipleIncrements",
-                    	    "source": 0,
-                    	    "target": 6,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString2",
-                    	    "source": 1,
-                    	    "target": 2,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString1",
-                    	    "source": 2,
-                    	    "target": 3,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString2",
-                    	    "source": 3,
-                    	    "target": 4,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString1",
-                    	    "source": 4,
-                    	    "target": 5,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString2",
-                    	    "source": 5,
-                    	    "target": 6,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.subString1",
-                    	    "source": 6,
-                    	    "target": 7,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString1",
-                    	    "source": 6,
-                    	    "target": 8,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.multipleIncrements",
-                    	    "source": 6,
-                    	    "target": 11,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString1",
-                    	    "source": 7,
-                    	    "target": 6,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString2",
-                    	    "source": 8,
-                    	    "target": 9,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString1",
-                    	    "source": 9,
-                    	    "target": 10,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.addString2",
-                    	    "source": 10,
-                    	    "target": 11,
-                    	    "count": 1
-                    	  },
-                    	  {
-                    	    "methodName": "Strings.subString2",
-                    	    "source": 11,
-                    	    "target": 10,
-                    	    "count": 1
-                    	  }
-                    	]};
-
 // new states and links constructed by the algorithm
 var kStates = [];
 var kLinks = [];
@@ -265,7 +9,14 @@ function convertToKTailsData(data, k){
   var id = 0;
   var stateMaps = []; // mapping of index id to states that id encompasses
 
-  for(var i = 0; i < data.states.length - k + 1; i++){
+  var length = data.states.length - k + 1;
+  if(length <= 0){
+     length = 1;
+  }
+
+  console.log(length);
+
+  for(var i = 0; i < length; i++){
 	var kState = {id:0, fields:[]};
 	kState.id = id;
 
@@ -305,8 +56,8 @@ function convertToKTailsData(data, k){
 	  }
   }
 
-  var json = "\"states\": " + JSON.stringify(kStates) + ", \"links\": " + JSON.stringify(kLinks);
-  return JSON.stringify(json);
+  var json = "{\"states\": " + JSON.stringify(kStates) + ", \"links\": " + JSON.stringify(kLinks)+"}";
+  return json;
 }
 
 /**
@@ -349,6 +100,3 @@ function checkDuplicateLink(kLinks, kLink){
 	}
 	return false;
 };
-
-//console.log(test);
-convertToKTailsData(test, 3);

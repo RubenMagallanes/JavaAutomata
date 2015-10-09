@@ -15,12 +15,13 @@ function load(url){
         success: function(data) {
             var json = data;
             if (algoritum.indexOf('ktails') >= 0){
-                var states = algoritum.substring('ktails'.length+1);
+                var states = algoritum.substring('ktails'.length);
                 json = convertToKTailsData(json, parseInt(states));
             }
             else if (algoritum.indexOf('normal') >= 0){
                 json = JSON.stringify(data);
             }
+            console.log(json);
             viz.automata.init(json, $("div#automata"));
             viz.petri.init(json, $("div#petrinet"));
         },
