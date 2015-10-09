@@ -65,14 +65,14 @@
 
 	
 		//border around svg
-           	var borderPath = svg.append("rect")
+           /*	var borderPath = svg.append("rect")
        			.attr("x", 0)
        			.attr("y", 0)
        			.attr("height", height)
        			.attr("width", width)
        			.style("stroke", "grey")
        			.style("fill", "none")
-       			.style("stroke-width", 5);
+       			.style("stroke-width", 5);*/
 			
         node.append("circle")
             .attr("class", "state-circle")

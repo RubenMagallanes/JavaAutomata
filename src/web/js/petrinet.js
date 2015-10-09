@@ -127,9 +127,17 @@
         force.links(arcs);
 
         force.on("tick", function (){
+			place.attr("cx", function(d) { return d.x = Math.max(15, Math.min(width - 15, d.x)); })
+    			.attr("cy", function(d) { return d.y = Math.max(15, Math.min(height - 15, d.y)); });
+			
+			transition.attr("cx", function(d) { return d.x = Math.max(15, Math.min(width - 15, d.x)); })
+    			.attr("cy", function(d) { return d.y = Math.max(15, Math.min(height - 15, d.y)); });
+			
             place.attr("transform", transform)
             transition.attr("transform", transform)
             arc.select(".line").attr("d", arcArc);
+			
+			
         });
 
         // updates a curved arc (arcs the arc)
