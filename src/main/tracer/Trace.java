@@ -83,23 +83,14 @@ public class Trace implements Serializable {
 	public void constructTraceFile(String filename){
 		TraceEntryTree tree = TraceEntryTree.generateTraceEntryTree(lines);
 		String tracePath = "data" + File.separatorChar + "traces" + File.separatorChar;
-		String visualisationPath = "data" + File.separatorChar + "visualisations" + File.separatorChar;
 		FileWriter writer;
 		try {
 			String json = TraceToJSON.generateJSON(tree);
 			writer = new FileWriter(tracePath + filename + ".trace");
 			writer.write(json);
-
-			Automata automata = TraceToAutomata.generateAutomata(json);
-			AutomataToVisualisation visualise = new AutomataToVisualisation(automata);
-			writer = new FileWriter(visualisationPath + filename + ".json");
-			writer.write(visualise.parseAutomata());
-
 			writer.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		} catch (JSONToAutomataException e){
-			e.printStackTrace();
 		}
 	}
 

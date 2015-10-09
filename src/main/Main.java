@@ -15,6 +15,9 @@ public class Main {
 	private static MainPane ref;
 
 	public static void main(String[] args){
+		/* TODO perhaps use singleton pattern or a lockfile to guarantee
+		 * only one instance of this program running
+		 */
 		GUIFrame.main(args);
 	}
 

@@ -21,12 +21,6 @@ public class TraceLauncher {
 	private String commanLineArgumnets;
 
 
-//Code for dynamic incomplete
-//	public void setDynamicHandler(DynamicHandler dh){
-//		this.dynamicHandler = dh;
-//	}
-
-
 	/**
 	 * Sets the command line arguments for the program to be executed
 	 * with
@@ -150,7 +144,10 @@ public class TraceLauncher {
 				try {
 					trace = future.get();
 				} catch (InterruptedException | ExecutionException e) {
+					Main.printToWindow("Dont be trying no multithreading");
+
 					e.printStackTrace();
+					return;
 				}
 		}
 

@@ -46,7 +46,7 @@ circle {
 
 p#state-info {
     position: fixed;
-    left: 5%;
+    left: 150px;
     top: 5%;
 }
 
@@ -62,6 +62,10 @@ div.petri-controls {
     top: 0;
 }
 
+d3-tip {
+	line-height: 1;
+	color: black;
+}
 /*#auto {*/
 	/*width: 100px;*/
 	/*float: right*/

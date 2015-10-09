@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.processing.Filer;
 
 import com.sun.net.httpserver.Filter;
+import com.sun.tools.internal.xjc.model.Constructor;
 
 import main.Main;
 import main.load.JarData;
@@ -51,6 +52,7 @@ public class SelectionPane extends TreeView {
 		clearTreeView();
 		//System.out.println("IS WORKING");
 		JarData data = Main.getJarData();
+
 
 		rootItem = new CheckBoxTreeItem<ShortLongNames>(new ShortLongNames(data.getName(), null));
 		rootItem.setExpanded(true);

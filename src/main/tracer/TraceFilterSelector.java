@@ -16,6 +16,15 @@ public class TraceFilterSelector {
 	private List<String> methodNames;
 	private List<String> classNames;
 
+//    // Class patterns for which we don't want events
+//    private String[] excludes = {"java.*", "javax.*", "sun.*",
+//                                 "com.sun.*"};
+
+    // Class patterns for which we don't want events
+    private String[] excludes = {"java", "javax", "sun",
+                                 "com.sun"};
+
+
 
 	/**
 	 * Constructs the TraceFilterSector
@@ -106,6 +115,16 @@ public class TraceFilterSelector {
 
 			@Override
 			public boolean isMethodTraced(MethodKey m) {
+				for(String e : excludes){
+					if(m.toString().startsWith(e)){
+						return false;
+					}
+				}
+
+				if(m.getName().contains("init")){
+					return true;
+				}
+
 				for(String s : methodNames){
 					if(m.toString().equals(s)){//TODO Update to use getName which is the longer name so we differentiate between methods in other classes
 						return true;
