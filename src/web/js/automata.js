@@ -12,6 +12,8 @@
         text, //text for all links
         //showAllLinkText, //toggle the link text
         boundingDiv;
+	
+	
 
     // force layout
     var force = d3.layout.force()
@@ -58,19 +60,21 @@
                 return "state-" + i;
             })
             .on("mouseenter", selectState)
-            .on("mouseout", deselectState);
-			//.on('mouseover', tip.show) //Added
- 			//.on('mouseout', tip.hide); //Added 
+            .on("mouseout", deselectState)		
+			
+			//.attr("border",border);
 
-		//Set up tooltip
-		//var tip = d3.tip()
-		//	.attr('class', 'd3-tip')
-    	//	.offset([-10, 0])
-    	//	.html(function (d) {
-    	//	return  d.name + "";
-		//	})
-		//svg.call(tip);
-		//######3
+	
+		//border around svg
+           	var borderPath = svg.append("rect")
+       			.attr("x", 0)
+       			.attr("y", 0)
+       			.attr("height", height)
+       			.attr("width", width)
+       			.style("stroke", "grey")
+       			.style("fill", "none")
+       			.style("stroke-width", 5);
+			
         node.append("circle")
             .attr("class", "state-circle")
             .attr("id", function (d, i){
@@ -110,8 +114,13 @@
         self.showMethodNames();
 
         force.on("tick", function (){
-            node.attr("transform", transform)
-            //curved links
+
+			node.attr("cx", function(d) { return d.x = Math.max(15, Math.min(width - 15, d.x)); })
+    			.attr("cy", function(d) { return d.y = Math.max(15, Math.min(height - 15, d.y)); });
+			
+            node.attr("transform", transform);
+            // curved links
+
             link.select(".line").attr("d", linkArc);
             // straight lines
             // var path = link.select(".line");
