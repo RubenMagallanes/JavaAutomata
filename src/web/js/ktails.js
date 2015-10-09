@@ -263,35 +263,36 @@ var kLinks = [];
 function convertToKTailsData(data, k){
   // construct k states from data
   var id = 0;
-  for(var i = 0; i < data.states.length - k + 1; i++){
-	var kState = {id:0, fields:[name: "", value: ""]};
-	for(var j = i; j < i + k; j++){
-	  kState.states[j - i] = data.states[j];
-	}
-	// only add state if it's not a duplicate
-	if(!checkDuplicateKState(kStates, kState)){
-	  kState.id = id;
-	  id++;
-	  kStates[i] = kState;
-	}
-  }
+  var stateMaps = []; // mapping of index id to states that id encompasses
 
-  console.log(kStates);
+  for(var i = 0; i < data.states.length - k + 1; i++){
+	var kState = {id:0, fields:[]};
+	kState.id = id;
+
+	// get the next k states
+	var stateMap = []
+	for(var j = i; j < i + k; j++){
+		stateMap.push(j);
+	}
+
+	stateMaps[id] = stateMap;
+	id++;
+	kStates.push(kState);
+  }
 
   // construct links between new states
   var index = 0;
   for(var i = 0; i < data.links.length; i++){
 	  var kLink = {methodName: "test", source: 0, target: 0};
 
-	  for(var j = 0; j < kStates.length; j++){
-		  var states = kStates[j].states;
-
+	  for(var j = 0; j < stateMaps.length; j++){
+		  var states = stateMaps[j];
 		  for(var k = 0; k < states.length; k++){
-			  if(data.links[i].source === states[k].id){
+			  if(data.links[i].source === states[k]){
 				  kLink.source = kStates[j].id;
 			  }
 
-			  if(data.links[i].target === states[k].id){
+			  if(data.links[i].target === states[k]){
 				  kLink.target = kStates[j].id;
 			  }
 		  }
@@ -304,30 +305,42 @@ function convertToKTailsData(data, k){
 	  }
   }
 
-  console.log(kLinks);
-
-  //var json = JSON.stringify(kStates) + ", " + JSON.stringify(kLinks);
-  var json = "{\"states\": [], \"links\": []}";
-  console.log(json);
-  return json;
+  var json = "\"states\": " + JSON.stringify(kStates) + ", \"links\": " + JSON.stringify(kLinks);
+  return JSON.stringify(json);
 }
 
+/**
+ * Determines whether the specified state has already appeared in the
+ * specified list of states.
+ *
+ * @param kStates
+ * 		- list of states
+ * @param kState
+ * 		- current state
+ * @returns
+ * 		- true if duplicate, otherwise false
+ */
 function checkDuplicateKState(kStates, kState){
 	for(var i = 0; i < kStates.length; i++){
-		var match = true;
-		for(var j = 0; j < kState.states.length; j++){
-			if(kState.states[j] != kStates[i].states[j]){
-				match = false;
-				break;
-			}
-		}
-		if(match){
+		if(kStates[i].fields.name === kState.fields.name &&
+				kStates[i].fields.value === kState.fields.value){
 			return true;
 		}
 	}
 	return false;
 };
 
+/**
+ * Determines whether the specified link has already appeared in the
+ * specified list of links.
+ *
+ * @param kLinks
+ * 		- list of links
+ * @param kLink
+ * 		- link
+ * @returns
+ * 		- true if duplicate, otherwise false
+ */
 function checkDuplicateLink(kLinks, kLink){
 	for(var i = 0; i < kLinks.length; i++){
 		if(kLinks[i].source === kLink.source && kLinks[i].target === kLink.target){
