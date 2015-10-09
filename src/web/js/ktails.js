@@ -264,7 +264,7 @@ function convertToKTailsData(data, k){
   // construct k states from data
   var id = 0;
   for(var i = 0; i < data.states.length - k + 1; i++){
-	var kState = {id:0, states:[]};
+	var kState = {id:0, fields:[name: "", value: ""]};
 	for(var j = i; j < i + k; j++){
 	  kState.states[j - i] = data.states[j];
 	}
@@ -305,6 +305,11 @@ function convertToKTailsData(data, k){
   }
 
   console.log(kLinks);
+
+  //var json = JSON.stringify(kStates) + ", " + JSON.stringify(kLinks);
+  var json = "{\"states\": [], \"links\": []}";
+  console.log(json);
+  return json;
 }
 
 function checkDuplicateKState(kStates, kState){

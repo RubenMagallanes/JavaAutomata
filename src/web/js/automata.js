@@ -8,6 +8,8 @@
         varsChosen = [], // variables to be shown NOT USED YET
         funcsChosen = [], // functions to be shown NOT USED YET
         svg, // the svg element to draw automata on
+        currentState, // state hovering over
+        text, //text for all links
         boundingDiv;
 	
 	
@@ -16,15 +18,12 @@
     var force = d3.layout.force()
         .charge(-8000)
         //.linkDistance(150)
-        .gravity(0.1)
+        .gravity(1)
         .friction(0.8)
         .linkStrength(0.5);
 
     var colour = d3.scale.category20(),
         circleRad = 10;
-
-
-
 
     // for testing
     self.getLinks = function() { return links; }
@@ -37,6 +36,7 @@
         states = data.states;
         links = data.links;
         boundingDiv = _boundingDiv;
+        currentState = data.states[0];
 
         // creates GUI elements like sliders to change layout properties
         makeGUI(boundingDiv, force);
@@ -50,23 +50,6 @@
     	force.nodes(states);
         force.links(links);
         force.size([width, height]);
-
-        // //title
-        // var title = svg.append("text")
-        //    .attr("class", "title")
-        //    .attr("dy", ".100em")
-        //    .text("Automata")
-        //    .attr("x",10)
-        //    .attr("y",10);
-
-        // var tracesText = svg.append("text")
-        //    .attr("class", "title")
-        //    .attr("dy", ".100em")
-        //    .attr("x",1200)
-        //    .attr("y",10)
-        //    .attr("width",300)
-        //    .attr("height",400)
-        //    .html(getTraceList());
 
         var node = svg.selectAll(".state")
             .data(states)
@@ -111,6 +94,8 @@
             .attr("markerWidth", 6)
             .attr("markerHeight", 6)
             .attr("orient", "auto")
+            .attr("stroke","red")
+            .attr("fill","red")
              .append("path")
             .attr("d", "M0,-5L10,0L0,5");
 
@@ -128,17 +113,31 @@
         self.showMethodNames();
 
         force.on("tick", function (){
+
 			node.attr("cx", function(d) { return d.x = Math.max(15, Math.min(width - 15, d.x)); })
     			.attr("cy", function(d) { return d.y = Math.max(15, Math.min(height - 15, d.y)); });
 			
             node.attr("transform", transform);
             // curved links
+
             link.select(".line").attr("d", linkArc);
             // straight lines
-            //var path = link.select(".line");
-            //path.attr("d", function (d){
-                //return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
-            //})
+            // var path = link.select(".line");
+            // path.attr("d", function (d){
+            //     var dx = d.target.x - d.source.x,
+            //         dy = d.target.y - d.source.y,
+            //         dr = Math.sqrt(dx * dx + dy * dy);
+            //      if ( dx ===0 && dy===0 ){
+            //         var xRotation = 0;
+
+            //         // Make drx and dry different to get an ellipse instead of a circle.
+            //         var drx = 30;
+            //         var dry = 20;
+
+            //         return "M" + d.source.x + "," + d.source.y + "A" + drx + "," + dry + " " + xRotation + "," + 1 + "," + 0 + " " + (d.target.x + 1) + "," + (d.target.y + 1);
+            //     }
+            //     return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
+            // })
         });
 
         // updates a curved link
@@ -195,7 +194,7 @@
     };
 
     self.showMethodNames = function (){
-        svg.selectAll(".link")
+       text= svg.selectAll(".link")
              .append("text")
             .style("text-anchor", "middle")
              .attr("dy", -5)
@@ -203,7 +202,12 @@
             .attr("xlink:href", function(d, i) { return "#link-" + d.source + "-" + d.target; })
             .attr("class", "label")
             .attr("startOffset", "50%")
-            .text(function (d) { return d.methodName; });
+            .text(function (d) { 
+                if(currentState.id === d.source || currentState.id === d.target)
+                    return d.methodName; 
+                else 
+                    return "";
+            });
     };
 
     self.hideFunctionNames = function (){
@@ -215,27 +219,21 @@
             //.attr("r", circleRad*2)
             //.ease("cubic-out")
             //.duration(200);
-
+        currentState = d;
+        console.log(currentState);
         d3.select("#state-info")
             .attr("visibility", "visible")
             .html(function() { return stateInfo(d); });
+
+        //changes the text on hover
+       text.text(function (d) { 
+                console.log(d.source);
+                if(currentState.id === d.source.id || currentState.id === d.target.id)
+                    return d.methodName; 
+                else 
+                    return "";
+            });
     }
-	
-	
-
-    // function getTraceList(){
-    //     //call handler
-    //     //list
-    //     var list =["testApplication","BattleShips","TestApplication2"];
-
-    //     var output = "Trace List<br>";
-    //     for(var i=0; i<list.length; i++){
-    //         output += list[i];
-    //         output += "<br>";
-    //     }
-    //     console.log(output);
-    //     return output;
-    // }
 
     // return state info as a string
     function stateInfo(state){
