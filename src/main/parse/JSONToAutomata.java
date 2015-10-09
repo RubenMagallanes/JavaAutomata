@@ -17,9 +17,12 @@ import org.json.JSONObject;
  * Static class which is used to convert either a {@code String} of JSON data
  * or a {@code File} containing JSON data into an {@code Automata}.
  *
+ * NB: This class is no longer in use. Instead of this class use {@code TraceToAutomata}.
+ *
  * @author David Sheridan
  *
  */
+@Deprecated
 public class JSONToAutomata {
 
 	/**
@@ -54,7 +57,7 @@ public class JSONToAutomata {
 	 * 		thrown if format of json string is invalid
 	 */
 	public static Automata generateAutomata(String json) throws JSONToAutomataException{
-		JSONArray data = new JSONArray(json);
+		JSONArray data = new JSONArray("[" + json + "]");
 
 		Map<Integer, AutomataState> states = new HashMap<Integer, AutomataState>();
 		Set<AutomataLink> links = new HashSet<AutomataLink>();
@@ -172,17 +175,5 @@ public class JSONToAutomata {
 		}
 		scan.close();
 		return json;
-	}
-
-	public static void main(String[] args){
-		File file = new File("data/traces/TestProgram2Trace.json");
-		try {
-			Automata a = generateAutomata(file);
-			AutomataToVisualisation json = new AutomataToVisualisation(a);
-			System.out.println(json.parseAutomata());
-		} catch (JSONToAutomataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
