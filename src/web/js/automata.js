@@ -75,18 +75,7 @@
             })
             .on("mouseenter", selectState)
             .on("mouseout", deselectState);
-			//.on('mouseover', tip.show) //Added
- 			//.on('mouseout', tip.hide); //Added 
-
-		//Set up tooltip
-		//var tip = d3.tip()
-		//	.attr('class', 'd3-tip')
-    	//	.offset([-10, 0])
-    	//	.html(function (d) {
-    	//	return  d.name + "";
-		//	})
-		//svg.call(tip);
-		//######3
+			
         node.append("circle")
             .attr("class", "state-circle")
             .attr("id", function (d, i){
