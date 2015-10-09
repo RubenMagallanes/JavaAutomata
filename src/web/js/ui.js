@@ -115,13 +115,13 @@ d3.select("#ktails")
 function getAlgoritum(){
 	var current = d3.select("#current_algortum").text();
 	console.log(current);
-	if (current.indexOf("KTails")){
+	if (current.indexOf("KTails") >= 0){
 		var number = document.getElementById("number_field").value;
 		if (isNaN(number)){
 			//TODO add error
 		}
 		else {
-			current += "ktails"+number
+			current = "ktails"+number
 		}
 		return current;
 	}
