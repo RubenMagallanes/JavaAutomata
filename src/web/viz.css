@@ -46,8 +46,8 @@ circle {
 
 p#state-info {
     position: fixed;
-    left: 5%;
-    top: 5%;
+    left: 10%;
+    top: 2%;
 }
 
 #menu {
