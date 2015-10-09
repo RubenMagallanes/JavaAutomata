@@ -19,7 +19,7 @@
         .charge(-8000)
         //.linkDistance(150)
         .gravity(1)
-        .friction(0.8)
+        .friction(0.5)
         .linkStrength(0.5);
 
     var colour = d3.scale.category20(),
@@ -40,9 +40,23 @@
 
         // creates GUI elements like sliders to change layout properties
         makeGUI(boundingDiv, force);
-
-        var width = boundingDiv.width();
-        var height = boundingDiv.height();
+		//size bounding div 
+		
+		/*top:220px;
+	left: 0;
+	position: absolute;
+	width: 100%;*/
+		
+		//create svg & size
+       	var width = boundingDiv.width();
+		var height = screen.availHeight -300;
+	
+		
+		//var rect = boundingDiv.getBoundingClientRect();
+		//console.log(rect.top, rect.right, rect.bottom, rect.left);
+		//conpute height frmo bounding div x
+       // var height = boundingDiv.height();
+		
         svg = d3.select("#" + boundingDiv.attr("id")).append("svg")
             .attr("width", width)
             .attr("height", height);
@@ -64,8 +78,8 @@
 			//.attr("border",border);
 
 	
-		//border around svg
-           /*	var borderPath = svg.append("rect")
+		//border around svg mainly for testing
+           	/*var borderPath = svg.append("rect")
        			.attr("x", 0)
        			.attr("y", 0)
        			.attr("height", height)

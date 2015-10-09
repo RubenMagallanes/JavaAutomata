@@ -39,7 +39,8 @@
         makeGUI(boundingDiv, force);
 
         var width = boundingDiv.width();
-        var height = boundingDiv.height();
+        //var height = boundingDiv.height();
+		var height = screen.availHeight -300;
 
         svg = d3.select("#" + boundingDiv.attr("id")).append("svg")
             .attr("width", width)
