@@ -211,13 +211,26 @@
         data.links.forEach(function (method){
             var before = data.states[method.source];
             var after = data.states[method.target];
-            var places = placesAffected(before, after);
+            var placesTrans;
+            if (before === after){
+                var statePlaces = getStatePlaces(method.source, getPlaceInfoFromGroups(groups));
+                //console.log("statePlaces", statePlaces);
+                placesTrans = { before: statePlaces, after: statePlaces };
+            }
+            else {
+                placesTrans = placesAffected(before, after);
+            }
+
+            //console.log("placesTrans", placesTrans);
+
             transitions.push({
                 name: method.methodName,
-                fromPlaces: places.before,
-                toPlaces: places.after
+                fromPlaces: placesTrans.before,
+                toPlaces: placesTrans.after
             });
         });
+
+        console.log("transitions", transitions);
 
         // put all places and transitions into shared nodes collection (for
         // force layout)
@@ -386,6 +399,26 @@
         var place = groups[placeInfo.groupIndex].places[placeInfo.placeIndex];
         var index = array.indexOf(place);
         return index;
+    }
+
+    function getStatePlaces(stateI, places){
+        return places.filter(function (place){
+            console.log("stateI", stateI, "place.state", place);
+            return place.state === stateI;
+        }).map(function (place){
+            return {
+                groupIndex: place.group,
+                placeIndex: groups[place.group].places.indexOf(place)
+            }
+        });
+    }
+
+    function getPlaceInfoFromGroups(groups){
+        var allPlaces = [];
+        groups.forEach(function (group, groupI){
+            allPlaces = allPlaces.concat(group.places);
+        });
+        return allPlaces;
     }
 
 })(viz.petri = viz.petri || {})

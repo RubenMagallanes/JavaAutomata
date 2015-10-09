@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<script src="lib/d3.js"></script>
 	<script src="lib/jquery-1.11.3.js"></script>
+	<script src="lib\bootstrap/js/bootstrap.min.js"></script>
 	<!-- local css -->
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="table.css">
@@ -22,11 +23,32 @@
 		<div align="center" id="files">
 		</div>
 		<div align="center">
+			<!-- 
+				Boot strap  is used for the button
+			 -->
 			<div class="btn-group" data-toggle="buttons">
   				<button type="button" class="btn btn-primary" id="automata">Automata</button>
   				<button type="button" class="btn btn-primary" id="petri_net">Petri Net</button>
   				<button type="button" class="btn btn-primary" id="both">Both</button>
 			</div>
+		</div>
+		<div>
+			<!-- 
+				This Is where the algoitum selection process happens you need 
+				Bootstrap for the dropdown to work.
+			 -->
+			<div class="dropdown">
+			  	<button class="btn btn-default dropdown-toggle" type="button" id="algortum_selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    		Algoritum
+		    		<span class="caret"></span>
+		  	  	</button>
+		 		 <ul class="dropdown-menu" aria-labelledby="algortum_selector" >
+		    		<li><a id="normal">General</a></li>
+		    		<li><a id="ktails">KTails</a></li>
+		  		</ul>
+		  		<span type="text" class="label label-primary" id="current_algortum">General</span>
+		  		<input type="text" name="fname" id="number_field" value="1" style="">
+			</div>	
 		</div>
 	</div>
 	

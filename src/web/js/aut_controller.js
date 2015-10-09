@@ -1,7 +1,8 @@
 "use strict";
 
 var temp = window.location.href;
-temp = temp.replace("automata=", "TraceRequest/")
+temp = temp.replace("automata=", "TraceRequest/");
+var algoritum = temp.substring(temp.indexOf('?')+1);
 load(temp);
 
 function load(url){
@@ -11,7 +12,15 @@ function load(url){
       url: url,
       contentType: 'application/json',
       success: function(data) {
-          viz.automata.init(JSON.stringify(data), $("div#automata"));
+            var json = data;
+            if (algoritum.indexOf('ktails') >= 0){
+                var states = algoritum.substring('ktails'.length);
+                json = convertToKTailsData(json, parseInt(states));
+            }
+            else if (algoritum.indexOf('normal') >= 0){
+                json = JSON.stringify(data);
+            }
+          viz.automata.init(json, $("div#automata"));
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         console.log("Status: " + textStatus);

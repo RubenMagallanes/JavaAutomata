@@ -74,6 +74,10 @@ public class GUIFrame extends Application{
 	        // Add the ResourceHandler to the server.
 	        HandlerList list = new HandlerList();
 	        GzipHandler gzip = new GzipHandler();
+
+	        // This must be in order with gzip last
+	        // Handlers are called in order and if a above one handles a response
+	        // then the next in list will not try.
 	        list.addHandler(new JsonHandler());
 	        list.addHandler(new ViewHandler());
 	        list.addHandler(new TraceListRequestHandler());

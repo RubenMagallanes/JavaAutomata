@@ -5,6 +5,7 @@
 
 var temp = window.location.href;
 temp = temp.replace("petri_net=", "TraceRequest/")
+var algoritum = temp.substring(temp.indexOf('?')+1);
 load(temp);
 
 function load(url){
@@ -13,7 +14,16 @@ function load(url){
         url: url,
         contentType: 'application/json',
         success: function(data) {
-            viz.petri.init(JSON.stringify(data), $("div#petrinet"));
+            var json = data;
+            if (algoritum.indexOf('ktails') >= 0){
+                var states = algoritum.substring('ktails'.length);
+                console.log(states);
+                json = convertToKTailsData(json, parseInt(states));
+            }
+            else if (algoritum.indexOf('normal') >= 0){
+                json = JSON.stringify(data);
+            }
+            viz.petri.init(json, $("div#petrinet"));
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("Status: " + textStatus);

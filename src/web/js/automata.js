@@ -10,6 +10,7 @@
         svg, // the svg element to draw automata on
         currentState, // state hovering over
         text, //text for all links
+        //showAllLinkText, //toggle the link text
         boundingDiv;
 	
 	
@@ -226,10 +227,17 @@
             .attr("class", "label")
             .attr("startOffset", "50%")
             .text(function (d) { 
-                if(currentState.id === d.source || currentState.id === d.target)
-                    return d.methodName; 
-                else 
-                    return "";
+                if(showAllLinkText){
+                    return d.methodName;                    
+                }
+                else{
+                    if(currentState.id === d.source || currentState.id === d.target)
+                        return d.methodName; 
+                    else 
+                        return "";
+                }
+                    
+
             });
     };
 
@@ -257,10 +265,15 @@
         //changes the text on hover
        text.text(function (d) { 
                 console.log(d.source);
-                if(currentState.id === d.source.id || currentState.id === d.target.id)
-                    return d.methodName; 
-                else 
-                    return "";
+                if(showAllLinkText){
+                    return d.methodName;                    
+                }
+                else{
+                    if(currentState.id === d.source.id || currentState.id === d.target.id)
+                        return d.methodName; 
+                    else 
+                        return "";
+                }
             });
     }
 	
@@ -284,6 +297,24 @@
 		
 
         d3.select("state-info").attr("visibiliy", "hidden");
-    }
+    }    
+    // d3.select("button")
+    //     .on("click", clicked);
+    // function clicked() {
+    //     showAllLinkText = !showAllLinkText;
+    //     text.text(function (d) { 
+    //         console.log(d.source);
+    //         if(showAllLinkText){
+    //             return d.methodName;                    
+    //         }
+    //         else{
+    //             if(currentState.id === d.source.id || currentState.id === d.target.id)
+    //                 return d.methodName; 
+    //             else 
+    //                 return "";
+    //         }
+    //     });
+        
+    // }
 
 })(viz.automata = viz.automata || {});
