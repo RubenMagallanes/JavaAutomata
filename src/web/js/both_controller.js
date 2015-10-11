@@ -21,6 +21,7 @@ function load(url){
             else if (algorithm.indexOf('normal') >= 0){
                 json = JSON.stringify(data);
             }
+            console.log(json);
             viz.automata.init(json, $("div#automata"));
             viz.petri.init(json, $("div#petrinet"));
         },

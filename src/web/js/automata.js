@@ -10,6 +10,7 @@
         svg, // the svg element to draw automata on
         currentState, // state hovering over
         text, //text for all links
+        //showAllLinkText, //toggle the link text
         boundingDiv;
 	
 	
@@ -19,7 +20,7 @@
         .charge(-8000)
         //.linkDistance(150)
         .gravity(1)
-        .friction(0.8)
+        .friction(0.5)
         .linkStrength(0.5);
 
     var colour = d3.scale.category20(),
@@ -40,9 +41,23 @@
 
         // creates GUI elements like sliders to change layout properties
         makeGUI(boundingDiv, force);
-
-        var width = boundingDiv.width();
-        var height = boundingDiv.height();
+		//size bounding div 
+		
+		/*top:220px;
+	left: 0;
+	position: absolute;
+	width: 100%;*/
+		
+		//create svg & size
+       	var width = boundingDiv.width();
+		var height = screen.availHeight -300;
+	
+		
+		//var rect = boundingDiv.getBoundingClientRect();
+		//console.log(rect.top, rect.right, rect.bottom, rect.left);
+		//conpute height frmo bounding div x
+       // var height = boundingDiv.height();
+		
         svg = d3.select("#" + boundingDiv.attr("id")).append("svg")
             .attr("width", width)
             .attr("height", height);
@@ -61,18 +76,27 @@
             .on("mouseenter", selectState)
             .on("mouseout", deselectState)		
 			
+		/*   force.charge( TODO make this on click
+            function(d2,i){
+                if(d2!=d1)
+                    return force.charge;//calculate your charge for other nodes
+                else
+                    return force.charge  - 500;//calculate your charge for the clicked node
+            });
+
+        force.start();*/
 			//.attr("border",border);
 
 	
-		//border around svg
-           	var borderPath = svg.append("rect")
+		//border around svg mainly for testing
+           	/*var borderPath = svg.append("rect")
        			.attr("x", 0)
        			.attr("y", 0)
        			.attr("height", height)
        			.attr("width", width)
        			.style("stroke", "grey")
        			.style("fill", "none")
-       			.style("stroke-width", 5);
+       			.style("stroke-width", 5);*/
 			
         node.append("circle")
             .attr("class", "state-circle")
@@ -203,23 +227,36 @@
             .attr("class", "label")
             .attr("startOffset", "50%")
             .text(function (d) { 
-                if(currentState.id === d.source || currentState.id === d.target)
-                    return d.methodName; 
-                else 
-                    return "";
+                if(showAllLinkText){
+                    return d.methodName;                    
+                }
+                else{
+                    if(currentState.id === d.source || currentState.id === d.target)
+                        return d.methodName; 
+                    else 
+                        return "";
+                }
+                    
+
             });
     };
 
     self.hideFunctionNames = function (){
         svg.selectAll(".label").remove();
     };
-
+	
+	
     function selectState(d){
         //d3.select(this).select("circle").transition()
             //.attr("r", circleRad*2)
             //.ease("cubic-out")
             //.duration(200);
         currentState = d;
+		
+ 
+	
+		
+		
         console.log(currentState);
         d3.select("#state-info")
             .attr("visibility", "visible")
@@ -228,12 +265,19 @@
         //changes the text on hover
        text.text(function (d) { 
                 console.log(d.source);
-                if(currentState.id === d.source.id || currentState.id === d.target.id)
-                    return d.methodName; 
-                else 
-                    return "";
+                if(showAllLinkText){
+                    return d.methodName;                    
+                }
+                else{
+                    if(currentState.id === d.source.id || currentState.id === d.target.id)
+                        return d.methodName; 
+                    else 
+                        return "";
+                }
             });
     }
+	
+	
 
     // return state info as a string
     function stateInfo(state){
@@ -250,8 +294,27 @@
             //.attr("r", circleRad)
             //.ease("cubic-out")
             //.duration(200);
+		
 
         d3.select("state-info").attr("visibiliy", "hidden");
-    }
+    }    
+    // d3.select("button")
+    //     .on("click", clicked);
+    // function clicked() {
+    //     showAllLinkText = !showAllLinkText;
+    //     text.text(function (d) { 
+    //         console.log(d.source);
+    //         if(showAllLinkText){
+    //             return d.methodName;                    
+    //         }
+    //         else{
+    //             if(currentState.id === d.source.id || currentState.id === d.target.id)
+    //                 return d.methodName; 
+    //             else 
+    //                 return "";
+    //         }
+    //     });
+        
+    // }
 
 })(viz.automata = viz.automata || {});

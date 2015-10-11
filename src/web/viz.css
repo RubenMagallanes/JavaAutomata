@@ -7,11 +7,12 @@ text {
 }
 
 div.fullscreen {
-    position:fixed;
+    /*position:fixed;
     top:0;
     left:0;
     width:100%;
-    height:100%;
+    height:100%;*/
+		
 }
 
 div.left {
@@ -46,8 +47,8 @@ circle {
 
 p#state-info {
     position: fixed;
-    left: 150px;
-    top: 5%;
+    left: 10%;
+    top: 2%;
 }
 
 #menu {
