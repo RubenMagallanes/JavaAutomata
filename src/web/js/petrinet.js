@@ -166,6 +166,7 @@
     // Important function: most other smaller functions are children of this
     // converts (states, transitions) to (groups(places), transitions)
     function convertToPetriData(data){
+        //console.log("states", data);
         var fields = data.states[0].fields;
 
         // initialise groups, one per field
@@ -221,7 +222,6 @@
             });
         });
 
-        console.log("transitions", transitions);
 
         // put all places and transitions into shared nodes collection (for
         // force layout)
@@ -250,6 +250,11 @@
                 });
             });
         });
+
+        console.log("groups", groups);
+        console.log("transitions", transitions);
+        console.log("nodes", nodes);
+        console.log("arcs", arcs);
     }
 
     function placesAffected(stateBefore, stateAfter){
@@ -394,7 +399,6 @@
 
     function getStatePlaces(stateI, places){
         return places.filter(function (place){
-            console.log("stateI", stateI, "place.state", place);
             return place.state === stateI;
         }).map(function (place){
             return {
