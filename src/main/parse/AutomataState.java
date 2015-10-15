@@ -20,15 +20,22 @@ public class AutomataState implements Comparable<AutomataState>{
 	 * list of {@code AutomataField}s and a unique integer ID.
 	 *
 	 * @param fields
-	 * 		list of fields
+	 * 		- list of fields
 	 * @param id
-	 * 		unique integer id
+	 * 		- unique integer id
 	 */
 	public AutomataState(List<AutomataField> fields,int id){
 		this.fields = fields;
 		this.id = id;
 	}
 
+	/**
+	 * Constructs an instance of an {@code AutomataState} from the specified
+	 * list of {@code AutomataFields}. The unique integer ID is set to zero.
+	 *
+	 * @param fields
+	 * 		- list of fields
+	 */
 	public AutomataState(List<AutomataField> fields){
 		this.fields = fields;
 		id = 0;
@@ -38,7 +45,7 @@ public class AutomataState implements Comparable<AutomataState>{
 	 * Returns the unique integer ID for this {@code AutomataState}.
 	 *
 	 * @return
-	 * 		unique integer id
+	 * 		- unique integer id
 	 */
 	public int getId(){
 		return id;
@@ -49,13 +56,15 @@ public class AutomataState implements Comparable<AutomataState>{
 	 * {@code AutomataState}.
 	 *
 	 * @return
-	 * 		list of fields
+	 * 		- list of fields
 	 */
 	public List<AutomataField> getFields(){
 		return fields;
 	}
 
-	@Override
+	/**
+	 * Generates a hash code for this {@code AutomataState}.
+	 */
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -63,7 +72,10 @@ public class AutomataState implements Comparable<AutomataState>{
 		return result;
 	}
 
-	@Override
+	/**
+	 * Returns true if this {@code AutomataState} is equivalent to the
+	 * specified {@code Object}, otherwise returns false.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -80,10 +92,19 @@ public class AutomataState implements Comparable<AutomataState>{
 		return true;
 	}
 
+	/**
+	 * Compares this {@code AutomataState} with the specified {@code AutomataState}
+	 * for order. Returns a negative integer if this {@code AutomataState} should be ordered first,
+	 * a positive integer if the specified {@code AutomataState} should be ordered first or 0 if both
+	 * {@code AutomataState} are equivalent.
+	 */
 	public int compareTo(AutomataState o){
 		return id - o.getId();
 	}
 
+	/**
+	 * Returns a {@code String} representation of this {@code AutomataState}.
+	 */
 	public String toString(){
 		String string = "State(ID = " + id + "): {";
 		for(int i = 0; i < fields.size(); i++){

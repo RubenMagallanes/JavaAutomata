@@ -123,6 +123,12 @@ public class AutomataLink implements Comparable<AutomataLink>{
 		return true;
 	}
 
+	/**
+	 * Compares this {@code AutomataLink} with the specified {@code AutomataLink}
+	 * for order. Returns -1 if this {@code AutomataLink} should be ordered first,
+	 * 1 if the specified {@code AutomataLink} should be ordered first or 0 if both
+	 * {@code AutomataLinks} are equivalent.
+	 */
 	public int compareTo(AutomataLink o) {
 		if(source < o.getSource()){
 			return -1;
@@ -141,6 +147,9 @@ public class AutomataLink implements Comparable<AutomataLink>{
 		return 0;
 	}
 
+	/**
+	 * Returns a {@code String} representation of this {@code AutomataLink}.
+	 */
 	public String toString(){
 		return "Link: { Method Name = " + methodName + ", sourceID = " + source + ", targetID = " + target + "}";
 	}
