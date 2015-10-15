@@ -190,8 +190,8 @@ public class MainPane extends GridPane {
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 
 	}
-	
-	
+
+
 
 	/**
 	 * set up run trace button
@@ -207,6 +207,7 @@ public class MainPane extends GridPane {
 		btn.setText("Run Trace");
 		btn.setOnAction((ActionEvent e)-> {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
+				tracer.setFilter(Main.getFilter());
 				String args = argsBox.getText();
 				tracer.setCommanLineArguments(args);
 				Trace tr = tracer.run();
@@ -316,7 +317,7 @@ public class MainPane extends GridPane {
 		fc.setTitle("choose a .trace file");
 		fc.setInitialDirectory(
 	            new File(System.getProperty("user.home"))
-	        ); 
+	        );
 		fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Trace files", "*.trace"),
                 new FileChooser.ExtensionFilter("json trace files", "*.json")
@@ -329,13 +330,13 @@ public class MainPane extends GridPane {
 		fc.setTitle("choose a .jar file");
 		fc.setInitialDirectory(
 	            new File(System.getProperty("user.home"))
-	        ); 
+	        );
 		fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JAR files", "*.jar")
             );
 		File file = fc.showOpenDialog(null);//TODO idk if i can say null but ayyyyy
 		return file;
 	}
-	
+
 
 }
