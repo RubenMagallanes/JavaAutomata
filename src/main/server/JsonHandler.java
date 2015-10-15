@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.parse.Automata;
 import main.parse.AutomataToVisualisation;
-import main.parse.JSONToAutomataException;
+import main.parse.TraceToAutomataException;
 import main.parse.TraceToAutomata;
 
 import org.eclipse.jetty.server.Request;
@@ -39,7 +39,7 @@ public class JsonHandler extends AbstractHandler {
 				Automata automata = TraceToAutomata.generateAutomata(file);
 				AutomataToVisualisation visulaization = new AutomataToVisualisation(automata);
 				out.print(visulaization.parseAutomata());
-			} catch (JSONToAutomataException e) {
+			} catch (TraceToAutomataException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
