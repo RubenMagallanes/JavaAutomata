@@ -2,16 +2,11 @@ package main.tracer.tests;
 
 import static org.junit.Assert.*;
 
-import java.lang.reflect.Method;
-
 import org.junit.Test;
 
 import main.tracer.MethodKey;
 
 public class MethodKeyTests {
-
-	private String className = "ClassName";
-	private String methodName = "MethodName";
 
 	@Test
 	public void construtorTestOne(){

@@ -1,10 +1,5 @@
 package main.ui;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-
 import main.server.JsonHandler;
 import main.server.TraceListRequestHandler;
 import main.server.ViewHandler;
@@ -19,18 +14,12 @@ import org.eclipse.jetty.server.handler.gzip.GzipHandler;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class GUIFrame extends Application{
 
-
-	private static Stage primaryStage;
 	final static int width = 1000;
 	final static int diffrence = 100;
 	final static int consoleSize = 100;
@@ -39,7 +28,6 @@ public class GUIFrame extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		GUIFrame.primaryStage = primaryStage;
 		primaryStage.setTitle("Automata");
 		MenuPane menu = new MenuPane();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
