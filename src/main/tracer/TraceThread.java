@@ -54,7 +54,7 @@ public class TraceThread extends Thread {
 	 *
 	 * @param consumer
 	 * */
-	public TraceThread(VirtualMachine vm, TraceFilter filter,RealtimeTraceConsumer consumer, DynamicHandler dh) {
+	public TraceThread(VirtualMachine vm, TraceFilter filter,RealtimeTraceConsumer consumer) {
 		this.vm = vm;
 		this.filter = filter;
 		this.consumer = consumer;
