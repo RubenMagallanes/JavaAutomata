@@ -1,12 +1,12 @@
 package main.ui;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
 
 
 import javafx.event.ActionEvent;
@@ -20,11 +20,10 @@ import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
 import main.parse.Automata;
-import main.parse.JSONToAutomata;
+import main.parse.TraceToAutomata;
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
-
 import main.util.DesktopApi;
 
 /**
@@ -170,7 +169,7 @@ public class MainPane extends GridPane {
 			if (trace != null)
 			{
 				try {
-					auto = JSONToAutomata.generateAutomata(trace);
+					auto = TraceToAutomata.generateAutomata(trace);
 					visualise(auto);
 				} catch (Exception e1) {
 					printToConsole("error ");

@@ -9,7 +9,7 @@ import java.util.List;
 
 import main.parse.Automata;
 import main.parse.AutomataToVisualisation;
-import main.parse.JSONToAutomataException;
+import main.parse.TraceToAutomataException;
 import main.parse.TraceToAutomata;
 import main.parse.TraceToJSON;
 import main.tracer.tree.TraceEntryTree;
