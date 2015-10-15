@@ -4,29 +4,60 @@
 var kStates = [];
 var kLinks = [];
 
+/**
+ * Converts the specified data into a k-tails representation of
+ * an algorithm. This involves grouping individual states into groups
+ * of k states.
+ *
+ * @param data
+ * 		- automata data to convert
+ * @param k
+ * 		- the number of states to group together
+ *
+ * @returns {String}
+ */
 function convertToKTailsData(data, k){
   // construct k states from data
   var id = 0;
   var stateMaps = []; // mapping of index id to states that id encompasses
-
+  console.log("number of states: " + data.states.length);
+  // ensure that length is at least 1
   var length = data.states.length - k + 1;
   if(length <= 0){
      length = 1;
   }
-
-  console.log(length);
 
   for(var i = 0; i < length; i++){
 	var kState = {id:0, fields:[]};
 	kState.id = id;
 
 	// get the next k states
-	var stateMap = []
+	var stateMap = [];
 	for(var j = i; j < i + k; j++){
 		stateMap.push(j);
 	}
 
+
+	// initialise fields array
+	var fields = [];
+	for(var q = 0; q < data.states[i].fields.length; q++){
+		var field = {name: "", value: ""};
+		field.name = data.states[i].fields[q].name;
+		fields.push(field);
+	}
+
+	// populate fields array
+	for(var p = 0; p < data.states[i].fields.length; p++){
+		for(var q = 0; q < k; q++){
+			fields[p].value += data.states[i + q].fields[p].value;
+			if(q < k - 1){
+				fields[p].value += "-";
+			}
+		}
+	}
+
 	stateMaps[id] = stateMap;
+	kState.fields = fields;
 	id++;
 	kStates.push(kState);
   }
@@ -51,6 +82,7 @@ function convertToKTailsData(data, k){
 
 	  // check if the link is a duplicate
 	  if(!checkDuplicateLink(kLinks, kLink)){
+		  kLink.methodName = kLink.source + " to " + kLink.target;
 		  kLinks[index] = kLink;
 		  index++;
 	  }
