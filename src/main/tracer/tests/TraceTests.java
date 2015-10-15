@@ -12,7 +12,6 @@ import main.tracer.TraceFilterSelector;
 
 import org.junit.Test;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 
 public class TraceTests {
 
