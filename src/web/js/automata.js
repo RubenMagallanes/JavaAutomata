@@ -193,7 +193,7 @@
         force.start();
     }
 	
-	//=====  =====
+	
 	/*
 		function is called if in "both" layout
 	*/
