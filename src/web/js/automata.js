@@ -141,8 +141,7 @@
             .attr("marker-end", "url(#end)")
             .on("end");
 
-        showMethodNames();
-
+        self.showMethodNames();
 
         force.on("tick", function (){
 
@@ -237,7 +236,9 @@
         force.start();
     };
 
-    function showMethodNames(){
+
+
+     self.showMethodNames = function(){
        text= svg.selectAll(".link")
              .append("text")
             .style("text-anchor", "middle")
@@ -272,16 +273,12 @@
             //.ease("cubic-out")
             //.duration(200);
         currentState = d;
-		
-		
-        // console.log(currentState);
         d3.select("#state-info")
             .attr("visibility", "visible")
             .html(function() { return stateInfo(d); });
 
         //changes the text on hover
        text.text(function (d) { 
-                // console.log(d.source);
                 if(showAllLinkText){
                     return d.methodName;                    
                 }
@@ -294,6 +291,21 @@
             });
     }
 	
+    self.UpdateMethodNames = function(){
+        text.text(function (d) { 
+                if(showAllLinkText){
+                    return d.methodName;                    
+                }
+                else{
+                    if(currentState.id === d.source || currentState.id === d.target)
+                        return d.methodName; 
+                    else 
+                        return "";
+                }
+                    
+
+            });
+    }
 	
 
     // return state info as a string

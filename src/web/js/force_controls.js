@@ -76,11 +76,7 @@ function makeGUI(boundingDiv, force){
 
 function updateData(){
     showAllLinkText = !showAllLinkText;
-    console.log(showAllLinkText);    
-}
-
-function showAllLinkText(){
-    return showAllLinkText;
+    viz.automata.UpdateMethodNames();
 }
 
 function changeForceAttr(event, elem, force){
