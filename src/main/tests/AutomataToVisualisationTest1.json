@@ -1,6 +1,7 @@
 {"states":[
   {
     "id": 1,
+    "startState": false,
     "fields": [
       {
         "type": "int",
