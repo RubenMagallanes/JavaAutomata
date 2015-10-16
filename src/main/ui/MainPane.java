@@ -36,7 +36,7 @@ public class MainPane extends GridPane {
 
 	 int count;// number of browser windows currently open.
 	//holds reference to browser windows
-	Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();
+	//Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();
 
 
 	private MenuPane parent;
