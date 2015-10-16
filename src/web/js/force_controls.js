@@ -97,20 +97,3 @@ function changeForceAttr(event, elem, force){
     }
     force.start();
 }
-
-// var toggle;
-
-// var canvas = d3.select("body")
-//                 .append("svg")
-//                 .attr("width",1050)
-//                 .attr("height",700);
-// var backText= canvas.append("text")
-//     .attr("width",100)
-//     .attr("height",100)
-//     .attr("x", 0)
-//     .attr("y",200)
-//     .attr("fill", "black")
-//     .text("Toggle")
-//     .on("click", function() {
-//         toggle = !toggle;
-//     });

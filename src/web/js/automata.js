@@ -12,9 +12,7 @@
         text, //text for all links
         //showAllLinkText, //toggle the link text
         boundingDiv,
-		node;// reference to nodes to change mouse behaviours
-	
-	
+		node;// reference to nodes to change mouse behaviours	
 
     // force layout
     var force = d3.layout.force()
@@ -206,7 +204,7 @@
 	self.addMousel = function(){		
 		node.on("click", function(){
 			//works, gets to here
-			//console.log("clicc");
+			//console.log("click");
 
 		});
 	}
@@ -237,7 +235,6 @@
     };
 
 
-
      self.showMethodNames = function(){
        text= svg.selectAll(".link")
              .append("text")
@@ -264,14 +261,9 @@
 
     self.hideFunctionNames = function (){
         svg.selectAll(".label").remove();
-    };
-	
+    };	
 	
     function selectState(d){
-        //d3.select(this).select("circle").transition()
-            //.attr("r", circleRad*2)
-            //.ease("cubic-out")
-            //.duration(200);
         currentState = d;
         d3.select("#state-info")
             .attr("visibility", "visible")
@@ -291,6 +283,7 @@
             });
     }
 	
+    //Updates the method names when the button Toggle Link Text
     self.UpdateMethodNames = function(){
         text.text(function (d) { 
                 if(showAllLinkText){
@@ -307,7 +300,6 @@
             });
     }
 	
-
     // return state info as a string
     function stateInfo(state){
         var str = "";
@@ -319,12 +311,6 @@
     }
 
     function deselectState(d){
-        //d3.select(this).select("circle").transition()
-            //.attr("r", circleRad)
-            //.ease("cubic-out")
-            //.duration(200);
-		
-
         d3.select("state-info").attr("visibiliy", "hidden");
     }    
 
