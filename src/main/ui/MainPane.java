@@ -4,11 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
-
-
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -20,7 +15,6 @@ import main.Main;
 import main.load.JarData;
 import main.load.JarLoader;
 import main.parse.Automata;
-import main.parse.TraceToAutomata;
 import main.tracer.TraceLauncher;
 import main.tracer.Trace;
 import main.tracer.TraceManager;
@@ -34,11 +28,6 @@ import main.util.DesktopApi;
  */
 public class MainPane extends GridPane {
 
-	 int count;// number of browser windows currently open.
-	//holds reference to browser windows
-	//Map<Integer, BrowserBox> browserWindows = new HashMap<Integer, BrowserBox>();
-
-
 	private MenuPane parent;
 
 	/**
@@ -48,32 +37,27 @@ public class MainPane extends GridPane {
 		Main.setMainPane(this);
 		this.setPrefWidth(GUIFrame.width/2 - GUIFrame.diffrence);
 		this.setPrefHeight(GUIFrame.height - GUIFrame.consoleSize);
-		count = 0;
 		this.parent = parent;
 		setupLoadJar();
-		setupLoadTrace();
 		setupRunTrace();
 		setupSaveMenu();
 		setUpViewMenu();
-		//setUpDynamic(); //button denied
 
 		this.prefWidth(Double.MAX_VALUE);
 	}
 
 	/**
 	 * sends text to be printed to the programs console
-	 * @param text to be printed
+	 * @param i to be printed
 	 */
-	public void printToConsole(String text){
-		/*tp the code to change the message first printed to the consolePane when
+	public void printToConsole(String i){
+		/*btw the code to change the message first printed to the consolePane when
 		the program is started is in MenuPane */
 		for (javafx.scene.Node n: parent.getChildrenUnmodifiable()){
 			if (n instanceof ConsoleLogPane){
 				ConsoleLogPane clp = (ConsoleLogPane) n ;
 				clp.clear();
-				clp.appendText(text + "\n");
-
-
+				clp.appendText(i + "\n");
 			}
 		}
 	}
@@ -105,8 +89,7 @@ public class MainPane extends GridPane {
 		} else if (buttonName.equalsIgnoreCase("Load View")) {
 			printToConsole("Visualisation loaded. \n");
 
-		} else if (buttonName.equalsIgnoreCase("DYNAMIC :^)")) {
-		}
+		} 
 
 
 
@@ -138,7 +121,7 @@ public class MainPane extends GridPane {
 					parent.getSelectionPane().makeNewTree();
 					this.buttonClicked("Load Jar");
 				} else {
-					//loadDisplay.setText("");
+					printToConsole("loading cancelled");
 				}
 		});
 		Tooltip tooltip = new Tooltip();
@@ -152,46 +135,6 @@ public class MainPane extends GridPane {
 		this.add(btn, 0, 1);
 		GridPane.setHgrow(btn, Priority.ALWAYS);
 	}
-
-	/**
-	 * sets up load trace button
-	 */
-	private void setupLoadTrace(){
-		Button btn = new Button();
-
-
-		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setText("Load Trace");
-		btn.setOnAction((ActionEvent e) ->{
-
-			Automata auto = null;
-			File trace = chooseTraceFile ();
-			if (trace != null)
-			{
-				try {
-					auto = TraceToAutomata.generateAutomata(trace);
-					visualise(auto);
-				} catch (Exception e1) {
-					printToConsole("error ");
-				}
-				this.buttonClicked("Load Trace");
-			}
-			});
-
-		Tooltip tooltip2 = new Tooltip();
-		tooltip2.setText(
-			    "Load a previously generated Trace \n"
-			    + "for displaying.\n" +
-			    "Use this if you have previously loaded \n"
-			    + " a jar and already outputted a trace file.\n"  );
-		btn.setTooltip(tooltip2);
-
-		//this.add(btn, 0, 6); //DONT ADD LMAO
-		GridPane.setHgrow(btn, Priority.ALWAYS);
-
-	}
-
-
 
 	/**
 	 * set up run trace button
@@ -211,7 +154,7 @@ public class MainPane extends GridPane {
 				String args = argsBox.getText();
 				tracer.setCommanLineArguments(args);
 				Trace tr = tracer.run();
-				TraceManager manager = new TraceManager(tr);//TODO Change trace manager
+				TraceManager manager = new TraceManager(tr);
 				Main.setManager(manager);
 				this.buttonClicked("Run Trace");
 		});
@@ -298,32 +241,11 @@ public class MainPane extends GridPane {
 		} catch (IOException e1) {
 			printToConsole("IOException ");
 			printToConsole(e1.getMessage());
-			//e1.printStackTrace();
 		} catch (URISyntaxException e) {
-			//printT
 			e.printStackTrace();
 		}
 
 
-	}
-
-
-	/**
-	 * REDUNDANT/ NOT USED
-	 * @return
-	 */
-	private File chooseTraceFile() {
-		FileChooser fc = new FileChooser();
-		fc.setTitle("choose a .trace file");
-		fc.setInitialDirectory(
-	            new File(System.getProperty("user.home"))
-	        );
-		fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Trace files", "*.trace"),
-                new FileChooser.ExtensionFilter("json trace files", "*.json")
-            );
-		File file = fc.showOpenDialog(null);//TODO idk if i can say null but ayyyyy
-		return file;
 	}
 	private File chooseJarFile(){
 		FileChooser fc = new FileChooser();
@@ -334,7 +256,7 @@ public class MainPane extends GridPane {
 		fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JAR files", "*.jar")
             );
-		File file = fc.showOpenDialog(null);//TODO idk if i can say null but ayyyyy
+		File file = fc.showOpenDialog(null);
 		return file;
 	}
 
