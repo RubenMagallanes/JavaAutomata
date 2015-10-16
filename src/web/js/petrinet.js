@@ -9,7 +9,7 @@
         arcs = [], // arcs bound to transitions between places and methods
         states = [], // all states, regardless of group
         svg,// the svg element to draw viz on
-        boundingDiv;
+        boundingDiv; // the div that encapsulates svg
 
     // force layout
     var force = d3.layout.force()
@@ -27,15 +27,14 @@
     self.setSvg = function(_svg){
         svg = _svg;
     }
-    // initialise the layout with data
+
+    // initialise the layout with data and force layout properties
     self.init = function (dataStr, _boundingDiv){
 
         var data = JSON.parse(dataStr);
         convertToPetriData(data);
 
         boundingDiv = _boundingDiv;
-
-        console.log("states", data.states);
 
         // creates GUI elements like sliders to change layout properties
         makeGUI(boundingDiv, force);
@@ -59,8 +58,8 @@
             .data(places)
              .enter().append("g")
             .attr("class", "place")
-            .attr("id", function (d, i){
-                return "place-" + i;
+            .attr("id", function (d){
+                return "place-" + d.group + "," + d.state;
             });
 
         place.append("circle")
@@ -148,8 +147,6 @@
             var dx = d.target.x - d.source.x,
                 dy = d.target.y - d.source.y,
                 dr = Math.sqrt(dx * dx + dy * dy);
-                //return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + (d.source.x + (dx/2)) + "," + (d.source.y + (20))
-                //+ "M" + (d.source.x + (dx/2)) + "," + (d.source.y + (20)) + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
                 return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
         }
 
@@ -162,25 +159,11 @@
         force.start();
     }
 
-    // update the layout data
-    //self.updateData = function (data) {
-        //convertToPetriData(data);
-
-        //force.nodes(node);
-        //force.links(arcs);
-
-        //// should start?
-        //force.start();
-    //};
-
     // ---------------------------
     // Important function: most other smaller functions are children of this
     // converts (states, transitions) to (groups(places), transitions)
     function convertToPetriData(data){
-        //console.log("states", data);
         var fields = getAllFields(data.states);
-        console.log("fields", fields);
-        //var fields = data.states[0].fields;
 
         // initialise groups, one per field
         fields.forEach(function (field, i){
@@ -191,7 +174,7 @@
             });
         });
 
-        // copying states to local variable
+        // copying states to global variable
         states = data.states;
 
         // give each a place a link back to the state
@@ -218,7 +201,7 @@
             var after = data.states[method.target];
             var placesTrans;
             if (before === after){
-                var statePlaces = getStatePlaces(method.source, getPlaceInfoFromGroups(groups));
+                var statePlaces = getStateInfoFromPlaces(method.source, getPlaces(groups));
                 //console.log("statePlaces", statePlaces);
                 placesTrans = { before: statePlaces, after: statePlaces };
             }
@@ -270,6 +253,7 @@
         //console.log("arcs", arcs);
     }
 
+    // returns places changed between stateBefore and stateAfter
     function placesAffected(stateBefore, stateAfter){
         var fieldsChanged = getFieldsChanged(stateBefore, stateAfter);
         var places = {
@@ -312,7 +296,7 @@
         return places;
     }
 
-
+    // returns whether the state changes any fields in group
     function stateAffectsGroup(group, states, stateI){
         if (stateI === 0) return true;
 
@@ -335,6 +319,7 @@
         return affects;
     }
 
+    // returns fields that are changed by state
     function getFieldChanges(group, states, stateI){
         if (stateI === 0){
             var state = states[stateI];
@@ -361,6 +346,7 @@
         return changes;
     }
 
+    // returns all fields changed between stateBefore and stateAfter
     function getFieldsChanged(stateBefore, stateAfter){
         var fields = [];
         for (var i = 0; i < stateBefore.fields.length; i++){
@@ -371,6 +357,7 @@
         return fields;
     }
 
+    // returns the group that has field
     function getGroupWithField(field){
         var groupo;
         groups.forEach(function (group){
@@ -381,6 +368,7 @@
         return groupo;
     }
 
+    // returns a field with name
     function getFieldWithName(name, fields){
         var found = null;
         fields.forEach(function (field){
@@ -391,12 +379,14 @@
         return found;
     }
 
+    // causes place to be selected
     function selectPlace(d){
         d3.select("#state-info")
             .attr("visibility", "visible")
             .html(function() { return stateInfo(d); });
     }
 
+    // if field is part of group
     function fieldInGroup(field, group){
         // look at this method. Wtf right?
         return $.inArray(field.name, group.fieldNames) !== -1;
@@ -414,7 +404,8 @@
         return index;
     }
 
-    function getStatePlaces(stateI, places){
+    // gross. like below method, but returns different representation of place
+    function getStateInfoFromPlaces(stateI, places){
         return places.filter(function (place){
             return place.state === stateI;
         }).map(function (place){
@@ -425,14 +416,23 @@
         });
     }
 
-    function getPlaceInfoFromGroups(groups){
+    // gets places that originated from states[stateI]
+    function getStatePlaces(stateI, places){
+        return places.filter(function (place){
+            return place.state === stateI;
+        });
+    }
+
+    // gets all places
+    function getPlaces(groups){
         var allPlaces = [];
-        groups.forEach(function (group, groupI){
+        groups.forEach(function (group){
             allPlaces = allPlaces.concat(group.places);
         });
         return allPlaces;
     }
 
+    // gets all fields that exist in the trace
     function getAllFields(states){
         var fields = [];
         console.log("states", states);
@@ -445,6 +445,55 @@
         });
         console.log("fields", fields);
         return fields;
+    }
+
+    // unfinished
+    self.addMouseEnterListener = function(listener){
+        d3.selectAll(".place").on("mouseenter.extra", function(){
+            console.log("hello?");
+            var id = d3.select(this).attr("id");
+            var state = +id.substring(id.indexOf(",")+1);
+            listener(state);
+        });
+    }
+
+    // unfinished
+    self.addMouseOutListener = function(listener){
+        d3.selectAll(".place").on("mouseout.extra", function(){
+            var id = d3.select(this).attr("id");
+            var state = +id.substring(id.indexOf(",")+1);
+            listener(state);
+        });
+    }
+
+    // selects all nodes that origined from states[stateI]
+    self.selectNodes = function(stateI){
+        var allPlaces = getPlaces(groups);
+        var places = getStatePlaces(stateI, allPlaces);
+
+        places.forEach(function(place){
+            var placeI = allPlaces.indexOf(place);
+            svg.select("#place-circle-" + placeI)
+                .transition()
+                .duration(200)
+                .ease("cubic-out")
+                .attr("r", circleRad * 2);
+        });
+    };
+
+    // selects all nodes that origined from states[stateI]
+    self.deselectNodes = function(stateI){
+        var places = getStatePlaces(stateI, getPlaces(groups));
+        var allPlaces = getPlaces(groups);
+
+        places.forEach(function(place){
+            var placeI = allPlaces.indexOf(place);
+            svg.select("#place-circle-" + placeI)
+                .transition()
+                .ease("cubic-out")
+                .duration(200)
+                .attr("r", circleRad);
+        });
     }
 
 })(viz.petri = viz.petri || {});

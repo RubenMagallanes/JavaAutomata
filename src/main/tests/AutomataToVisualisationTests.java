@@ -25,20 +25,20 @@ public class AutomataToVisualisationTests {
 		List <AutomataField> f = new ArrayList<AutomataField>();
 		f.add(new AutomataField("int", "count", "7"));
 		f.add(new AutomataField("string", "name", "chris"));
-		AutomataState s = new AutomataState(f,1);
-		
+		AutomataState s = new AutomataState(f,1, false);
+
 		Set<AutomataState> automatastates = new HashSet<AutomataState>();
 		automatastates.add(s);
 		automatastates.add(s);
-		
+
 		Set<AutomataLink> automatalinks = new HashSet<AutomataLink>();
 		automatalinks.add(l);
-		automatalinks.add(l);		
-		
-		AutomataToVisualisation g = new AutomataToVisualisation(new Automata(automatastates, automatalinks));		
-		System.out.println(g.parseAutomata());	
+		automatalinks.add(l);
+
+		AutomataToVisualisation g = new AutomataToVisualisation(new Automata(automatastates, automatalinks));
+		System.out.println(g.parseAutomata());
 	}
-	
+
 	/**
 	 * This test checks whether the filters work
 	 * The json should only include the count field and toString()
@@ -48,30 +48,30 @@ public class AutomataToVisualisationTests {
 	public void testJavaFilter(){
 		List <AutomataField> f1 = new ArrayList<AutomataField>();
 		f1.add(new AutomataField("int", "count", "7"));
-		AutomataState s1 = new AutomataState(f1,1);
-		
+		AutomataState s1 = new AutomataState(f1,1, false);
+
 		List <AutomataField> f2 = new ArrayList<AutomataField>();
 		f2.add(new AutomataField("string", "name", "chris"));
-		AutomataState s2 = new AutomataState(f2,2);		
+		AutomataState s2 = new AutomataState(f2,2, false);
 
 		AutomataLink l1= new AutomataLink("toString()",1,2);
-		AutomataLink l2= new AutomataLink("countDuplicates()",1,2);		
-		
+		AutomataLink l2= new AutomataLink("countDuplicates()",1,2);
+
 		Set<AutomataState> automatastates = new HashSet<AutomataState>();
 		automatastates.add(s1);
 		automatastates.add(s2);
-		
+
 		Set<AutomataLink> automatalinks = new HashSet<AutomataLink>();
 		automatalinks.add(l1);
-		automatalinks.add(l2);		
-		
+		automatalinks.add(l2);
+
 		List<String> methods = new ArrayList<String>();
 		methods.add("toString()");
-		
+
 		List<String> fields = new ArrayList<String>();
 		fields.add("count");
-		
-		AutomataToVisualisation g = new AutomataToVisualisation(new Automata(automatastates, automatalinks), methods, fields);		
-		System.out.println(g.parseAutomata());		
+
+		AutomataToVisualisation g = new AutomataToVisualisation(new Automata(automatastates, automatalinks), methods, fields);
+		System.out.println(g.parseAutomata());
 	}
 }

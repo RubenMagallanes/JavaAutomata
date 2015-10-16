@@ -11,9 +11,10 @@
         currentState, // state hovering over
         text, //text for all links
         //showAllLinkText, //toggle the link text
-        boundingDiv;
-	
-	
+        boundingDiv,
+		node;// reference to nodes to change mouse behaviours
+
+
 
     // force layout
     var force = d3.layout.force()
@@ -41,23 +42,17 @@
 
         // creates GUI elements like sliders to change layout properties
         makeGUI(boundingDiv, force);
-		//size bounding div 
-		
+		//size bounding div
+
 		/*top:220px;
 	left: 0;
 	position: absolute;
 	width: 100%;*/
-		
+
 		//create svg & size
        	var width = boundingDiv.width();
-		var height = screen.availHeight -300;
-	
-		
-		//var rect = boundingDiv.getBoundingClientRect();
-		//console.log(rect.top, rect.right, rect.bottom, rect.left);
-		//conpute height frmo bounding div x
-       // var height = boundingDiv.height();
-		
+		var height = screen.availHeight -300; //TODO make visualisation scale better
+
         svg = d3.select("#" + boundingDiv.attr("id")).append("svg")
             .attr("width", width)
             .attr("height", height);
@@ -66,7 +61,7 @@
         force.links(links);
         force.size([width, height]);
 
-        var node = svg.selectAll(".state")
+			node = svg.selectAll(".state")
             .data(states)
              .enter().append("g")
             .attr("class", "state")
@@ -74,30 +69,8 @@
                 return "state-" + i;
             })
             .on("mouseenter", selectState)
-            .on("mouseout", deselectState)		
-			
-		/*   force.charge( TODO make this on click
-            function(d2,i){
-                if(d2!=d1)
-                    return force.charge;//calculate your charge for other nodes
-                else
-                    return force.charge  - 500;//calculate your charge for the clicked node
-            });
+            .on("mouseout", deselectState)
 
-        force.start();*/
-			//.attr("border",border);
-
-	
-		//border around svg mainly for testing
-           	/*var borderPath = svg.append("rect")
-       			.attr("x", 0)
-       			.attr("y", 0)
-       			.attr("height", height)
-       			.attr("width", width)
-       			.style("stroke", "grey")
-       			.style("fill", "none")
-       			.style("stroke-width", 5);*/
-			
         node.append("circle")
             .attr("class", "state-circle")
             .attr("id", function (d, i){
@@ -140,28 +113,11 @@
 
 			node.attr("cx", function(d) { return d.x = Math.max(15, Math.min(width - 15, d.x)); })
     			.attr("cy", function(d) { return d.y = Math.max(15, Math.min(height - 15, d.y)); });
-			
+
             node.attr("transform", transform);
-            // curved links
 
+            // update curved links
             link.select(".line").attr("d", linkArc);
-            // straight lines
-            // var path = link.select(".line");
-            // path.attr("d", function (d){
-            //     var dx = d.target.x - d.source.x,
-            //         dy = d.target.y - d.source.y,
-            //         dr = Math.sqrt(dx * dx + dy * dy);
-            //      if ( dx ===0 && dy===0 ){
-            //         var xRotation = 0;
-
-            //         // Make drx and dry different to get an ellipse instead of a circle.
-            //         var drx = 30;
-            //         var dry = 20;
-
-            //         return "M" + d.source.x + "," + d.source.y + "A" + drx + "," + dry + " " + xRotation + "," + 1 + "," + 0 + " " + (d.target.x + 1) + "," + (d.target.y + 1);
-            //     }
-            //     return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
-            // })
         });
 
         // updates a curved link
@@ -169,7 +125,7 @@
             var dx = d.target.x - d.source.x,
                 dy = d.target.y - d.source.y,
                 dr = Math.sqrt(dx * dx + dy * dy);
-                 if ( dx ===0 && dy===0 ){
+                 if ( dx === 0 && dy === 0 ){
                     var xRotation = 0;
 
                     // Make drx and dry different to get an ellipse instead of a circle.
@@ -178,8 +134,6 @@
 
                     return "M" + d.source.x + "," + d.source.y + "A" + drx + "," + dry + " " + xRotation + "," + 1 + "," + 0 + " " + (d.target.x + 1) + "," + (d.target.y + 1);
                 }
-                //return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + (d.source.x + (dx/2)) + "," + (d.source.y + (20))
-                //+ "M" + (d.source.x + (dx/2)) + "," + (d.source.y + (20)) + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
                 return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
         }
 
@@ -191,7 +145,6 @@
         node.call(force.drag);
         force.start();
     }
-
     // adds all func and var names to funcsChosen and varsChosen respectively
     function setChosenNames(){
         links.forEach(function (d){
@@ -218,7 +171,7 @@
     };
 
     function showMethodNames(){
-       text= svg.selectAll(".link")
+        text = svg.selectAll(".link")
              .append("text")
             .style("text-anchor", "middle")
              .attr("dy", -5)
@@ -226,55 +179,22 @@
             .attr("xlink:href", function(d, i) { return "#link-" + d.source + "-" + d.target; })
             .attr("class", "label")
             .attr("startOffset", "50%")
-            .text(function (d) { 
+            .text(function (d) {
                 if(showAllLinkText){
-                    return d.methodName;                    
+                    return d.methodName;
                 }
                 else{
                     if(currentState.id === d.source || currentState.id === d.target)
-                        return d.methodName; 
-                    else 
+                        return d.methodName;
+                    else
                         return "";
                 }
-                    
-
             });
     };
 
     self.hideFunctionNames = function (){
         svg.selectAll(".label").remove();
     };
-	
-	
-    function selectState(d){
-        //d3.select(this).select("circle").transition()
-            //.attr("r", circleRad*2)
-            //.ease("cubic-out")
-            //.duration(200);
-        currentState = d;
-		
-		
-        // console.log(currentState);
-        d3.select("#state-info")
-            .attr("visibility", "visible")
-            .html(function() { return stateInfo(d); });
-
-        //changes the text on hover
-       text.text(function (d) { 
-                // console.log(d.source);
-                if(showAllLinkText){
-                    return d.methodName;                    
-                }
-                else{
-                    if(currentState.id === d.source.id || currentState.id === d.target.id)
-                        return d.methodName; 
-                    else 
-                        return "";
-                }
-            });
-    }
-	
-	
 
     // return state info as a string
     function stateInfo(state){
@@ -286,32 +206,65 @@
         return str;
     }
 
+    function selectState(d, i){
+        if (d === null){
+            d = force.nodes()[i];
+        }
+        // pop out
+        d3.select(this).select("circle").transition()
+            .attr("r", circleRad*2)
+            .ease("cubic-out")
+            .duration(200);
+
+        currentState = d;
+
+        // console.log(currentState);
+        d3.select("#state-info")
+            .attr("visibility", "visible")
+            .html(function() { return stateInfo(d); });
+
+        //changes the text on hover
+       text.text(function (d) {
+                // console.log(d.source);
+                if(showAllLinkText){
+                    return d.methodName;
+                }
+                else{
+                    if(currentState.id === d.source.id || currentState.id === d.target.id)
+                        return d.methodName;
+                    else
+                        return "";
+                }
+            });
+    }
+
     function deselectState(d){
-        //d3.select(this).select("circle").transition()
-            //.attr("r", circleRad)
-            //.ease("cubic-out")
-            //.duration(200);
-		
+        if (d === null){
+            d = force.nodes()[i];
+        }
+
+        d3.select(this).select("circle").transition()
+            .attr("r", circleRad)
+            .ease("cubic-out")
+            .duration(200);
 
         d3.select("state-info").attr("visibiliy", "hidden");
-    }    
-    // d3.select("button")
-    //     .on("click", clicked);
-    // function clicked() {
-    //     showAllLinkText = !showAllLinkText;
-    //     text.text(function (d) { 
-    //         console.log(d.source);
-    //         if(showAllLinkText){
-    //             return d.methodName;                    
-    //         }
-    //         else{
-    //             if(currentState.id === d.source.id || currentState.id === d.target.id)
-    //                 return d.methodName; 
-    //             else 
-    //                 return "";
-    //         }
-    //     });
-        
-    // }
+    }
+
+    /*
+        functions are called if in "both" layout
+    */
+    self.addMouseEnterListener = function(listener){
+        node.on("mouseenter.extra", function(){
+            listener(this);
+        });
+    }
+
+    self.addMouseOutListener = function(listener){
+        node.on("mouseout.extra", function(){
+            listener(this);
+        });
+    }
+
 
 })(viz.automata = viz.automata || {});

@@ -46,7 +46,6 @@ public class SelectionPane extends TreeView {
 	 */
 	public void makeNewTree() {
 		clearTreeView();
-		//System.out.println("IS WORKING");
 		JarData data = Main.getJarData();
 
 

@@ -7,6 +7,10 @@ temp = temp.replace("automata&petri_net=", "TraceRequest/");
 var algorithm = temp.substring(temp.indexOf('?')+1);
 load(temp);
 
+
+//var noderefPetri = viz.petri.getNode;
+
+
 function load(url){
     $.ajax({
         type: 'GET',
@@ -21,8 +25,16 @@ function load(url){
             else if (algorithm.indexOf('normal') >= 0){
                 json = JSON.stringify(data);
             }
-            console.log(json);
+           // console.log(json);
+			//set flag then load, or load then call method
             viz.automata.init(json, $("div#automata"));
+
+            // mouse listeners
+			viz.automata.addMouseEnterListener(automataMouseEnter);
+			viz.automata.addMouseOutListener(automataMouseOut);
+			viz.petri.addMouseEnterListener(petriMouseEnter);
+			viz.petri.addMouseOutListener(petriMouseOut);
+
             viz.petri.init(json, $("div#petrinet"));
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -30,4 +42,27 @@ function load(url){
           console.log("Error: " + errorThrown);
         }
     });
+
+    function automataMouseEnter(node){
+        var stateI = +d3.select(node).attr("id").slice(-1);
+        viz.petri.selectNodes(stateI);
+    }
+
+    function automataMouseOut(node){
+        var stateI = +d3.select(node).attr("id").slice(-1);
+        viz.petri.deselectNodes(stateI);
+    }
+
+    // unfinished
+    function petriMouseEnter(stateI){
+        var stateI = +d3.select(node).attr("id").slice(-1);
+        console.log(stateI);
+        viz.automata.selectNode(stateI);
+    }
+
+    // unfinished
+    function petriMouseOut(stateI){
+        var stateI = +d3.select(node).attr("id").slice(-1);
+        viz.automata.deselectNode(stateI);
+    }
 }
