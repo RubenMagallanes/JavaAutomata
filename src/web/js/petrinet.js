@@ -35,6 +35,8 @@
 
         boundingDiv = _boundingDiv;
 
+        console.log("states", data.states);
+
         // creates GUI elements like sliders to change layout properties
         makeGUI(boundingDiv, force);
 
@@ -130,15 +132,15 @@
         force.on("tick", function (){
 			place.attr("cx", function(d) { return d.x = Math.max(15, Math.min(width - 15, d.x)); })
     			.attr("cy", function(d) { return d.y = Math.max(15, Math.min(height - 15, d.y)); });
-			
+
 			transition.attr("cx", function(d) { return d.x = Math.max(15, Math.min(width - 15, d.x)); })
     			.attr("cy", function(d) { return d.y = Math.max(15, Math.min(height - 15, d.y)); });
-			
+
             place.attr("transform", transform)
             transition.attr("transform", transform)
             arc.select(".line").attr("d", arcArc);
-			
-			
+
+
         });
 
         // updates a curved arc (arcs the arc)
@@ -176,7 +178,9 @@
     // converts (states, transitions) to (groups(places), transitions)
     function convertToPetriData(data){
         //console.log("states", data);
-        var fields = data.states[0].fields;
+        var fields = getAllFields(data.states);
+        console.log("fields", fields);
+        //var fields = data.states[0].fields;
 
         // initialise groups, one per field
         fields.forEach(function (field, i){
@@ -260,10 +264,10 @@
             });
         });
 
-        console.log("groups", groups);
-        console.log("transitions", transitions);
-        console.log("nodes", nodes);
-        console.log("arcs", arcs);
+        //console.log("groups", groups);
+        //console.log("transitions", transitions);
+        //console.log("nodes", nodes);
+        //console.log("arcs", arcs);
     }
 
     function placesAffected(stateBefore, stateAfter){
@@ -319,8 +323,12 @@
 
         state.fields.forEach(function (field, i){
             if (fieldInGroup(field, group)){
-                if (field.value !== last.fields[i].value){
-                    affects = true;
+                // if last state has the field
+                if ($.inArray(field.name, last.fields.map(function (field){ return field.name; })) !== -1){
+                    // if the field value has changed
+                    if (field.value !== last.fields[i].value){
+                        affects = true;
+                    }
                 }
             }
         });
@@ -425,4 +433,18 @@
         return allPlaces;
     }
 
-})(viz.petri = viz.petri || {})
+    function getAllFields(states){
+        var fields = [];
+        console.log("states", states);
+        states.forEach(function(state){
+            state.fields.forEach(function (field){
+                if ($.inArray(field.name, fields.map(function(field){ return field.name; })) === -1){
+                    fields.push(field);
+                }
+            });
+        });
+        console.log("fields", fields);
+        return fields;
+    }
+
+})(viz.petri = viz.petri || {});

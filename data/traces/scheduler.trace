@@ -1,0 +1,1221 @@
+{
+  "children": [{
+    "children": [
+      {
+        "children": [],
+        "methodName": ["main.Tests.<init>"],
+        "stateAfter": [],
+        "startState": [false],
+        "stateBefore": []
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "5"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "5"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "5"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "5"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "5"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "5"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "5"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "10"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Job.<init>"],
+                "stateAfter": [{
+                  "name": "time",
+                  "value": "5"
+                }],
+                "startState": [false],
+                "stateBefore": [{
+                  "name": "time",
+                  "value": "0"
+                }]
+              }
+            ],
+            "methodName": ["main.Tests.createRandomJobs"],
+            "stateAfter": [],
+            "startState": [false],
+            "stateBefore": []
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "children": [],
+                "methodName": ["main.Machine.<init>"],
+                "stateAfter": [
+                  {
+                    "name": "jobs",
+                    "value": "\"state\": {\n      }\n"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ],
+                "startState": [false],
+                "stateBefore": [
+                  {
+                    "name": "jobs",
+                    "value": "null"
+                  },
+                  {
+                    "name": "timeLeft",
+                    "value": "0"
+                  }
+                ]
+              }
+            ],
+            "methodName": ["main.Tests.getMachines"],
+            "stateAfter": [],
+            "startState": [false],
+            "stateBefore": []
+          },
+          {
+            "children": [],
+            "methodName": ["main.JobScheduler.<init>"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "null"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "5"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "5"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "5"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "0"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "5"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "5"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "15"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "5"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "20"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "15"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "15"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "20"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [{
+              "children": [],
+              "methodName": ["main.Machine.addJob"],
+              "stateAfter": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "15"
+                }
+              ],
+              "startState": [false],
+              "stateBefore": [
+                {
+                  "name": "jobs",
+                  "value": "\"state\": {\n      }\n"
+                },
+                {
+                  "name": "timeLeft",
+                  "value": "10"
+                }
+              ]
+            }],
+            "methodName": ["main.JobScheduler.addJob"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          },
+          {
+            "children": [],
+            "methodName": ["main.JobScheduler.result"],
+            "stateAfter": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }],
+            "startState": [false],
+            "stateBefore": [{
+              "name": "machines",
+              "value": "\"state\": {\n      }\n"
+            }]
+          }
+        ],
+        "methodName": ["main.Tests.runDetermanistic"],
+        "stateAfter": [],
+        "startState": [false],
+        "stateBefore": []
+      }
+    ],
+    "methodName": ["main.Tests.main"],
+    "stateAfter": {},
+    "startState": [false],
+    "stateBefore": {}
+  }],
+  "methodName": ["main.Tests.main"],
+  "stateAfter": {},
+  "startState": [false],
+  "stateBefore": {}
+}
