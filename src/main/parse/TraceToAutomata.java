@@ -61,10 +61,10 @@ public class TraceToAutomata {
 	 * 		string containing json data
 	 * @return
 	 * 		automata representing trace
-	 * @throws JSONToAutomataException
+	 * @throws TraceToAutomataException
 	 * 		thrown if format of json string is invalid
 	 */
-	public static Automata generateAutomata(String json) throws JSONToAutomataException{
+	public static Automata generateAutomata(String json) throws TraceToAutomataException{
 		JSONObject data = new JSONObject(json);
 
 		Map<Integer, AutomataState> states = new TreeMap<Integer, AutomataState>();
@@ -97,10 +97,10 @@ public class TraceToAutomata {
 	 * 		json file containing trace
 	 * @return
 	 * 		automata representing trace
-	 * @throws JSONToAutomataException
+	 * @throws TraceToAutomataException
 	 * 		thrown if specified file is invalid
 	 */
-	public static Automata generateAutomata(File file) throws JSONToAutomataException{
+	public static Automata generateAutomata(File file) throws TraceToAutomataException{
 		String json = JSONFileToString(file);
 		return generateAutomata(json);
 	}
@@ -206,14 +206,14 @@ public class TraceToAutomata {
 	 * 		json file to convert
 	 * @return
 	 * 		string representation of json file
-	 * @throws JSONToAutomataException
+	 * @throws TraceToAutomataException
 	 * 		thrown if file is invalid
 	 */
-	private static String JSONFileToString(File file) throws JSONToAutomataException{
+	private static String JSONFileToString(File file) throws TraceToAutomataException{
 		Scanner scan = null;
 		try{
 			scan = new Scanner(file);
-		}catch(FileNotFoundException e){throw new JSONToAutomataException("FileNotFoundException: " + e);}
+		}catch(FileNotFoundException e){throw new TraceToAutomataException("FileNotFoundException: " + e);}
 		String json = "";
 		while(scan.hasNextLine()){
 			json += scan.nextLine();
@@ -228,7 +228,7 @@ public class TraceToAutomata {
 			Automata a = generateAutomata(file);
 			AutomataToVisualisation json = new AutomataToVisualisation(a);
 			System.out.println(json.parseAutomata());
-		} catch (JSONToAutomataException e) {
+		} catch (TraceToAutomataException e) {
 			e.printStackTrace();
 		}
 	}

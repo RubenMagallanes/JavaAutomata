@@ -7,10 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.parse.Automata;
-import main.parse.AutomataToVisualisation;
-import main.parse.JSONToAutomataException;
-import main.parse.TraceToAutomata;
 import main.parse.TraceToJSON;
 import main.tracer.tree.TraceEntryTree;
 

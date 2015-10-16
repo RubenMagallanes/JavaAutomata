@@ -49,30 +49,45 @@ public class TraceEntryTree {
 		Stack<TraceEntryTreeNode> treeNodes = new Stack<TraceEntryTreeNode>();
 		int size = 0;
 
+		boolean startState = false;
+		boolean firstLoop = true;
+
 		// iterate through entries and construct tree
-		for(int i = 0; i < entries.size(); i++){
+		for(TraceEntry entry : entries){
+			// check if method called is a constructor
+			System.out.println(entry.getMethod().getName());
+			if(entry.getMethod().getName().contains("<init>")){
+				// if it is a constructor, do not run the rest of the loop
+				startState = true;
+				continue;
+			}
+
 			// create root on first iteration of loop
-			if(i == 0){
-				MethodKey key = entries.get(i).getMethod();
+			if(firstLoop){
+				MethodKey key = entry.getMethod();
 				String methodName = key.getClassName() + "." + key.getName();
-				root = new TraceEntryTreeNode(methodName, entries.get(i).isConstructor(), entries.get(i).getState());
+				root = new TraceEntryTreeNode(methodName, startState, entry.getState());
 				treeNodes.push(root);
 				size++;
+				firstLoop = false;
 			}
 
 			// check if current entry is entering or exiting method
-			if(!entries.get(i).isExit()){
-				MethodKey key = entries.get(i).getMethod();
+			if(!entry.isExit()){
+				MethodKey key = entry.getMethod();
 				String methodName = key.getClassName() + "." + key.getName();
-				TraceEntryTreeNode current = new TraceEntryTreeNode(methodName, entries.get(i).isConstructor(), entries.get(i).getState());
+				TraceEntryTreeNode current = new TraceEntryTreeNode(methodName, startState, entry.getState());
 				treeNodes.peek().addChild(current);
 				treeNodes.push(current);
 				size++;
 			}
 			else{
 				TraceEntryTreeNode previous = treeNodes.pop();
-				previous.setStateAfter(entries.get(i).getState());
+				previous.setStateAfter(entry.getState());
 			}
+
+			// reset check for start state
+			startState = false;
 		}
 
 		return new TraceEntryTree(root, size);

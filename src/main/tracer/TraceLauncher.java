@@ -20,6 +20,8 @@ public class TraceLauncher {
 	//private String commanLineArgumnets;
 	private String commanLineArgumnets;
 
+	private TraceFilter filter;
+
 
 	/**
 	 * Sets the command line arguments for the program to be executed
@@ -29,6 +31,16 @@ public class TraceLauncher {
 	 * */
 	public void setCommanLineArguments(String arguments){
 		this.commanLineArgumnets = arguments;
+	}
+
+	/**
+	 * Sets the filter for the program to be executed
+	 * with
+	 *
+	 * @param filter for the program
+	 * */
+	public void setFilter(TraceFilter filter){
+		this.filter = filter;
 	}
 
 
@@ -71,7 +83,7 @@ public class TraceLauncher {
 			loadedClasses.add(cl.getName());
 		}
 
-		TestThread thread = new TestThread(loadedClasses, commanLineArgumnets, mainClass);
+		TestThread thread = new TestThread(loadedClasses, commanLineArgumnets, this.filter, mainClass);
 
 		//set thread options and start
 		thread.setName("MainWindow tracer thread");
@@ -94,13 +106,18 @@ public class TraceLauncher {
 		//the arguments to run the program with
 		private String commanLineArgumnets;
 
+		//the filter to filter the program with
+		private TraceFilter filter;
+
+
 		//the trace of the program
 		private Trace trace;
 
-		public TestThread(Set<String> loadedClasses, String commandLineArguments, String mainClass){
+		public TestThread(Set<String> loadedClasses, String commandLineArguments, TraceFilter filter, String mainClass){
 			this.loadedClasses = loadedClasses;
 			this.commanLineArgumnets = commandLineArguments;
 			this.mainClass = mainClass;
+			this.filter = filter;
 		}
 
 		@Override
@@ -128,8 +145,9 @@ public class TraceLauncher {
 				}
 			};
 
-			if(Main.getFilter() != null){
-				initialFilter = Main.getFilter();
+			//check if a filter has been set
+			if(this.filter != null){
+				initialFilter = this.filter;
 			}
 
 				FutureTraceConsumer future = new FutureTraceConsumer();
