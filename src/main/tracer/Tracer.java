@@ -124,7 +124,7 @@ public class Tracer{
 			List<Value> values = ((ArrayReference)object).getValues();
 
 			for(Value v : values) {
-				state.values.add(valueToState(filter, v, alreadySeenObjects));
+				state.getValues().add(valueToState(filter, v, alreadySeenObjects));
 			}
 			return state;
 		}
