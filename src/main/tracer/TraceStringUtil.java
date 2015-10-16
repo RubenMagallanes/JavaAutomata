@@ -11,21 +11,12 @@ public class TraceStringUtil {
 		this.trace = trace;
 	}
 
+
 	/**
-	 * Returns all of the fields of the program traced
+	 * Returns The name of all of the methods traced
+	 *
+	 * @return The set of methods traced
 	 * */
-	public Set<String> getCompareMethods(){
-		//the set of method names
-		Set<String> methods = new HashSet<>();
-
-		//place the names in set to remove duplicates
-
-			for(TraceEntry te : trace.getLines()){
-				methods.add(te.getMethodName());
-		}
-		return methods;
-	}
-
 	public Set<String> getDisplayMethods(){
 		//the set of method names
 		Set<String> methods = new HashSet<>();
@@ -41,10 +32,11 @@ public class TraceStringUtil {
 
 
 	/**
-	 * Returns all of the parameters of the program traced
+	 * Returns all of fields of the program traced
+	 *
+	 * @return String containing the traced fields
 	 * */
 	public String getFields(){
-		//the string to return
 		String fields  = "Fields: \n";
 
 		//the set of method names
@@ -57,7 +49,7 @@ public class TraceStringUtil {
 				if(te.getState() != null)fieldSet.add(te.getState().toString());
 		}
 
-		//add each of the unique method names to the string
+		//add each of the unique field names to the string
 		for(String s : fieldSet){
 				fields += "\t " + s + "\n";
 		}
@@ -67,6 +59,8 @@ public class TraceStringUtil {
 
 	/**
 	 * Returns a String containing the method names of all the methodEntry events.
+	 *
+	 * @param String representing method entry events
 	 * */
 	public String methodEntryEvent(){
 			//the string to return
@@ -92,9 +86,11 @@ public class TraceStringUtil {
 
 	/**
 	 * Returns a String containing the method names of all the methodExit events.
+	 *
+	 * @return String representing method exit events
 	 * */
 	public String methodExitEvent(){
-		//the string to return
+			//the string to return
 			String exitEvents  = "Exit Events: \n";
 
 			//the set of method names
