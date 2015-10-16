@@ -82,6 +82,7 @@ public class TraceLauncher {
 		for (Class<?> cl : jd.getClasses()){
 			loadedClasses.add(cl.getName());
 		}
+		System.out.println(commanLineArgumnets);
 
 		TestThread thread = new TestThread(loadedClasses, commanLineArgumnets, this.filter, mainClass);
 
@@ -162,7 +163,7 @@ public class TraceLauncher {
 				try {
 					trace = future.get();
 				} catch (InterruptedException | ExecutionException e) {
-					Main.printToWindow("Dont be trying no multithreading");
+					Main.printToWindow("Multithreading not Supported");
 
 					e.printStackTrace();
 					return;
