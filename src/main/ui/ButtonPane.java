@@ -26,14 +26,14 @@ import main.util.DesktopApi;
  * @author brewershan
  *
  */
-public class MainPane extends GridPane {
+public class ButtonPane extends GridPane {
 
-	private MenuPane parent;
+	private GUIContainer parent;
 
 	/**
 	 * Constructs the menu Pane
 	 */
-	public MainPane(MenuPane parent) {
+	public ButtonPane(GUIContainer parent) {
 		Main.setMainPane(this);
 		this.setPrefWidth(GUIFrame.width/2 - GUIFrame.diffrence);
 		this.setPrefHeight(GUIFrame.height - GUIFrame.consoleSize);

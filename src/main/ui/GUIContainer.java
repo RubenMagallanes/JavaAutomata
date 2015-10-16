@@ -16,20 +16,20 @@ import main.Main;
  * @author brewershan
  *
  */
-public class MenuPane extends VBox {
+public class GUIContainer extends VBox {
 
 	private SelectionPane selection;
 
 	/**
 	 * Constructs the menu pane and assigns tabs.
 	 */
-	public MenuPane(){
+	public GUIContainer(){
 		//Make a hozontal box to store the two hrozontal attribues
-		
-		
+
+
 		HBox temp = new HBox();
 		temp.setPrefWidth(GUIFrame.width / 2);
-		GridPane grid = setUpMainPane(this);
+		GridPane grid = setUpButtonPane(this);
 		temp.getChildren().add(grid);
 
 		selection = new SelectionPane(this);
@@ -39,7 +39,7 @@ public class MenuPane extends VBox {
 
 		this.getChildren().add(temp);
 		this.getChildren().add(new ConsoleLogPane());
-		
+
 		//this prints a welcome message to the console.
 		//we need to do it here because the MainPane can't yet 'see' the ConsolePane
 		Main.printToWindow("To start, Load in a Jar to trace (Load Jar), or Load a "
@@ -50,8 +50,8 @@ public class MenuPane extends VBox {
 	 * Sets up the button menu.
 	 * @return - a new MainPane that is set up.
 	 */
-	private GridPane setUpMainPane(MenuPane parent){
-		GridPane grid = new MainPane(parent);
+	private GridPane setUpButtonPane(GUIContainer parent){
+		GridPane grid = new ButtonPane(parent);
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);

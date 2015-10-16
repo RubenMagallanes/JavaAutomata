@@ -23,10 +23,10 @@ import javafx.scene.image.ImageView;
 public class SelectionPane extends TreeView {
 
 	private CheckBoxTreeItem<ShortLongNames> rootItem;
-	private MenuPane parent;
+	private GUIContainer parent;
 	private Map<ShortLongNames, MethodAndField> classesSelected = new HashMap<ShortLongNames, MethodAndField>();
 
-	public SelectionPane(MenuPane parent) {
+	public SelectionPane(GUIContainer parent) {
 		this.setPrefWidth(GUIFrame.width/2 + GUIFrame.diffrence);
 		this.setPrefHeight(GUIFrame.height - GUIFrame.consoleSize);
 		this.setMaxHeight(GUIFrame.height - GUIFrame.consoleSize);

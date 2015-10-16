@@ -4,7 +4,7 @@ import main.load.JarData;
 import main.tracer.TraceFilter;
 import main.tracer.TraceManager;
 import main.ui.GUIFrame;
-import main.ui.MainPane;
+import main.ui.ButtonPane;
 
 public class Main {
 
@@ -12,7 +12,7 @@ public class Main {
 	static JarData jardata;
 	private static TraceManager manager;
 	private static TraceFilter filter;
-	private static MainPane ref;
+	private static ButtonPane ref;
 
 	public static void main(String[] args){
 		/* TODO perhaps use singleton pattern or a lockfile to guarantee
@@ -45,7 +45,7 @@ public class Main {
 		return Main.filter;
 	}
 	
-	public static void setMainPane(MainPane mp){
+	public static void setMainPane(ButtonPane mp){
 		Main.ref = mp;
 	}
 	

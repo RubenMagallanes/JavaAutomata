@@ -102,7 +102,7 @@ public class ObjectState extends State {
 
 	/**
 	 * Returns a JSON object representing this {@code ObjectState}.
-	 * */
+	 */
 	public JSONArray toJSON(){
 		JSONArray state = new JSONArray();
 
@@ -119,12 +119,17 @@ public class ObjectState extends State {
 		return state;
 	}
 
-	@Override
+	/**
+	 * Generates a hash code for this {@code ObjectState}.
+	 */
 	public int hashCode() {
 		return 0; // TODO
 	}
 
-	@Override
+	/**
+	 * Returns true if this {@code ObjectState} is equivalent to the
+	 * specified {@code Object}, otherwise returns false.
+	 */
 	public boolean equals(Object obj) {
 		return obj instanceof ObjectState && ((ObjectState)obj).getFields().equals(getFields());
 	}
