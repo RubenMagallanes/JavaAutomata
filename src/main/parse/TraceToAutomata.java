@@ -140,7 +140,7 @@ public class TraceToAutomata {
 		stateBefore = checkForDuplicateState(stateBefore, states);
 		states.put(stateBefore.getId(), stateBefore);
 
-		AutomataState stateAfter = parseState(json.optJSONArray(STATE_AFTER), states.size(), startState);
+		AutomataState stateAfter = parseState(json.optJSONArray(STATE_AFTER), states.size(), false);
 		stateAfter = checkForDuplicateState(stateAfter, states);
 		states.put(stateAfter.getId(), stateAfter);
 
