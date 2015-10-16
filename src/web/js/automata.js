@@ -11,7 +11,8 @@
         currentState, // state hovering over
         text, //text for all links
         //showAllLinkText, //toggle the link text
-        boundingDiv;
+        boundingDiv,
+		node;// reference to nodes to change mouse behaviours
 	
 	
 
@@ -50,7 +51,7 @@
 		
 		//create svg & size
        	var width = boundingDiv.width();
-		var height = screen.availHeight -300;
+		var height = screen.availHeight -300; //TODO make visualisation scale better
 	
 		
 		//var rect = boundingDiv.getBoundingClientRect();
@@ -66,7 +67,7 @@
         force.links(links);
         force.size([width, height]);
 
-        var node = svg.selectAll(".state")
+			node = svg.selectAll(".state")
             .data(states)
              .enter().append("g")
             .attr("class", "state")
@@ -104,9 +105,15 @@
                 return "state-circle-" + i;
             })
             .attr("r", circleRad)
-            .style("fill", function (d, i){
-                return colour(i);
+            .style("fill", function(d,i){
+                    if(states[i].startState){
+                       return "red";
+                    }
+                    return "blue";
             })
+            // .style("fill", function (d, i){
+            //     return colour(i);
+            // })
 
         // build the arrow.
         svg.append("defs")
@@ -135,6 +142,7 @@
             .on("end");
 
         showMethodNames();
+
 
         force.on("tick", function (){
 
@@ -191,6 +199,18 @@
         node.call(force.drag);
         force.start();
     }
+	
+	
+	/*
+		function is called if in "both" layout
+	*/
+	self.addMousel = function(){		
+		node.on("click", function(){
+			//works, gets to here
+			//console.log("clicc");
+
+		});
+	}
 
     // adds all func and var names to funcsChosen and varsChosen respectively
     function setChosenNames(){
@@ -295,23 +315,5 @@
 
         d3.select("state-info").attr("visibiliy", "hidden");
     }    
-    // d3.select("button")
-    //     .on("click", clicked);
-    // function clicked() {
-    //     showAllLinkText = !showAllLinkText;
-    //     text.text(function (d) { 
-    //         console.log(d.source);
-    //         if(showAllLinkText){
-    //             return d.methodName;                    
-    //         }
-    //         else{
-    //             if(currentState.id === d.source.id || currentState.id === d.target.id)
-    //                 return d.methodName; 
-    //             else 
-    //                 return "";
-    //         }
-    //     });
-        
-    // }
 
 })(viz.automata = viz.automata || {});

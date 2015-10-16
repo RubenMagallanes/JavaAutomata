@@ -13,20 +13,41 @@ public class AutomataState implements Comparable<AutomataState>{
 
 	// fields
 	private int id;
+	private boolean startState;
 	private List<AutomataField> fields;
 
 	/**
 	 * Constructs an instance of an {@code AutomataState} from the specified
-	 * list of {@code AutomataField}s and a unique integer ID.
+	 * list of {@code AutomataField}s and a unique integer ID. Sets start state
+	 * to false.
 	 *
 	 * @param fields
 	 * 		- list of fields
 	 * @param id
 	 * 		- unique integer id
 	 */
-	public AutomataState(List<AutomataField> fields,int id){
+	/*public AutomataState(List<AutomataField> fields, int id){
 		this.fields = fields;
 		this.id = id;
+		startState = false;
+	}*/
+
+	/**
+	 * Constructs an instance of an {@code AutomataState} from the specified
+	 * list of {@code AutomataField}s, unique integer ID and whether or not
+	 * this {@code AutomataSate} is a start state.
+	 *
+	 * @param fields
+	 * 		- list of fields
+	 * @param id
+	 * 		- unique integer id
+	 * @param startState
+	 * 		- true if state is start state, otherwise false
+	 */
+	public AutomataState(List<AutomataField> fields, int id, boolean startState){
+		this.fields = fields;
+		this.id = id;
+		this.startState = startState;
 	}
 
 	/**

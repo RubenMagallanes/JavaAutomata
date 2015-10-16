@@ -28,12 +28,17 @@ function convertToKTailsData(data, k){
   }
 
   for(var i = 0; i < length; i++){
-	var kState = {id:0, fields:[]};
+	var kState = {id: 0, startState: false, fields: []};
 	kState.id = id;
 
 	// get the next k states
 	var stateMap = [];
 	for(var j = i; j < i + k; j++){
+		// check if current state is a start state
+		if(data.states[j].startState){
+			kState.startState = true;
+		}
+
 		stateMap.push(j);
 	}
 
@@ -89,6 +94,7 @@ function convertToKTailsData(data, k){
   }
 
   var json = "{\"states\": " + JSON.stringify(kStates) + ", \"links\": " + JSON.stringify(kLinks)+"}";
+  console.log(json);
   return json;
 }
 

@@ -39,6 +39,10 @@ public class TraceToAutomata {
 	private static final String STATE_AFTER = "stateAfter";
 
 	/**
+	 * {@code String} representing the "startState" JSON key.
+	 */
+	private static final String START_STATE = "startState";
+	/**
 	 * {@code String} representing the "children" JSON key.
 	 */
 	private static final String CHILDREN = "children";
@@ -130,11 +134,13 @@ public class TraceToAutomata {
 			JSONObjectToAutomata(data, states, links);
 		}
 
-		AutomataState stateBefore = parseState(json.optJSONArray(STATE_BEFORE), states.size());
+		boolean startState = json.getJSONArray(START_STATE).getBoolean(0);
+
+		AutomataState stateBefore = parseState(json.optJSONArray(STATE_BEFORE), states.size(), startState);
 		stateBefore = checkForDuplicateState(stateBefore, states);
 		states.put(stateBefore.getId(), stateBefore);
 
-		AutomataState stateAfter = parseState(json.optJSONArray(STATE_AFTER), states.size());
+		AutomataState stateAfter = parseState(json.optJSONArray(STATE_AFTER), states.size(), false);
 		stateAfter = checkForDuplicateState(stateAfter, states);
 		states.put(stateAfter.getId(), stateAfter);
 
@@ -159,7 +165,7 @@ public class TraceToAutomata {
 	 * @return
 	 * 		{@code AutomataState}
 	 */
-	private static AutomataState parseState(JSONArray state, int id){
+	private static AutomataState parseState(JSONArray state, int id, boolean startState){
 		List<AutomataField> fields = new ArrayList<AutomataField>();
 
 		// check that state is not null
@@ -174,7 +180,7 @@ public class TraceToAutomata {
 			}
 		}
 
-		return new AutomataState(fields, id);
+		return new AutomataState(fields, id, startState);
 	}
 
 	/**
@@ -223,7 +229,7 @@ public class TraceToAutomata {
 	}
 
 	public static void main(String[] args){
-		File file = new File("data/traces/checktrace.json");
+		File file = new File("data/traces/stringsTest.trace");
 		try {
 			Automata a = generateAutomata(file);
 			AutomataToVisualisation json = new AutomataToVisualisation(a);
