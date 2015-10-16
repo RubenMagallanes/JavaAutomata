@@ -44,6 +44,9 @@ public class GUIFrame extends Application{
 		 *
 		 * 							SERVER CODE STARTS
 		 *
+		 * 							Other server code is in the
+		 * 							main.server package.
+		 *
 		 *****************************************************************************************************************
 		 */
 

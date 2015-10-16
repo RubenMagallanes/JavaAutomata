@@ -101,6 +101,9 @@ public final class FieldKey implements Serializable, Comparable<FieldKey> {
 
 	@Override
 	public int compareTo(FieldKey o) {
+		if (className.compareTo(o.className) != 0){
+			return className.compareTo(o.className);
+		}
 		return name.compareTo(o.name);
 	}
 }
