@@ -105,9 +105,15 @@
                 return "state-circle-" + i;
             })
             .attr("r", circleRad)
-            .style("fill", function (d, i){
-                return colour(i);
+            .style("fill", function(d,i){
+                    if(states[i].startState){
+                       return "red";
+                    }
+                    return "blue";
             })
+            // .style("fill", function (d, i){
+            //     return colour(i);
+            // })
 
         // build the arrow.
         svg.append("defs")
@@ -136,6 +142,7 @@
             .on("end");
 
         showMethodNames();
+
 
         force.on("tick", function (){
 
@@ -308,23 +315,5 @@
 
         d3.select("state-info").attr("visibiliy", "hidden");
     }    
-    // d3.select("button")
-    //     .on("click", clicked);
-    // function clicked() {
-    //     showAllLinkText = !showAllLinkText;
-    //     text.text(function (d) { 
-    //         console.log(d.source);
-    //         if(showAllLinkText){
-    //             return d.methodName;                    
-    //         }
-    //         else{
-    //             if(currentState.id === d.source.id || currentState.id === d.target.id)
-    //                 return d.methodName; 
-    //             else 
-    //                 return "";
-    //         }
-    //     });
-        
-    // }
 
 })(viz.automata = viz.automata || {});

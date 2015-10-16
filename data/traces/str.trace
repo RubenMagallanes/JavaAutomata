@@ -1,0 +1,416 @@
+{
+  "children": [{
+    "children": [
+      {
+        "children": [],
+        "methodName": ["Strings.multipleIncrements"],
+        "stateAfter": [
+          {
+            "name": "string1",
+            "value": "f"
+          },
+          {
+            "name": "string2",
+            "value": "s"
+          }
+        ],
+        "startState": [true],
+        "stateBefore": [
+          {
+            "name": "string1",
+            "value": "f"
+          },
+          {
+            "name": "string2",
+            "value": "s"
+          }
+        ]
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "methodName": ["Strings.addString1"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "ff"
+              },
+              {
+                "name": "string2",
+                "value": "s"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "f"
+              },
+              {
+                "name": "string2",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Strings.addString2"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "ff"
+              },
+              {
+                "name": "string2",
+                "value": "ss"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "ff"
+              },
+              {
+                "name": "string2",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Strings.addString1"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "fff"
+              },
+              {
+                "name": "string2",
+                "value": "ss"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "ff"
+              },
+              {
+                "name": "string2",
+                "value": "ss"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Strings.addString2"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "fff"
+              },
+              {
+                "name": "string2",
+                "value": "sss"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "fff"
+              },
+              {
+                "name": "string2",
+                "value": "ss"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Strings.addString1"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "ffff"
+              },
+              {
+                "name": "string2",
+                "value": "sss"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "fff"
+              },
+              {
+                "name": "string2",
+                "value": "sss"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Strings.addString2"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "ffff"
+              },
+              {
+                "name": "string2",
+                "value": "ssss"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "ffff"
+              },
+              {
+                "name": "string2",
+                "value": "sss"
+              }
+            ]
+          }
+        ],
+        "methodName": ["Strings.multipleIncrements"],
+        "stateAfter": [
+          {
+            "name": "string1",
+            "value": "ffff"
+          },
+          {
+            "name": "string2",
+            "value": "ssss"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "string1",
+            "value": "f"
+          },
+          {
+            "name": "string2",
+            "value": "s"
+          }
+        ]
+      },
+      {
+        "children": [],
+        "methodName": ["Strings.subString1"],
+        "stateAfter": [
+          {
+            "name": "string1",
+            "value": "fff"
+          },
+          {
+            "name": "string2",
+            "value": "ssss"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "string1",
+            "value": "ffff"
+          },
+          {
+            "name": "string2",
+            "value": "ssss"
+          }
+        ]
+      },
+      {
+        "children": [],
+        "methodName": ["Strings.addString1"],
+        "stateAfter": [
+          {
+            "name": "string1",
+            "value": "ffff"
+          },
+          {
+            "name": "string2",
+            "value": "ssss"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "string1",
+            "value": "fff"
+          },
+          {
+            "name": "string2",
+            "value": "ssss"
+          }
+        ]
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "methodName": ["Strings.addString1"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "fffff"
+              },
+              {
+                "name": "string2",
+                "value": "ssss"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "ffff"
+              },
+              {
+                "name": "string2",
+                "value": "ssss"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Strings.addString2"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "fffff"
+              },
+              {
+                "name": "string2",
+                "value": "sssss"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "fffff"
+              },
+              {
+                "name": "string2",
+                "value": "ssss"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Strings.addString1"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "ffffff"
+              },
+              {
+                "name": "string2",
+                "value": "sssss"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "fffff"
+              },
+              {
+                "name": "string2",
+                "value": "sssss"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Strings.addString2"],
+            "stateAfter": [
+              {
+                "name": "string1",
+                "value": "ffffff"
+              },
+              {
+                "name": "string2",
+                "value": "ssssss"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "string1",
+                "value": "ffffff"
+              },
+              {
+                "name": "string2",
+                "value": "sssss"
+              }
+            ]
+          }
+        ],
+        "methodName": ["Strings.multipleIncrements"],
+        "stateAfter": [
+          {
+            "name": "string1",
+            "value": "ffffff"
+          },
+          {
+            "name": "string2",
+            "value": "ssssss"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "string1",
+            "value": "ffff"
+          },
+          {
+            "name": "string2",
+            "value": "ssss"
+          }
+        ]
+      },
+      {
+        "children": [],
+        "methodName": ["Strings.subString2"],
+        "stateAfter": [
+          {
+            "name": "string1",
+            "value": "ffffff"
+          },
+          {
+            "name": "string2",
+            "value": "sssss"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "string1",
+            "value": "ffffff"
+          },
+          {
+            "name": "string2",
+            "value": "ssssss"
+          }
+        ]
+      }
+    ],
+    "methodName": ["Main.main"],
+    "stateAfter": {},
+    "startState": [false],
+    "stateBefore": {}
+  }],
+  "methodName": ["Main.main"],
+  "stateAfter": {},
+  "startState": [false],
+  "stateBefore": {}
+}
