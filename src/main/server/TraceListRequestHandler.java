@@ -37,6 +37,14 @@ public class TraceListRequestHandler extends AbstractHandler {
 		}
 	}
 
+
+	/**
+	 * Prints the .json files in the selected folder to the print writer
+	 *
+	 * @param Folder to parse
+	 *
+	 * @param Printwriter to write to
+	 * */
 	public void printFilesToPrintWriter(final File folder, PrintWriter out) {
 	    for (final File fileEntry : folder.listFiles()) {
 	        if (fileEntry.isDirectory()) {
@@ -54,24 +62,5 @@ public class TraceListRequestHandler extends AbstractHandler {
 	        	}
 	        }
 	    }
-	}
-
-	public void testFileCheck(){
-		File file = new File("Test_list.txt");
-
-		try {
-			PrintWriter out = new PrintWriter(file);
-
-			printFilesToPrintWriter(folder, out);
-
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args){
-		TraceListRequestHandler th = new TraceListRequestHandler();
-		th.testFileCheck();
 	}
 }

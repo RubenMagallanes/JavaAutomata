@@ -16,15 +16,10 @@ public class TraceFilterSelector {
 	private List<String> methodNames;
 	private List<String> classNames;
 
-//    // Class patterns for which we don't want events
-//    private String[] excludes = {"java.*", "javax.*", "sun.*",
-//                                 "com.sun.*"};
 
     // Class patterns for which we don't want events
     private String[] excludes = {"java", "javax", "sun",
                                  "com.sun"};
-
-
 
 	/**
 	 * Constructs the TraceFilterSector
