@@ -209,7 +209,7 @@ public class MainPane extends GridPane {
 				TraceLauncher tracer = new TraceLauncher(Main.getJarData().getFile().getAbsolutePath());
 				tracer.setFilter(Main.getFilter());
 				String args = argsBox.getText();
-				tracer.setCommanLineArguments(args);
+				tracer.setCommandLineArguments(args);
 				Trace tr = tracer.run();
 				TraceManager manager = new TraceManager(tr);//TODO Change trace manager
 				Main.setManager(manager);
