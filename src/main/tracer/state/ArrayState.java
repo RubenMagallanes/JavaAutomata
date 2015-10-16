@@ -65,8 +65,10 @@ public class ArrayState extends State {
 	public String toString() {
 		Map<State, String> alreadySeenObjects = new IdentityHashMap<State, String>();
 
-		if(alreadySeenObjects.containsKey(this))
+		if(alreadySeenObjects.containsKey(this)){
 			return alreadySeenObjects.get(this);
+		}
+
 		alreadySeenObjects.put(this, "OBJ"+alreadySeenObjects.size());
 
 		StringBuilder result = new StringBuilder();
@@ -78,6 +80,7 @@ public class ArrayState extends State {
 			result.append(v.toString(alreadySeenObjects));
 		}
 		result.append(']');
+
 		return result.toString();
 	}
 }
