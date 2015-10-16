@@ -1,10 +1,23 @@
 "use strict";
 
+
+/**
+ * Global veriable.
+ * These should be made into a function so that the application 
+ * will not have clashes but not problems yet.
+ */
 var temp = window.location.href;
 temp = temp.replace("automata=", "TraceRequest/");
 var algoritum = temp.substring(temp.indexOf('?')+1);
 load(temp);
 
+
+/**
+ * Used for loading in the automata checks if the data 
+ * is ment to be in ktails or normal.
+ *
+ * TODO: Move the ktails to the server side it makes more sence.
+ */
 function load(url){
     console.log(url);
     $.ajax({
@@ -13,6 +26,16 @@ function load(url){
       contentType: 'application/json',
       success: function(data) {
             var json = data;
+            // Currently to add more algorityms you will need to 
+            // Modify here e.g.
+            // if (algoritum.indexOf('<somthing new>') >= 0) {
+            //    var states = algoritum.substring('<somthing new>'.length);
+            //    console.log(states);
+            //    json = convertTo<somthing new>Data(json;
+            //}
+            //
+            // Where somthing new is the implementation you have chosen.
+            // Should move this to server.
             if (algoritum.indexOf('ktails') >= 0){
                 var states = algoritum.substring('ktails'.length);
                 json = convertToKTailsData(json, parseInt(states));
@@ -28,5 +51,3 @@ function load(url){
     }
     });
 }
-// for testing without a server
-//viz.automata.init(JSON.stringify(testSimpleMonkeyData), $("div#automata"));

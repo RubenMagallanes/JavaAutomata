@@ -17,7 +17,7 @@ public class FieldKeyTests {
 
     @Test
     public void constructionTestOne(){
-        FieldKey testKey = makeFieldKey();
+        makeFieldKey();
     }
 
     @Test

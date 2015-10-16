@@ -13,19 +13,14 @@ import main.parse.AutomataToVisualisation;
 
 import org.junit.Test;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-
-public class GeneralFormatToAutomataTests {
+public class AutomataToVisualisationTests {
 
 	/**
 	 * This tests GeneralFormatToAutomata without filters
-	 * this test output should be identical to GeneralFormatToAutomata1.json
+	 * this test output should be identical to AutomataToVisualisationTest1.json
 	 */
 	@Test
 	public void testJava(){
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		AutomataLink l= new AutomataLink("hi",1,2);
 		List <AutomataField> f = new ArrayList<AutomataField>();
 		f.add(new AutomataField("int", "count", "7"));
@@ -41,18 +36,16 @@ public class GeneralFormatToAutomataTests {
 		automatalinks.add(l);		
 		
 		AutomataToVisualisation g = new AutomataToVisualisation(new Automata(automatastates, automatalinks));		
-//		System.out.println(g.parseAutomata());	
+		System.out.println(g.parseAutomata());	
 	}
 	
 	/**
 	 * This test checks whether the filters work
 	 * The json should only include the count field and toString()
-	 * This test output should be identical to GeneralFormatToAutomataTest2.json
+	 * This test output should be identical to AutomataToVisualisationTest2.json
 	 */
 	@Test
 	public void testJavaFilter(){
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		
 		List <AutomataField> f1 = new ArrayList<AutomataField>();
 		f1.add(new AutomataField("int", "count", "7"));
 		AutomataState s1 = new AutomataState(f1,1);

@@ -11,7 +11,8 @@
         currentState, // state hovering over
         text, //text for all links
         //showAllLinkText, //toggle the link text
-        boundingDiv;
+        boundingDiv,
+		node;// reference to nodes to change mouse behaviours
 	
 	
 
@@ -50,7 +51,7 @@
 		
 		//create svg & size
        	var width = boundingDiv.width();
-		var height = screen.availHeight -300;
+		var height = screen.availHeight -300; //TODO make visualisation scale better
 	
 		
 		//var rect = boundingDiv.getBoundingClientRect();
@@ -66,7 +67,7 @@
         force.links(links);
         force.size([width, height]);
 
-        var node = svg.selectAll(".state")
+			node = svg.selectAll(".state")
             .data(states)
              .enter().append("g")
             .attr("class", "state")
@@ -191,6 +192,18 @@
         node.call(force.drag);
         force.start();
     }
+	
+	
+	/*
+		function is called if in "both" layout
+	*/
+	self.addMousel = function(){		
+		node.on("click", function(){
+			//works, gets to here
+			//console.log("clicc");
+
+		});
+	}
 
     // adds all func and var names to funcsChosen and varsChosen respectively
     function setChosenNames(){
