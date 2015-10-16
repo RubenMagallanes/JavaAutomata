@@ -1,6 +1,12 @@
 {"states":[
   {
+    "id": 2,
+    "startState": false,
+    "fields": []
+  },
+  {
     "id": 1,
+    "startState": false,
     "fields": [
       {
         "type": "int",
@@ -8,10 +14,6 @@
         "value": "7"
       }
     ]
-  },
-  {
-    "id": 2,
-    "fields": []
   }
 ],"links":[
   {

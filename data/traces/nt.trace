@@ -1,0 +1,290 @@
+{
+  "children": [{
+    "children": [
+      {
+        "children": [],
+        "methodName": ["Numbers.plusN1"],
+        "stateAfter": [
+          {
+            "name": "n1",
+            "value": "1"
+          },
+          {
+            "name": "n2",
+            "value": "0"
+          }
+        ],
+        "startState": [true],
+        "stateBefore": [
+          {
+            "name": "n1",
+            "value": "0"
+          },
+          {
+            "name": "n2",
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "children": [],
+        "methodName": ["Numbers.plusN2"],
+        "stateAfter": [
+          {
+            "name": "n1",
+            "value": "1"
+          },
+          {
+            "name": "n2",
+            "value": "1"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "n1",
+            "value": "1"
+          },
+          {
+            "name": "n2",
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "children": [],
+        "methodName": ["Numbers.plusN1"],
+        "stateAfter": [
+          {
+            "name": "n1",
+            "value": "2"
+          },
+          {
+            "name": "n2",
+            "value": "1"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "n1",
+            "value": "1"
+          },
+          {
+            "name": "n2",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "children": [],
+        "methodName": ["Numbers.subN1"],
+        "stateAfter": [
+          {
+            "name": "n1",
+            "value": "1"
+          },
+          {
+            "name": "n2",
+            "value": "1"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "n1",
+            "value": "2"
+          },
+          {
+            "name": "n2",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "children": [],
+        "methodName": ["Numbers.addNumbers"],
+        "stateAfter": [
+          {
+            "name": "n1",
+            "value": "1"
+          },
+          {
+            "name": "n2",
+            "value": "1"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "n1",
+            "value": "1"
+          },
+          {
+            "name": "n2",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "methodName": ["Numbers.plusN1"],
+            "stateAfter": [
+              {
+                "name": "n1",
+                "value": "2"
+              },
+              {
+                "name": "n2",
+                "value": "1"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "n1",
+                "value": "1"
+              },
+              {
+                "name": "n2",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Numbers.plusN2"],
+            "stateAfter": [
+              {
+                "name": "n1",
+                "value": "2"
+              },
+              {
+                "name": "n2",
+                "value": "2"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "n1",
+                "value": "2"
+              },
+              {
+                "name": "n2",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Numbers.plusN1"],
+            "stateAfter": [
+              {
+                "name": "n1",
+                "value": "3"
+              },
+              {
+                "name": "n2",
+                "value": "2"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "n1",
+                "value": "2"
+              },
+              {
+                "name": "n2",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "children": [],
+            "methodName": ["Numbers.plusN2"],
+            "stateAfter": [
+              {
+                "name": "n1",
+                "value": "3"
+              },
+              {
+                "name": "n2",
+                "value": "3"
+              }
+            ],
+            "startState": [false],
+            "stateBefore": [
+              {
+                "name": "n1",
+                "value": "3"
+              },
+              {
+                "name": "n2",
+                "value": "2"
+              }
+            ]
+          }
+        ],
+        "methodName": ["Numbers.multipleIncrements"],
+        "stateAfter": [
+          {
+            "name": "n1",
+            "value": "3"
+          },
+          {
+            "name": "n2",
+            "value": "3"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "n1",
+            "value": "1"
+          },
+          {
+            "name": "n2",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "children": [],
+        "methodName": ["Numbers.subN2"],
+        "stateAfter": [
+          {
+            "name": "n1",
+            "value": "3"
+          },
+          {
+            "name": "n2",
+            "value": "2"
+          }
+        ],
+        "startState": [false],
+        "stateBefore": [
+          {
+            "name": "n1",
+            "value": "3"
+          },
+          {
+            "name": "n2",
+            "value": "3"
+          }
+        ]
+      }
+    ],
+    "methodName": ["Main.main"],
+    "stateAfter": {},
+    "startState": [false],
+    "stateBefore": {}
+  }],
+  "methodName": ["Main.main"],
+  "stateAfter": {},
+  "startState": [false],
+  "stateBefore": {}
+}

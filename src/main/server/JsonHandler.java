@@ -24,9 +24,12 @@ public class JsonHandler extends AbstractHandler {
 	public void handle(String arg0, Request baseRequest, HttpServletRequest arg2,
 			HttpServletResponse response) throws IOException, ServletException {
 
+		//Checks request type.
 		if (arg0.contains(CommandRequest)){
+			// gets request
 			String request = arg0.substring(arg0.indexOf(CommandRequest)+CommandRequest.length()+1);
-			System.out.println(request);
+
+			//Loads file and prints.
 			File file = new File("data/traces/"+request);
 			response.setContentType("text/json; charset=utf-8");
 	        response.setStatus(HttpServletResponse.SC_OK);
@@ -38,14 +41,9 @@ public class JsonHandler extends AbstractHandler {
 				AutomataToVisualisation visulaization = new AutomataToVisualisation(automata);
 				out.print(visulaization.parseAutomata());
 			} catch (TraceToAutomataException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-//	        while (reader.ready()){
-//	        	out.println(reader.readLine());
-//	        }
-//	        reader.close();
 	        baseRequest.setHandled(true);
 		}
 

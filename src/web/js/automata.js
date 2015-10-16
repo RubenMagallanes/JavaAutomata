@@ -10,11 +10,8 @@
         svg, // the svg element to draw automata on
         currentState, // state hovering over
         text, //text for all links
-        //showAllLinkText, //toggle the link text
-        boundingDiv,
+        boundingDiv, // div that bounds the svg
 		node;// reference to nodes to change mouse behaviours
-
-
 
     // force layout
     var force = d3.layout.force()
@@ -42,12 +39,6 @@
 
         // creates GUI elements like sliders to change layout properties
         makeGUI(boundingDiv, force);
-		//size bounding div
-
-		/*top:220px;
-	left: 0;
-	position: absolute;
-	width: 100%;*/
 
 		//create svg & size
        	var width = boundingDiv.width();
@@ -77,9 +68,15 @@
                 return "state-circle-" + i;
             })
             .attr("r", circleRad)
-            .style("fill", function (d, i){
-                return colour(i);
+            .style("fill", function(d,i){
+                    if(states[i].startState){
+                       return "red";
+                    }
+                    return "blue";
             })
+            // .style("fill", function (d, i){
+            //     return colour(i);
+            // })
 
         // build the arrow.
         svg.append("defs")
@@ -107,7 +104,7 @@
             .attr("marker-end", "url(#end)")
             .on("end");
 
-        showMethodNames();
+        self.showMethodNames();
 
         force.on("tick", function (){
 
@@ -145,6 +142,7 @@
         node.call(force.drag);
         force.start();
     }
+
     // adds all func and var names to funcsChosen and varsChosen respectively
     function setChosenNames(){
         links.forEach(function (d){
@@ -170,8 +168,8 @@
         force.start();
     };
 
-    function showMethodNames(){
-        text = svg.selectAll(".link")
+     self.showMethodNames = function(){
+       text= svg.selectAll(".link")
              .append("text")
             .style("text-anchor", "middle")
              .attr("dy", -5)
@@ -206,7 +204,7 @@
         return str;
     }
 
-    function selectState(d, i){
+    function selectState(d){
         if (d === null){
             d = force.nodes()[i];
         }
@@ -218,24 +216,22 @@
 
         currentState = d;
 
-        // console.log(currentState);
         d3.select("#state-info")
             .attr("visibility", "visible")
             .html(function() { return stateInfo(d); });
 
         //changes the text on hover
-       text.text(function (d) {
-                // console.log(d.source);
-                if(showAllLinkText){
+        text.text(function (d) {
+            if(showAllLinkText){
+                return d.methodName;
+            }
+            else{
+                if(currentState.id === d.source.id || currentState.id === d.target.id)
                     return d.methodName;
-                }
-                else{
-                    if(currentState.id === d.source.id || currentState.id === d.target.id)
-                        return d.methodName;
-                    else
-                        return "";
-                }
-            });
+                else
+                    return "";
+            }
+        });
     }
 
     function deselectState(d){
@@ -249,6 +245,30 @@
             .duration(200);
 
         d3.select("state-info").attr("visibiliy", "hidden");
+    }
+
+    //Updates the method names when the button Toggle Link Text
+    self.UpdateMethodNames = function(){
+        text.text(function (d) {
+            if(showAllLinkText){
+                return d.methodName;
+            }
+            else{
+                if(currentState.id === d.source || currentState.id === d.target)
+                    return d.methodName;
+                else
+                    return "";
+            }
+        });
+    }
+
+    // return state info as a string
+    function stateInfo(state){
+        var str = "";
+        state.fields.forEach(function (field) {
+            str += field.name + ": " + field.value;
+            str += "<br>"
+        });
     }
 
     /*
@@ -265,6 +285,5 @@
             listener(this);
         });
     }
-
 
 })(viz.automata = viz.automata || {});

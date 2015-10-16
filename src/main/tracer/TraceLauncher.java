@@ -18,7 +18,7 @@ public class TraceLauncher {
 
 	//the arguments to execute the traced program with
 	//private String commanLineArgumnets;
-	private String commanLineArgumnets;
+	private String commandLineArguments;
 
 	private TraceFilter filter;
 
@@ -29,8 +29,8 @@ public class TraceLauncher {
 	 *
 	 * @param arguments for program
 	 * */
-	public void setCommanLineArguments(String arguments){
-		this.commanLineArgumnets = arguments;
+	public void setCommandLineArguments(String arguments){
+		this.commandLineArguments = arguments;
 	}
 
 	/**
@@ -82,9 +82,9 @@ public class TraceLauncher {
 		for (Class<?> cl : jd.getClasses()){
 			loadedClasses.add(cl.getName());
 		}
-		System.out.println(commanLineArgumnets);
+		System.out.println(commandLineArguments);
 
-		TestThread thread = new TestThread(loadedClasses, commanLineArgumnets, this.filter, mainClass);
+		TestThread thread = new TestThread(loadedClasses, commandLineArguments, this.filter, mainClass);
 
 		//set thread options and start
 		thread.setName("MainWindow tracer thread");

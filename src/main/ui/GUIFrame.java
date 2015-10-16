@@ -29,7 +29,7 @@ public class GUIFrame extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Automata");
-		MenuPane menu = new MenuPane();
+		GUIContainer menu = new GUIContainer();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {
@@ -43,6 +43,9 @@ public class GUIFrame extends Application{
 		/*****************************************************************************************************************
 		 *
 		 * 							SERVER CODE STARTS
+		 *
+		 * 							Other server code is in the
+		 * 							main.server package.
 		 *
 		 *****************************************************************************************************************
 		 */
