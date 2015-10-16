@@ -134,7 +134,7 @@
             .attr("marker-end", "url(#end)")
             .on("end");
 
-        self.showMethodNames();
+        showMethodNames();
 
         force.on("tick", function (){
 
@@ -217,7 +217,7 @@
         force.start();
     };
 
-    self.showMethodNames = function (){
+    function showMethodNames(){
        text= svg.selectAll(".link")
              .append("text")
             .style("text-anchor", "middle")
@@ -253,18 +253,15 @@
             //.duration(200);
         currentState = d;
 		
- 
-	
 		
-		
-        console.log(currentState);
+        // console.log(currentState);
         d3.select("#state-info")
             .attr("visibility", "visible")
             .html(function() { return stateInfo(d); });
 
         //changes the text on hover
        text.text(function (d) { 
-                console.log(d.source);
+                // console.log(d.source);
                 if(showAllLinkText){
                     return d.methodName;                    
                 }

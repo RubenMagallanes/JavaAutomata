@@ -1,4 +1,4 @@
-var showAllLinkText;
+var showAllLinkText = false;
 
 // makes sliders to control force layout properties
 function makeGUI(boundingDiv, force){
@@ -69,14 +69,18 @@ function makeGUI(boundingDiv, force){
     var button = $("<input>")
         .attr("type", "button")
         .attr("name", "updateButton")
-        .attr("value", "Update")
+        .attr("value", "Toggle Link Text")
         .attr("onclick","updateData()")
-    con.append(button);   
+    con.append(button);
 }
 
 function updateData(){
     showAllLinkText = !showAllLinkText;
     console.log(showAllLinkText);
+}
+
+function showAllLinkText(){
+    return showAllLinkText;
 }
 
 function changeForceAttr(event, elem, force){

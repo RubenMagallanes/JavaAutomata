@@ -9,4 +9,4 @@ javaautomata.properties
 javaautomata.xml
 module_javaautomata.xml
 
-.DS_STORE
+*.DS_STORE

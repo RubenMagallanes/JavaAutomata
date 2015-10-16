@@ -61,6 +61,10 @@ public class AutomataField {
 		return value;
 	}
 
+	/**
+	 * Returns true if ths {@code AutomataField} is identical to the
+	 * specified {@code Object}, otherwise returns false.
+	 */
 	public boolean equals(Object o){
 		if(o == null){
 			return false;
@@ -78,6 +82,9 @@ public class AutomataField {
 		return false;
 	}
 
+	/**
+	 * Returns a {@code String} representation of this {@code AutomataField}.
+	 */
 	public String toString(){
 		return "{ type = " + type + ", name = " + name + ", value = " + value + "}";
 	}

@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * Generates a random Automata and writes to a json file. This class is intended for 
  * debugging the visualisation
- * @author Chris
+ * @author Chris Chin
  *
  */
 public class GenerateAutomata {
@@ -27,8 +27,7 @@ public class GenerateAutomata {
 	private Map <String,String> fieldsToTypes;// map from fields to their types	
 	private int numberOfStates;
 	private Set<AutomataState> automatastates;
-	private Set<AutomataLink> automatalinks;	
-	private String filename;	
+	private Set<AutomataLink> automatalinks;
 	
 	/**
 	 * Generates a random automata with the given number of states 
@@ -40,7 +39,6 @@ public class GenerateAutomata {
 		this.automatastates = new LinkedHashSet<AutomataState>();
 		this.automatalinks = new LinkedHashSet<AutomataLink>();
 		this.fieldsToTypes = new HashMap<String, String>();
-		this.filename = filename;
 		generateMap();
 		for(int i = 0; i<numberOfStates; i++){
 			automatastates.add(new AutomataState(generateFields(),i));
@@ -72,7 +70,7 @@ public class GenerateAutomata {
 				generateLink(methodNamesList, i, i+1);
 			}	
 			
-//			//Creates a list of random indices from i+1 to the last
+			//Creates a list of random indices from i+1 to the last
 			ArrayList<Integer> indexList = new ArrayList<Integer>();
 	        for (int ranIndex=i+1; ranIndex<numberOfStates; ranIndex++) {
 	            indexList.add(new Integer(ranIndex));
@@ -86,13 +84,18 @@ public class GenerateAutomata {
 		}		
 	}
 	
-	private void generateLink(List<String> methodNamesList, int i, int target){
+	/**
+	 * Generates a random Link
+	 * @param methodNamesList - list of method names
+	 * @param source - source id
+	 * @param target - target id
+	 */
+	private void generateLink(List<String> methodNamesList, int source, int target){
 		int index = (int) (Math.random()*methodNamesList.size());
 		String methodName = methodNamesList.remove(index);
-		automatalinks.add(new AutomataLink(methodName,i,target));
+		automatalinks.add(new AutomataLink(methodName,source,target));
 	}
-	
-	
+		
 	/**
 	 * Generates a random map from fields to types to randomise the types
 	 */
@@ -141,15 +144,15 @@ public class GenerateAutomata {
 	}
 
 	/**
-	 * Takes the two commandline arguments - int numberOfStates, String filename
+	 * Takes the two command line arguments - numberOfStates, filename
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		if(args.length<2){
-			GenerateAutomata g = new GenerateAutomata(15,"src/web/test/automata3.json");
+		if(args.length !=2){
+			System.out.println("Please enter 2 args - number of states and the filename");
 		}
 		else{
-			GenerateAutomata g = new GenerateAutomata(Integer.parseInt(args[0]),args[1]);
+			new GenerateAutomata(Integer.parseInt(args[0]),args[1]);
 		}		
 	}
 }
