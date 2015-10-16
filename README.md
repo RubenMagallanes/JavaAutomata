@@ -12,5 +12,6 @@ This program takes a Java program trace output as input and outputs a visualisat
 
 Tasks still todo: 
 
+>thread support
 >change default values for visualisations. 
 >make both visualisations scale better with browser size
